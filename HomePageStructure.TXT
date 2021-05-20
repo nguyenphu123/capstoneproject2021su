@@ -1,0 +1,6 @@
+1.Ads
+2.categories
+3.new product
+4.sales
+5.BestSeller+TopSearch+MostBuy
+6.Footer
