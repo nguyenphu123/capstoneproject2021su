@@ -22,7 +22,7 @@ const items = [
 ]
 function AdsSlideShow () {
   return (
-    <div style={{ marginLeft: '200px', marginTop: '50px' }}>
+    <div style={{ marginLeft: '200px', marginTop: '100px' }}>
       <Grid columns={2} divided>
         <Grid.Row stretched>
           <Grid.Column>

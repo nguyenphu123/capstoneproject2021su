@@ -92,6 +92,8 @@ a:hover,
 a:focus {
   text-decoration: none;
   outline: none;
+  color: rgb(0, 0, 0);
+
 }
 
 ul,
@@ -147,11 +149,14 @@ ol {
 .text-white span,
 .text-white li,
 .text-white a {
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 
 /* buttons */
-
+a{
+  color: rgb(0, 0, 0);
+  
+}
 .primary-btn {
   display: inline-block;
   font-size: 14px;
@@ -260,111 +265,18 @@ ol {
 
 .header__logo a {
   display: inline-block;
+  color: #000000;
+
 }
 
-.header__menu {
-  padding: 30px;
+.item{
+  color: #000000;
+
+
 }
 
-.col-md-6 {
-  width: 800px;
-}
 
-.navigationMenu {
-  overflow: hidden;
-}
 
-.dropdown {
-  width: fit-content;
-}
-
-.header__right {
-  text-align: right;
-  padding: 30px 0 27px;
-}
-
-.header__right__auth {
-  display: inline-block;
-  margin-right: 25px;
-}
-
-.header__right__auth a {
-  font-size: 12px;
-  color: #666666;
-  position: relative;
-  margin-right: 8px;
-}
-
-.header__right__auth a:last-child {
-  margin-right: 0;
-}
-
-.header__right__auth a:last-child:after {
-  display: none;
-}
-
-.header__right__auth a:after {
-  position: absolute;
-  right: -8px;
-  top: -2px;
-  content: '/';
-  font-size: 13px;
-}
-
-.header__right__widget {
-  display: inline-block;
-}
-
-.header__right__widget li {
-  list-style: none;
-  display: inline-block;
-  font-size: 18px;
-  color: #111111;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-.header__right__widget li:last-child {
-  margin-right: 0;
-}
-
-.header__right__widget li a {
-  font-size: 18px;
-  color: #111111;
-  position: relative;
-}
-
-.header__right__widget li a .tip {
-  position: absolute;
-  right: -12px;
-  top: -11px;
-  height: 18px;
-  width: 18px;
-  background: #111111;
-  font-size: 10px;
-  font-weight: 500;
-  color: #ffffff;
-  line-height: 18px;
-  text-align: center;
-  border-radius: 50%;
-}
-
-.offcanvas-menu-wrapper {
-  display: none;
-}
-
-.canvas__open {
-  display: none;
-}
-/*---------------------
-  Ads
------------------------*/
-.alice-carousel {
-  position: relative;
-  width: 60%;
-  margin: auto;
-  direction: ltr;
-}
 /*---------------------
   Banner
 -----------------------*/
