@@ -2,6 +2,7 @@ import logo from '../../logo.svg'
 import '../../App.css'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
+import { Grid, Segment, Image } from 'semantic-ui-react'
 
 const handleDragStart = e => e.preventDefault()
 
@@ -21,15 +22,38 @@ const items = [
 ]
 function AdsSlideShow () {
   return (
-    <AliceCarousel
-      autoPlay
-      autoPlayStrategy='action '
-      autoPlayInterval={1000}
-      animationDuration={1000}
-      infinite
-      disableButtonsControls
-      items={items}
-    />
+    <div style={{ marginLeft: '200px', marginTop: '50px' }}>
+      <Grid columns={2} divided>
+        <Grid.Row stretched>
+          <Grid.Column>
+            <div style={{ width: 500, marginLeft: '200px' }}>
+              <AliceCarousel
+                autoPlay
+                autoPlayStrategy='action '
+                autoPlayInterval={1000}
+                animationDuration={1000}
+                infinite
+                disableButtonsControls
+                items={items}
+              />
+            </div>
+          </Grid.Column>
+          <Grid.Column>
+            <img
+              src={`/${'assets/img/categories/category-3.jpg'}`}
+              height={140}
+              width={500}
+            />
+
+            <img
+              src={`/${'assets/img/categories/category-3.jpg'}`}
+              height={140}
+              width={500}
+            />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </div>
   )
 }
 
