@@ -1,9 +1,9 @@
 import '../App.css'
 import { Image, Grid, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-function Categories () {
+function CategoryList () {
   return (
-    <Grid columns={3} centered>
+    <Grid centered>
       <Grid.Column>
         <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
         <Link to='/Category1'>Category1</Link>
@@ -33,4 +33,4 @@ function Categories () {
   )
 }
 
-export default Categories
+export default CategoryList

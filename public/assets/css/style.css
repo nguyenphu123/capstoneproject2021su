@@ -12,7 +12,7 @@
 	1.4	Reset
 2.  Helper Css
 3.  Header Section
-4.Ads
+4.  Image
 5.  Product Section
 6.  Banner Section
 7.  Countdown Section
@@ -79,8 +79,6 @@ p {
   margin: 0 0 15px 0;
 }
 
-
-
 input:focus,
 select:focus,
 button:focus,
@@ -93,7 +91,6 @@ a:focus {
   text-decoration: none;
   outline: none;
   color: rgb(0, 0, 0);
-
 }
 
 ul,
@@ -153,9 +150,8 @@ ol {
 }
 
 /* buttons */
-a{
+a {
   color: rgb(0, 0, 0);
-  
 }
 .primary-btn {
   display: inline-block;
@@ -266,16 +262,24 @@ a{
 .header__logo a {
   display: inline-block;
   color: #000000;
-
 }
 
-.item{
+.item {
   color: #000000;
-
-
 }
+/*---------------------
+  Image
+-----------------------*/
 
-
+.image-item {
+  display: flex;
+  margin: 10px 0;
+}
+.image-item__btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
 
 /*---------------------
   Banner

@@ -32,7 +32,7 @@ function LoginPage () {
               type='password'
             />
 
-            <Button color='teal' fluid size='large'>
+            <Button color='pink' fluid size='large'>
               Login
             </Button>
           </Segment>

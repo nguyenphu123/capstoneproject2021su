@@ -31,22 +31,22 @@ function NavigationHeader () {
               <Image
                 size='mini'
                 src='assets/img/logo.png'
-                style={{ marginRight: '1.5em' }}
+                style={{ marginRight: '1.5em', width:"100px" }}
               />
-              Project Name
+              
             </Link>
           </Menu.Item>
           <Menu.Item as='a'>
             <Link to='/'>Home</Link>
           </Menu.Item>
           <Menu.Item as='a'>
-            <Link to='/'>Abou tUs</Link>
+            <Link to='/'>About Us</Link>
           </Menu.Item>
           <Menu.Item as='a'>
             <Link to='/'>Our Store</Link>
           </Menu.Item>
           <Menu.Item as='a'>
-            <Link to='/'>Search With Image</Link>
+            <Link to='/ImageUploading'>Search With Image</Link>
           </Menu.Item>
 
           <Dropdown text='Shopping' item simple className='link item'>

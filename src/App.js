@@ -9,6 +9,8 @@ import ProductDetail from './pages/ProductDetail'
 import LoginPage from './pages/LoginPage'
 import { Switch, Route } from 'react-router-dom'
 import { Widget } from 'react-chat-widget'
+import ImageUploadingPage from './pages/ImageUploadingPage'
+import CategoryList from './pages/CategoryList'
 
 import 'react-chat-widget/lib/styles.css'
 function App () {
@@ -22,6 +24,19 @@ function App () {
             <Ads />
             <Categories />
             <CategoryPage topic={'Category1'} />
+            <Widget />
+            <Footers />
+          </Route>
+          <Route path='/Categories'>
+            <Ads />
+            <CategoryList />
+            <Widget />
+            <Footers />
+          </Route>
+          <Route path='/ImageUploading'>
+            <Ads />
+            <Categories />
+            <ImageUploadingPage />
             <Widget />
             <Footers />
           </Route>
