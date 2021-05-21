@@ -1,60 +1,104 @@
-import { Dropdown, NavDropdown, MenuItem } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../App.css'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import {
+  Container,
+  Divider,
+  Dropdown,
+  Grid,
+  Header,
+  Image,
+  List,
+  Menu,
+  Segment,
+  Search
+} from 'semantic-ui-react'
 
-import NavigationMenu from './NavigationMenu'
+const fixedMenuStyle = {
+  backgroundColor: '#eeb6a2'
+}
+const DropdownTheme = {
+  backgroundColor: '#eeb6a2'
+}
+
 function NavigationHeader () {
   return (
-    <div>
-      <div id='preloder'></div>
+    <>
+      <Menu fixed='top' style={fixedMenuStyle} inverted>
+        <Container>
+          <Menu.Item as='a' header>
+            <Link to='/'>
+              <Image
+                size='mini'
+                src='assets/img/logo.png'
+                style={{ marginRight: '1.5em' }}
+              />
+              Project Name
+            </Link>
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Link to='/'>Home</Link>
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Link to='/'>Abou tUs</Link>
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Link to='/'>Our Store</Link>
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Link to='/'>Search With Image</Link>
+          </Menu.Item>
 
-      <header class='header'>
-        <div class='container-fluid'>
-          <div class='row'>
-            <div class='col-xl-3 col-lg-2'>
-              <div class='header__logo'>
-                <a href='/'>
-                  <img src='assets/img/logo.png' alt='' />
-                </a>
-              </div>
-            </div>
+          <Dropdown text='Shopping' item simple className='link item'>
+            <Dropdown.Menu style={DropdownTheme}>
+              <Dropdown.Item>
+                <Link to='/Category1'>Category1</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to='/Category1'>Category1</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to='/'>Home</Link>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Menu.Item as='a'>
+            <Search
+            // loading={loading}
+            // onResultSelect={(e, data) =>
+            //   dispatch({
+            //     type: 'UPDATE_SELECTION',
+            //     selection: data.result.title
+            //   })
+            // }
+            // onSearchChange={handleSearchChange}
+            // results={results}
+            // value={value}
+            />
+          </Menu.Item>
 
-            <div class='col-xl-6 col-lg-7'>
-              <nav class='header__menu'>
-                <NavigationMenu />
-              </nav>
-            </div>
-            <div class='col-lg-3'>
-              <div class='header__right'>
-                <div class='header__right__auth'>
-                  <a href='/Login'>Login</a>
-                  <a href='#'>Register</a>
-                </div>
-                <ul class='header__right__widget'>
-                  <li>
-                    <a href='#'>
-                      <span class='icon_heart_alt'></span>
-                      <div class='tip'>2</div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href='#'>
-                      <span class='icon_bag_alt'></span>
-                      <div class='tip'>2</div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <Menu.Item as='a'>
+            <Link to='/Login'>Login</Link>
+          </Menu.Item>
 
-          <div class='canvas__open'>
-            <i class='fa fa-bars'></i>
-          </div>
-        </div>
-      </header>
-    </div>
+          <Menu.Item as='a'>
+            <Link to='/'>Register</Link>
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Link to='/'>
+              <span class='icon_heart_alt'></span>
+              <div class='tip'>2</div>
+            </Link>
+          </Menu.Item>
+          <Menu.Item as='a'>
+            <Link to='/'>
+              <span class='icon_bag_alt'></span>
+              <div class='tip'>2</div>
+            </Link>
+          </Menu.Item>
+        </Container>
+      </Menu>
+    </>
   )
 }
 
