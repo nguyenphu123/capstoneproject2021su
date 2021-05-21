@@ -1,21 +1,9 @@
-import logo from '../logo.svg';
-import '../App.css';
-import ProductInformation from "../components/ProductInformation/ProductInformation";
+import logo from '../logo.svg'
+import '../App.css'
+import ProductInformation from '../components/ProductInformation/ProductInformation'
 
-function ProductDetail(){
+function ProductDetail () {
+  return <ProductInformation />
+}
 
- 
-
-
-  
-   
-    return(
-    
-     <ProductInformation/>
-     
-      
-    );
-  };
-
-
-export default ProductDetail;
+export default ProductDetail
