@@ -1,5 +1,5 @@
 
-import '../../App.css';
+import '../App.css';
 import { Image, Grid,Icon } from 'semantic-ui-react'
 import {
   
@@ -10,7 +10,7 @@ function Categories() {
    
     
        
-            <Grid centered>
+            <Grid columns={3} centered>
   
      
       <Grid.Column>
@@ -39,10 +39,7 @@ function Categories() {
       <Image avatar src={`/${"assets/img/categories/category-1.jpg"}`} />
       <Link to="/Category1">Category1</Link>
       </Grid.Column>
-     <Grid.Column>
-      
-      <Link to="/Categories"><Icon name='eye' /></Link>
-      </Grid.Column>
+     
    
   </Grid>
            

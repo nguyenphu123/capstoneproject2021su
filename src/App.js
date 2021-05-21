@@ -7,6 +7,7 @@ import Footers from "./components/Footer/Footers";
 import Categories from "./components/Category/Categories";
 import Ads from "./components/Ads/AdsSlideShow";
 import ProductDetail from "./pages/ProductDetail";
+import LoginPage from "./pages/LoginPage";
 import {
  
   Switch,
@@ -23,19 +24,17 @@ function App() {
      <div className="maincontainer">
 
       
-       <NavigationHeader />
-       <Ads/>
-           <Categories />
-         <Switch>
-          <Route  path="/Category1"   render={()=><CategoryPage topic={"Category1"}/>}/>
-          <Route  path="/Product/:id"    component={ProductDetail}/>
-          <Route  path="/Category2"   render={()=><CategoryPage topic={"Category2"}/>}/>
-         <Route  path="/"  exact  component={HomePage}/>         
-        </Switch>
-         <Widget/>
-      <Footers />
-        
-      </div>
+    <NavigationHeader />
+      <Switch>
+        <Route  path="/Login"    component={LoginPage}/>
+        <Route  path="/Category1" ><Ads/><Categories/>
+        <CategoryPage topic={"Category1"}/><Widget/><Footers/></Route>
+        <Route  path="/Product/:id"><ProductDetail/></Route>
+        <Route  path="/Category2"  ><Ads/><Categories/><CategoryPage topic={"Category2"}/><Widget/><Footers /></Route>
+         <Route  path="/"  exact ><Ads/><Categories /><HomePage/><Widget/><Footers /></Route>      
+      </Switch>
+       
+     </div>
     </div>
  
   );
