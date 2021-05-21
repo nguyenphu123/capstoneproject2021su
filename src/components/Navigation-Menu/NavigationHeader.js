@@ -28,7 +28,7 @@ function NavigationHeader() {
             
             <div class="header__logo">
            
-            <a href="#"><img src="assets/img/logo.png" alt="" /></a>
+            <a href="/"><img src="assets/img/logo.png" alt="" /></a>
             
             </div>
             

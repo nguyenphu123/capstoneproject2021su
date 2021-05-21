@@ -41,7 +41,7 @@ function Categories() {
       </Grid.Column>
      <Grid.Column>
       
-      <Link to="/Categories"><Icon name='eye' /></Link>
+      <Link to="/Categories"><Icon name='eye' />See More</Link>
       </Grid.Column>
    
   </Grid>

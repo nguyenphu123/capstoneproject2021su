@@ -12,14 +12,14 @@
 	1.4	Reset
 2.  Helper Css
 3.  Header Section
-
-4.  Product Section
-5.  Banner Section
-6.  Countdown Section
-7.  Category
-8.  Instagram
-9.  Contact
-10.  Footer Style
+4.Ads
+5.  Product Section
+6.  Banner Section
+7.  Countdown Section
+8.  Category
+9.  Instagram
+10.  Contact
+11.  Footer Style
 -------------------------------------------------------------------*/
 
 /*----------------------------------------*/
@@ -367,7 +367,15 @@ ol {
 .canvas__open {
 	display: none;
 }
-
+/*---------------------
+  Ads
+-----------------------*/
+.alice-carousel {
+    position: relative;
+    width: 60%;
+    margin: auto;
+    direction: ltr;
+}
 /*---------------------
   Banner
 -----------------------*/
