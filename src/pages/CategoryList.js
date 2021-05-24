@@ -1,40 +1,173 @@
 import '../App.css'
-import { Image, Grid, Icon, Rail, Segment } from 'semantic-ui-react'
+import { Image, Grid, Icon, Rail, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 function CategoryList () {
   return (
-    <>
+    <div>
       <div class='section-title'>
         <h4>Categories</h4>
       </div>
 
-      <Grid centered>
+      <Grid centered columns={5} style={{ marginLeft:"50px" }}>
         <Grid.Column>
-          <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
-          <Link to='/Category1'>Category1</Link>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
         <Grid.Column>
-          <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
-          <Link to='/Category1'>Category1</Link>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
         <Grid.Column>
-          <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
-          <Link to='/Category1'>Category1</Link>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
         <Grid.Column>
-          <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
-          <Link to='/Category1'>Category1</Link>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
         <Grid.Column>
-          <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
-          <Link to='/Category1'>Category1</Link>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
         <Grid.Column>
-          <Image avatar src={`/${'assets/img/categories/category-1.jpg'}`} />
-          <Link to='/Category1'>Category1</Link>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+
+        <Grid.Column>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
+        </Grid.Column>
+        <Grid.Column>
+          <Card href='/Category1'>
+            <Image
+              size='medium'
+              src={`/${'assets/img/categories/category-1.jpg'}`}
+              wrapped
+              ui={false}
+            />
+            <Card.Content>
+              <Card.Description>Category1</Card.Description>
+            </Card.Content>
+          </Card>
         </Grid.Column>
       </Grid>
-    </>
+    </div>
   )
 }
 

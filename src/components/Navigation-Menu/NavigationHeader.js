@@ -91,7 +91,7 @@ function NavigationHeader () {
             </Link>
           </Menu.Item>
           <Menu.Item >
-            <Link to='/'>
+            <Link to='/Cart'>
               <span class='icon_bag_alt'></span>
               <div class='tip'>2</div>
             </Link>

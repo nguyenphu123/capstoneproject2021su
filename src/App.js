@@ -11,6 +11,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Widget } from 'react-chat-widget'
 import ImageUploadingPage from './pages/ImageUploadingPage'
 import CategoryList from './pages/CategoryList'
+import ShoppingCart from './pages/ShoppingCart'
 
 import 'react-chat-widget/lib/styles.css'
 function App () {
@@ -19,7 +20,10 @@ function App () {
       <div className='maincontainer'>
         <NavigationHeader />
         <Switch>
-          <Route path='/Login' component={LoginPage} />
+          <Route path='/Login'>
+            <LoginPage />
+            <Footers />
+          </Route>
           <Route path='/Category1'>
             <Ads />
             <Categories />
@@ -49,6 +53,9 @@ function App () {
             <CategoryPage topic={'Category2'} />
             <Widget />
             <Footers />
+          </Route>
+          <Route path='/Cart'>
+            <ShoppingCart />
           </Route>
           <Route path='/' exact>
             <Ads />

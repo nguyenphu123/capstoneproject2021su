@@ -8,13 +8,14 @@ import {
   Sidebar,
   Input,
   Dropdown,
-  Pagination
+  Pagination,
+  List
 } from 'semantic-ui-react'
 import _ from 'lodash'
 const columns = _.times(5, i => (
   <Grid.Column key={i}>
     <Dropdown
-      text='Filter'
+      text='Status'
       icon='filter'
       floating
       labeled
@@ -28,15 +29,15 @@ const columns = _.times(5, i => (
         <Dropdown.Divider />
         <Dropdown.Item
           label={{ color: 'red', empty: true, circular: true }}
-          text='Important'
+          text='New'
         />
         <Dropdown.Item
           label={{ color: 'blue', empty: true, circular: true }}
-          text='Announcement'
+          text='Sale off'
         />
         <Dropdown.Item
           label={{ color: 'black', empty: true, circular: true }}
-          text='Discussion'
+          text='Soldout'
         />
       </Dropdown.Menu>
     </Dropdown>
@@ -46,8 +47,8 @@ const columns = _.times(5, i => (
 function CategoryPage () {
   return (
     <>
-      Sắp xếp theo
-      <Grid centered>{columns}</Grid>
+      Search result
+      <Grid centered>Filter{columns}</Grid>
       <Sidebar.Pushable as={Segment}>
         <Sidebar
           as={Menu}
@@ -59,36 +60,46 @@ function CategoryPage () {
           width='thin'
           style={{ backgroundColor: '#EEB6A2' }}
         >
-          BỘ LỌC TÌM KIẾM
-          <Menu.Item as='a'>
-            Theo Danh Mục
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
+          Filter
+          <Menu.Item position='left' fitted='vertically'>
+            Categories
+            <List>
+              <List.Item>
+                <Checkbox label='Shirt' />
+              </List.Item>
+              <List.Item>
+                <Checkbox label='T-Shirt' />
+              </List.Item>
+              <List.Item>
+                <Checkbox label='Skirt' />
+              </List.Item>
+              <List.Item>
+                <Checkbox label='Jean' />
+              </List.Item>
+              <List.Item>
+                <Checkbox label='Pant' />
+              </List.Item>
+            </List>
           </Menu.Item>
           <Menu.Item as='a'>
-            Nơi Bán
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
+            Places
+            <List>
+              <List.Item>
+                <Checkbox label='Ho Chi Minh city' />
+              </List.Item>
+              <List.Item>
+                <Checkbox label='Ha Noi' />
+              </List.Item>
+            </List>
           </Menu.Item>
           <Menu.Item as='a'>
-            Đơn Vị Vận Chuyển
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
-            <Checkbox label='Make my profile visible' />
+            Transports unit
+            <Checkbox label='Express' />
           </Menu.Item>
         </Sidebar>
-
         <Sidebar.Pusher>
           <Segment basic>
-            <VerticalItemList />
+            <VerticalItemList topic='category1' />
             <Pagination defaultActivePage={1} totalPages={10} />
           </Segment>
         </Sidebar.Pusher>
