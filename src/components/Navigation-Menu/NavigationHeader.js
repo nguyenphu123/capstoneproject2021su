@@ -26,7 +26,7 @@ function NavigationHeader () {
     <>
       <Menu fixed='top' style={fixedMenuStyle} inverted>
         <Container>
-          <Menu.Item as='a' header>
+          <Menu.Item  header>
             <Link to='/'>
               <Image
                 size='mini'
@@ -36,33 +36,33 @@ function NavigationHeader () {
               
             </Link>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/'>Home</Link>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/'>About Us</Link>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/'>Our Store</Link>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/ImageUploading'>Search With Image</Link>
           </Menu.Item>
 
-          <Dropdown text='Shopping' item simple className='link item'>
+          <Dropdown text='Shopping' item simple >
             <Dropdown.Menu style={DropdownTheme}>
               <Dropdown.Item>
                 <Link to='/Category1'>Category1</Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link to='/Category1'>Category1</Link>
+                <Link to='/Category2'>Category2</Link>
               </Dropdown.Item>
               <Dropdown.Item>
                 <Link to='/'>Home</Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Search
             // loading={loading}
             // onResultSelect={(e, data) =>
@@ -77,20 +77,20 @@ function NavigationHeader () {
             />
           </Menu.Item>
 
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/Login'>Login</Link>
           </Menu.Item>
 
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/'>Register</Link>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/'>
               <span class='icon_heart_alt'></span>
               <div class='tip'>2</div>
             </Link>
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item >
             <Link to='/'>
               <span class='icon_bag_alt'></span>
               <div class='tip'>2</div>
