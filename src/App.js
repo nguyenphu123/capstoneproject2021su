@@ -12,7 +12,8 @@ import { Widget } from 'react-chat-widget'
 import ImageUploadingPage from './pages/ImageUploadingPage'
 import CategoryList from './pages/CategoryList'
 import ShoppingCart from './pages/ShoppingCart'
-
+import OrderHistory from './pages/OrderHistory'
+import OrderDetail from './pages/OrderDetail'
 import 'react-chat-widget/lib/styles.css'
 function App () {
   return (
@@ -52,6 +53,14 @@ function App () {
             <Categories />
             <CategoryPage topic={'Category2'} />
             <Widget />
+            <Footers />
+          </Route>
+          <Route path='/OrderHistory'>
+            <OrderHistory />
+            <Footers />
+          </Route>
+          <Route path='/OrderDetail:id'>
+            <OrderDetail />
             <Footers />
           </Route>
           <Route path='/Cart'>
