@@ -1,4 +1,3 @@
-import logo from '../logo.svg'
 import '../App.css'
 import ImageUploading from 'react-images-uploading'
 import React from 'react'
@@ -40,7 +39,7 @@ function ImageUploadingPage () {
               Click or Drop here
             </button>
             &nbsp;
-            <a href="/Category1">Search</a>
+            <a href='/Category1'>Search</a>
             {imageList.map((image, index) => (
               <div key={index} className='image-item'>
                 <img src={image.data_url} alt='' width='1000' />

@@ -1,9 +1,6 @@
-import logo from '../../logo.svg';
+
 import '../../App.css';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 const VerticalItem = ({ title, imageUrl, label, price, mix }) => (
@@ -11,12 +8,12 @@ const VerticalItem = ({ title, imageUrl, label, price, mix }) => (
         <div class={"col-lg-3 col-md-4 col-sm-6 mix" + mix}>
             <div class="product__item">
             <div class="product__item__pic set-bg" >
-             <img src={`/${imageUrl}`}  />
+             <img src={`/${imageUrl}`} alt=''  />
             <div class={"label " + label}>{label}</div>
             <ul class="product__hover">
             <li><a href={imageUrl} class="image-popup"><span class="arrow_expand"></span></a></li>
-            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+            <li><a href="/"><span class="icon_heart_alt"></span></a></li>
+            <li><a href="/"><span class="icon_bag_alt"></span></a></li>
             </ul>
             </div>
             <div class="product__item__text">

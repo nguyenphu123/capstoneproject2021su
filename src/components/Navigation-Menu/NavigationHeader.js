@@ -1,18 +1,6 @@
-import logo from '../../logo.svg'
 import '../../App.css'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import {
-  Container,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Image,
-  List,
-  Menu,
-  Segment,
-  Search
-} from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Container, Dropdown, Image, Menu, Search } from 'semantic-ui-react'
 
 const fixedMenuStyle = {
   backgroundColor: '#eeb6a2'
@@ -26,30 +14,29 @@ function NavigationHeader () {
     <>
       <Menu fixed='top' style={fixedMenuStyle} inverted>
         <Container>
-          <Menu.Item  header>
+          <Menu.Item header>
             <Link to='/'>
               <Image
                 size='mini'
                 src='assets/img/logo.png'
-                style={{ marginRight: '1.5em', width:"100px" }}
+                style={{ marginRight: '1.5em', width: '100px' }}
               />
-              
             </Link>
           </Menu.Item>
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/'>Home</Link>
           </Menu.Item>
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/'>About Us</Link>
           </Menu.Item>
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/'>Our Store</Link>
           </Menu.Item>
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/ImageUploading'>Search With Image</Link>
           </Menu.Item>
 
-          <Dropdown text='Shopping' item simple >
+          <Dropdown text='Shopping' item simple>
             <Dropdown.Menu style={DropdownTheme}>
               <Dropdown.Item>
                 <Link to='/Category1'>Category1</Link>
@@ -62,7 +49,7 @@ function NavigationHeader () {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Menu.Item >
+          <Menu.Item>
             <Search
             // loading={loading}
             // onResultSelect={(e, data) =>
@@ -77,20 +64,20 @@ function NavigationHeader () {
             />
           </Menu.Item>
 
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/Login'>Login</Link>
           </Menu.Item>
 
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/'>Register</Link>
           </Menu.Item>
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/'>
               <span class='icon_heart_alt'></span>
               <div class='tip'>2</div>
             </Link>
           </Menu.Item>
-          <Menu.Item >
+          <Menu.Item>
             <Link to='/Cart'>
               <span class='icon_bag_alt'></span>
               <div class='tip'>2</div>

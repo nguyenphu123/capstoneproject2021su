@@ -1,11 +1,9 @@
-import logo from '../../logo.svg'
 import '../../App.css'
 import {
   Grid,
   Image,
   Button,
   Icon,
-  Label,
   Divider,
   Segment,
   Table,
@@ -24,7 +22,7 @@ const columns = _.times(5, i => (
 ))
 function ProductInformation () {
   return (
-    <div style={{ marginLeft: '200px', marginTop: '100px', width:"1500px" }}>
+    <div style={{ marginLeft: '200px', marginTop: '100px', width: '1500px' }}>
       <Grid celled>
         <Grid.Row>
           <Grid.Column width={5}>
@@ -143,8 +141,8 @@ function ProductInformation () {
             </Table.Body>
           </Table>
         </Grid.Row>
-        <Grid.Row >
-          <Comment.Group >
+        <Grid.Row>
+          <Comment.Group>
             <Header as='h3' dividing>
               Comments
             </Header>

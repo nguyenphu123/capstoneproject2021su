@@ -1,4 +1,3 @@
-import logo from '../logo.svg'
 import '../App.css'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'

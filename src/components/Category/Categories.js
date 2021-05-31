@@ -1,5 +1,5 @@
 import '../../App.css'
-import { Image, Grid, Icon, Rail, Card } from 'semantic-ui-react'
+import { Image, Grid, Icon, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 function Categories () {
   return (

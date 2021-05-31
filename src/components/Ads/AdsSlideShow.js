@@ -1,21 +1,23 @@
-import logo from '../../logo.svg'
 import '../../App.css'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
-import { Grid, Segment, Image } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 const handleDragStart = e => e.preventDefault()
 
 const items = [
   <img
+    alt=''
     src={`/${'assets/img/categories/category-4.jpg'}`}
     onDragStart={handleDragStart}
   />,
   <img
+    alt=''
     src={`/${'assets/img/categories/category-2.jpg'}`}
     onDragStart={handleDragStart}
   />,
   <img
+    alt=''
     src={`/${'assets/img/categories/category-3.jpg'}`}
     onDragStart={handleDragStart}
   />
@@ -40,12 +42,13 @@ function AdsSlideShow () {
           </Grid.Column>
           <Grid.Column>
             <img
+              alt=''
               src={`/${'assets/img/categories/category-3.jpg'}`}
               height={140}
               width={500}
             />
-
             <img
+              alt=''
               src={`/${'assets/img/categories/category-3.jpg'}`}
               height={140}
               width={500}

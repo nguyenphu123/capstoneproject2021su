@@ -1,12 +1,8 @@
 import '../App.css'
 
-import { Switch, Route } from 'react-router-dom'
-import { Widget } from 'react-chat-widget'
-
-import 'react-chat-widget/lib/styles.css'
 function ShoppingCart () {
   return (
-    <div style={{ marginTop:"200px" }}>
+    <div style={{ marginTop: '200px' }}>
       <section class='section-pagetop bg'>
         <div class='container'>
           <h2 class='title-page'>Shopping cart</h2>
@@ -39,12 +35,13 @@ function ShoppingCart () {
                         <figure class='itemside'>
                           <div class='aside'>
                             <img
+                              alt=''
                               src='assets/img/product/product-8.jpg'
                               class='img-sm'
                             />
                           </div>
                           <figcaption class='info'>
-                            <a href='#' class='title text-dark'>
+                            <a href='/' class='title text-dark'>
                               Some name of item goes here nice
                             </a>
                             <p class='text-muted small'>
@@ -71,15 +68,13 @@ function ShoppingCart () {
                         <a
                           data-original-title='Save to Wishlist'
                           title=''
-                          href=''
+                          href='/'
                           class='btn btn-light mr-2'
                           data-toggle='tooltip'
                         >
-                          {' '}
                           <i class='fa fa-heart'></i>
                         </a>
-                        <a href='' class='btn btn-light'>
-                          {' '}
+                        <a href='/' class='btn btn-light'>
                           Remove
                         </a>
                       </td>
@@ -89,12 +84,13 @@ function ShoppingCart () {
                         <figure class='itemside'>
                           <div class='aside'>
                             <img
+                              alt=''
                               src='assets/img/product/product-8.jpg'
                               class='img-sm'
                             />
                           </div>
                           <figcaption class='info'>
-                            <a href='#' class='title text-dark'>
+                            <a href='/' class='title text-dark'>
                               Product name goes here nice
                             </a>
                             <p class='text-muted small'>
@@ -121,15 +117,13 @@ function ShoppingCart () {
                         <a
                           data-original-title='Save to Wishlist'
                           title=''
-                          href=''
+                          href='/'
                           class='btn btn-light mr-2'
                           data-toggle='tooltip'
                         >
-                          {' '}
                           <i class='fa fa-heart'></i>
                         </a>
-                        <a href='' class='btn btn-light btn-round'>
-                          {' '}
+                        <a href='/' class='btn btn-light btn-round'>
                           Remove
                         </a>
                       </td>
@@ -139,12 +133,13 @@ function ShoppingCart () {
                         <figure class='itemside'>
                           <div class='aside'>
                             <img
+                              alt=''
                               src='assets/img/product/product-8.jpg'
                               class='img-sm'
                             />
                           </div>
                           <figcaption class='info'>
-                            <a href='#' class='title text-dark'>
+                            <a href='/' class='title text-dark'>
                               Another name of some product goes just here
                             </a>
                             <p class='small text-muted'>
@@ -170,15 +165,13 @@ function ShoppingCart () {
                         <a
                           data-original-title='Save to Wishlist'
                           title=''
-                          href=''
+                          href='/'
                           class='btn btn-light mr-2'
                           data-toggle='tooltip'
                         >
-                          {' '}
                           <i class='fa fa-heart'></i>
                         </a>
-                        <a href='' class='btn btn-light btn-round'>
-                          {' '}
+                        <a href='/' class='btn btn-light btn-round'>
                           Remove
                         </a>
                       </td>
@@ -187,12 +180,10 @@ function ShoppingCart () {
                 </table>
 
                 <div class='card-body border-top'>
-                  <a href='#' class='btn btn-primary float-md-right'>
-                    {' '}
+                  <a href='/' class='btn btn-primary float-md-right'>
                     Make Purchase <i class='fa fa-chevron-right'></i>{' '}
                   </a>
-                  <a href='#' class='btn btn-light'>
-                    {' '}
+                  <a href='/' class='btn btn-light'>
                     <i class='fa fa-chevron-left'></i> Continue shopping{' '}
                   </a>
                 </div>
@@ -244,7 +235,11 @@ function ShoppingCart () {
                   </dl>
                   <hr />
                   <p class='text-center mb-3'>
-                    <img src='assets/img/payment/payment-1.png' height='26' />
+                    <img
+                      alt=''
+                      src='assets/img/payment/payment-1.png'
+                      height='26'
+                    />
                   </p>
                 </div>
               </div>
@@ -282,7 +277,7 @@ function ShoppingCart () {
             &copy; Copyright 2020 All rights reserved
           </p>
           <p>
-            <a href='#'>Terms and conditions</a>
+            <a href='/'>Terms and conditions</a>
           </p>
         </div>
       </footer>
@@ -291,4 +286,3 @@ function ShoppingCart () {
 }
 
 export default ShoppingCart
-

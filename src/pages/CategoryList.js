@@ -1,6 +1,6 @@
 import '../App.css'
-import { Image, Grid, Icon, Rail, Card } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Image, Grid, Card } from 'semantic-ui-react'
+// import { Link } from 'react-router-dom'
 function CategoryList () {
   return (
     <div>
@@ -8,7 +8,7 @@ function CategoryList () {
         <h4>Categories</h4>
       </div>
 
-      <Grid centered columns={5} style={{ marginLeft:"50px" }}>
+      <Grid centered columns={5} style={{ marginLeft: '50px' }}>
         <Grid.Column>
           <Card href='/Category1'>
             <Image

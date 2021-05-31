@@ -1,4 +1,3 @@
-import logo from '../../logo.svg'
 import '../../App.css'
 
 function SaleOff () {
@@ -39,7 +38,7 @@ function SaleOff () {
                     <p>Sec</p>
                   </div>
                 </div>
-                <a href='#'>Shop now</a>
+                <a href='/'>Shop now</a>
               </div>
             </div>
           </div>
