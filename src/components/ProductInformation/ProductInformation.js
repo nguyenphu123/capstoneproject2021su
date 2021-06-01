@@ -13,14 +13,33 @@ import {
   Rating
 } from 'semantic-ui-react'
 import VerticalItemList from '../Item-List/VerticalItemList'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
-const columns = _.times(5, i => (
-  <Grid.Column key={i}>
-    <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-  </Grid.Column>
-))
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import ReactDOM from 'react-dom'
+
 function ProductInformation () {
+
+  
+  const { productId } = useParams()
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: '/api/product-management/productId?productId=' + {productId},
+      headers: {}
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+  }, [{productId}])
+  const columns = _.times(5, i => (
+    <Grid.Column key={i}>
+      <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+    </Grid.Column>
+  ))
+
   return (
     <div style={{ marginLeft: '200px', marginTop: '100px', width: '1500px' }}>
       <Grid celled>
