@@ -3,7 +3,7 @@ import { Image, Grid, Icon, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 const Category = ({ name, img }) => (
   <Grid.Column>
-    <Card href='/Category1'>
+    <Card href='/Category/categoryId'>
       <Image
         size='small'
         src={`/${'assets/img/categories/category-1.jpg'}`}

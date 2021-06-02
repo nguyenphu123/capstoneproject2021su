@@ -14,20 +14,25 @@ import CategoryList from './pages/CategoryList'
 import ShoppingCart from './pages/ShoppingCart'
 import OrderHistory from './pages/OrderHistory'
 import OrderDetail from './pages/OrderDetail'
+import RegistrationPage from './pages/RegistrationPage'
 import 'react-chat-widget/lib/styles.css'
 import { BrowserRouter } from 'react-router-dom'
 function App () {
   return (
-    <div className='App'>
-      <div className='maincontainer'>
-        <BrowserRouter>
+    <BrowserRouter>
+      <div className='App'>
+        <div className='maincontainer'>
           <NavigationHeader />
           <Switch>
             <Route path='/Login'>
               <LoginPage />
               <Footers />
             </Route>
-            <Route path='/Category1'>
+            <Route path='/Registration'>
+              <RegistrationPage />
+              <Footers />
+            </Route>
+            <Route path='/Category/:categoryId'>
               <Ads />
               <Categories />
               <CategoryPage topic={'Category1'} />
@@ -50,7 +55,7 @@ function App () {
             <Route path='/Product/:productId' exact>
               <ProductDetail />
             </Route>
-            <Route path='/Category2'>
+            <Route path='/Category/:categoryId'>
               <Ads />
               <Categories />
               <CategoryPage topic={'Category2'} />
@@ -76,9 +81,9 @@ function App () {
               <Footers />
             </Route>
           </Switch>
-        </BrowserRouter>
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   )
 }
 

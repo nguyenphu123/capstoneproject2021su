@@ -33,7 +33,7 @@ class HorizontalItemLList extends React.Component {
   componentDidMount () {
     axios({
       method: 'GET',
-      url: '/api/product-management?sort=up&pageIndex=1&pageSize=1'
+      url: this.props.apiUrl
     }).then(res => {
       console.log(res)
       console.log(res.data)

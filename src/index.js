@@ -4,21 +4,12 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import configureStore from './helpers/store'
-
+import store from './helpers'
 import App from './App'
-// const { store, persistor } = createStore()
-const { store, persistor } = configureStore()
 
-// const { store, persistor } = configureStore()
-console.log(store)
 ReactDOM.render(
   <Provider store={store}>
-    // 2 props loading và persistor đều yêu cầu phải có
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
+    <App />
   </Provider>,
   document.getElementById('root')
 )

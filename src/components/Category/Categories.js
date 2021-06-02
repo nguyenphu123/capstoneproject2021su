@@ -3,8 +3,12 @@ import { Image, Grid, Icon, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Category from './Category'
 import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
 function Categories () {
+  const [categorylist, setCategorylist] = useState([])
+
   const catagories = [
     {
       name: 'Pendant earrings',
@@ -19,6 +23,15 @@ function Categories () {
       img: '/assets/img/trend/ht-3.jpg'
     }
   ]
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: '/api/category-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+  }, [])
 
   return (
     <>
@@ -28,7 +41,7 @@ function Categories () {
 
       <Grid centered>
         {Array.from(Array(10), (e, i) => {
-          return <Category name="" img="" />
+          return <Category name='' img='' />
         })}
 
         <Grid.Column>

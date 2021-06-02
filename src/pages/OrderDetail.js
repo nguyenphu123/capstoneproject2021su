@@ -1,9 +1,23 @@
 import '../App.css'
-// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Item, Image, Segment } from 'semantic-ui-react'
 import { Steps } from 'rsuite'
+import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
+import axios from 'axios'
 
 function OrderDetail () {
+  const { orderId } = useParams()
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: '/api/category-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+  }, [orderId])
+
   return (
     <>
       <Segment vertical>

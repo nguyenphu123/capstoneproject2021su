@@ -6,20 +6,38 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 function HomePage () {
   return (
     <div>
-      <VerticalItemList topic='New Product' />
+      <VerticalItemList
+        topic='New Product'
+        apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
+      />
 
       <SaleOff />
       <section class='trend spad'>
         <div class='container'>
           <div class='row'>
             <div class='col-lg-4 col-md-4 col-sm-6'>
-              <HorizontalItemList topic='Best Seller' />
+              <HorizontalItemList
+                topic='Best Seller'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=1'
+                }
+              />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
-              <HorizontalItemList topic='Top' />
+              <HorizontalItemList
+                topic='Top'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=1'
+                }
+              />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
-              <HorizontalItemList topic='Feature' />
+              <HorizontalItemList
+                topic='Feature'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=1'
+                }
+              />
             </div>
           </div>
         </div>

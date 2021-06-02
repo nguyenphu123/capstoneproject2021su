@@ -8,10 +8,14 @@ import {
   Sidebar,
   Input,
   Dropdown,
-  Pagination,
   List
 } from 'semantic-ui-react'
 import _ from 'lodash'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import ReactDOM from 'react-dom'
+
 const columns = _.times(5, i => (
   <Grid.Column key={i}>
     <Dropdown
@@ -45,6 +49,65 @@ const columns = _.times(5, i => (
 ))
 
 function CategoryPage () {
+  //id của category
+  const { categoryId } = useParams()
+  //component dùng url động
+  const [currentURL, setCurrentURL] = useState('')
+  //filter màu
+  const [colorlist, setColorlist] = useState([])
+  const [color, setColor] = useState('')
+  //filter rank
+  // const [ranklist, setRanklist] = useState([])
+  // const [rank, setRank] = useState('')
+  
+  //filter size
+  const [sizelist, setSizelist] = useState([])
+  const [size, setSize] = useState('')
+  //tag
+  const [taglist, setTaglist] = useState([])
+  const [tag, setTag] = useState('')
+
+  useEffect(() => {
+    console.log(categoryId)
+    setCurrentURL(
+      '/api/product-management/' +
+        {
+          categoryId
+        }
+    )
+    axios({
+      method: 'GET',
+      url: '/api/color-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+    // axios({
+    //   method: 'GET',
+    //   url: '/api/rank-management'
+    // }).then(res => {
+    //   console.log(res)
+    //   console.log(res.data)
+    // })
+    
+    axios({
+      method: 'GET',
+      url: '/api/size-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+    axios({
+      method: 'GET',
+      url: '/api/tag-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+  }, [{ categoryId }])
+  function handleChange (colorId, sizeId, tagId, categoryId) {
+    setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
+  }
   return (
     <>
       Search result
@@ -99,8 +162,7 @@ function CategoryPage () {
         </Sidebar>
         <Sidebar.Pusher>
           <Segment basic>
-            <VerticalItemList topic='category1' />
-            <Pagination defaultActivePage={1} totalPages={10} />
+            <VerticalItemList topic='category1' apiUrl={currentURL} />
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>

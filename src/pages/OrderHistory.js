@@ -1,75 +1,89 @@
-import React from 'react'
 import { Tab, Dropdown, Item } from 'semantic-ui-react'
 import OrderItem from '../components/Order/OrderItem'
-const Options = [
-  { key: '0', value: '1', text: '1 month' },
-  { key: '1', value: '3', text: '1 quarter' },
-  { key: '2', value: '6', text: 'half year' },
-  { key: '3', value: '12', text: 'a year' }
-]
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
-const panes = [
-  {
-    menuItem: 'Tab 1',
-    render: () => (
-      <Tab.Pane attached={false}>
-        <Dropdown
-          placeholder='Select Country'
-          fluid
-          search
-          selection
-          options={Options}
-        />
+function OrderHistory () {
+  const [historylist, setHistorylist] = useState([])
 
-        <Item.Group link>
-          <OrderItem />
-          <OrderItem />
-        </Item.Group>
-      </Tab.Pane>
-    )
-  },
-  {
-    menuItem: 'Tab 2',
-    render: () => (
-      <Tab.Pane attached={false}>
-        <Dropdown
-          placeholder='Select Country'
-          fluid
-          search
-          selection
-          options={Options}
-        />
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: '/api/order-management/users/1/orders'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+  }, [])
+  const Options = [
+    { key: '0', value: '1', text: '1 month' },
+    { key: '1', value: '3', text: '1 quarter' },
+    { key: '2', value: '6', text: 'half year' },
+    { key: '3', value: '12', text: 'a year' }
+  ]
 
-        <Item.Group link>
-          <OrderItem />
-          <OrderItem />
-        </Item.Group>
-      </Tab.Pane>
-    )
-  },
-  {
-    menuItem: 'Tab 3',
-    render: () => (
-      <Tab.Pane attached={false}>
-        <Dropdown
-          placeholder='Period'
-          fluid
-          search
-          selection
-          options={Options}
-        />
+  const panes = [
+    {
+      menuItem: 'prepared',
+      render: () => (
+        <Tab.Pane attached={false}>
+          <Dropdown
+            placeholder='Select period'
+            fluid
+            search
+            selection
+            options={Options}
+          />
 
-        <Item.Group link>
-          <OrderItem />
-          <OrderItem />
-        </Item.Group>
-      </Tab.Pane>
-    )
-  }
-]
+          <Item.Group link>
+            <OrderItem />
+            <OrderItem />
+          </Item.Group>
+        </Tab.Pane>
+      )
+    },
+    {
+      menuItem: 'on delivery',
+      render: () => (
+        <Tab.Pane attached={false}>
+          <Dropdown
+            placeholder='Select Country'
+            fluid
+            search
+            selection
+            options={Options}
+          />
 
-function LoginPage () {
+          <Item.Group link>
+            <OrderItem />
+            <OrderItem />
+          </Item.Group>
+        </Tab.Pane>
+      )
+    },
+    {
+      menuItem: 'finised',
+      render: () => (
+        <Tab.Pane attached={false}>
+          <Dropdown
+            placeholder='Period'
+            fluid
+            search
+            selection
+            options={Options}
+          />
+
+          <Item.Group link>
+            <OrderItem />
+            <OrderItem />
+          </Item.Group>
+        </Tab.Pane>
+      )
+    }
+  ]
+
   return <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
 }
 
-export default LoginPage
+export default OrderHistory

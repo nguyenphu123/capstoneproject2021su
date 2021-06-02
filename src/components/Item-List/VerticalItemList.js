@@ -2,6 +2,7 @@ import '../../App.css'
 import React from 'react'
 import VerticalItem from './VerticalItem'
 import axios from 'axios'
+import { Pagination } from 'semantic-ui-react'
 
 class VerticalItemList extends React.Component {
   constructor () {
@@ -71,8 +72,7 @@ class VerticalItemList extends React.Component {
   componentDidMount () {
     axios({
       method: 'GET',
-      url: '/api/product-management?sort=up&pageIndex=1&pageSize=1',
-      
+      url: this.props.apiUrl
     }).then(res => {
       console.log(res)
       console.log(res.data)
@@ -81,28 +81,31 @@ class VerticalItemList extends React.Component {
 
   render () {
     return (
-      <section class='product spad'>
-        <div class='container'>
-          <div class='col-lg-4 col-md-4'>
-            <div class='section-title'>
-              <h4>{this.props.topic}</h4>
+      <>
+        <section class='product spad'>
+          <div class='container'>
+            <div class='col-lg-4 col-md-4'>
+              <div class='section-title'>
+                <h4>{this.props.topic}</h4>
+              </div>
+            </div>
+            <div class='row'>
+              {this.state.sections.map(
+                ({ title, imageUrl, label, price, mix }) => (
+                  <VerticalItem
+                    title={title}
+                    imageUrl={imageUrl}
+                    label={label}
+                    price={price}
+                    mix={mix}
+                  />
+                )
+              )}
             </div>
           </div>
-          <div class='row'>
-            {this.state.sections.map(
-              ({ title, imageUrl, label, price, mix }) => (
-                <VerticalItem
-                  title={title}
-                  imageUrl={imageUrl}
-                  label={label}
-                  price={price}
-                  mix={mix}
-                />
-              )
-            )}
-          </div>
-        </div>
-      </section>
+        </section>
+        {/* <Pagination defaultActivePage={1} totalPages={10} /> */}
+      </>
     )
   }
 }

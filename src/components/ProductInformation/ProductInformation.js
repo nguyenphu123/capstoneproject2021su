@@ -14,26 +14,35 @@ import {
 } from 'semantic-ui-react'
 import VerticalItemList from '../Item-List/VerticalItemList'
 import React, { useState, useEffect } from 'react'
-import _ from 'lodash'
 import axios from 'axios'
+import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 
 function ProductInformation () {
-
-  
   const { productId } = useParams()
+  //filter review
+  const [reviewlist, setReviewlist] = useState([])
+  const [review, setReview] = useState('')
 
   useEffect(() => {
+    console.log(productId)
     axios({
       method: 'get',
-      url: '/api/product-management/productId?productId=' + {productId},
+      url: '/api/product-management/productId?productId=' + { productId },
       headers: {}
     }).then(res => {
       console.log(res)
       console.log(res.data)
     })
-  }, [{productId}])
+    axios({
+      method: 'GET',
+      url: '/api/review-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+    })
+  }, [{ productId }])
   const columns = _.times(5, i => (
     <Grid.Column key={i}>
       <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
@@ -243,10 +252,16 @@ function ProductInformation () {
           </Comment.Group>
         </Grid.Row>
         <Grid.Row>
-          <VerticalItemList topic='Relative products' />
+          <VerticalItemList
+            topic='Relative products'
+            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
+          />
         </Grid.Row>
         <Grid.Row>
-          <VerticalItemList topic='You may like' />
+          <VerticalItemList
+            topic='You may like'
+            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
+          />
         </Grid.Row>
       </Grid>
     </div>
