@@ -21,11 +21,8 @@ export default CartSlice.reducer
 // Actions
 const { updateCart } = CartSlice.actions
 export const cart = cart => async dispatch => {
-  
   try {
-    
-      dispatch(updateCart(res.data))
-   
+    dispatch(updateCart(cart))
   } catch (e) {
     return console.error(e.message)
   }
@@ -36,4 +33,3 @@ export const cart = cart => async dispatch => {
 //   } catch (e) {
 //     return console.error(e.message)
 //   }
-}
