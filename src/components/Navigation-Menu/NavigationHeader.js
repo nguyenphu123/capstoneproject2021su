@@ -1,5 +1,5 @@
 import '../../App.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {
   Container,
   Dropdown,
@@ -30,30 +30,7 @@ function NavigationHeader () {
   const UserSlice = useSelector(state => state.UserSlice.user)
 
   const [categorylist, setCategorylist] = useState([])
-  const trigger = (
-    <span>
-      <Icon name='user' /> Hello, {UserSlice.UserName}
-    </span>
-  )
 
-  const options = [
-    {
-      key: 'user',
-      text: (
-        <span>
-          Signed in as <strong>{UserSlice.Name}</strong>
-        </span>
-      ),
-      disabled: true
-    },
-    { key: 'profile', text: 'Your Profile' },
-    // { key: 'stars', text: 'Your Stars' },
-    // { key: 'explore', text: 'Explore' },
-    // { key: 'integrations', text: 'Integrations' },
-    // { key: 'help', text: 'Help' },
-    // { key: 'settings', text: 'Settings' },
-    { key: 'sign-out', text: 'Sign Out' }
-  ]
   useEffect(() => {
     axios({
       method: 'GET',
@@ -69,37 +46,37 @@ function NavigationHeader () {
       <Menu fixed='top' style={fixedMenuStyle} inverted>
         <Container>
           <Menu.Item header>
-            <Link to='/'>
+            <NavLink to='/'>
               <Image
                 size='mini'
                 src='assets/img/logo.png'
                 style={{ marginRight: '1.5em', width: '100px' }}
               />
-            </Link>
+            </NavLink>
           </Menu.Item>
           <Menu.Item>
-            <Link to='/'>Home</Link>
+            <NavLink to='/'>Home</NavLink>
           </Menu.Item>
           <Menu.Item>
-            <Link to='/'>About Us</Link>
+            <NavLink to='/'>About Us</NavLink>
           </Menu.Item>
           <Menu.Item>
-            <Link to='/'>Our Store</Link>
+            <NavLink to='/'>Our Store</NavLink>
           </Menu.Item>
           <Menu.Item>
-            <Link to='/ImageUploading'>Search With Image</Link>
+            <NavLink to='/ImageUploading'>Search With Image</NavLink>
           </Menu.Item>
 
           <Dropdown text='Shopping' item simple>
             <Dropdown.Menu style={DropdownTheme}>
               <Dropdown.Item>
-                <Link to='/Category/categoryId'>Category1</Link>
+                <NavLink to='/Category/categoryId'>Category1</NavLink>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link to='/Category/categoryId'>Category2</Link>
+                <NavLink to='/Category/categoryId'>Category2</NavLink>
               </Dropdown.Item>
               <Dropdown.Item>
-                <Link to='/'>Home</Link>
+                <NavLink to='/'>Home</NavLink>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -117,33 +94,39 @@ function NavigationHeader () {
             // value={value}
             />
           </Menu.Item>
-          {UserSlice === undefined ? (
+          {UserSlice === null ? (
             <>
               <Menu.Item>
-                <Link to='/Login'>Login</Link>
+                <NavLink to='/Login'>Login</NavLink>
               </Menu.Item>
 
               <Menu.Item>
-                <Link to='/Registration'>Register</Link>
+                <NavLink to='/Registration'>Register</NavLink>
               </Menu.Item>
             </>
           ) : (
             <Menu.Item>
-              <Dropdown trigger={trigger}>
+              <Dropdown
+                trigger={
+                  <span>
+                    <Icon name='user' /> Hello, {UserSlice.UserName}
+                  </span>
+                }
+              >
                 <Dropdown.Menu style={UserDropdown}>
-                  <Dropdown.Item>
+                  <Dropdown.Item disabled>
                     <span>
                       Signed in as <strong>{UserSlice.Name}</strong>
                     </span>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <Link to='/Profile'>Profile</Link>
+                    <NavLink to='/Profile'>Profile</NavLink>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <Link to='/OrderHistory'>Orders</Link>
+                    <NavLink to='/OrderHistory'>Orders</NavLink>
                   </Dropdown.Item>
-                  <Dropdown.Item>
-                    <Link to='/'>Sign out</Link>
+                  <Dropdown.Item onclick={dispatch(logout())}>
+                    Sign out
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -151,16 +134,16 @@ function NavigationHeader () {
           )}
 
           <Menu.Item>
-            <Link to='/'>
+            <NavLink to='/'>
               <span class='icon_heart_alt'></span>
               <div class='tip'>2</div>
-            </Link>
+            </NavLink>
           </Menu.Item>
           <Menu.Item>
-            <Link to='/Cart'>
+            <NavLink to='/Cart'>
               <span class='icon_bag_alt'></span>
               <div class='tip'>2</div>
-            </Link>
+            </NavLink>
           </Menu.Item>
         </Container>
       </Menu>
