@@ -14,6 +14,9 @@ import {
 } from 'semantic-ui-react'
 import VerticalItemList from '../Item-List/VerticalItemList'
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { cart } from '../../features/Cart/CartSlice'
+
 import axios from 'axios'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
@@ -24,6 +27,11 @@ function ProductInformation () {
   //filter review
   const [reviewlist, setReviewlist] = useState([])
   const [review, setReview] = useState('')
+  const [product, setProduct] = useState({})
+  const [shopCart, setShopCart] = useState([])
+
+  const dispatch = useDispatch()
+  const CartSlice = useSelector(state => state.CartSlice.cart)
 
   useEffect(() => {
     console.log(productId)
@@ -34,6 +42,7 @@ function ProductInformation () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setProduct(res.data)
     })
     axios({
       method: 'GET',
@@ -48,7 +57,10 @@ function ProductInformation () {
       <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
     </Grid.Column>
   ))
-
+  function addToCart () {
+    shopCart.push(product)
+    dispatch(cart(shopCart))
+  }
   return (
     <div style={{ marginLeft: '200px', marginTop: '100px', width: '1500px' }}>
       <Grid celled>
@@ -58,20 +70,20 @@ function ProductInformation () {
           </Grid.Column>
           <Grid.Column width={11}>
             <Grid celled>
-              <Grid.Row>[ORDER]GIày cao gót xuất dư cnk</Grid.Row>
+              <Grid.Row>[ORDER]{product.Name}</Grid.Row>
 
               <Grid.Row>
                 <Segment>
                   Chưa Có Đánh Giá <Divider vertical></Divider> 1 Đã Bán{' '}
                 </Segment>
               </Grid.Row>
-              <Grid.Row>₫290.000</Grid.Row>
+              <Grid.Row>{product.CurrentPrice}</Grid.Row>
               <Grid.Row>
                 <Table definition>
                   <Table.Body>
                     <Table.Row>
                       <Table.Cell width={2}>Size</Table.Cell>
-                      <Table.Cell>1" x 2"</Table.Cell>
+                      <Table.Cell>{product.Sizes}</Table.Cell>
                     </Table.Row>
                     <Table.Row>
                       <Table.Cell>Weight</Table.Cell>
@@ -79,7 +91,7 @@ function ProductInformation () {
                     </Table.Row>
                     <Table.Row>
                       <Table.Cell>Color</Table.Cell>
-                      <Table.Cell>Yellowish</Table.Cell>
+                      <Table.Cell>{product.Colors}</Table.Cell>
                     </Table.Row>
                     <Table.Row>
                       <Table.Cell>Odor</Table.Cell>
@@ -135,7 +147,7 @@ function ProductInformation () {
               <Grid.Row>
                 <Button.Group>
                   <Button icon='minus' />
-                  <Button icon='plus' />
+                  <Button icon='plus' onClick={addToCart} />
                 </Button.Group>
               </Grid.Row>
               <Grid.Row>

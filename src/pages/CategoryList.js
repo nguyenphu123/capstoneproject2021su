@@ -15,8 +15,9 @@ function CategoryList () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setCategorylist(res.data)
     })
-  }, [])
+  }, [categorylist])
 
   return (
     <div>
@@ -25,9 +26,9 @@ function CategoryList () {
       </div>
 
       <Grid centered columns={5} style={{ marginLeft: '50px' }}>
-        {Array.from(Array(10), (e, i) => {
-          return <Category name='' img='' />
-        })}
+        {categorylist.map(({ Name }) => (
+          <Category name={Name} img='' />
+        ))}
       </Grid>
     </div>
   )

@@ -9,20 +9,6 @@ import ReactDOM from 'react-dom'
 function Categories () {
   const [categorylist, setCategorylist] = useState([])
 
-  const catagories = [
-    {
-      name: 'Pendant earrings',
-      img: 'assets/img/trend/ht-1.jpg'
-    },
-    {
-      name: 'Cotton T-Shirt',
-      img: 'assets/img/trend/ht-3.jpg'
-    },
-    {
-      name: 'Cotton T-Shirt',
-      img: '/assets/img/trend/ht-3.jpg'
-    }
-  ]
   useEffect(() => {
     axios({
       method: 'GET',
@@ -30,8 +16,9 @@ function Categories () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setCategorylist(res.data)
     })
-  }, [])
+  }, [categorylist])
 
   return (
     <>
@@ -40,9 +27,12 @@ function Categories () {
       </div>
 
       <Grid centered>
-        {Array.from(Array(10), (e, i) => {
+        {/* {Array.from(Array(10), (e, i) => {
           return <Category name='' img='' />
-        })}
+        })} */}
+        {categorylist.map(({ Name }) => (
+          <Category name={Name} img='' />
+        ))}
 
         <Grid.Column>
           <Link to='/Categories'>

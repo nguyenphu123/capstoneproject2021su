@@ -8,26 +8,7 @@ class HorizontalItemLList extends React.Component {
     super()
 
     this.state = {
-      sections: [
-        {
-          title: 'Pendant earrings',
-          imageUrl: 'assets/img/trend/ht-1.jpg',
-
-          price: '$ 59.0'
-        },
-        {
-          title: 'Cotton T-Shirt',
-          imageUrl: 'assets/img/trend/ht-3.jpg',
-
-          price: '$ 49.0'
-        },
-        {
-          title: 'Cotton T-Shirt',
-          imageUrl: '/assets/img/trend/ht-3.jpg',
-
-          price: '$ 59.0'
-        }
-      ]
+      products: []
     }
   }
   componentDidMount () {
@@ -37,6 +18,9 @@ class HorizontalItemLList extends React.Component {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      this.setState({
+        products: res.data
+      })
     })
   }
   render () {
@@ -46,9 +30,16 @@ class HorizontalItemLList extends React.Component {
           <h4>{this.props.topic}</h4>
         </div>
 
-        {this.state.sections.map(({ title, imageUrl, price }) => (
-          <HorizontalItem title={title} imageUrl={imageUrl} price={price} />
-        ))}
+        {this.state.products.map(
+          ({ Id, Name, ImageStorages, CurrentPrice }) => (
+            <HorizontalItem
+              Id={Id}
+              Name={Name}
+              ImageStorages={ImageStorages}
+              CurrentPrice={CurrentPrice}
+            />
+          )
+        )}
       </div>
     )
   }

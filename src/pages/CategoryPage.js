@@ -59,7 +59,7 @@ function CategoryPage () {
   //filter rank
   // const [ranklist, setRanklist] = useState([])
   // const [rank, setRank] = useState('')
-  
+
   //filter size
   const [sizelist, setSizelist] = useState([])
   const [size, setSize] = useState('')
@@ -81,6 +81,7 @@ function CategoryPage () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setColorlist(res.data)
     })
     // axios({
     //   method: 'GET',
@@ -89,13 +90,14 @@ function CategoryPage () {
     //   console.log(res)
     //   console.log(res.data)
     // })
-    
+
     axios({
       method: 'GET',
       url: '/api/size-management'
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setSizelist(res.data)
     })
     axios({
       method: 'GET',
@@ -103,6 +105,7 @@ function CategoryPage () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setTaglist(res.data)
     })
   }, [{ categoryId }])
   function handleChange (colorId, sizeId, tagId, categoryId) {
@@ -111,7 +114,55 @@ function CategoryPage () {
   return (
     <>
       Search result
-      <Grid centered>Filter{columns}</Grid>
+      <Grid centered>
+        Filter:
+        <Grid.Column key={i}>
+          <Dropdown
+            text='Status'
+            icon='filter'
+            floating
+            labeled
+            button
+            className='icon'
+          >
+            <Dropdown.Menu>
+              <Dropdown.Header content='Search Color' />
+              <Input icon='search' iconPosition='left' name='search' />
+              <Dropdown.Header icon='tags' content='Filter by tag' />
+              <Dropdown.Divider />
+              {colorlist.map(({ Name, Id }) => (
+                <Dropdown.Item
+                  label={{ color: Name, empty: true, circular: true }}
+                  text={Name}
+                  value={Id}
+                />
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown
+            text='Status'
+            icon='filter'
+            floating
+            labeled
+            button
+            className='icon'
+          >
+            <Dropdown.Menu>
+              <Dropdown.Header content='Search Size' />
+              <Input icon='search' iconPosition='left' name='search' />
+              <Dropdown.Header icon='tags' content='Filter by tag' />
+              <Dropdown.Divider />
+              {sizelist.map(({ Name, Id }) => (
+                <Dropdown.Item
+                  label={{ empty: true, circular: true }}
+                  text={Name}
+                  value={Id}
+                />
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Grid.Column>
+      </Grid>
       <Sidebar.Pushable as={Segment}>
         <Sidebar
           as={Menu}
@@ -125,23 +176,13 @@ function CategoryPage () {
         >
           Filter
           <Menu.Item position='left' fitted='vertically'>
-            Categories
+            Tag
             <List>
-              <List.Item>
-                <Checkbox label='Shirt' />
-              </List.Item>
-              <List.Item>
-                <Checkbox label='T-Shirt' />
-              </List.Item>
-              <List.Item>
-                <Checkbox label='Skirt' />
-              </List.Item>
-              <List.Item>
-                <Checkbox label='Jean' />
-              </List.Item>
-              <List.Item>
-                <Checkbox label='Pant' />
-              </List.Item>
+              {taglist.map(({ Name, Id }) => (
+                <List.Item>
+                  <Checkbox label='Shirt' value={Id} />
+                </List.Item>
+              ))}
             </List>
           </Menu.Item>
           <Menu.Item as='a'>
