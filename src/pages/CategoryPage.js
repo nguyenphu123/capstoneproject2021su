@@ -69,12 +69,11 @@ function CategoryPage () {
 
   useEffect(() => {
     console.log(categoryId)
-    setCurrentURL(
-      '/api/product-management/' +
-        {
-          categoryId
-        }
-    )
+    setCurrentURL('/api/product-management/' + categoryId)
+  }, [{ categoryId }])
+  useEffect(() => {
+    console.log(categoryId)
+
     axios({
       method: 'GET',
       url: '/api/color-management'
@@ -83,14 +82,6 @@ function CategoryPage () {
       console.log(res.data)
       setColorlist(res.data)
     })
-    // axios({
-    //   method: 'GET',
-    //   url: '/api/rank-management'
-    // }).then(res => {
-    //   console.log(res)
-    //   console.log(res.data)
-    // })
-
     axios({
       method: 'GET',
       url: '/api/size-management'
@@ -107,18 +98,19 @@ function CategoryPage () {
       console.log(res.data)
       setTaglist(res.data)
     })
-  }, [{ categoryId }])
+  }, [])
+
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
   return (
     <>
       Search result
-      <Grid centered>
-        Filter:
-        <Grid.Column key={i}>
+      <Grid centered columns={2}>
+        
+        <Grid.Column>
           <Dropdown
-            text='Status'
+            text='Color'
             icon='filter'
             floating
             labeled
@@ -140,7 +132,7 @@ function CategoryPage () {
             </Dropdown.Menu>
           </Dropdown>
           <Dropdown
-            text='Status'
+            text='Size'
             icon='filter'
             floating
             labeled
@@ -203,7 +195,7 @@ function CategoryPage () {
         </Sidebar>
         <Sidebar.Pusher>
           <Segment basic>
-            <VerticalItemList topic='category1' apiUrl={currentURL} />
+            <VerticalItemList topic='category1' apiUrl={'/api/product-management/' + categoryId} />
           </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>

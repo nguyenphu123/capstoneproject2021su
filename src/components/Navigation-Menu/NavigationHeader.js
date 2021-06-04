@@ -1,5 +1,5 @@
 import '../../App.css'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   Container,
   Dropdown,
@@ -38,6 +38,7 @@ function NavigationHeader () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setCategorylist(res.data)
     })
   }, [])
 
@@ -46,37 +47,43 @@ function NavigationHeader () {
       <Menu fixed='top' style={fixedMenuStyle} inverted>
         <Container>
           <Menu.Item header>
-            <NavLink to='/'>
+            <Link to='/'>
               <Image
                 size='mini'
-                src='assets/img/logo.png'
+                src='https://mpng.subpng.com/20180920/fcw/kisspng-logo-shopee-indonesia-online-shopping-brand-image-icn-musical-live-the-legend-5ba381609d6483.5533905215374421446447.jpg'
                 style={{ marginRight: '1.5em', width: '100px' }}
               />
-            </NavLink>
+            </Link>
           </Menu.Item>
           <Menu.Item>
-            <NavLink to='/'>Home</NavLink>
+            <Link to='/'>Home</Link>
           </Menu.Item>
           <Menu.Item>
-            <NavLink to='/'>About Us</NavLink>
+            <Link to='/'>About Us</Link>
           </Menu.Item>
           <Menu.Item>
-            <NavLink to='/'>Our Store</NavLink>
+            <Link to='/'>Our Store</Link>
           </Menu.Item>
           <Menu.Item>
-            <NavLink to='/ImageUploading'>Search With Image</NavLink>
+            <Link to='/ImageUploading'>Search With Image</Link>
           </Menu.Item>
 
           <Dropdown text='Shopping' item simple>
             <Dropdown.Menu style={DropdownTheme}>
-              <Dropdown.Item>
-                <NavLink to='/Category/categoryId'>Category1</NavLink>
+              {categorylist.map(({ Id, Name }) => (
+                <Dropdown.Item>
+                  <Link to={'/Category/' + Id}>{Name}</Link>
+                </Dropdown.Item>
+              ))}
+
+              {/* <Dropdown.Item>
+                <Link to='/Category/categoryId'>Category1</Link>
               </Dropdown.Item>
               <Dropdown.Item>
-                <NavLink to='/Category/categoryId'>Category2</NavLink>
-              </Dropdown.Item>
+                <Link to='/Category/categoryId'>Category2</Link>
+              </Dropdown.Item> */}
               <Dropdown.Item>
-                <NavLink to='/'>Home</NavLink>
+                <Link to='/'>Home</Link>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -97,11 +104,11 @@ function NavigationHeader () {
           {UserSlice === null ? (
             <>
               <Menu.Item>
-                <NavLink to='/Login'>Login</NavLink>
+                <Link to='/Login'>Login</Link>
               </Menu.Item>
 
               <Menu.Item>
-                <NavLink to='/Registration'>Register</NavLink>
+                <Link to='/Registration'>Register</Link>
               </Menu.Item>
             </>
           ) : (
@@ -120,10 +127,10 @@ function NavigationHeader () {
                     </span>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <NavLink to='/Profile'>Profile</NavLink>
+                    <Link to='/Profile'>Profile</Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
-                    <NavLink to='/OrderHistory'>Orders</NavLink>
+                    <Link to='/OrderHistory'>Orders</Link>
                   </Dropdown.Item>
                   <Dropdown.Item onclick={dispatch(logout())}>
                     Sign out
@@ -134,16 +141,16 @@ function NavigationHeader () {
           )}
 
           <Menu.Item>
-            <NavLink to='/'>
+            <Link to='/'>
               <span class='icon_heart_alt'></span>
               <div class='tip'>2</div>
-            </NavLink>
+            </Link>
           </Menu.Item>
           <Menu.Item>
-            <NavLink to='/Cart'>
+            <Link to='/Cart'>
               <span class='icon_bag_alt'></span>
               <div class='tip'>2</div>
-            </NavLink>
+            </Link>
           </Menu.Item>
         </Container>
       </Menu>

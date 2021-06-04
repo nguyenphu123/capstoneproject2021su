@@ -54,6 +54,8 @@ function App () {
             </Route>
             <Route path='/Product/:productId' exact>
               <ProductDetail />
+              <Widget />
+              <Footers />
             </Route>
             <Route path='/Category/:categoryId'>
               <Ads />

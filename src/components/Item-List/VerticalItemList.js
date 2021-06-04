@@ -13,6 +13,8 @@ class VerticalItemList extends React.Component {
     }
   }
   componentDidMount () {
+    console.log(this.props.apiUrl)
+
     axios({
       method: 'GET',
       url: this.props.apiUrl

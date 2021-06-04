@@ -1,5 +1,6 @@
-
 import '../../App.css'
+import { Button } from 'semantic-ui-react'
+import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
 
 function Footers () {
   return (
@@ -39,79 +40,6 @@ function Footers () {
         </div>
       </section>
 
-      <div class='instagram'>
-        <div class='container-fluid'>
-          <div class='row'>
-            <div class='col-lg-2 col-md-4 col-sm-4 p-0'>
-              <div
-                class='instagram__item set_bg'
-                style={{ backgroundImage: 'url("assets/img/instagram/insta-1.jpg")' }}
-              >
-                <div class='instagram__text'>
-                  <i class='fa fa-instagram'></i>
-                  <a href='/'>@ ashion_shop</a>
-                </div>
-              </div>
-            </div>
-            <div class='col-lg-2 col-md-4 col-sm-4 p-0'>
-              <div
-                class='instagram__item set_bg'
-               style={{ backgroundImage: 'url("assets/img/instagram/insta-1.jpg")' }}
-              >
-                <div class='instagram__text'>
-                  <i class='fa fa-instagram'></i>
-                  <a href='/'>@ ashion_shop</a>
-                </div>
-              </div>
-            </div>
-            <div class='col-lg-2 col-md-4 col-sm-4 p-0'>
-              <div
-                class='instagram__item set_bg'
-               style={{ backgroundImage: 'url("assets/img/instagram/insta-1.jpg")' }}
-              >
-                <div class='instagram__text'>
-                  <i class='fa fa-instagram'></i>
-                  <a href='/'>@ ashion_shop</a>
-                </div>
-              </div>
-            </div>
-            <div class='col-lg-2 col-md-4 col-sm-4 p-0'>
-              <div
-                class='instagram__item set_bg'
-               style={{ backgroundImage: 'url("assets/img/instagram/insta-1.jpg")' }}
-              >
-                <div class='instagram__text'>
-                  <i class='fa fa-instagram'></i>
-                  <a href='/'>@ ashion_shop</a>
-                </div>
-              </div>
-            </div>
-            <div class='col-lg-2 col-md-4 col-sm-4 p-0'>
-              <div
-                class='instagram__item set_bg'
-               style={{ backgroundImage: 'url("assets/img/instagram/insta-1.jpg")' }}
-              >
-                <div class='instagram__text'>
-                  <i class='fa fa-instagram'></i>
-                  <a href='/'>@ ashion_shop</a>
-                </div>
-              </div>
-            </div>
-            <div class='col-lg-2 col-md-4 col-sm-4 p-0'>
-              <div
-                class='instagram__item set_bg'
-               style={{ backgroundImage: 'url("assets/img/instagram/insta-1.jpg")' }}
-              >
-                <div class='instagram__text'>
-                  <i class='fa fa-instagram'></i>
-                  <a href='/'>@ ashion_shop</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <footer class='footer'>
         <div class='container'>
           <div class='row'>
@@ -128,19 +56,19 @@ function Footers () {
                 </p>
                 <div class='footer__payment'>
                   <a href='/'>
-                    <img src='assets/img/payment/payment-1.png' alt='' />
+                    <Visa style={{ width: 50 }} />
                   </a>
                   <a href='/'>
-                    <img src='assets/img/payment/payment-2.png' alt='' />
+                    <Mastercard style={{ width: 50 }} />
                   </a>
                   <a href='/'>
-                    <img src='assets/img/payment/payment-3.png' alt='' />
+                    <Paypal style={{ width: 50 }} />
                   </a>
                   <a href='/'>
-                    <img src='assets/img/payment/payment-4.png' alt='' />
+                    <AtmMomo style={{ width: 50 }} />
                   </a>
                   <a href='/'>
-                    <img src='assets/img/payment/payment-5.png' alt='' />
+                    <GrabPay style={{ width: 50 }} />
                   </a>
                 </div>
               </div>
@@ -193,21 +121,13 @@ function Footers () {
                   </button>
                 </form>
                 <div class='footer__social'>
-                  <a href='/'>
-                    <i class='fa fa-facebook'></i>
-                  </a>
-                  <a href='/'>
-                    <i class='fa fa-twitter'></i>
-                  </a>
-                  <a href='/'>
-                    <i class='fa fa-youtube-play'></i>
-                  </a>
-                  <a href='/'>
-                    <i class='fa fa-instagram'></i>
-                  </a>
-                  <a href='/'>
-                    <i class='fa fa-pinterest'></i>
-                  </a>
+                  <Button circular color='facebook' icon='facebook' />
+
+                  <Button circular color='twitter' icon='twitter' />
+
+                  <Button circular color='linkedin' icon='linkedin' />
+
+                  <Button circular color='google plus' icon='google plus' />
                 </div>
               </div>
             </div>

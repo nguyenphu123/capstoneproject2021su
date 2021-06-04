@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 const HorizontalItem = ({ Id, Name, ImageStorages, CurrentPrice }) => (
   <div class='trend__item'>
     <div class='trend__item__pic'>
-      <img alt='' src={`/${ImageStorages[0]}`} />
+      <img alt='' src={ImageStorages[0].ImageUrl} />
     </div>
     <div class='trend__item__text'>
       <h6>

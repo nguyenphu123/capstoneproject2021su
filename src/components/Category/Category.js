@@ -1,9 +1,9 @@
 import '../../App.css'
 import { Image, Grid, Icon, Card } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-const Category = ({ name, img }) => (
+const Category = ({ Id, Name, img }) => (
   <Grid.Column>
-    <Card href='/Category/categoryId'>
+    <Card href={'/Category/' + Id}>
       <Image
         size='small'
         src={`/${'assets/img/categories/category-1.jpg'}`}
@@ -11,7 +11,7 @@ const Category = ({ name, img }) => (
         ui={false}
       />
       <Card.Content>
-        <Card.Description>Category1</Card.Description>
+        <Card.Description>{Name}</Card.Description>
       </Card.Content>
     </Card>
   </Grid.Column>

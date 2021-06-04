@@ -18,7 +18,7 @@ function Categories () {
       console.log(res.data)
       setCategorylist(res.data)
     })
-  }, [categorylist])
+  }, [])
 
   return (
     <>
@@ -30,8 +30,8 @@ function Categories () {
         {/* {Array.from(Array(10), (e, i) => {
           return <Category name='' img='' />
         })} */}
-        {categorylist.map(({ Name }) => (
-          <Category name={Name} img='' />
+        {categorylist.map(({ Id, Name }) => (
+          <Category Id={Id} Name={Name} img='' />
         ))}
 
         <Grid.Column>

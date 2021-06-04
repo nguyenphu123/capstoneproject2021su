@@ -26,8 +26,8 @@ function CategoryList () {
       </div>
 
       <Grid centered columns={5} style={{ marginLeft: '50px' }}>
-        {categorylist.map(({ Name }) => (
-          <Category name={Name} img='' />
+        {categorylist.map(({Id, Name }) => (
+          <Category Id={Id} Name={Name} img='' />
         ))}
       </Grid>
     </div>
