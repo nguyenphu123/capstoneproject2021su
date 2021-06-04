@@ -7,22 +7,22 @@ const paragraph = (
   <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
 )
 
-function CartItem () {
+function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
 
   return (
-    <Item>
-      <Item.Image
-        size='small'
-        src='https://react.semantic-ui.com/images/wireframe/image.png'
-      />
+    <Item style={{ width: '500px' }}>
+      <Item.Image size='small' src={ImageUrl} />
 
-      <Item.Content verticalAlign='middle'>
-        <Item.Header>Content A</Item.Header>
-        <Item.Description>{paragraph}</Item.Description>
+      <Item.Content verticalAlign='top'>
+        <Item.Header floated='left'>{Name}</Item.Header>
+        <Item.Description floated='left'>{Quantity}</Item.Description>
+        <Item.Description floated='left'>{Price}</Item.Description>
+        <Item.Description></Item.Description>
+
         <Item.Extra>
-          <Button floated='right'>Action</Button>
+          <Button floated='right'>Remove</Button>
         </Item.Extra>
       </Item.Content>
     </Item>

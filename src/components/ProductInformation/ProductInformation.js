@@ -59,7 +59,8 @@ function ProductInformation () {
       CurrentPrice: product.CurrentPrice,
       Quantity: quantity,
       TotalLine: 0,
-      img: product.ImageStorages[0].ImageUrl
+      img: product.ImageStorages[0].ImageUrl,
+      Name: product.Name
     }
     shopCart.push(cartItem)
     dispatch(cart(shopCart))

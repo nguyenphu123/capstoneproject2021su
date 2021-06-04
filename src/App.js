@@ -66,6 +66,7 @@ function App () {
             </Route>
             <Route path='/OrderHistory'>
               <OrderHistory />
+              <Widget />
               <Footers />
             </Route>
             <Route path='/OrderDetail/:id'>
@@ -74,6 +75,8 @@ function App () {
             </Route>
             <Route path='/Cart'>
               <ShoppingCart />
+              <Widget />
+              <Footers />
             </Route>
             <Route path='/' exact>
               <Ads />
