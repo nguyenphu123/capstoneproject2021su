@@ -50,19 +50,16 @@ function LoginPage () {
 
   function handleSubmit (e) {
     // e.preventDefault()
-    console.log(username)
-    console.log(password)
+    
     const authData = {
       UserName: username,
       Password: password
     }
-    console.log(authData)
-    dispatch(loginUser(authData))
+    
+    
 
     if (username && password) {
-      // get return url from location state or default to home page
-      // dispatch(loginUser(authData))
-      // dispatch(userActions.login(username, password))
+      dispatch(loginUser(authData))
     }
   }
   function handleChangeUsername (e, { value }) {

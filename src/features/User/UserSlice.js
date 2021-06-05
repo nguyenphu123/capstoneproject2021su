@@ -36,8 +36,6 @@ export const loginUser = authData => async dispatch => {
       headers: { 'content-type': 'application/json' },
       data: JSON.stringify(authData)
     }).then(res => {
-      console.log(res)
-      console.log(res.data)
       dispatch(loginSuccess(res.data))
     })
   } catch (e) {

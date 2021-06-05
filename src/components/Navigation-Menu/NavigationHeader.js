@@ -6,7 +6,8 @@ import {
   Image,
   Menu,
   Search,
-  Icon
+  Icon,
+  Button
 } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
@@ -41,7 +42,10 @@ function NavigationHeader () {
       setCategorylist(res.data)
     })
   }, [])
-
+  console.log(UserSlice)
+  function Logout () {
+    dispatch(logout())
+  }
   return (
     <>
       <Menu fixed='top' style={fixedMenuStyle} inverted>
@@ -67,7 +71,6 @@ function NavigationHeader () {
           <Menu.Item>
             <Link to='/ImageUploading'>Search With Image</Link>
           </Menu.Item>
-
           <Dropdown text='Shopping' item simple>
             <Dropdown.Menu style={DropdownTheme}>
               {categorylist.map(({ Id, Name }) => (
@@ -101,6 +104,7 @@ function NavigationHeader () {
             // value={value}
             />
           </Menu.Item>
+
           {UserSlice === null ? (
             <>
               <Menu.Item>
@@ -121,25 +125,17 @@ function NavigationHeader () {
                 }
               >
                 <Dropdown.Menu style={UserDropdown}>
-                  <Dropdown.Item disabled>
-                    <span>
-                      Signed in as <strong>{UserSlice.Name}</strong>
-                    </span>
-                  </Dropdown.Item>
                   <Dropdown.Item>
                     <Link to='/Profile'>Profile</Link>
                   </Dropdown.Item>
                   <Dropdown.Item>
                     <Link to='/OrderHistory'>Orders</Link>
                   </Dropdown.Item>
-                  <Dropdown.Item onclick={dispatch(logout())}>
-                    Sign out
-                  </Dropdown.Item>
+                  <Dropdown.Item onclick={Logout}>Sign out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Item>
           )}
-
           <Menu.Item>
             <Link to='/'>
               <span class='icon_heart_alt'></span>

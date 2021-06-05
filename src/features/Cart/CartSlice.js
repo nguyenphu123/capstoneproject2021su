@@ -14,12 +14,16 @@ const CartSlice = createSlice({
     updateCart: (state, action) => {
       state.cart = action.payload
       localStorage.setItem('cart', JSON.stringify(action.payload))
+    },
+    emptyMyCart: (state, action) => {
+      state.cart = []
+      localStorage.setItem('cart', JSON.stringify(action.payload))
     }
   }
 })
 export default CartSlice.reducer
 // Actions
-const { updateCart } = CartSlice.actions
+const { updateCart, emptyMyCart } = CartSlice.actions
 export const cart = cart => async dispatch => {
   try {
     dispatch(updateCart(cart))
@@ -27,9 +31,10 @@ export const cart = cart => async dispatch => {
     return console.error(e.message)
   }
 }
-// export const logout = () => async dispatch => {
-//   try {
-//     return dispatch(logoutSuccess())
-//   } catch (e) {
-//     return console.error(e.message)
-//   }
+export const emptyCart = () => async dispatch => {
+  try {
+    return dispatch(emptyMyCart())
+  } catch (e) {
+    return console.error(e.message)
+  }
+}

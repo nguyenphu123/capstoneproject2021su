@@ -23,6 +23,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 import ReactDOM from 'react-dom'
+const mapDispatch = { cart }
 
 function ProductInformation () {
   const { productId } = useParams()

@@ -6,6 +6,7 @@ import { cart } from '../../features/Cart/CartSlice'
 const paragraph = (
   <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
 )
+const mapDispatch = { cart }
 
 function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
   const dispatch = useDispatch()

@@ -9722,6 +9722,13 @@ react-chat-widget@^3.0.5:
     react-redux "^7.2.0"
     redux "^4.0.5"
 
+react-delay-render@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-delay-render/-/react-delay-render-0.1.2.tgz#f771003044a3772e8ff11084577633e34f3e9a6f"
+  integrity sha512-OB+by1CMwakv8OHl3qvInb6ReA1NydI1AEKNaESMRVJnmfylolH5S4m1nZV65yVqBfZLEwjx33L3J4YTM1p0oA==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
