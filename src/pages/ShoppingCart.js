@@ -23,6 +23,12 @@ function ShoppingCart () {
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [isLogin, setIsLogin] = useState(true)
+  const [currentAddress, setCurrentAddress] = useState('')
+  const [isEdit, setIsEdit] = useState(true)
+
+  useEffect(() => {
+    setCurrentAddress(UserSlice.Addres)
+  }, [UserSlice])
 
   if (CartSlice !== null) {
     function onSubmit () {
@@ -43,7 +49,7 @@ function ShoppingCart () {
         const order = {
           UserId: UserSlice.Id,
           TotalPrice: totalPrice,
-          AddressShipping: 'string',
+          AddressShipping: currentAddress,
           Date: '2021-06-04T10:16:09.015Z',
           Status: true,
           OrderDetails: CartSlice
@@ -61,6 +67,10 @@ function ShoppingCart () {
         console.log(isLogin)
       }
     }
+    function setEdit () {
+      setIsEdit(!isEdit)
+    }
+
     if (isLogin) {
       return (
         <div
@@ -89,6 +99,13 @@ function ShoppingCart () {
               </Grid.Column>
 
               <Grid.Column verticalAlign='middle'>
+                <Input
+                  disabled={isEdit}
+                  defaultValue={currentAddress}
+                  action={<Button onClick={setEdit()}></Button>}
+                  actionPosition='right'
+                />
+
                 <div class='footer__payment'>
                   <a href='/'>
                     <Visa style={{ width: 50 }} />
@@ -110,7 +127,7 @@ function ShoppingCart () {
                 <Button onClick={onSubmit} animated>
                   <Button.Content visible>Finish</Button.Content>
                   <Button.Content hidden>
-                    <Icon name='shop' />
+                    <Icon name='shopping bag' />
                   </Button.Content>
                 </Button>
               </Grid.Column>
