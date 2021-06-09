@@ -14,6 +14,7 @@ function OrderHistory () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      setHistorylist(res.data)
     })
   }, [])
   const Options = [
@@ -48,7 +49,7 @@ function OrderHistory () {
       render: () => (
         <Tab.Pane attached={false}>
           <Dropdown
-            placeholder='Select Country'
+            placeholder='Select period'
             fluid
             search
             selection
