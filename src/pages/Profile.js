@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import { UserInformation, UserNewPassword } from '../components/UserProfile'
 import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
@@ -22,7 +22,11 @@ function Profile () {
   const panes = [
     {
       menuItem: 'Information',
-      render: () => <Tab.Pane>Tab 1 Content</Tab.Pane>
+      render: () => (
+        <Tab.Pane>
+          <UserInformation />
+        </Tab.Pane>
+      )
     },
     { menuItem: 'Addresses', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
     {
@@ -31,7 +35,11 @@ function Profile () {
     },
     {
       menuItem: 'Change Password',
-      render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>
+      render: () => (
+        <Tab.Pane>
+          <UserNewPassword />
+        </Tab.Pane>
+      )
     }
   ]
 

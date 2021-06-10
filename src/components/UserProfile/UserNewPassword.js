@@ -11,24 +11,38 @@ function UserNewPassword () {
   return (
     <Form>
       <Form.Group widths='equal'>
-        <Form.Field
-          id='form-input-control-first-name'
-          control={Input}
-          label='First name'
-          placeholder='First name'
+        <Form.Input
+          fluid
+          icon='lock'
+          iconPosition='left'
+          placeholder='Password'
+          type='password'
+          value={password}
+          onChange={handleChangePassword}
         />
-        <Form.Field
-          id='form-input-control-last-name'
-          control={Input}
-          label='Last name'
-          placeholder='Last name'
+
+        <Form.Input
+          fluid
+          icon='lock'
+          iconPosition='left'
+          placeholder='Password'
+          type='password'
+          value={password}
+          onChange={handleChangePassword}
         />
-        <Form.Field
-          id='form-input-control-last-name'
-          control={Input}
-          label='Last name'
-          placeholder='Last name'
+
+        <Form.Input
+          fluid
+          icon='lock'
+          iconPosition='left'
+          placeholder='Password'
+          type='password'
+          value={password}
+          onChange={handleChangePassword}
         />
+        <Button color='pink' fluid size='large'>
+          Change
+        </Button>
       </Form.Group>
     </Form>
   )

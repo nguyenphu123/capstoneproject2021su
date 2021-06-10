@@ -14,6 +14,8 @@ import CategoryList from './pages/CategoryList'
 import ShoppingCart from './pages/ShoppingCart'
 import OrderHistory from './pages/OrderHistory'
 import OrderDetail from './pages/OrderDetail'
+import Profile from './pages/Profile'
+import PaymentConfirm from './pages/PaymentConfirm'
 import RegistrationPage from './pages/RegistrationPage'
 import 'react-chat-widget/lib/styles.css'
 import { BrowserRouter } from 'react-router-dom'
@@ -57,10 +59,8 @@ function App () {
               <Widget />
               <Footers />
             </Route>
-            <Route path='/Category/:categoryId'>
-              <Ads />
-              <Categories />
-              <CategoryPage topic={'Category2'} />
+            <Route path='/Profille/:userId'>
+              <Profile />
               <Widget />
               <Footers />
             </Route>
@@ -78,6 +78,12 @@ function App () {
               <Widget />
               <Footers />
             </Route>
+            <Route path='/PaymentInfo'>
+              <PaymentConfirm />
+              <Widget />
+              <Footers />
+            </Route>
+
             <Route path='/' exact>
               <Ads />
               <Categories />

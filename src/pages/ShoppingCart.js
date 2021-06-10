@@ -34,38 +34,38 @@ function ShoppingCart () {
     function onSubmit () {
       console.log(UserSlice)
 
-      if (UserSlice !== null) {
-        //reference the element in the "JSON" aka object literal we want
+      // if (UserSlice !== null) {
+      //   //reference the element in the "JSON" aka object literal we want
 
-        //loop through the array
+      //   //loop through the array
 
-        const totalPrice = CartSlice.reduce(
-          (accumulator, currentValue) =>
-            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-          0
-        )
-        //Do the math!
+      //   const totalPrice = CartSlice.reduce(
+      //     (accumulator, currentValue) =>
+      //       accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+      //     0
+      //   )
+      //   //Do the math!
 
-        const order = {
-          UserId: UserSlice.Id,
-          TotalPrice: totalPrice,
-          AddressShipping: currentAddress,
-          Date: '2021-06-04T10:16:09.015Z',
-          Status: true,
-          OrderDetails: CartSlice
-        }
-        axios({
-          method: 'post',
-          url: '/api/order-management/users/orders',
-          headers: { 'content-type': 'application/json' },
-          data: JSON.stringify(order)
-        }).then(res => {
-          dispatch(emptyCart())
-        })
-      } else {
-        setIsLogin(false)
-        console.log(isLogin)
-      }
+      //   const order = {
+      //     UserId: UserSlice.Id,
+      //     TotalPrice: totalPrice,
+      //     AddressShipping: currentAddress,
+      //     Date: '2021-06-04T10:16:09.015Z',
+      //     Status: true,
+      //     OrderDetails: CartSlice
+      //   }
+      //   axios({
+      //     method: 'post',
+      //     url: '/api/order-management/users/orders',
+      //     headers: { 'content-type': 'application/json' },
+      //     data: JSON.stringify(order)
+      //   }).then(res => {
+      //     dispatch(emptyCart())
+      //   })
+      // } else {
+      //   setIsLogin(false)
+      //   console.log(isLogin)
+      // }
     }
     function setEdit () {
       setIsEdit(!isEdit)
@@ -99,13 +99,6 @@ function ShoppingCart () {
               </Grid.Column>
 
               <Grid.Column verticalAlign='middle'>
-                <Input
-                  disabled={isEdit}
-                  defaultValue={currentAddress}
-                  action={<Button onClick={setEdit()}></Button>}
-                  actionPosition='right'
-                />
-
                 <div class='footer__payment'>
                   <a href='/'>
                     <Visa style={{ width: 50 }} />
@@ -124,7 +117,7 @@ function ShoppingCart () {
                   </a>
                 </div>
 
-                <Button onClick={onSubmit} animated>
+                <Button  animated as='a' href='/PaymentInfo'>
                   <Button.Content visible>Finish</Button.Content>
                   <Button.Content hidden>
                     <Icon name='shopping bag' />

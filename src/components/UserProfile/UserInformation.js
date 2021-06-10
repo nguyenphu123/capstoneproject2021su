@@ -32,17 +32,12 @@ function UserInformation () {
           searchInput={{ id: 'form-select-control-gender' }}
         />
       </Form.Group>
-      <Form.Field
-        id='form-input-control-first-name'
-        control={Input}
-        label='First name'
-        placeholder='First name'
-      />
+      
       <Form.Field
         id='form-input-control-error-email'
         control={Input}
         label='Email'
-        placeholder='joe@schmoe.com'
+        placeholder='email'
         error={{
           content: 'Please enter a valid email address',
           pointing: 'below'
@@ -51,15 +46,12 @@ function UserInformation () {
       <Form.Field
         id='form-input-control-first-name'
         control={Input}
-        label='First name'
-        placeholder='First name'
+        label='Phone number'
+        placeholder='Phone number'
       />
-      <Form.Field
-        id='form-button-control-public'
-        control={Button}
-        content='Confirm'
-        label='Label with htmlFor'
-      />
+      <Button color='pink' fluid size='large'>
+        Confirm
+      </Button>
     </Form>
   )
 }
