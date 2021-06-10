@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -24,6 +26,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select-search": "^3.0.7",
+    "react-step-wizard": "^5.3.6",
     "redux-persist": "^6.0.0",
     "rsuite": "^4.10.1",
     "semantic-ui-carousel-react": "^1.1.3",

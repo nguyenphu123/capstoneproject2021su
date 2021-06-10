@@ -1,5 +1,13 @@
-import React from 'react'
-import { Icon, Image, Segment, Step, Form, Button } from 'semantic-ui-react'
+import {
+  Icon,
+  Image,
+  Segment,
+  Form,
+  Button,
+  Checkbox,
+  Input,
+  Grid
+} from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { emptyCart } from '../features/Cart/CartSlice'
@@ -10,6 +18,7 @@ import axios from 'axios'
 const mapDispatch = { emptyCart }
 
 function PaymentConfirm () {
+  const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [isLogin, setIsLogin] = useState(true)
@@ -18,7 +27,7 @@ function PaymentConfirm () {
   const [shipOption, setShipOption] = useState('')
 
   useEffect(() => {
-    setCurrentAddress(UserSlice.Addres)
+    setCurrentAddress(UserSlice.Address)
   }, [UserSlice])
 
   if (CartSlice !== null) {
@@ -41,7 +50,7 @@ function PaymentConfirm () {
           UserId: UserSlice.Id,
           TotalPrice: totalPrice,
           AddressShipping: currentAddress,
-          Date: '2021-06-04T10:16:09.015Z',
+          Date: new Date() + '',
           Status: true,
           OrderDetails: CartSlice
         }
@@ -62,78 +71,78 @@ function PaymentConfirm () {
       setIsEdit(!isEdit)
     }
     function handleChange (e, { value }) {
-      setShipOption()
+      setShipOption(value)
     }
 
     if (isLogin) {
       return (
-        <div>
-          <Step.Group attached='top'>
-            <Step>
-              <Icon name='truck' />
-              <Step.Content>
-                <Step.Title>Shipping</Step.Title>
-                <Step.Description>
-                  Choose your shipping options
-                  <Form>
-                    <Form.Field>
-                      <Checkbox
-                        radio
-                        label='pay on delivery'
-                        name='checkboxRadioGroup'
-                        value='pay on delivery'
-                        checked={shipOption === 'pay on delivery'}
-                        onChange={handleChange}
-                      />
-                    </Form.Field>
-                    <Form.Field>
-                      <Checkbox
-                        radio
-                        label='pay with paypal'
-                        name='checkboxRadioGroup'
-                        value='that'
-                        checked={shipOption === 'pay with paypal'}
-                        onChange={handleChange}
-                      />
-                    </Form.Field>
-                  </Form>
-                </Step.Description>
-              </Step.Content>
-            </Step>
-
+        <Grid
+          textAlign='center'
+          style={{ height: '100vh' }}
+          verticalAlign='middle'
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            Choose your shipping options
+            <Form>
+              <Form.Field>
+                <Checkbox
+                  radio
+                  label='pay on delivery'
+                  name='checkboxRadioGroup'
+                  value='pay on delivery'
+                  checked={shipOption === 'pay on delivery'}
+                  onChange={handleChange}
+                />
+              </Form.Field>
+              <Form.Field>
+                <Checkbox
+                  radio
+                  label='pay with paypal'
+                  name='checkboxRadioGroup'
+                  value='pay with paypal'
+                  checked={shipOption === 'pay with paypal'}
+                  onChange={handleChange}
+                />
+              </Form.Field>
+            </Form>
             {shipOption === 'pay with paypal' ? (
-              <Step active>
-                <Icon name='payment' />
-                <Step.Content>
-                  <Step.Title>Paypal information</Step.Title>
-                  <Step.Description></Step.Description>
-                </Step.Content>
-              </Step>
+              <Form size='large'>
+                <Segment stacked>
+                  <Form.Input
+                    fluid
+                    icon='user'
+                    iconPosition='left'
+                    placeholder='E-mail address'
+                  />
+                  <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                  />
+
+                  <Button color='pink' fluid size='large'>
+                    Done
+                  </Button>
+                </Segment>
+              </Form>
             ) : null}
-
-            <Step active>
-              <Icon name='info' />
-              <Step.Content>
-                <Step.Title>Confirm Order</Step.Title>
-              </Step.Content>
-            </Step>
-          </Step.Group>
-
-          <Segment attached>
             <Input
               disabled={isEdit}
               defaultValue={currentAddress}
-              action={<Button onClick={setEdit()}></Button>}
+              action={<Button onClick={setEdit}>Edit</Button>}
               actionPosition='right'
             />
+            <br />
             <Button animated onClick={onSubmit}>
               <Button.Content visible>Finish</Button.Content>
               <Button.Content hidden>
                 <Icon name='shopping bag' />
               </Button.Content>
             </Button>
-          </Segment>
-        </div>
+          </Grid.Column>
+        </Grid>
       )
     }
     return <Redirect to={'/Login'} />

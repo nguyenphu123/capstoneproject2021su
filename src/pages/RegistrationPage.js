@@ -138,7 +138,7 @@ function RegistrationPage () {
               value={matchPassword}
               onChange={handleChangeMatchPassword}
             />
-            ;
+
             <Form.Input
               fluid
               required
