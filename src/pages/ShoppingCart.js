@@ -6,7 +6,10 @@ import {
   Divider,
   Grid,
   Segment,
-  Icon
+  Icon,
+  Form,
+  Checkbox,
+  Input
 } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -25,50 +28,59 @@ function ShoppingCart () {
   const [isLogin, setIsLogin] = useState(true)
   const [currentAddress, setCurrentAddress] = useState('')
   const [isEdit, setIsEdit] = useState(true)
+  const [finishBuy, setFinishBuy] = useState(false)
+ 
+  const [shipOption, setShipOption] = useState('')
 
   useEffect(() => {
     setCurrentAddress(UserSlice.Addres)
   }, [UserSlice])
-
+  if (finishBuy) {
+    return <Redirect to={'/'} />
+  }
   if (CartSlice !== null) {
     function onSubmit () {
       console.log(UserSlice)
 
-      // if (UserSlice !== null) {
-      //   //reference the element in the "JSON" aka object literal we want
+      if (UserSlice !== null) {
+        //reference the element in the "JSON" aka object literal we want
 
-      //   //loop through the array
+        //loop through the array
 
-      //   const totalPrice = CartSlice.reduce(
-      //     (accumulator, currentValue) =>
-      //       accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-      //     0
-      //   )
-      //   //Do the math!
+        const totalPrice = CartSlice.reduce(
+          (accumulator, currentValue) =>
+            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+          0
+        )
+        //Do the math!
 
-      //   const order = {
-      //     UserId: UserSlice.Id,
-      //     TotalPrice: totalPrice,
-      //     AddressShipping: currentAddress,
-      //     Date: '2021-06-04T10:16:09.015Z',
-      //     Status: true,
-      //     OrderDetails: CartSlice
-      //   }
-      //   axios({
-      //     method: 'post',
-      //     url: '/api/order-management/users/orders',
-      //     headers: { 'content-type': 'application/json' },
-      //     data: JSON.stringify(order)
-      //   }).then(res => {
-      //     dispatch(emptyCart())
-      //   })
-      // } else {
-      //   setIsLogin(false)
-      //   console.log(isLogin)
-      // }
+        const order = {
+          UserId: UserSlice.Id,
+          TotalPrice: totalPrice,
+          AddressShipping: currentAddress,
+          Date: '2021-06-04T10:16:09.015Z',
+          Status: true,
+          OrderDetails: CartSlice
+        }
+        axios({
+          method: 'post',
+          url: '/api/order-management/users/orders',
+          headers: { 'content-type': 'application/json' },
+          data: JSON.stringify(order)
+        }).then(res => {
+          dispatch(emptyCart())
+          setFinishBuy(true)
+        })
+      } else {
+        setIsLogin(false)
+        console.log(isLogin)
+      }
     }
     function setEdit () {
       setIsEdit(!isEdit)
+    }
+    function handleChange (e, { value }) {
+      setShipOption(value)
     }
 
     if (isLogin) {
@@ -116,8 +128,61 @@ function ShoppingCart () {
                     <GrabPay style={{ width: 50 }} />
                   </a>
                 </div>
+                Choose your shipping options
+                <Form>
+                  <Form.Field>
+                    <Checkbox
+                      radio
+                      label='pay on delivery'
+                      name='checkboxRadioGroup'
+                      value='pay on delivery'
+                      checked={shipOption === 'pay on delivery'}
+                      onChange={handleChange}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Checkbox
+                      radio
+                      label='pay with paypal'
+                      name='checkboxRadioGroup'
+                      value='pay with paypal'
+                      checked={shipOption === 'pay with paypal'}
+                      onChange={handleChange}
+                    />
+                  </Form.Field>
+                </Form>
+                {shipOption === 'pay with paypal' ? (
+                  <Form size='large'>
+                    Comming soon
+                    {/* <Segment stacked>
+                  <Form.Input
+                    fluid
+                    icon='user'
+                    iconPosition='left'
+                    placeholder='Paypal account'
+                  />
+                  <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                  />
 
-                <Button  animated as='a' href='/PaymentInfo'>
+                  <Button color='pink' fluid size='large'>
+                    Done
+                  </Button>
+                </Segment> */}
+                  </Form>
+                ) : null}
+                <Input
+                  disabled={isEdit}
+                  defaultValue={currentAddress}
+                  action={<Button onClick={setEdit}>Edit</Button>}
+                  actionPosition='right'
+                />
+                <br />
+                <Button animated onClick={onSubmit}>
                   <Button.Content visible>Finish</Button.Content>
                   <Button.Content hidden>
                     <Icon name='shopping bag' />

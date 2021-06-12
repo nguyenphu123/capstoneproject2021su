@@ -29,8 +29,10 @@ function PaymentConfirm () {
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
   }, [UserSlice])
-
+  console.log(CartSlice)
   if (CartSlice !== null) {
+    console.log(CartSlice)
+
     function onSubmit () {
       console.log(UserSlice)
 
@@ -50,7 +52,10 @@ function PaymentConfirm () {
           UserId: UserSlice.Id,
           TotalPrice: totalPrice,
           AddressShipping: currentAddress,
-          Date: new Date() + '',
+          Date: new Date()
+            .toISOString()
+            .slice(0, 19)
+            .replace('T', ' '),
           Status: true,
           OrderDetails: CartSlice
         }
@@ -107,12 +112,13 @@ function PaymentConfirm () {
             </Form>
             {shipOption === 'pay with paypal' ? (
               <Form size='large'>
-                <Segment stacked>
+                Comming soon
+                {/* <Segment stacked>
                   <Form.Input
                     fluid
                     icon='user'
                     iconPosition='left'
-                    placeholder='E-mail address'
+                    placeholder='Paypal account'
                   />
                   <Form.Input
                     fluid
@@ -125,7 +131,7 @@ function PaymentConfirm () {
                   <Button color='pink' fluid size='large'>
                     Done
                   </Button>
-                </Segment>
+                </Segment> */}
               </Form>
             ) : null}
             <Input
@@ -146,9 +152,9 @@ function PaymentConfirm () {
       )
     }
     return <Redirect to={'/Login'} />
+  } else {
+    return <Redirect to={'/'} />
   }
-
-  return <Redirect to={'/'} />
 }
 
 export default PaymentConfirm

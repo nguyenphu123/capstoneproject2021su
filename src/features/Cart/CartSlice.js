@@ -16,7 +16,7 @@ const CartSlice = createSlice({
       localStorage.setItem('cart', JSON.stringify(action.payload))
     },
     emptyMyCart: (state, action) => {
-      state.cart = []
+      
       localStorage.removeItem('cart')
     }
   }
