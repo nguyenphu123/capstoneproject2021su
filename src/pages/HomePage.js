@@ -6,12 +6,17 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 function HomePage () {
   return (
     <div>
+      <SaleOff />
+
       <VerticalItemList
         topic='New Product'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
       />
+      <VerticalItemList
+        topic='You may like'
+        apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
+      />
 
-      <SaleOff />
       <section class='trend spad'>
         <div class='container'>
           <div class='row'>

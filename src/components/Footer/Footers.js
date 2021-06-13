@@ -40,14 +40,14 @@ function Footers () {
         </div>
       </section>
 
-      <footer class='footer'>
+      <footer class='footer' style={{ backgroundColor: '#f4f5f5' }}>
         <div class='container'>
           <div class='row'>
             <div class='col-lg-4 col-md-6 col-sm-7'>
               <div class='footer__about'>
                 <div class='footer__logo'>
                   <a href='/'>
-                    <img src='assets/img/logo.png' alt='' />
+                    {/* <img src='assets/img/logo.png' alt='' /> */}
                   </a>
                 </div>
                 <p>

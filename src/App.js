@@ -19,82 +19,86 @@ import PaymentConfirm from './pages/PaymentConfirm'
 import RegistrationPage from './pages/RegistrationPage'
 import 'react-chat-widget/lib/styles.css'
 import { BrowserRouter } from 'react-router-dom'
+import FadeIn from 'react-fade-in'
+
 function App () {
   return (
-    <BrowserRouter>
-      <div className='App'>
-        <div className='maincontainer'>
-          <NavigationHeader />
-          <Switch>
-            <Route path='/Login'>
-              <LoginPage />
-              <Footers />
-            </Route>
-            <Route path='/Registration'>
-              <RegistrationPage />
-              <Footers />
-            </Route>
-            <Route path='/Category/:categoryId'>
-              <Ads />
-              <Categories />
-              <CategoryPage topic={'Category1'} />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/Categories'>
-              <Ads />
-              <CategoryList />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/ImageUploading'>
-              <Ads />
-              <Categories />
-              <ImageUploadingPage />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/Product/:productId' exact>
-              <ProductDetail />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/Profille/:userId'>
-              <Profile />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/OrderHistory'>
-              <OrderHistory />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/OrderDetail/:id'>
-              <OrderDetail />
-              <Footers />
-            </Route>
-            <Route path='/Cart'>
-              <ShoppingCart />
-              <Widget />
-              <Footers />
-            </Route>
-            <Route path='/PaymentInfo'>
-              <PaymentConfirm />
-              <Widget />
-              <Footers />
-            </Route>
+    <FadeIn>
+      <BrowserRouter>
+        <div className='App'>
+          <div className='maincontainer'>
+            <NavigationHeader />
+            <Switch>
+              <Route path='/Login'>
+                <LoginPage />
+                <Footers />
+              </Route>
+              <Route path='/Registration'>
+                <RegistrationPage />
+                <Footers />
+              </Route>
+              <Route path='/Category/:categoryId'>
+                <Ads />
+                <Categories />
+                <CategoryPage topic={'Category1'} />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/Categories'>
+                <Ads />
+                <CategoryList />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/ImageUploading'>
+                <Ads />
+                <Categories />
+                <ImageUploadingPage />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/Product/:productId' exact>
+                <ProductDetail />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/Profille/:userId'>
+                <Profile />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/OrderHistory'>
+                <OrderHistory />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/OrderDetail/:id'>
+                <OrderDetail />
+                <Footers />
+              </Route>
+              <Route path='/Cart'>
+                <ShoppingCart />
+                <Widget />
+                <Footers />
+              </Route>
+              <Route path='/PaymentInfo'>
+                <PaymentConfirm />
+                <Widget />
+                <Footers />
+              </Route>
 
-            <Route path='/' exact>
-              <Ads />
-              <Categories />
-              <HomePage />
-              <Widget />
-              <Footers />
-            </Route>
-          </Switch>
+              <Route path='/' exact>
+                <Ads />
+                {/* <Categories /> */}
+                <HomePage />
+                <Widget />
+                <Footers />
+              </Route>
+            </Switch>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </FadeIn>
   )
 }
 

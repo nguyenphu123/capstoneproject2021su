@@ -19,6 +19,8 @@ const UserSlice = createSlice({
     },
     logoutSuccess: (state, action) => {
       state.user = null
+      console.log('hello')
+
       localStorage.removeItem('user')
     }
   }
@@ -44,6 +46,8 @@ export const loginUser = authData => async dispatch => {
 }
 export const logout = () => async dispatch => {
   try {
+    console.log('hello')
+
     return dispatch(logoutSuccess())
   } catch (e) {
     return console.error(e.message)

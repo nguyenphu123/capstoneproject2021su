@@ -33,6 +33,12 @@ body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+.item {
+  color: #ffffff;
+}
+.item a {
+  color: #ffffff;
+}
 
 h1,
 h2,
@@ -78,9 +84,8 @@ p {
   line-height: 24px;
   margin: 0 0 15px 0;
 }
-a{
+a {
   color: rgb(0, 0, 0);
-
 }
 input:focus,
 select:focus,
@@ -100,6 +105,13 @@ ul,
 ol {
   padding: 0;
   margin: 0;
+}
+.ui.container {
+  /* overflow: auto; */
+  white-space: nowrap;
+}
+.ui.card {
+  display: inline-block;
 }
 
 /*---------------------
@@ -139,7 +151,6 @@ ol {
   padding-bottom: 100px;
 }
 
-
 /* buttons */
 
 .primary-btn {
@@ -148,13 +159,13 @@ ol {
   text-transform: uppercase;
   font-weight: 600;
   padding: 12px 30px 10px;
-  color: #ffffff;
+  color: #161414;
   background: #ca1515;
 }
 
 .site-btn {
   font-size: 14px;
-  color: #ffffff;
+  color: #161414;
   background: #ca1515;
   font-weight: 600;
   border: none;
@@ -163,80 +174,6 @@ ol {
   padding: 12px 30px;
   border-radius: 50px;
 }
-
-/* Preloder */
-
-#preloder {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  background: #ffffff;
-}
-
-.loader {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -13px;
-  margin-left: -13px;
-  border-radius: 60px;
-  animation: loader 0.8s linear infinite;
-  -webkit-animation: loader 0.8s linear infinite;
-}
-
-@keyframes loader {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-    border: 4px solid #f44336;
-    border-left-color: transparent;
-  }
-  50% {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-    border: 4px solid #673ab7;
-    border-left-color: transparent;
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-    border: 4px solid #f44336;
-    border-left-color: transparent;
-  }
-}
-
-@-webkit-keyframes loader {
-  0% {
-    -webkit-transform: rotate(0deg);
-    border: 4px solid #f44336;
-    border-left-color: transparent;
-  }
-  50% {
-    -webkit-transform: rotate(180deg);
-    border: 4px solid #673ab7;
-    border-left-color: transparent;
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    border: 4px solid #f44336;
-    border-left-color: transparent;
-  }
-}
-
-.input-group.md-form.form-sm.form-1 input {
-  border: 1px solid #bdbdbd;
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-
-
-
-
 
 /*---------------------
   Image
@@ -534,8 +471,6 @@ ol {
   margin-bottom: 0;
 }
 
-
-
 /*---------------------
   Instagram
 -----------------------*/
@@ -743,8 +678,6 @@ ol {
 .footer__copyright__text a:hover {
   color: #ca1515;
 }
-
-
 
 /*---------------------
   Product
@@ -956,8 +889,6 @@ ol {
   height: 500px;
   object-fit: cover;
 }
-
-
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
