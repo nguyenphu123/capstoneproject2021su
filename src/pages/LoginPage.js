@@ -6,7 +6,9 @@ import {
   Header,
   Image,
   Message,
-  Segment
+  Segment,
+  Divider,
+  Icon
 } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginUser, logout } from '../features/User/UserSlice'
@@ -50,13 +52,11 @@ function LoginPage () {
 
   function handleSubmit (e) {
     // e.preventDefault()
-    
+
     const authData = {
       UserName: username,
       Password: password
     }
-    
-    
 
     if (username && password) {
       dispatch(loginUser(authData))
@@ -73,45 +73,65 @@ function LoginPage () {
     return <Redirect to={'/'} />
   } else {
     return (
-      <Grid
-        textAlign='center'
-        style={{ height: '100vh' }}
-        verticalAlign='middle'
-      >
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as='h2' color='teal' textAlign='center'>
-            <Image src='/logo.png' /> Log-in to your account
-          </Header>
-          <Form size='large' onSubmit={handleSubmit}>
-            <Segment stacked>
-              <Form.Input
-                fluid
-                icon='user'
-                iconPosition='left'
-                placeholder='E-mail address'
-                value={username}
-                onChange={handleChangeUsername}
-              />
-              <Form.Input
-                fluid
-                icon='lock'
-                iconPosition='left'
-                placeholder='Password'
-                type='password'
-                value={password}
-                onChange={handleChangePassword}
-              />
+      <Segment placeholder>
+        <Grid columns={2} relaxed='very' stackable>
+          <Grid.Column>
+            <Header as='h2' color='teal' textAlign='center'>
+              <Image src='/logo.png' /> Log-in to your account
+            </Header>
+            <Form size='large' onSubmit={handleSubmit}>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='E-mail address'
+                  value={username}
+                  onChange={handleChangeUsername}
+                />
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  type='password'
+                  value={password}
+                  onChange={handleChangePassword}
+                />
 
-              <Button color='pink' fluid size='large'>
-                Login
-              </Button>
-            </Segment>
-          </Form>
-          <Message>
-            New to us? <a href='/Registration'>Sign Up</a>
-          </Message>
-        </Grid.Column>
-      </Grid>
+                <Button color='pink' fluid size='large'>
+                  Login
+                </Button>
+              </Segment>
+            </Form>
+            <Message>
+              New to us? <a href='/Registration'>Sign Up</a>
+            </Message>
+          </Grid.Column>
+          <Grid.Column verticalAlign='middle'>
+          Login with
+            <Button
+              color='facebook'
+              style={{ width: '150px', marginTop: '10px' }}
+            >
+              <Icon name='facebook' /> Facebook
+            </Button>
+            <Button
+              color='twitter'
+              style={{ width: '150px', marginTop: '10px' }}
+            >
+              <Icon name='twitter' /> Twitter
+            </Button>
+            <Button
+              color='google plus'
+              style={{ width: '150px', marginTop: '10px' }}
+            >
+              <Icon name='google plus' /> Google Plus
+            </Button>
+          </Grid.Column>
+        </Grid>
+        <Divider vertical>Or</Divider>
+      </Segment>
     )
   }
 }

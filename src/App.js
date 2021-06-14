@@ -25,7 +25,13 @@ function App () {
   return (
     <FadeIn>
       <BrowserRouter>
-        <div className='App'>
+        <div
+          className='App'
+          style={{
+            width: '80%',
+            marginLeft: '180px'
+          }}
+        >
           <div className='maincontainer'>
             <NavigationHeader />
             <Switch>
@@ -39,7 +45,7 @@ function App () {
               </Route>
               <Route path='/Category/:categoryId'>
                 <Ads />
-                <Categories />
+
                 <CategoryPage topic={'Category1'} />
                 <Widget />
                 <Footers />

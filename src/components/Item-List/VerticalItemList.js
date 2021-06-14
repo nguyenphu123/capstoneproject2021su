@@ -2,7 +2,7 @@ import '../../App.css'
 import React from 'react'
 import VerticalItem from './VerticalItem'
 import axios from 'axios'
-import { Pagination } from 'semantic-ui-react'
+import { Pagination, Card, Button } from 'semantic-ui-react'
 
 class VerticalItemList extends React.Component {
   constructor () {
@@ -37,7 +37,7 @@ class VerticalItemList extends React.Component {
                 <h4>{this.props.topic}</h4>
               </div>
             </div>
-            <div class='row'>
+            <Card.Group itemsPerRow={6}>
               {this.state.products.map(
                 ({
                   Id,
@@ -62,10 +62,10 @@ class VerticalItemList extends React.Component {
                   />
                 )
               )}
-            </div>
+            </Card.Group>
+            
           </div>
         </section>
-        {/* <Pagination defaultActivePage={1} totalPages={10} /> */}
       </>
     )
   }

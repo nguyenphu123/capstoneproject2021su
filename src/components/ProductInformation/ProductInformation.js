@@ -69,14 +69,14 @@ function ProductInformation () {
   console.log(product)
   if (currentState) {
     return (
-      <div style={{ marginLeft: '200px', marginTop: '100px', width: '1500px' }}>
-        <Grid celled>
+      <div style={{ marginTop: '100px', width: '1500px' }}>
+        <Grid>
           <Grid.Row>
             <Grid.Column width={5}>
               <Image src={product.ImageStorages[0].ImageUrl} />
             </Grid.Column>
             <Grid.Column width={11}>
-              <Grid celled>
+              <Grid>
                 <Grid.Row>[ORDER]{product.Name}</Grid.Row>
 
                 <Grid.Row>
@@ -311,12 +311,12 @@ function ProductInformation () {
           <Grid.Column width={11}>
             <VerticalItemList
               topic='Relative products'
-              apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
+              apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
             />
 
             <VerticalItemList
               topic='You may like'
-              apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1'}
+              apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
             />
           </Grid.Column>
         </Grid>

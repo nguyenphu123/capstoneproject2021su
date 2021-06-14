@@ -40,7 +40,7 @@ function Footers () {
         </div>
       </section>
 
-      <footer class='footer' style={{ backgroundColor: '#f4f5f5' }}>
+      <footer class='footer' style={{ backgroundColor: '#ffffff' }}>
         <div class='container'>
           <div class='row'>
             <div class='col-lg-4 col-md-6 col-sm-7'>
