@@ -113,7 +113,8 @@ function NavigationHeader () {
   return (
     <div
       style={{
-        backgroundColor: '#f53d2d'
+        backgroundColor: '#f53d2d',width: '100%'
+
       }}
     >
       <React.Fragment>

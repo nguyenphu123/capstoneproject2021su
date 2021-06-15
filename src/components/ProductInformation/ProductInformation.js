@@ -12,13 +12,17 @@ import {
   Header,
   Rating,
   Statistic,
-  Message
+  Message,
+  Tab,
+  List
 } from 'semantic-ui-react'
 import VerticalItemList from '../Item-List/VerticalItemList'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { cart } from '../../features/Cart/CartSlice'
-
+import 'react-image-gallery/styles/css/image-gallery.css'
+import ImageGallery from 'react-image-gallery'
+import InputSpinner from 'react-bootstrap-input-spinner'
 import axios from 'axios'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
@@ -34,6 +38,7 @@ function ProductInformation () {
   const [shopCart, setShopCart] = useState([])
   const [currentState, setCurrentState] = useState(false)
   const [quantity, setQuantity] = useState(0)
+  const [images, setImages] = useState([])
 
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
@@ -45,12 +50,16 @@ function ProductInformation () {
       url: '/api/product-management/productId?productId=' + productId,
       headers: {}
     }).then(res => {
-      console.log(res)
-      console.log(res.data)
-
       setProduct(res.data)
-      console.log(product)
+      console.log(res.data.ImageStorages)
       setCurrentState(true)
+
+      setImages(
+        res.data.ImageStorages.map(({ ImageUrl }) => ({
+          original: `${ImageUrl}`,
+          thumbnail: `${ImageUrl}`
+        }))
+      )
     })
   }, [productId])
 
@@ -66,165 +75,24 @@ function ProductInformation () {
     shopCart.push(cartItem)
     dispatch(cart(shopCart))
   }
-  console.log(product)
-  if (currentState) {
-    return (
-      <div style={{ marginTop: '100px', width: '1500px' }}>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width={5}>
-              <Image src={product.ImageStorages[0].ImageUrl} />
-            </Grid.Column>
-            <Grid.Column width={11}>
-              <Grid>
-                <Grid.Row>[ORDER]{product.Name}</Grid.Row>
 
-                <Grid.Row>
-                  <Segment>
-                    Chưa Có Đánh Giá <Divider vertical></Divider> 1 Đã Bán{' '}
-                  </Segment>
-                </Grid.Row>
-                <Grid.Row>{product.CurrentPrice}</Grid.Row>
-                <Grid.Row>
-                  <Table definition>
-                    <Table.Body>
-                      <Table.Row>
-                        <Table.Cell width={2}>Size</Table.Cell>
-                        <Table.Cell>
-                          {product &&
-                            product.Sizes.map(({ Name, Id }) => (
-                              <Button
-                                label={{
-                                  color: Name,
-                                  empty: true,
-                                  circular: true
-                                }}
-                                text={Name}
-                                value={Id}
-                              />
-                            ))}
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Weight</Table.Cell>
-                        <Table.Cell>6 ounces</Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Color</Table.Cell>
-                        <Table.Cell>
-                          {product &&
-                            product.Colors.map(({ Name, Id }) => (
-                              <Button
-                                label={{
-                                  color: Name,
-                                  empty: true,
-                                  circular: true
-                                }}
-                                text={Name}
-                                value={Id}
-                              />
-                            ))}
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Odor</Table.Cell>
-                        <Table.Cell>Not Much Usually</Table.Cell>
-                      </Table.Row>
-                    </Table.Body>
-                  </Table>
-                </Grid.Row>
-                <Grid.Row>
-                  <div>
-                    <Button
-                      color='red'
-                      content='Like'
-                      icon='heart'
-                      label={{
-                        basic: true,
-                        color: 'red',
-                        pointing: 'left',
-                        content: '2,048'
-                      }}
-                    />
-                    <Button
-                      basic
-                      color='blue'
-                      content='Fork'
-                      icon='fork'
-                      label={{
-                        as: 'a',
-                        basic: true,
-                        color: 'blue',
-                        pointing: 'left',
-                        content: '2,048'
-                      }}
-                    />
-                  </div>
-                </Grid.Row>
-                <Grid.Row>
-                  <div>
-                    {/* <Button animated>
-                      <Button.Content visible>Next</Button.Content>
-                      <Button.Content hidden>
-                        <Icon name='arrow right' />
-                      </Button.Content>
-                    </Button> */}
-                    <Button onClick={addToCart} animated>
-                      <Button.Content visible>Shop</Button.Content>
-                      <Button.Content hidden>
-                        <Icon name='shop' />
-                      </Button.Content>
-                    </Button>
-                  </div>
-                </Grid.Row>
-                <Grid.Row>
-                  quantity
-                  <Button.Group>
-                    <Button
-                      icon='minus'
-                      onClick={() =>
-                        quantity === 0 ? (
-                          <Message
-                            error
-                            header='There was some errors with your submission'
-                            list={[
-                              'You must include both a upper and lower case letters in your password.',
-                              'You need to select your home country.'
-                            ]}
-                          />
-                        ) : (
-                          setQuantity(quantity - 1)
-                        )
-                      }
-                    />
-
-                    <Button
-                      icon='plus'
-                      onClick={() => setQuantity(quantity + 1)}
-                    />
-                  </Button.Group>
-                  <Statistic size='mini'>
-                    <Statistic.Value>{quantity}</Statistic.Value>
-                  </Statistic>
-                </Grid.Row>
-                <Grid.Row>
-                  <Rating maxRating={5} defaultRating={3} icon='star' />
-                </Grid.Row>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row>
-            <Grid>
-              {product &&
-                product.ImageStorages.map(({ ImageUrl }) => (
-                  <Grid.Column>
-                    <Image size='tiny' src={ImageUrl} />
-                  </Grid.Column>
-                ))}
-            </Grid>
-          </Grid.Row>
-          <Grid.Column centered width={11}>
-            <Grid.Row centered>
+  function updateNumberPicker (e) {
+    setQuantity(e.value + '')
+  }
+  const responsive = {
+    0: { items: 1 }
+  }
+  const panes = [
+    {
+      menuItem: 'Description',
+      render: () => <Tab.Pane>Tab 2 Content</Tab.Pane>
+    },
+    {
+      menuItem: 'Comments and Reviews',
+      render: () => (
+        <Tab.Pane>
+          
+            <Grid.Column >
               <Comment.Group>
                 <Header as='h3' dividing>
                   Comments
@@ -306,7 +174,172 @@ function ProductInformation () {
                   />
                 </Form>
               </Comment.Group>
-            </Grid.Row>
+            </Grid.Column>
+            <Grid.Column centered width={11}>
+              Comment rules
+            </Grid.Column>
+         
+        </Tab.Pane>
+      )
+    },
+
+    { menuItem: 'Q and A', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> }
+  ]
+
+  if (currentState) {
+    return (
+      <div style={{ marginTop: '100px', width: '1500px' }}>
+        <Grid>
+          <Grid.Row style={{ backgroundColor: '#ffffff' }}>
+            <Grid.Column width={5}>
+              {/* <AliceCarousel
+                responsive={responsive}
+                autoPlayInterval={2000}
+                autoPlayDirection='rtl'
+                mouseTracking='true'
+                controlsStrategy='alternate'
+              >
+                {product &&
+                  product.ImageStorages.map(({ ImageUrl }) => (
+                    <img className='sliderimg' src={ImageUrl} />
+                  ))}
+              </AliceCarousel> */}
+              <ImageGallery items={images} />
+            </Grid.Column>
+
+            <Grid.Column width={11}>
+              <Grid>
+                <Grid.Row>
+                  <Header as='h1'>{product.Name}</Header>
+                  <Grid.Column width={5} float='right'>
+                    <Button color='red' icon='heart' />
+                    <Button basic color='blue' icon='fork' />
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid padded='horizontally'>
+                    <Grid.Column>
+                      <Rating maxRating={5} defaultRating={3} icon='star' />
+                      <a href=''>1848 đánh giá </a>|
+                      <a href=''> 22 câu hỏi đã trả lời</a>
+                    </Grid.Column>
+                  </Grid>
+                </Grid.Row>
+                <Grid.Row>
+                  <Header as='h3' color='red'>
+                    {product.CurrentPrice},000 vnd
+                  </Header>
+                </Grid.Row>
+                <Grid.Row>
+                  {product.CurrentPrice === product.Price ? null : (
+                    <>
+                      <span
+                        style={{
+                          textDecoration: 'line-through',
+                          opacity: '0.7'
+                        }}
+                      >
+                        {product.Price},000 vnd
+                      </span>
+                      <span>
+                        -{(product.CurrentPrice / product.Price) * 100}%
+                      </span>
+                    </>
+                  )}
+                </Grid.Row>
+
+                <Grid.Row>
+                  <Table definition>
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Cell width={2}>Size</Table.Cell>
+                        <Table.Cell>
+                          {product &&
+                            product.Sizes.map(({ Name, Id }) => (
+                              <Button
+                                label={{
+                                  color: Name,
+                                  empty: true,
+                                  circular: true
+                                }}
+                                toggle
+                                text={Name}
+                                value={Id}
+                              />
+                            ))}
+                        </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>Weight</Table.Cell>
+                        <Table.Cell>6 ounces</Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>Color</Table.Cell>
+                        <Table.Cell>
+                          {product &&
+                            product.Colors.map(({ Name, Id }) => (
+                              <Button
+                                label={{
+                                  color: Name,
+                                  empty: true,
+                                  circular: true
+                                }}
+                                toggle
+                                text={Name}
+                                value={Id}
+                              />
+                            ))}
+                        </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>Brand</Table.Cell>
+                        <Table.Cell>No Brand</Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>Voucher</Table.Cell>
+                        <Table.Cell></Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  </Table>
+                </Grid.Row>
+                <Grid.Row>
+                  <Header as='h1' color='black'>
+                    quantity:
+                  </Header>
+
+                  <InputSpinner
+                    type={'real'}
+                    min={0}
+                    step={1}
+                    value={quantity}
+                    onChange={num => setQuantity(num)}
+                    variant={'dark'}
+                    size='lg'
+                  />
+                </Grid.Row>
+                <Grid.Row>
+                  <div>
+                    <Button
+                      size='medium'
+                      basic
+                      color='green'
+                      onClick={addToCart}
+                      animated
+                    >
+                      <Button.Content visible>Add to cart</Button.Content>
+                      <Button.Content hidden>
+                        <Icon name='shop' />
+                      </Button.Content>
+                    </Button>
+                  </div>
+                </Grid.Row>
+                <Grid.Row></Grid.Row>
+              </Grid>
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Column centered width={16}>
+            <Tab panes={panes} />
           </Grid.Column>
           <Grid.Column width={11}>
             <VerticalItemList

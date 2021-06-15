@@ -23,10 +23,10 @@ const VerticalItem = ({
   Status,
   ImageStorages
 }) => (
-  <Card href={'/Product/' + Id}>
-    <Image src={ImageStorages[0].ImageUrl} size='small' />
+  <Card as='a'>
+    <Card.Content textAlign='left' href={'/Product/' + Id}>
+      <Image src={ImageStorages[0].ImageUrl} size='small' />
 
-    <Card.Content textAlign='left'>
       <Card.Header>{Name}</Card.Header>
       <Card.Meta>
         {CurrentPrice === Price ? null : (
@@ -46,6 +46,14 @@ const VerticalItem = ({
     </Card.Content>
     <Card.Content textAlign='left' extra>
       <Rating icon='star' defaultRating={5} maxRating={5} disabled />
+    </Card.Content>
+    <Card.Content extra>
+      <Button basic size='mini' color='green'>
+        <Icon name='shopping cart' />
+      </Button>
+      <Button basic size='mini' color='red'>
+        <Icon name='heart' />
+      </Button>
     </Card.Content>
   </Card>
 )

@@ -163,7 +163,6 @@ function CategoryPage () {
             <Divider horizontal></Divider>
             <List>
               <List.Item>
-                {' '}
                 <Header as='h5' color='black'>
                   Tag
                 </Header>
