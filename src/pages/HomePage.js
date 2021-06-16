@@ -3,31 +3,36 @@ import VerticalItemList from '../components/Item-List/VerticalItemList'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import { Pagination, Card, Button, Header } from 'semantic-ui-react'
+import CategoryList from './CategoryList'
 
 function HomePage () {
   return (
     <div>
-      <Header as='h1' inverted color='red'>
-        Flash Deal
-      </Header>
+      <div class='section-title'>
+        <Header textAlign='left' as='h1' color='black'>
+          <h4>Flash deals</h4>
+        </Header>
+      </div>
 
       <SaleOff />
+      <div class='section-title'>
+        <Header textAlign='left' as='h1' color='black'>
+          <h4>Categories</h4>
+        </Header>
+      </div>
 
+      <CategoryList />
       <VerticalItemList
         topic='New Product'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-      <Button inverted color='blue' style={{ marginTop: '10px' }} fluid>
-        See more...
-      </Button>
+      
 
       <VerticalItemList
         topic='You may like'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-      <Button inverted color='blue' style={{ marginTop: '10px' }} fluid>
-        See more...
-      </Button>
+     
 
       <section class='trend spad'>
         <div class='container'>

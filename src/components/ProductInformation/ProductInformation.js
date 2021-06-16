@@ -2,7 +2,6 @@ import '../../App.css'
 import {
   Grid,
   Image,
-  Button,
   Icon,
   Divider,
   Segment,
@@ -16,6 +15,11 @@ import {
   Tab,
   List
 } from 'semantic-ui-react'
+import IconButton from '@material-ui/core/IconButton'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import ShareIcon from '@material-ui/icons/Share'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import VerticalItemList from '../Item-List/VerticalItemList'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -27,6 +31,10 @@ import axios from 'axios'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 import ReactDOM from 'react-dom'
+import Button from '@material-ui/core/Button'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+
 const mapDispatch = { cart }
 
 function ProductInformation () {
@@ -42,6 +50,33 @@ function ProductInformation () {
 
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        '& > *': {
+          margin: theme.spacing(2)
+        },
+        width: '100%'
+      },
+      LikeButton: {
+        '&:hover': {
+          color: 'red'
+        }
+      },
+      ShareButton: {
+        '&:hover': {
+          color: 'green'
+        }
+      },
+      AddToWishlistButton: {
+        '&:hover': {
+          color: 'blue'
+        }
+      }
+    })
+  )
+
+  const classes = useStyles()
 
   useEffect(() => {
     console.log(productId)
@@ -91,94 +126,85 @@ function ProductInformation () {
       menuItem: 'Comments and Reviews',
       render: () => (
         <Tab.Pane>
-          
-            <Grid.Column >
-              <Comment.Group>
-                <Header as='h3' dividing>
-                  Comments
-                </Header>
+          <Grid.Column>
+            {/* <Form reply>
+              <Form.TextArea />
+              <Button variant='outlined' color='primary' size='medium'>
+                Add Comment
+              </Button>
+            </Form> */}
 
-                <Comment>
-                  <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-                  <Comment.Content>
-                    <Comment.Author as='a'>Matt</Comment.Author>
-                    <Comment.Metadata>
-                      <div>Today at 5:42PM</div>
-                    </Comment.Metadata>
-                    <Comment.Text>How artistic!</Comment.Text>
-                    <Comment.Actions>
-                      <Comment.Action>Reply</Comment.Action>
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
+            <Comment.Group>
+              <Header as='h3' dividing>
+                Comments
+              </Header>
 
-                <Comment>
-                  <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                  <Comment.Content>
-                    <Comment.Author as='a'>Elliot Fu</Comment.Author>
-                    <Comment.Metadata>
-                      <div>Yesterday at 12:30AM</div>
-                    </Comment.Metadata>
-                    <Comment.Text>
-                      <p>
-                        This has been very useful for my research. Thanks as
-                        well!
-                      </p>
-                    </Comment.Text>
-                    <Comment.Actions>
-                      <Comment.Action>Reply</Comment.Action>
-                    </Comment.Actions>
-                  </Comment.Content>
-                  <Comment.Group>
-                    <Comment>
-                      <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-                      <Comment.Content>
-                        <Comment.Author as='a'>Jenny Hess</Comment.Author>
-                        <Comment.Metadata>
-                          <div>Just now</div>
-                        </Comment.Metadata>
-                        <Comment.Text>
-                          Elliot you are always so right :)
-                        </Comment.Text>
-                        <Comment.Actions>
-                          <Comment.Action>Reply</Comment.Action>
-                        </Comment.Actions>
-                      </Comment.Content>
-                    </Comment>
-                  </Comment.Group>
-                </Comment>
+              <Comment>
+                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
+                <Comment.Content>
+                  <Comment.Author as='a'>Matt</Comment.Author>
+                  <Comment.Metadata>
+                    <div>Today at 5:42PM</div>
+                  </Comment.Metadata>
+                  <Comment.Text>How artistic!</Comment.Text>
+                  <Comment.Actions>
+                    <Comment.Action>Reply</Comment.Action>
+                  </Comment.Actions>
+                </Comment.Content>
+              </Comment>
 
-                <Comment>
-                  <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                  <Comment.Content>
-                    <Comment.Author as='a'>Joe Henderson</Comment.Author>
-                    <Comment.Metadata>
-                      <div>5 days ago</div>
-                    </Comment.Metadata>
-                    <Comment.Text>
-                      Dude, this is awesome. Thanks so much
-                    </Comment.Text>
-                    <Comment.Actions>
-                      <Comment.Action>Reply</Comment.Action>
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
+              <Comment>
+                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
+                <Comment.Content>
+                  <Comment.Author as='a'>Elliot Fu</Comment.Author>
+                  <Comment.Metadata>
+                    <div>Yesterday at 12:30AM</div>
+                  </Comment.Metadata>
+                  <Comment.Text>
+                    <p>
+                      This has been very useful for my research. Thanks as well!
+                    </p>
+                  </Comment.Text>
+                  <Comment.Actions>
+                    <Comment.Action>Reply</Comment.Action>
+                  </Comment.Actions>
+                </Comment.Content>
+                <Comment.Group>
+                  <Comment>
+                    <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
+                    <Comment.Content>
+                      <Comment.Author as='a'>Jenny Hess</Comment.Author>
+                      <Comment.Metadata>
+                        <div>Just now</div>
+                      </Comment.Metadata>
+                      <Comment.Text>
+                        Elliot you are always so right :)
+                      </Comment.Text>
+                      <Comment.Actions>
+                        <Comment.Action>Reply</Comment.Action>
+                      </Comment.Actions>
+                    </Comment.Content>
+                  </Comment>
+                </Comment.Group>
+              </Comment>
 
-                <Form reply>
-                  <Form.TextArea />
-                  <Button
-                    content='Add Reply'
-                    labelPosition='left'
-                    icon='edit'
-                    primary
-                  />
-                </Form>
-              </Comment.Group>
-            </Grid.Column>
-            <Grid.Column centered width={11}>
-              Comment rules
-            </Grid.Column>
-         
+              <Comment>
+                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
+                <Comment.Content>
+                  <Comment.Author as='a'>Joe Henderson</Comment.Author>
+                  <Comment.Metadata>
+                    <div>5 days ago</div>
+                  </Comment.Metadata>
+                  <Comment.Text>
+                    Dude, this is awesome. Thanks so much
+                  </Comment.Text>
+                  <Comment.Actions>
+                    <Comment.Action>Reply</Comment.Action>
+                  </Comment.Actions>
+                </Comment.Content>
+              </Comment>
+            </Comment.Group>
+          </Grid.Column>
         </Tab.Pane>
       )
     },
@@ -188,7 +214,7 @@ function ProductInformation () {
 
   if (currentState) {
     return (
-      <div style={{ marginTop: '100px', width: '1500px' }}>
+      <div style={{ marginTop: '200px', width: '1300px', marginLeft: '30px' }}>
         <Grid>
           <Grid.Row style={{ backgroundColor: '#ffffff' }}>
             <Grid.Column width={5}>
@@ -210,11 +236,30 @@ function ProductInformation () {
             <Grid.Column width={11}>
               <Grid>
                 <Grid.Row>
-                  <Header as='h1'>{product.Name}</Header>
-                  <Grid.Column width={5} float='right'>
-                    <Button color='red' icon='heart' />
-                    <Button basic color='blue' icon='fork' />
-                  </Grid.Column>
+                  <Header as='h1'>
+                    {product.Name}
+                    <IconButton
+                      onClick={e => e.preventDefault()}
+                      className={classes.LikeButton}
+                      aria-label='add to favorites'
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={e => e.preventDefault()}
+                      className={classes.ShareButton}
+                      aria-label='share'
+                    >
+                      <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={e => e.preventDefault()}
+                      className={classes.AddToWishlistButton}
+                      aria-label='Add to watch list'
+                    >
+                      <AddCircleIcon />
+                    </IconButton>
+                  </Header>
                 </Grid.Row>
                 <Grid.Row>
                   <Grid padded='horizontally'>
@@ -318,18 +363,26 @@ function ProductInformation () {
                   />
                 </Grid.Row>
                 <Grid.Row>
-                  <div>
+                  <div className={classes.root}>
                     <Button
-                      size='medium'
-                      basic
-                      color='green'
                       onClick={addToCart}
-                      animated
+                      variant='outlined'
+                      color='primary'
+                      size='medium'
+                      endIcon={<AddShoppingCartIcon />}
+                      style={{ width: '45%' }}
                     >
-                      <Button.Content visible>Add to cart</Button.Content>
-                      <Button.Content hidden>
-                        <Icon name='shop' />
-                      </Button.Content>
+                      Add to cart
+                    </Button>
+                    <Button
+                      onClick={addToCart}
+                      variant='outlined'
+                      color='secondary'
+                      size='medium'
+                      endIcon={<ShoppingBasketIcon />}
+                      style={{ width: '45%' }}
+                    >
+                      Buy now
                     </Button>
                   </div>
                 </Grid.Row>

@@ -113,62 +113,30 @@ function NavigationHeader () {
   return (
     <div
       style={{
-        backgroundColor: '#f53d2d',width: '100%'
+        backgroundColor: '#ffffff',
+        width: '100%',
+        position: 'fixed',
+        top: 0,
 
+        zIndex: 10000000000000
       }}
     >
-      <React.Fragment>
-        <Toolbar className={classes.toolbarTop}>
-          {/* <Link to='/'>
-          <Image
-            size='mini'
-            src='https://shop.jaguars.com/content/content/shop.jaguars.com/shop.jaguars.com.svg'
-            style={{ width: '200px', heigth: '50px' }}
-          />
-        </Link> */}
-          <Typography
-            component='h2'
-            variant='h5'
-            color='inherit'
-            align='center'
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            <Link
+      <div
+        style={{
+          marginLeft: '250px',
+          width: '70%'
+        }}
+      >
+        <React.Fragment>
+          <Toolbar className={classes.toolbarTop}>
+            <Typography
+              component='h2'
+              variant='h5'
               color='inherit'
+              align='center'
               noWrap
-              variant='body2'
-              href={'/Login'}
-              className={classes.toolbarLink}
+              className={classes.toolbarTitle}
             >
-              <Button variant='outlined' size='small'>
-                About Us
-              </Button>
-            </Link>
-            <Link
-              color='inherit'
-              noWrap
-              variant='body2'
-              href={'/ImageUploading'}
-              className={classes.toolbarLink}
-            >
-              <Button variant='outlined' size='small'>
-                Search With Image
-              </Button>
-            </Link>
-          </Typography>
-
-          <Typography
-            component='h2'
-            variant='h5'
-            color='inherit'
-            align='center'
-            noWrap
-            className={classes.fakeflex}
-          ></Typography>
-
-          {UserSlice === null ? (
-            <>
               <Link
                 color='inherit'
                 noWrap
@@ -177,62 +145,97 @@ function NavigationHeader () {
                 className={classes.toolbarLink}
               >
                 <Button variant='outlined' size='small'>
-                  Sign up
+                  About Us
                 </Button>
               </Link>
               <Link
                 color='inherit'
                 noWrap
                 variant='body2'
-                href={'/Registration'}
+                href={'/ImageUploading'}
                 className={classes.toolbarLink}
               >
                 <Button variant='outlined' size='small'>
-                  Registration
+                  Search With Image
                 </Button>
               </Link>
-            </>
-          ) : (
-            <>
-              <div>
-                <IconButton
-                  aria-label='account of current user'
-                  aria-controls='menu-appbar'
-                  aria-haspopup='true'
-                  onClick={handleMouseClickProfile}
-                  color='inherit'
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id='menu-appbar'
-                  anchorEl={anchorElProfile}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                  }}
-                  open={open}
-                  onClose={handleCloseProfile}
-                >
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Notification</MenuItem>
+            </Typography>
 
-                  <MenuItem>My account</MenuItem>
-                  <MenuItem onClick={() => dispatch(logout())}>
-                    Sign out
-                  </MenuItem>
-                </Menu>
-              </div>
-            </>
-          )}
-        </Toolbar>
-        <Toolbar className={classes.toolbar}>
-          {/* <Link to='/'>
+            <Typography
+              component='h2'
+              variant='h5'
+              color='inherit'
+              align='center'
+              noWrap
+              className={classes.fakeflex}
+            ></Typography>
+
+            {UserSlice === null ? (
+              <>
+                <Link
+                  color='inherit'
+                  noWrap
+                  variant='body2'
+                  href={'/Login'}
+                  className={classes.toolbarLink}
+                >
+                  <Button variant='outlined' size='small'>
+                    Sign up
+                  </Button>
+                </Link>
+                <Link
+                  color='inherit'
+                  noWrap
+                  variant='body2'
+                  href={'/Registration'}
+                  className={classes.toolbarLink}
+                >
+                  <Button variant='outlined' size='small'>
+                    Registration
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <div>
+                  <IconButton
+                    aria-label='account of current user'
+                    aria-controls='menu-appbar'
+                    aria-haspopup='true'
+                    onClick={handleMouseClickProfile}
+                    color='inherit'
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id='menu-appbar'
+                    anchorEl={anchorElProfile}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={open}
+                    onClose={handleCloseProfile}
+                  >
+                    <MenuItem>Profile</MenuItem>
+                    <MenuItem>Notification</MenuItem>
+
+                    <MenuItem>My account</MenuItem>
+                    <MenuItem onClick={() => dispatch(logout())}>
+                      Sign out
+                    </MenuItem>
+                  </Menu>
+                </div>
+              </>
+            )}
+          </Toolbar>
+          <Toolbar className={classes.toolbar}>
+            {/* <Link to='/'>
           <Image
             size='mini'
             src='https://shop.jaguars.com/content/content/shop.jaguars.com/shop.jaguars.com.svg'
@@ -240,65 +243,75 @@ function NavigationHeader () {
           />
         </Link> */}
 
-          <Typography
-            component='h2'
-            variant='h5'
-            color='inherit'
-            align='center'
-            noWrap
-            className={classes.toolbarTitle}
-          >
-            <Image
-              href={'/'}
-              src='https://laz-img-cdn.alicdn.com/images/ims-web/TB1T7K2d8Cw3KVjSZFuXXcAOpXa.png'
-              style={{ width: '300px', heigth: '50px' }}
-            />
-          </Typography>
-          <Typography
-            component='h2'
-            variant='h5'
-            color='inherit'
-            align='center'
-            noWrap
-            className={classes.Search}
-          >
-            <div>
-              <TextField
-                id='standard-basic'
-                label='Search'
-                style={{ width: '70%' }}
+            <Typography
+              component='h2'
+              variant='h5'
+              color='inherit'
+              align='center'
+              noWrap
+              className={classes.toolbarTitle}
+            >
+              <Image
+                href={'/'}
+                src='https://laz-img-cdn.alicdn.com/images/ims-web/TB1T7K2d8Cw3KVjSZFuXXcAOpXa.png'
+                style={{ width: '300px', heigth: '50px' }}
               />
-              <IconButton type='submit' aria-label='search'>
-                <SearchIcon />
-              </IconButton>
-            </div>
-          </Typography>
-          <Link
-            color='inherit'
-            noWrap
-            variant='body2'
-            href={'/Cart'}
-            className={classes.toolbarLink}
-          >
-            <Button variant='outlined' size='small'>
-              <span class='icon_bag_alt'></span>
-              <div class='tip'>
-                {CartSlice === null || CartSlice.length === 0
-                  ? 0
-                  : CartSlice.legth}
+            </Typography>
+            <Typography
+              component='h2'
+              variant='h5'
+              color='inherit'
+              align='center'
+              noWrap
+              className={classes.Search}
+            >
+              <div>
+                <TextField
+                  id='standard-basic'
+                  label='Search'
+                  style={{ width: '70%' }}
+                />
+                <IconButton type='submit' aria-label='search'>
+                  <SearchIcon />
+                </IconButton>
               </div>
+            </Typography>
+            <Link
+              color='inherit'
+              noWrap
+              variant='body2'
+              href={'/Cart'}
+              className={classes.toolbarLink}
+            >
+              <Button variant='outlined' size='small'>
+                <span class='icon_bag_alt'></span>
+                <div class='tip'>
+                  {CartSlice === null || CartSlice.length === 0
+                    ? 0
+                    : CartSlice.legth}
+                </div>
+              </Button>
+            </Link>
+          </Toolbar>
+          <Toolbar
+            component='nav'
+            variant='dense'
+            className={classes.toolbarSecondary}
+          >
+            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+              Home
             </Button>
-          </Link>
-        </Toolbar>
-        <Toolbar
-          component='nav'
-          variant='dense'
-          className={classes.toolbarSecondary}
-        >
-          <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
-            Home
-          </Button>
-          {categorylist.slice(0, size).map(({ Id, Name, SubCategories }) => {
+            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+              Get Voucher
+            </Button>
+            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+              Special discount
+            </Button>
+            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+              Deal for you
+            </Button>
+
+            {/* {categorylist.slice(0, size).map(({ Id, Name, SubCategories }) => {
             return (
               <>
                 <Button
@@ -310,39 +323,11 @@ function NavigationHeader () {
                 >
                   {Name}
                 </Button>
-                {/* <Menu
-                  className={classes.dropdown}
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center'
-                  }}
-                  transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center'
-                  }}
-                >
-                  {SubCategories.map(({ Id, Name, SubCategories }) => (
-                    <MenuItem>
-                      <Button
-                        style={{ fontSize: '15px' }}
-                        key={Id}
-                        href={'/Category/' + Id}
-                        component={Link}
-                        onClick={handleClose}
-                      >
-                        {Name}
-                      </Button>
-                    </MenuItem>
-                  ))}
-                </Menu> */}
+               
               </>
             )
-          })}
-          <Button
+          })} */}
+            {/* <Button
             component={Link}
             style={{ fontSize: '15px' }}
             color='inherit'
@@ -350,88 +335,11 @@ function NavigationHeader () {
             href={'/Categories'}
           >
             See more
-          </Button>
-        </Toolbar>
-      </React.Fragment>
+          </Button> */}
+          </Toolbar>
+        </React.Fragment>
+      </div>
     </div>
-
-    //   >
-    //     <Menu style={{ backgroundColor: '#000000' }} inverted secondery>
-    //       <Container>
-    //         <Menu.Item header>
-
-    //         </Menu.Item>
-    //         <Menu.Item>
-    //           <Link to='/'>Home</Link>
-    //         </Menu.Item>
-
-    //         <Menu.Item>
-    //           <Link to='/'>About Us</Link>
-    //         </Menu.Item>
-    //         <Menu.Item>
-    //           <Link to='/'>Our Store</Link>
-    //         </Menu.Item>
-    //         <Menu.Item>
-    //           <Link to='/ImageUploading'>Search With Image</Link>
-    //         </Menu.Item>
-    //         <Menu.Item>
-
-    //         </Menu.Item>
-    //         {UserSlice === null ? (
-    //           <>
-    //             <Menu.Item>
-    //               <Link to='/Login'>Login</Link>
-    //             </Menu.Item>
-
-    //             <Menu.Item>
-    //               <Link to='/Registration'>Register</Link>
-    //             </Menu.Item>
-    //           </>
-    //         ) : (
-    //           <Menu.Item>
-    //             <Dropdown
-    //               trigger={
-    //                 <span>
-    //                   <Icon name='user' /> Hello, {UserSlice.UserName}
-    //                 </span>
-    //               }
-    //             >
-    //               <Dropdown.Menu style={UserDropdown}>
-    //                 <Dropdown.Item>
-    //                   <Link to='/Profile'>Profile</Link>
-    //                 </Dropdown.Item>
-    //                 <Dropdown.Item>
-    //                   <Link to='/OrderHistory'>Orders</Link>
-    //                 </Dropdown.Item>
-    //                 <Dropdown.Item
-    //                   style={{ color: '#ffffff' }}
-    //                   as='a'
-    //                   onClick={() => dispatch(logout())}
-    //                 >
-    //                   <a>Sign out</a>
-    //                 </Dropdown.Item>
-    //               </Dropdown.Menu>
-    //             </Dropdown>
-    //           </Menu.Item>
-    //         )}
-
-    //         <Menu.Item>
-    //           <Link to='/Cart'>
-
-    //           </Link>
-    //         </Menu.Item>
-    //       </Container>
-    //     </Menu>
-    //     <Menu inverted style={{ backgroundColor: '#006778' }}>
-    //       <Container>
-    //         {items}
-    //         <Menu.Item>
-    //           <Link to='/Categories'>See more</Link>
-    //         </Menu.Item>
-    //       </Container>
-    //     </Menu>
-    //   </div>
-    // </Sticky>
   )
 }
 

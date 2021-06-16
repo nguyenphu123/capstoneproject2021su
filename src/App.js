@@ -20,20 +20,46 @@ import RegistrationPage from './pages/RegistrationPage'
 import 'react-chat-widget/lib/styles.css'
 import { BrowserRouter } from 'react-router-dom'
 import FadeIn from 'react-fade-in'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import EditIcon from '@material-ui/icons/Edit'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import NavigationIcon from '@material-ui/icons/Navigation'
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1)
+      }
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1)
+    }
+  })
+)
 
 function App () {
+  const classes = useStyles()
+
   return (
     <FadeIn>
       <BrowserRouter>
+        <NavigationHeader />
+
         <div
           className='App'
           style={{
-            width: '80%',
-            marginLeft: '180px'
+            width: '70%',
+            marginLeft: '250px'
           }}
         >
           <div className='maincontainer'>
-            <NavigationHeader />
+            <Fab variant='extended'>
+              <NavigationIcon className={classes.extendedIcon} />
+              Navigate
+            </Fab>
+
             <Switch>
               <Route path='/Login'>
                 <LoginPage />

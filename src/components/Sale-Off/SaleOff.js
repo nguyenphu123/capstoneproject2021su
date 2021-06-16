@@ -5,7 +5,7 @@ function SaleOff () {
     <div>
       <section class='discount'>
         <div class='container'>
-          <div class='row'>
+          <div class='row' style={{ backgroundColor: '#ffffff' }}>
             <div class='col-lg-6 p-0'>
               <div class='discount__pic'>
                 <img src='assets/img/discount.jpg' alt='' />

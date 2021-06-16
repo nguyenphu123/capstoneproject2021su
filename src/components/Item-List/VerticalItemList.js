@@ -2,7 +2,7 @@ import '../../App.css'
 import React from 'react'
 import VerticalItem from './VerticalItem'
 import axios from 'axios'
-import { Pagination, Card, Button } from 'semantic-ui-react'
+import { Pagination, Card, Button, Header } from 'semantic-ui-react'
 
 class VerticalItemList extends React.Component {
   constructor () {
@@ -30,13 +30,16 @@ class VerticalItemList extends React.Component {
   render () {
     return (
       <>
+        <div class='col-lg-4 col-md-4'>
+          <div class='section-title'>
+            <Header textAlign='left' as='h1' color='black'>
+              <h4>{this.props.topic}</h4>
+            </Header>
+          </div>
+        </div>
+
         <section class='product spad'>
           <div class='container'>
-            <div class='col-lg-4 col-md-4'>
-              <div class='section-title'>
-                <h4>{this.props.topic}</h4>
-              </div>
-            </div>
             <Card.Group itemsPerRow={6}>
               {this.state.products.map(
                 ({
@@ -59,13 +62,16 @@ class VerticalItemList extends React.Component {
                     Price={Price}
                     CurrentPrice={CurrentPrice}
                     ImageStorages={ImageStorages}
+                    Quantity={Quantity}
                   />
                 )
               )}
             </Card.Group>
-            
           </div>
         </section>
+        <Button inverted color='blue' style={{ marginTop: '10px' }}>
+          See more...
+        </Button>
       </>
     )
   }

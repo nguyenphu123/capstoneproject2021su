@@ -29,11 +29,14 @@ function ShoppingCart () {
   const [currentAddress, setCurrentAddress] = useState('')
   const [isEdit, setIsEdit] = useState(true)
   const [finishBuy, setFinishBuy] = useState(false)
- 
+
   const [shipOption, setShipOption] = useState('')
 
   useEffect(() => {
-    setCurrentAddress(UserSlice.Addres)
+    if (UserSlice !== null) {
+      setCurrentAddress(UserSlice.Addres)
+    } else {
+    }
   }, [UserSlice])
   if (finishBuy) {
     return <Redirect to={'/'} />
@@ -86,7 +89,7 @@ function ShoppingCart () {
     if (isLogin) {
       return (
         <div
-          style={{ marginTop: '250px', marginLeft: '300px', width: '1500px' }}
+          style={{ marginTop: '250px', marginLeft: '100px' }}
         >
           <Segment placeholder>
             <Grid columns={2} relaxed='very' stackable>
