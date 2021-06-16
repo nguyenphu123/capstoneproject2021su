@@ -72,7 +72,7 @@ function LoginPage () {
   if (UserSlice) {
     return <Redirect to={'/'} />
   } else {
-    return (
+    return (<div style={{marginTop:'200px'}}>
       <Segment placeholder>
         <Grid columns={2} relaxed='very' stackable>
           <Grid.Column>
@@ -131,7 +131,7 @@ function LoginPage () {
           </Grid.Column>
         </Grid>
         <Divider vertical>Or</Divider>
-      </Segment>
+      </Segment></div>
     )
   }
 }

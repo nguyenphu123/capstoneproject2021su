@@ -84,7 +84,6 @@ function App () {
               </Route>
               <Route path='/ImageUploading'>
                 <Ads />
-                <Categories />
                 <ImageUploadingPage />
                 <Widget />
                 <Footers />

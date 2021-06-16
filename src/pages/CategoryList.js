@@ -29,6 +29,7 @@ const responsive = {
 
 function CategoryList () {
   const [categorylist, setCategorylist] = useState([])
+  const [loadComplete, setLoadComplete] = useState(false)
 
   useEffect(() => {
     axios({
@@ -39,22 +40,22 @@ function CategoryList () {
       console.log(res.data)
       setCategorylist(res.data)
     })
-  }, [categorylist])
+    setLoadComplete(true)
+  }, [!loadComplete])
 
   return (
     <>
-    <div style={{ marginTop: '10px' }}>
-      
-      <Carousel responsive={responsive}>
-        {categorylist.map(({ Id, Name }) => (
-          <Category
-            Id={Id}
-            Name={Name}
-            img='//vn-test-11.slatic.net/p/bdc70a474f5b0d1f3ca8d2137ad4a651.jpg_720x720q80.jpg_.webp'
-          />
-        ))}
-      </Carousel>
-    </div>
+      <div style={{ marginTop: '10px' }}>
+        <Carousel responsive={responsive}>
+          {categorylist.map(({ Id, Name }) => (
+            <Category
+              Id={Id}
+              Name={Name}
+              img='//vn-test-11.slatic.net/p/bdc70a474f5b0d1f3ca8d2137ad4a651.jpg_720x720q80.jpg_.webp'
+            />
+          ))}
+        </Carousel>
+      </div>
     </>
   )
 }

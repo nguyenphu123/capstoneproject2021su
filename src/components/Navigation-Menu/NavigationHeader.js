@@ -18,13 +18,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import Fade from '@material-ui/core/Fade'
 import Popover from '@material-ui/core/Popover'
 import Drawer from '@material-ui/core/Drawer'
+import CartButton from '../Cart/CartButton'
 
-import {
-  usePopupState,
-  bindHover,
-  bindPopover,
-  bindMenu
-} from 'material-ui-popup-state/hooks'
 const mapDispatch = { logout, loginUser }
 
 const ITEM_HEIGHT = 48
@@ -33,26 +28,8 @@ function NavigationHeader () {
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
   const CartSlice = useSelector(state => state.CartSlice.cart)
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [anchorElProfile, setAnchorElProfile] = React.useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
 
-  const [categorylist, setCategorylist] = useState([])
-  const open = Boolean(anchorElProfile)
-  const popupState = usePopupState({
-    variant: 'popover',
-    popupId: 'demoPopover'
-  })
-
-  useEffect(() => {
-    axios({
-      method: 'GET',
-      url: '/api/category-management'
-    }).then(res => {
-      console.log(res)
-      console.log(res.data)
-      setCategorylist(res.data)
-    })
-  }, [])
   var size = 8
   const useStyles = makeStyles(theme => ({
     toolbar: {
@@ -82,6 +59,11 @@ function NavigationHeader () {
       flexShrink: 0,
       fontSize: '50px'
     },
+    toolbarCart: {
+      padding: theme.spacing(2.5),
+      flexShrink: 0,
+      fontSize: '50px'
+    },
     popover: {
       pointerEvents: 'none'
     },
@@ -92,16 +74,10 @@ function NavigationHeader () {
 
   const classes = useStyles()
 
-  const handleMouseClickProfile = event => {
-    setAnchorElProfile(event.currentTarget)
-  }
-
-  const handleCloseProfile = () => {
-    setAnchorElProfile(null)
-  }
-  const handleMouseOver = event => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleClose = () => {
     setAnchorEl(null)
   }
@@ -118,7 +94,7 @@ function NavigationHeader () {
         position: 'fixed',
         top: 0,
 
-        zIndex: 10000000000000
+        zIndex: 1100
       }}
     >
       <div
@@ -197,52 +173,34 @@ function NavigationHeader () {
               </>
             ) : (
               <>
-                <div>
-                  <IconButton
-                    aria-label='account of current user'
-                    aria-controls='menu-appbar'
-                    aria-haspopup='true'
-                    onClick={handleMouseClickProfile}
-                    color='inherit'
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id='menu-appbar'
-                    anchorEl={anchorElProfile}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right'
-                    }}
-                    open={open}
-                    onClose={handleCloseProfile}
-                  >
-                    <MenuItem>Profile</MenuItem>
-                    <MenuItem>Notification</MenuItem>
+                <IconButton
+                  aria-label='account of current user'
+                  aria-controls='menu-appbar'
+                  aria-haspopup='true'
+                  onClick={handleClick}
+                  color='inherit'
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id='simple-menu'
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>Profile</MenuItem>
+                  <MenuItem>Notification</MenuItem>
 
-                    <MenuItem>My account</MenuItem>
-                    <MenuItem onClick={() => dispatch(logout())}>
-                      Sign out
-                    </MenuItem>
-                  </Menu>
-                </div>
+                  <MenuItem>Order history</MenuItem>
+                  <MenuItem onClick={() => dispatch(logout())}>
+                    Sign out
+                  </MenuItem>
+                </Menu>
               </>
             )}
           </Toolbar>
           <Toolbar className={classes.toolbar}>
-            {/* <Link to='/'>
-          <Image
-            size='mini'
-            src='https://shop.jaguars.com/content/content/shop.jaguars.com/shop.jaguars.com.svg'
-            style={{ width: '200px', heigth: '50px' }}
-          />
-        </Link> */}
-
             <Typography
               component='h2'
               variant='h5'
@@ -281,16 +239,15 @@ function NavigationHeader () {
               noWrap
               variant='body2'
               href={'/Cart'}
-              className={classes.toolbarLink}
+              className={classes.toolbarCart}
             >
-              <Button variant='outlined' size='small'>
-                <span class='icon_bag_alt'></span>
-                <div class='tip'>
-                  {CartSlice === null || CartSlice.length === 0
-                    ? 0
-                    : CartSlice.legth}
-                </div>
-              </Button>
+              <div class='tip'>
+                {CartSlice === null || CartSlice.length === 0 ? (
+                  <CartButton count={0} />
+                ) : (
+                  <CartButton count={CartSlice.length} />
+                )}
+              </div>
             </Link>
           </Toolbar>
           <Toolbar
@@ -310,32 +267,6 @@ function NavigationHeader () {
             <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
               Deal for you
             </Button>
-
-            {/* {categorylist.slice(0, size).map(({ Id, Name, SubCategories }) => {
-            return (
-              <>
-                <Button
-                  style={{ fontSize: '15px' }}
-                  key={Id}
-                  href={'/Category/' + Id}
-                  component={Link}
-                  onMouseOver={handleMouseOver}
-                >
-                  {Name}
-                </Button>
-               
-              </>
-            )
-          })} */}
-            {/* <Button
-            component={Link}
-            style={{ fontSize: '15px' }}
-            color='inherit'
-            noWrap
-            href={'/Categories'}
-          >
-            See more
-          </Button> */}
           </Toolbar>
         </React.Fragment>
       </div>

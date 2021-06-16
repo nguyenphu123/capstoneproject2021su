@@ -1,6 +1,7 @@
 import '../App.css'
 import ImageUploading from 'react-images-uploading'
 import React from 'react'
+import Button from '@material-ui/core/Button'
 
 function ImageUploadingPage () {
   const [images, setImages] = React.useState([])
@@ -12,7 +13,7 @@ function ImageUploadingPage () {
   }
 
   return (
-    <>
+    <div style={{ marginTop: '50px' }}>
       <ImageUploading
         multiple
         value={images}
@@ -31,28 +32,28 @@ function ImageUploadingPage () {
         }) => (
           // write your building UI
           <div className='upload__image-wrapper'>
-            <button
+            <Button
               style={isDragging ? { color: 'red' } : null}
               onClick={onImageUpload}
               {...dragProps}
             >
               Click or Drop here
-            </button>
+            </Button>
             &nbsp;
-            <a href='/Category1'>Search</a>
             {imageList.map((image, index) => (
               <div key={index} className='image-item'>
                 <img src={image.data_url} alt='' width='1000' />
                 <div className='image-item__btn-wrapper'>
-                  <button onClick={() => onImageUpdate(index)}>Update</button>
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
+                  <Button onClick={() => onImageUpdate(index)}>Update</Button>
+                  <Button onClick={() => onImageRemove(index)}>Remove</Button>
+                  <a href='/Category1'>Search</a>
                 </div>
               </div>
             ))}
           </div>
         )}
       </ImageUploading>
-    </>
+    </div>
   )
 }
 
