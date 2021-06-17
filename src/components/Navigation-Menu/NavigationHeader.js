@@ -22,15 +22,12 @@ import CartButton from '../Cart/CartButton'
 
 const mapDispatch = { logout, loginUser }
 
-const ITEM_HEIGHT = 48
-
 function NavigationHeader () {
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const [anchorEl, setAnchorEl] = useState(null)
 
-  var size = 8
   const useStyles = makeStyles(theme => ({
     toolbar: {
       borderBottom: `1px solid ${theme.palette.divider}`,
@@ -38,7 +35,7 @@ function NavigationHeader () {
     },
     toolbarTop: {
       backgroundColor: '#ffffff',
-      height: 5
+      height: 4
     },
     toolbarTitle: {
       flex: 0.4
@@ -57,12 +54,12 @@ function NavigationHeader () {
     toolbarLink: {
       padding: theme.spacing(1),
       flexShrink: 0,
-      fontSize: '50px'
+      fontSize: '30px'
     },
     toolbarCart: {
       padding: theme.spacing(2.5),
       flexShrink: 0,
-      fontSize: '50px'
+      fontSize: '30px'
     },
     popover: {
       pointerEvents: 'none'
@@ -179,6 +176,7 @@ function NavigationHeader () {
                   aria-haspopup='true'
                   onClick={handleClick}
                   color='inherit'
+                  size='medium'
                 >
                   <AccountCircle />
                 </IconButton>
@@ -189,10 +187,16 @@ function NavigationHeader () {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Notification</MenuItem>
+                  <MenuItem component='a' href={'/Profille/' + UserSlice.Id}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem component='a' href={'/'}>
+                    Notification
+                  </MenuItem>
 
-                  <MenuItem>Order history</MenuItem>
+                  <MenuItem component='a' href={'/OrderHistory'}>
+                    Order history
+                  </MenuItem>
                   <MenuItem onClick={() => dispatch(logout())}>
                     Sign out
                   </MenuItem>
@@ -212,7 +216,7 @@ function NavigationHeader () {
               <Image
                 href={'/'}
                 src='https://laz-img-cdn.alicdn.com/images/ims-web/TB1T7K2d8Cw3KVjSZFuXXcAOpXa.png'
-                style={{ width: '300px', heigth: '50px' }}
+                style={{ width: '250px', heigth: '20px' }}
               />
             </Typography>
             <Typography
@@ -255,16 +259,16 @@ function NavigationHeader () {
             variant='dense'
             className={classes.toolbarSecondary}
           >
-            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+            <Button style={{ fontSize: '14px' }} href={'/'} component={Link}>
               Home
             </Button>
-            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+            <Button style={{ fontSize: '14px' }} href={'/'} component={Link}>
               Get Voucher
             </Button>
-            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+            <Button style={{ fontSize: '14px' }} href={'/'} component={Link}>
               Special discount
             </Button>
-            <Button style={{ fontSize: '15px' }} href={'/'} component={Link}>
+            <Button style={{ fontSize: '14px' }} href={'/'} component={Link}>
               Deal for you
             </Button>
           </Toolbar>

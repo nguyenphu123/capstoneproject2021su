@@ -47,43 +47,6 @@ function ShoppingCart () {
   }
 
   if (CartSlice !== null) {
-    function onSubmit () {
-      console.log(UserSlice)
-
-      if (UserSlice !== null) {
-        //reference the element in the "JSON" aka object literal we want
-
-        //loop through the array
-
-        const totalPrice = CartSlice.reduce(
-          (accumulator, currentValue) =>
-            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-          0
-        )
-        //Do the math!
-
-        const order = {
-          UserId: UserSlice.Id,
-          TotalPrice: totalPrice,
-          AddressShipping: currentAddress,
-          Date: '2021-06-04T10:16:09.015Z',
-          Status: true,
-          OrderDetails: CartSlice
-        }
-        axios({
-          method: 'post',
-          url: '/api/order-management/users/orders',
-          headers: { 'content-type': 'application/json' },
-          data: JSON.stringify(order)
-        }).then(res => {
-          dispatch(emptyCart())
-          setFinishBuy(true)
-        })
-      } else {
-        setIsLogin(false)
-        console.log(isLogin)
-      }
-    }
     function setEdit () {
       setIsEdit(!isEdit)
     }

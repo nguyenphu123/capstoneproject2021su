@@ -33,6 +33,10 @@ function PaymentConfirm () {
   const [currentAddress, setCurrentAddress] = useState('')
   const [isEdit, setIsEdit] = useState(true)
   const [shipOption, setShipOption] = useState('')
+  const [paywithPaypal, setPaywithPaypal] = useState(true)
+  const [redirectPage, setRedirectPage] = useState('/')
+  const [finishBuy, setFinishBuy] = useState(false)
+
   const useStyles = makeStyles(theme => ({
     appBar: {
       position: 'relative'
@@ -79,6 +83,9 @@ function PaymentConfirm () {
   const handleBack = () => {
     setActiveStep(activeStep - 1)
   }
+  const handleChangePaypal = () => {
+    setPaywithPaypal(!paywithPaypal)
+  }
 
   function getStepContent (step) {
     switch (step) {
@@ -116,10 +123,11 @@ function PaymentConfirm () {
                   name='address1'
                   label='Address line 1'
                   fullWidth
+                  value={currentAddress}
                   autoComplete='shipping address-line1'
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <TextField
                   id='address2'
                   name='address2'
@@ -127,7 +135,7 @@ function PaymentConfirm () {
                   fullWidth
                   autoComplete='shipping address-line2'
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
@@ -146,7 +154,7 @@ function PaymentConfirm () {
                   fullWidth
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   id='zip'
@@ -165,7 +173,7 @@ function PaymentConfirm () {
                   fullWidth
                   autoComplete='shipping country'
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
@@ -189,51 +197,75 @@ function PaymentConfirm () {
               Payment method
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id='cardName'
-                  label='Name on card'
-                  fullWidth
-                  autoComplete='cc-name'
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id='cardNumber'
-                  label='Card number'
-                  fullWidth
-                  autoComplete='cc-number'
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id='expDate'
-                  label='Expiry date'
-                  fullWidth
-                  autoComplete='cc-exp'
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  id='cvv'
-                  label='CVV'
-                  helperText='Last three digits on signature strip'
-                  fullWidth
-                  autoComplete='cc-csc'
-                />
-              </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox color='secondary' name='saveCard' value='yes' />
+                    <Checkbox
+                      onChange={handleChangePaypal}
+                      checked={paywithPaypal}
+                      color='secondary'
+                      name='saveCard'
+                      value='yes'
+                    />
                   }
-                  label='Remember credit card details for next time'
+                  label='Pay on deliveried'
                 />
               </Grid>
+              {paywithPaypal ? (
+                <>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id='cardName'
+                      label='Name on card'
+                      fullWidth
+                      autoComplete='cc-name'
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id='cardNumber'
+                      label='Card number'
+                      fullWidth
+                      autoComplete='cc-number'
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id='expDate'
+                      label='Expiry date'
+                      fullWidth
+                      autoComplete='cc-exp'
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField
+                      required
+                      id='cvv'
+                      label='CVV'
+                      helperText='Last three digits on signature strip'
+                      fullWidth
+                      autoComplete='cc-csc'
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          color='secondary'
+                          name='saveCard'
+                          value='yes'
+                        />
+                      }
+                      label='Remember credit card details for next time'
+                    />
+                  </Grid>
+                </>
+              ) : (
+                <div></div>
+              )}
             </Grid>
           </React.Fragment>
         )
@@ -246,6 +278,10 @@ function PaymentConfirm () {
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
   }, [UserSlice])
+  if (finishBuy) {
+    return <Redirect to={redirectPage} />
+  }
+
   console.log(CartSlice)
   if (CartSlice !== null) {
     console.log(CartSlice)
@@ -283,6 +319,7 @@ function PaymentConfirm () {
           data: JSON.stringify(order)
         }).then(res => {
           dispatch(emptyCart())
+          setFinishBuy(true)
         })
       } else {
         setIsLogin(false)
@@ -298,7 +335,7 @@ function PaymentConfirm () {
 
     if (isLogin) {
       return (
-        <div style={{marginTop:"200px"}}>
+        <div style={{ marginTop: '200px' }}>
           <React.Fragment>
             <CssBaseline />
 
@@ -338,16 +375,25 @@ function PaymentConfirm () {
                             Back
                           </Button>
                         )}
-                        <Button
-                          variant='contained'
-                          color='primary'
-                          onClick={handleNext}
-                          className={classes.button}
-                        >
-                          {activeStep === steps.length - 1
-                            ? 'Place order'
-                            : 'Next'}
-                        </Button>
+                        {activeStep === steps.length - 1 ? (
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            onClick={onSubmit}
+                            className={classes.button}
+                          >
+                            Place order
+                          </Button>
+                        ) : (
+                          <Button
+                            variant='contained'
+                            color='primary'
+                            onClick={handleNext}
+                            className={classes.button}
+                          >
+                            Next
+                          </Button>
+                        )}
                       </div>
                     </React.Fragment>
                   )}
@@ -356,74 +402,6 @@ function PaymentConfirm () {
             </main>
           </React.Fragment>
         </div>
-        // <Grid
-        //   textAlign='center'
-        //   style={{ height: '100vh' }}
-        //   verticalAlign='middle'
-        // >
-        //   <Grid.Column style={{ maxWidth: 450 }}>
-        //     Choose your shipping options
-        //     <Form>
-        //       <Form.Field>
-        //         <Checkbox
-        //           radio
-        //           label='pay on delivery'
-        //           name='checkboxRadioGroup'
-        //           value='pay on delivery'
-        //           checked={shipOption === 'pay on delivery'}
-        //           onChange={handleChange}
-        //         />
-        //       </Form.Field>
-        //       <Form.Field>
-        //         <Checkbox
-        //           radio
-        //           label='pay with paypal'
-        //           name='checkboxRadioGroup'
-        //           value='pay with paypal'
-        //           checked={shipOption === 'pay with paypal'}
-        //           onChange={handleChange}
-        //         />
-        //       </Form.Field>
-        //     </Form>
-        //     {shipOption === 'pay with paypal' ? (
-        //       <Form size='large'>
-        //         Comming soon
-        //         {/* <Segment stacked>
-        //           <Form.Input
-        //             fluid
-        //             icon='user'
-        //             iconPosition='left'
-        //             placeholder='Paypal account'
-        //           />
-        //           <Form.Input
-        //             fluid
-        //             icon='lock'
-        //             iconPosition='left'
-        //             placeholder='Password'
-        //             type='password'
-        //           />
-
-        //           <Button color='pink' fluid size='large'>
-        //             Done
-        //           </Button>
-        //         </Segment> */}
-        //       </Form>
-        //     ) : null}
-        //     <Input
-        //       disabled={isEdit}
-        //       defaultValue={currentAddress}
-        //       action={<Button onClick={setEdit}>Edit</Button>}
-        //       actionPosition='right'
-        //     />
-        //     <br />
-        //     <Button animated onClick={onSubmit}>
-        //       <Button.Content visible>Finish</Button.Content>
-        //       <Button.Content hidden>
-        //         <Icon name='shopping bag' />
-        //       </Button.Content>
-        //     </Button>
-        //   </Grid.Column>
-        // </Grid>
       )
     }
     return <Redirect to={'/Login'} />
