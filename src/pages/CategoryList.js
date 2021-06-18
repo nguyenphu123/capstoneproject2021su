@@ -1,11 +1,11 @@
 import '../App.css'
-import { Image, Grid, Card, Header } from 'semantic-ui-react'
-import Category from '../components/Category/Category'
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
-import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Carousel from 'react-multi-carousel'
+
+import Category from '../components/Category/Category'
 
 const responsive = {
   superLargeDesktop: {

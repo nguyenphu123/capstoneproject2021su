@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react'
+import { Button, Form, Input, Select } from 'semantic-ui-react'
 
 function UserInformation () {
   const genderOptions = [
@@ -32,7 +32,7 @@ function UserInformation () {
           searchInput={{ id: 'form-select-control-gender' }}
         />
       </Form.Group>
-      
+
       <Form.Field
         id='form-input-control-error-email'
         control={Input}

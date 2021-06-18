@@ -1,7 +1,4 @@
-import { Tab, Dropdown, Item } from 'semantic-ui-react'
-import PropTypes from 'prop-types'
-import clsx from 'clsx'
-import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -9,18 +6,15 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Paper from '@material-ui/core/Paper'
 import DeleteIcon from '@material-ui/icons/Delete'
-// import FilterListIcon from '@material-ui/icons/FilterList'
-import { DataGrid } from '@material-ui/data-grid'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Dropdown, Tab } from 'semantic-ui-react'
 
+// import FilterListIcon from '@material-ui/icons/FilterList'
 // import { AutoSizer, Column, Table } from 'react-virtualized'
 
-import OrderItem from '../components/Order/OrderItem'
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
-import { useSelector, useDispatch } from 'react-redux'
 // function descendingComparator (a, b, orderBy) {
 //   if (b[orderBy] < a[orderBy]) {
 //     return -1

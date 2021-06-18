@@ -1,19 +1,10 @@
 import '../App.css'
-import {
-  Item,
-  Header,
-  Button,
-  Divider,
-  Tab,
-  Segment,
-  Icon
-} from 'semantic-ui-react'
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Tab } from 'semantic-ui-react'
+
 import { UserInformation, UserNewPassword } from '../components/UserProfile'
-import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
-import { Redirect } from 'react-router-dom'
-import axios from 'axios'
 
 function Profile () {
   const UserSlice = useSelector(state => state.UserSlice.user)

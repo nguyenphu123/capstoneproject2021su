@@ -1,25 +1,21 @@
 import '../../App.css'
-// import { Link } from 'react-router-dom'
-import { Image, Search, Icon } from 'semantic-ui-react'
-import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
-import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux'
-import { loginUser, logout } from '../../features/User/UserSlice'
-import PropTypes from 'prop-types'
+
+import { Button, Menu, MenuItem, TextField } from '@material-ui/core'
+import IconButton from '@material-ui/core/IconButton'
+import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
-import { Button, Menu, MenuItem, TextField } from '@material-ui/core'
-import Link from '@material-ui/core/Link'
-import IconButton from '@material-ui/core/IconButton'
-import SearchIcon from '@material-ui/icons/Search'
 import Typography from '@material-ui/core/Typography'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import Fade from '@material-ui/core/Fade'
-import Popover from '@material-ui/core/Popover'
-import Drawer from '@material-ui/core/Drawer'
+import SearchIcon from '@material-ui/icons/Search'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Image, Search } from 'semantic-ui-react'
+
+import { loginUser, logout } from '../../features/User/UserSlice'
 import CartButton from '../Cart/CartButton'
 
+// import { Link } from 'react-router-dom'
 const mapDispatch = { logout, loginUser }
 
 function NavigationHeader () {

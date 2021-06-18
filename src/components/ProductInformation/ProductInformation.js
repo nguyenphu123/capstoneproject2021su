@@ -1,40 +1,25 @@
 import '../../App.css'
-import {
-  Grid,
-  Image,
-  Icon,
-  Divider,
-  Segment,
-  Table,
-  Comment,
-  Form,
-  Header,
-  Rating,
-  Statistic,
-  Message,
-  Tab,
-  List
-} from 'semantic-ui-react'
+import 'react-image-gallery/styles/css/image-gallery.css'
+
+import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import VerticalItemList from '../Item-List/VerticalItemList'
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { cart } from '../../features/Cart/CartSlice'
-import 'react-image-gallery/styles/css/image-gallery.css'
-import ImageGallery from 'react-image-gallery'
-import InputSpinner from 'react-bootstrap-input-spinner'
-import axios from 'axios'
-import _ from 'lodash'
-import { useParams } from 'react-router-dom'
-import ReactDOM from 'react-dom'
-import Button from '@material-ui/core/Button'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
+import InputSpinner from 'react-bootstrap-input-spinner'
+import ImageGallery from 'react-image-gallery'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { Comment, Grid, Header, Rating, Tab, Table } from 'semantic-ui-react'
+
+import { cart } from '../../features/Cart/CartSlice'
+import VerticalItemList from '../Item-List/VerticalItemList'
 
 const mapDispatch = { cart }
 

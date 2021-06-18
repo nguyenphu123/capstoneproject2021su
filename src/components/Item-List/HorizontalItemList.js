@@ -1,8 +1,10 @@
 import '../../App.css'
-import React from 'react'
-import HorizontalItem from './HorizontalItem'
+
 import axios from 'axios'
-import { Button, Card, Image, Header } from 'semantic-ui-react'
+import React from 'react'
+import { Button, Card, Header } from 'semantic-ui-react'
+
+import HorizontalItem from './HorizontalItem'
 
 class HorizontalItemLList extends React.Component {
   constructor () {

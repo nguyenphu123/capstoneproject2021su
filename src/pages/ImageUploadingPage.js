@@ -1,7 +1,8 @@
 import '../App.css'
-import ImageUploading from 'react-images-uploading'
-import React from 'react'
+
 import Button from '@material-ui/core/Button'
+import React from 'react'
+import ImageUploading from 'react-images-uploading'
 
 function ImageUploadingPage () {
   const [images, setImages] = React.useState([])

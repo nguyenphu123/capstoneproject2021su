@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, TextArea, Button, Select } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 
 function UserNewPassword () {
   const genderOptions = [

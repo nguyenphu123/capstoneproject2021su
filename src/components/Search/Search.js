@@ -1,12 +1,7 @@
-import logo from '../../logo.svg'
 import '../../App.css'
-import FilterResults from 'react-filter-search'
 
-import _ from 'lodash'
-import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
-import ReactDOM from 'react-dom'
+import React, { useEffect, useState } from 'react'
 
 function Search () {
   const [categorylist, setCategorylist] = useState([])

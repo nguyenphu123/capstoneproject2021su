@@ -1,4 +1,5 @@
 import '../App.css'
+
 import ProductInformation from '../components/ProductInformation/ProductInformation'
 
 function ProductDetail () {

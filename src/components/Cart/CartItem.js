@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Image, Item } from 'semantic-ui-react'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
-import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { useSelector, useDispatch } from 'react-redux'
+import RemoveIcon from '@material-ui/icons/Remove'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { cart } from '../../features/Cart/CartSlice'
 
 const mapDispatch = { cart }

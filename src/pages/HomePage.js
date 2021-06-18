@@ -1,8 +1,10 @@
 import '../App.css'
-import VerticalItemList from '../components/Item-List/VerticalItemList'
+
+import { Header } from 'semantic-ui-react'
+
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
+import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
-import { Pagination, Card, Button, Header } from 'semantic-ui-react'
 import CategoryList from './CategoryList'
 
 function HomePage () {
@@ -26,13 +28,11 @@ function HomePage () {
         topic='New Product'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-      
 
       <VerticalItemList
         topic='You may like'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-     
 
       <section class='trend spad'>
         <div class='container'>

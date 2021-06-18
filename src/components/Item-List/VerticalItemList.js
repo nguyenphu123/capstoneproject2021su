@@ -1,8 +1,10 @@
 import '../../App.css'
-import React from 'react'
-import VerticalItem from './VerticalItem'
+
 import axios from 'axios'
-import { Pagination, Card, Button, Header } from 'semantic-ui-react'
+import React from 'react'
+import { Button, Card, Header } from 'semantic-ui-react'
+
+import VerticalItem from './VerticalItem'
 
 class VerticalItemList extends React.Component {
   constructor () {

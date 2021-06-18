@@ -1,24 +1,21 @@
 import '../App.css'
-import VerticalItemList from '../components/Item-List/VerticalItemList'
-import {
-  Grid,
-  Checkbox,
-  Segment,
-  Menu,
-  Sidebar,
-  Input,
-  Dropdown,
-  List,
-  Divider,
-  Rating,
-  Pagination,
-  Header
-} from 'semantic-ui-react'
-import _ from 'lodash'
-import React, { useState, useEffect } from 'react'
+
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import ReactDOM from 'react-dom'
+import {
+  Checkbox,
+  Divider,
+  Dropdown,
+  Grid,
+  Header,
+  Input,
+  List,
+  Pagination,
+  Rating
+} from 'semantic-ui-react'
+
+import VerticalItemList from '../components/Item-List/VerticalItemList'
 
 function CategoryPage () {
   //id của category

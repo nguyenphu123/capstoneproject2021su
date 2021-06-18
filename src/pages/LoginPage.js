@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAlert } from 'react-alert'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import {
   Button,
+  Divider,
   Form,
   Grid,
   Header,
+  Icon,
   Image,
   Message,
-  Segment,
-  Divider,
-  Icon
+  Segment
 } from 'semantic-ui-react'
-import { useSelector, useDispatch } from 'react-redux'
-import { loginUser, logout } from '../features/User/UserSlice'
-import axios from 'axios'
-import { Redirect } from 'react-router-dom'
-import { useAlert } from 'react-alert'
+
+import { loginUser } from '../features/User/UserSlice'
 
 const mapDispatch = { loginUser }
 

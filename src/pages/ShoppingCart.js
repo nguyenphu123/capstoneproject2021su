@@ -1,24 +1,14 @@
 import '../App.css'
-import {
-  Item,
-  Header,
-  Divider,
-  Grid,
-  Segment,
-  Icon,
-  Form,
-  Checkbox,
-  Input
-} from 'semantic-ui-react'
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { emptyCart } from '../features/Cart/CartSlice'
-import CartItem from '../components/Cart/CartItem'
-import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
-import { Redirect } from 'react-router-dom'
-import axios from 'axios'
+
 import Button from '@material-ui/core/Button'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { AtmMomo, GrabPay, Mastercard, Paypal, Visa } from 'react-pay-icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { Header } from 'semantic-ui-react'
+
+import CartItem from '../components/Cart/CartItem'
+import { emptyCart } from '../features/Cart/CartSlice'
 
 const mapDispatch = { emptyCart }
 

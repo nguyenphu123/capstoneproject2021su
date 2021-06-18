@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Form,
   Grid,
   Header,
   Image,
-  Message,
   Segment,
   Select
 } from 'semantic-ui-react'
+
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'
-import axios from 'axios'
 function RegistrationPage () {
   // const dispatch = useDispatch()
   const [username, setUsername] = useState('')

@@ -1,10 +1,10 @@
 import '../App.css'
-import { useParams } from 'react-router-dom'
-import { Item, Image, Segment } from 'semantic-ui-react'
-import { Steps } from 'rsuite'
-import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
+
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Steps } from 'rsuite'
+import { Image, Item, Segment } from 'semantic-ui-react'
 
 function OrderDetail () {
   const { orderId } = useParams()

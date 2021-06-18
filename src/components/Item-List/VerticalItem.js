@@ -1,19 +1,18 @@
 import '../../App.css'
-import { makeStyles } from '@material-ui/core/styles'
+
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import { Icon, Image, Rating, Header, Reveal } from 'semantic-ui-react'
 import IconButton from '@material-ui/core/IconButton'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-
-import { Link } from 'react-router-dom'
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Header, Rating } from 'semantic-ui-react'
 
 const useStyles = makeStyles({
   card: {

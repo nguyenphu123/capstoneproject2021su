@@ -1,7 +1,7 @@
 import '../../App.css'
-import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
-import { Grid } from 'semantic-ui-react'
+
+import AliceCarousel from 'react-alice-carousel'
 
 const handleDragStart = e => e.preventDefault()
 

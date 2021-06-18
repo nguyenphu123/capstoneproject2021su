@@ -1,10 +1,11 @@
 import '../../App.css'
-import { Image, Grid, Icon, Card } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import Category from './Category'
+
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Grid, Icon } from 'semantic-ui-react'
+
+import Category from './Category'
 
 function Categories () {
   const [categorylist, setCategorylist] = useState([])

@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Button, Image, Item } from 'semantic-ui-react'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
-import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
+import React, { useEffect, useState } from 'react'
 
 function OrderItem ({ TotalPrice, Orderdetails, Status }) {
   return (

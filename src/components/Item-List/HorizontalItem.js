@@ -1,6 +1,6 @@
 import '../../App.css'
-import { Link } from 'react-router-dom'
-import { Button, Card, Image, Header, Rating } from 'semantic-ui-react'
+
+import { Card, Header, Image, Rating } from 'semantic-ui-react'
 
 const HorizontalItem = ({ Id, Name, ImageStorages, CurrentPrice }) => (
   <Card href={'/Product/' + Id}>
