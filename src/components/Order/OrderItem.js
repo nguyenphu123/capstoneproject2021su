@@ -1,26 +1,37 @@
+import React, { useState, useEffect } from 'react'
+import { Button, Image, Item } from 'semantic-ui-react'
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+import RemoveIcon from '@material-ui/icons/Remove'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-import '../../App.css'
-// import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import { Item, Image } from 'semantic-ui-react'
-
-function OrderItem () {
+function OrderItem ({ TotalPrice, Orderdetails, Status }) {
   return (
-    <div style={{ height: '200px' }}>
-      <Item>
-        <Item.Image
-          size='tiny'
-          src='https://react.semantic-ui.com/images/wireframe/image.png'
-        />
-
-        <Item.Content>
-          <Item.Header as='a'>Header</Item.Header>
-          <Item.Meta>Description</Item.Meta>
-          <Item.Description>
-            <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-          </Item.Description>
-          <Item.Extra>Additional Details</Item.Extra>
-        </Item.Content>
-      </Item>
+    <div className='row no-gutters py-2'>
+      <div className='col-sm-2 p-2'>
+        {/* <img
+          alt={Name}
+          style={{ margin: '0 auto', maxHeight: '50px' }}
+          src={ImageUrl}
+          className='img-fluid d-block'
+        /> */}
+      </div>
+      <div className='col-sm-4 p-2'>
+        {/* <h5 className='mb-1'>{Name}</h5> */}
+        <p className='mb-1'>Price: {TotalPrice},000vnd </p>
+      </div>
+      <div className='col-sm-2 p-2 text-center '>
+        <p className='mb-0'>Qty: {Orderdetails.length}</p>
+      </div>
+      <div className='col-sm-4 p-2 text-right'>
+        {!Status && (
+          <button
+            // onClick={() => removeProduct(product)}
+            className='btn btn-danger btn-sm mb-1'
+          >
+            <DeleteIcon width={'20px'} />
+          </button>
+        )}
+      </div>
     </div>
   )
 }

@@ -57,20 +57,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       </div>
     </div>
 
-    // <Item style={{ width: '500px' }}>
-    //   <Item.Image size='small' src={ImageUrl} />
-
-    //   <Item.Content verticalAlign='top'>
-    //     <Item.Header floated='left'>{Name}</Item.Header>
-    //     <Item.Description floated='left'>{Quantity}</Item.Description>
-    //     <Item.Description floated='left'>{Price}</Item.Description>
-    //     <Item.Description></Item.Description>
-
-    //     <Item.Extra>
-    //       <Button floated='right'>Remove</Button>
-    //     </Item.Extra>
-    //   </Item.Content>
-    // </Item>
+   
   )
 }
 

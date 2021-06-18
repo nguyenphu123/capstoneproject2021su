@@ -97,18 +97,44 @@ function ProductInformation () {
       )
     })
   }, [productId])
+  function filterByID (item) {
+    if (productId === item.Id) {
+      return true
+    }
+    return false
+  }
 
   function addToCart () {
-    const cartItem = {
-      ProductId: productId,
-      CurrentPrice: product.CurrentPrice,
-      Quantity: quantity,
-      TotalLine: 0,
-      img: product.ImageStorages[0].ImageUrl,
-      Name: product.Name
+    const check_index = shopCart.findIndex(item => item.Id === productId)
+    if (check_index !== -1) {
+      shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
+
+      console.log('Quantity updated:', cart)
+    } else {
+      const cartItem = {
+        ProductId: productId,
+        CurrentPrice: product.CurrentPrice,
+        Quantity: quantity,
+        TotalLine: 0,
+        img: product.ImageStorages[0].ImageUrl,
+        Name: product.Name
+      }
+
+      shopCart.push(cartItem)
+      console.log('The product has been added to cart:', cart)
     }
-    shopCart.push(cartItem)
+
+    // let itemById = newCart.filter(filterByID)
+
     dispatch(cart(shopCart))
+
+    // shopCart.forEach(item => {
+    //   // use { here instead of
+    //   if (shopCart.findIndex(item => item.ProductId === productId) < 0) {
+    //     newCart.push(cartItem)
+    //   } else {
+    //   }
+    // })
   }
 
   function updateNumberPicker (e) {
