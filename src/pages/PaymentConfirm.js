@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-
+import { useAlert } from 'react-alert'
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
@@ -36,6 +36,7 @@ function PaymentConfirm () {
   const [paywithPaypal, setPaywithPaypal] = useState(true)
   const [redirectPage, setRedirectPage] = useState('/')
   const [finishBuy, setFinishBuy] = useState(false)
+  const alert = useAlert()
 
   const useStyles = makeStyles(theme => ({
     appBar: {
@@ -278,6 +279,10 @@ function PaymentConfirm () {
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
   }, [UserSlice])
+  useEffect(() => {
+    alert.success('We have received your order')
+  }, [finishBuy])
+
   if (finishBuy) {
     return <Redirect to={redirectPage} />
   }

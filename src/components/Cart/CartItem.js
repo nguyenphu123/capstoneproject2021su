@@ -11,6 +11,35 @@ const mapDispatch = { cart }
 function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
+  function addToCart () {
+    const check_index = shopCart.findIndex(item => item.Id === Id)
+    if (check_index !== -1) {
+      shopCart[check_index].Quantity = shopCart[check_index].Quantity + 1
+
+      console.log('Quantity updated:', cart)
+    } else {
+    }
+
+    dispatch(cart(shopCart))
+  }
+  function removeFromCart () {
+    const check_index = shopCart.findIndex(item => item.Id === Id)
+    if (check_index !== -1) {
+      shopCart.splice(check_index, 1)
+    } else {
+    }
+
+    dispatch(cart(shopCart))
+  }
+  function removeOneFromCart () {
+    const check_index = shopCart.findIndex(item => item.Id === Id)
+    if (check_index !== -1) {
+      shopCart[check_index].Quantity = shopCart[check_index].Quantity - 1
+    } else {
+    }
+
+    dispatch(cart(shopCart))
+  }
 
   return (
     <div className='row no-gutters py-2'>
@@ -31,7 +60,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       </div>
       <div className='col-sm-4 p-2 text-right'>
         <button
-          // onClick={() => increase(product)}
+          onClick={addToCart}
           className='btn btn-primary btn-sm mr-2 mb-1'
         >
           <AddCircleOutlineIcon width={'20px'} />
@@ -39,7 +68,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
 
         {Quantity > 1 && (
           <button
-            // onClick={() => decrease(product)}
+            onClick={removeOneFromCart}
             className='btn btn-danger btn-sm mb-1'
           >
             <RemoveIcon width={'20px'} />
@@ -48,7 +77,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
 
         {Quantity === 1 && (
           <button
-            // onClick={() => removeProduct(product)}
+            onClick={removeFromCart}
             className='btn btn-danger btn-sm mb-1'
           >
             <DeleteIcon width={'20px'} />
@@ -56,8 +85,6 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
         )}
       </div>
     </div>
-
-   
   )
 }
 

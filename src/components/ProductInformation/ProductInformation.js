@@ -34,6 +34,7 @@ import ReactDOM from 'react-dom'
 import Button from '@material-ui/core/Button'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import { useAlert } from 'react-alert'
 
 const mapDispatch = { cart }
 
@@ -103,13 +104,14 @@ function ProductInformation () {
     }
     return false
   }
+  const alert = useAlert()
 
   function addToCart () {
     const check_index = shopCart.findIndex(item => item.Id === productId)
     if (check_index !== -1) {
       shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
 
-      console.log('Quantity updated:', cart)
+      alert.success('Product in cart has been increase')
     } else {
       const cartItem = {
         ProductId: productId,
@@ -121,20 +123,10 @@ function ProductInformation () {
       }
 
       shopCart.push(cartItem)
-      console.log('The product has been added to cart:', cart)
+      alert.success('The product has been added to cart')
     }
 
-    // let itemById = newCart.filter(filterByID)
-
     dispatch(cart(shopCart))
-
-    // shopCart.forEach(item => {
-    //   // use { here instead of
-    //   if (shopCart.findIndex(item => item.ProductId === productId) < 0) {
-    //     newCart.push(cartItem)
-    //   } else {
-    //   }
-    // })
   }
 
   function updateNumberPicker (e) {

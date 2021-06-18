@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { loginUser, logout } from '../features/User/UserSlice'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
+import { useAlert } from 'react-alert'
 
 const mapDispatch = { loginUser }
 
@@ -26,6 +27,7 @@ function LoginPage () {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [user, setUser] = useState()
+  const alert = useAlert()
 
   // const location = useLocation()
 
@@ -33,6 +35,10 @@ function LoginPage () {
   useEffect(() => {
     // dispatch(userActions.logout())
   }, [])
+  useEffect(() => {
+    alert.success('Wellcome ' + UserSlice.UserName)
+  }, [UserSlice])
+
   // useEffect(() => {
   //   if (isSuccess) {
   //     dispatch(clearState())
@@ -72,66 +78,68 @@ function LoginPage () {
   if (UserSlice) {
     return <Redirect to={'/'} />
   } else {
-    return (<div style={{marginTop:'200px'}}>
-      <Segment placeholder>
-        <Grid columns={2} relaxed='very' stackable>
-          <Grid.Column>
-            <Header as='h2' color='teal' textAlign='center'>
-              <Image src='/logo.png' /> Log-in to your account
-            </Header>
-            <Form size='large' onSubmit={handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon='user'
-                  iconPosition='left'
-                  placeholder='E-mail address'
-                  value={username}
-                  onChange={handleChangeUsername}
-                />
-                <Form.Input
-                  fluid
-                  icon='lock'
-                  iconPosition='left'
-                  placeholder='Password'
-                  type='password'
-                  value={password}
-                  onChange={handleChangePassword}
-                />
+    return (
+      <div style={{ marginTop: '200px' }}>
+        <Segment placeholder>
+          <Grid columns={2} relaxed='very' stackable>
+            <Grid.Column>
+              <Header as='h2' color='teal' textAlign='center'>
+                <Image src='/logo.png' /> Log-in to your account
+              </Header>
+              <Form size='large' onSubmit={handleSubmit}>
+                <Segment stacked>
+                  <Form.Input
+                    fluid
+                    icon='user'
+                    iconPosition='left'
+                    placeholder='E-mail address'
+                    value={username}
+                    onChange={handleChangeUsername}
+                  />
+                  <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                    value={password}
+                    onChange={handleChangePassword}
+                  />
 
-                <Button color='pink' fluid size='large'>
-                  Login
-                </Button>
-              </Segment>
-            </Form>
-            <Message>
-              New to us? <a href='/Registration'>Sign Up</a>
-            </Message>
-          </Grid.Column>
-          <Grid.Column verticalAlign='middle'>
-          Login with
-            <Button
-              color='facebook'
-              style={{ width: '150px', marginTop: '10px' }}
-            >
-              <Icon name='facebook' /> Facebook
-            </Button>
-            <Button
-              color='twitter'
-              style={{ width: '150px', marginTop: '10px' }}
-            >
-              <Icon name='twitter' /> Twitter
-            </Button>
-            <Button
-              color='google plus'
-              style={{ width: '150px', marginTop: '10px' }}
-            >
-              <Icon name='google plus' /> Google Plus
-            </Button>
-          </Grid.Column>
-        </Grid>
-        <Divider vertical>Or</Divider>
-      </Segment></div>
+                  <Button color='pink' fluid size='large'>
+                    Login
+                  </Button>
+                </Segment>
+              </Form>
+              <Message>
+                New to us? <a href='/Registration'>Sign Up</a>
+              </Message>
+            </Grid.Column>
+            <Grid.Column verticalAlign='middle'>
+              Login with
+              <Button
+                color='facebook'
+                style={{ width: '150px', marginTop: '10px' }}
+              >
+                <Icon name='facebook' /> Facebook
+              </Button>
+              <Button
+                color='twitter'
+                style={{ width: '150px', marginTop: '10px' }}
+              >
+                <Icon name='twitter' /> Twitter
+              </Button>
+              <Button
+                color='google plus'
+                style={{ width: '150px', marginTop: '10px' }}
+              >
+                <Icon name='google plus' /> Google Plus
+              </Button>
+            </Grid.Column>
+          </Grid>
+          <Divider vertical>Or</Divider>
+        </Segment>
+      </div>
     )
   }
 }
