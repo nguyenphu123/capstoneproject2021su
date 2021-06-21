@@ -1,6 +1,6 @@
 import '../App.css'
 
-import { Header } from 'semantic-ui-react'
+import { Header, Button } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 // import { useAlert } from 'react-alert'
 import 'react-notifications/lib/notifications.css'
@@ -16,12 +16,12 @@ import CategoryList from './CategoryList'
 function HomePage () {
   const UserSlice = useSelector(state => state.UserSlice.user)
   useEffect(() => {
-    if (UserSlice !== null) {
-      NotificationManager.success(
-        'Success message',
-        'Wellcome ' + UserSlice.UserName
-      )
-    }
+    // if (UserSlice !== null) {
+    //   NotificationManager.success(
+    //     'Success message',
+    //     'Wellcome ' + UserSlice.UserName
+    //   )
+    // }
 
     // alert.success('Wellcome ' + UserSlice.UserName)
   }, [UserSlice])
@@ -33,25 +33,27 @@ function HomePage () {
           <h4>Flash deals</h4>
         </Header>
       </div>
-
       <SaleOff />
       <div class='section-title'>
         <Header textAlign='left' as='h1' color='black'>
           <h4>Categories</h4>
         </Header>
       </div>
-
       <CategoryList />
       <VerticalItemList
         topic='New Product'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-
+      <Button inverted color='blue' style={{ marginTop: '10px' }}>
+        See more...
+      </Button>
       <VerticalItemList
         topic='You may like'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-
+      <Button inverted color='blue' style={{ marginTop: '10px' }}>
+        See more...
+      </Button>
       <section class='trend spad'>
         <div class='container'>
           <div class='row'>

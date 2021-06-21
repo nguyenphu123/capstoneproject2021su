@@ -3,6 +3,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import RemoveIcon from '@material-ui/icons/Remove'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 import { cart } from '../../features/Cart/CartSlice'
 
@@ -19,6 +20,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       console.log('Quantity updated:', cart)
     } else {
     }
+    NotificationManager.success('Success message', 'Product added to cart')
 
     dispatch(cart(CartSlice))
   }
@@ -28,6 +30,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       CartSlice.splice(check_index, 1)
     } else {
     }
+    NotificationManager.success('Success message', 'Product added to cart')
 
     dispatch(cart(CartSlice))
   }
@@ -37,6 +40,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       CartSlice[check_index].Quantity = CartSlice[check_index].Quantity - 1
     } else {
     }
+    NotificationManager.success('Success message', 'Product added to cart')
 
     dispatch(cart(CartSlice))
   }
@@ -84,6 +88,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
           </button>
         )}
       </div>
+      <NotificationContainer />
     </div>
   )
 }

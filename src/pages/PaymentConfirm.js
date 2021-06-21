@@ -12,7 +12,9 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
+import 'react-notifications/lib/notifications.css'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -31,7 +33,6 @@ function PaymentConfirm () {
   const [paywithPaypal, setPaywithPaypal] = useState(true)
   const [redirectPage, setRedirectPage] = useState('/')
   const [finishBuy, setFinishBuy] = useState(false)
-  const alert = useAlert()
 
   const useStyles = makeStyles(theme => ({
     appBar: {
@@ -120,6 +121,7 @@ function PaymentConfirm () {
                   label='Address line 1'
                   fullWidth
                   value={currentAddress}
+                  onChange={value =>{setCurrentAddress(value)}}
                   autoComplete='shipping address-line1'
                 />
               </Grid>
@@ -275,7 +277,10 @@ function PaymentConfirm () {
     setCurrentAddress(UserSlice.Address)
   }, [UserSlice])
   useEffect(() => {
-    alert.success('We have received your order')
+    NotificationManager.success(
+      'Success message',
+      'We have reiceived your order'
+    )
   }, [finishBuy])
 
   if (finishBuy) {

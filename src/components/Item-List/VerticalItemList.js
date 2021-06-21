@@ -71,9 +71,9 @@ class VerticalItemList extends React.Component {
             </Card.Group>
           </div>
         </section>
-        <Button inverted color='blue' style={{ marginTop: '10px' }}>
+        {/* <Button inverted color='blue' style={{ marginTop: '10px' }}>
           See more...
-        </Button>
+        </Button> */}
       </>
     )
   }

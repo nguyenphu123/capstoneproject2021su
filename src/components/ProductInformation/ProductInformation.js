@@ -111,7 +111,7 @@ function ProductInformation () {
       }
 
       shopCart.push(cartItem)
-      alert.success('The product has been added to cart')
+      NotificationManager.success('Success message', 'Product added to cart')
     }
 
     dispatch(cart(shopCart))
@@ -400,16 +400,22 @@ function ProductInformation () {
           <Grid.Column centered width={16}>
             <Tab panes={panes} />
           </Grid.Column>
-          <Grid.Column width={11}>
+          <Grid.Column width={16}>
             <VerticalItemList
               topic='Relative products'
               apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
             />
+            <Button inverted color='blue' style={{ marginTop: '10px' }}>
+              See more...
+            </Button>
 
             <VerticalItemList
               topic='You may like'
               apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
             />
+            <Button inverted color='blue' style={{ marginTop: '10px' }}>
+              See more...
+            </Button>
           </Grid.Column>
         </Grid>
         <NotificationContainer />

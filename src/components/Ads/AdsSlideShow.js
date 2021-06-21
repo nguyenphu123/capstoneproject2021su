@@ -27,7 +27,7 @@ const items = [
 ]
 function AdsSlideShow () {
   return (
-    <div style={{ marginTop: '210px' }}>
+    <div style={{ marginTop: '150px' }}>
       <img
         style={{ objectFit: 'fill', marginTop: '10px' }}
         alt=''
