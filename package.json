@@ -70,7 +70,6 @@
   "devDependencies": {
     "@craco/craco": "^6.1.2",
     "@semantic-ui-react/craco-less": "^1.2.1",
-    "eslint-config-react": "^1.1.7",
     "prettier": "2.3.0",
     "semantic-ui-less": "^2.4.1"
   },
