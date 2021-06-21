@@ -11,7 +11,9 @@ import ShareIcon from '@material-ui/icons/Share'
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
+import 'react-notifications/lib/notifications.css'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+
 import InputSpinner from 'react-bootstrap-input-spinner'
 import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
@@ -89,14 +91,15 @@ function ProductInformation () {
     }
     return false
   }
-  const alert = useAlert()
 
   function addToCart () {
     const check_index = shopCart.findIndex(item => item.Id === productId)
     if (check_index !== -1) {
       shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
-
-      alert.success('Product in cart has been increase')
+      NotificationManager.success(
+        'Success message',
+        'Product in cart has been increase'
+      )
     } else {
       const cartItem = {
         ProductId: productId,
@@ -409,6 +412,7 @@ function ProductInformation () {
             />
           </Grid.Column>
         </Grid>
+        <NotificationContainer />
       </div>
     )
   }

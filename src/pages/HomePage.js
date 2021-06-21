@@ -1,6 +1,12 @@
 import '../App.css'
 
 import { Header } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+// import { useAlert } from 'react-alert'
+import 'react-notifications/lib/notifications.css'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+
+import { useDispatch, useSelector } from 'react-redux'
 
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
@@ -8,6 +14,18 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 
 function HomePage () {
+  const UserSlice = useSelector(state => state.UserSlice.user)
+  useEffect(() => {
+    if (UserSlice !== null) {
+      NotificationManager.success(
+        'Success message',
+        'Wellcome ' + UserSlice.UserName
+      )
+    }
+
+    // alert.success('Wellcome ' + UserSlice.UserName)
+  }, [UserSlice])
+
   return (
     <div>
       <div class='section-title'>
@@ -64,6 +82,7 @@ function HomePage () {
           </div>
         </div>
       </section>
+      <NotificationContainer />
     </div>
   )
 }

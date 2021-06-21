@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
+// import { useAlert } from 'react-alert'
+import 'react-notifications/lib/notifications.css'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import {
@@ -27,7 +30,7 @@ function LoginPage () {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [user, setUser] = useState()
-  const alert = useAlert()
+  // const alert = useAlert()
 
   // const location = useLocation()
 
@@ -36,7 +39,14 @@ function LoginPage () {
     // dispatch(userActions.logout())
   }, [])
   useEffect(() => {
-    alert.success('Wellcome ' + UserSlice.UserName)
+    if (UserSlice !== null) {
+      NotificationManager.success(
+        'Success message',
+        'Wellcome ' + UserSlice.UserName
+      )
+    }
+
+    // alert.success('Wellcome ' + UserSlice.UserName)
   }, [UserSlice])
 
   // useEffect(() => {
@@ -76,7 +86,12 @@ function LoginPage () {
   }
   console.log(UserSlice)
   if (UserSlice) {
-    return <Redirect to={'/'} />
+    return (
+      <>
+        <Redirect to={'/'} />
+        {/* <NotificationContainer /> */}
+      </>
+    )
   } else {
     return (
       <div style={{ marginTop: '200px' }}>

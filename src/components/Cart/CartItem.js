@@ -12,33 +12,33 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   function addToCart () {
-    const check_index = shopCart.findIndex(item => item.Id === Id)
+    const check_index = CartSlice.findIndex(item => item.Id === Id)
     if (check_index !== -1) {
-      shopCart[check_index].Quantity = shopCart[check_index].Quantity + 1
+      CartSlice[check_index].Quantity = CartSlice[check_index].Quantity + 1
 
       console.log('Quantity updated:', cart)
     } else {
     }
 
-    dispatch(cart(shopCart))
+    dispatch(cart(CartSlice))
   }
   function removeFromCart () {
-    const check_index = shopCart.findIndex(item => item.Id === Id)
+    const check_index = CartSlice.findIndex(item => item.Id === Id)
     if (check_index !== -1) {
-      shopCart.splice(check_index, 1)
+      CartSlice.splice(check_index, 1)
     } else {
     }
 
-    dispatch(cart(shopCart))
+    dispatch(cart(CartSlice))
   }
   function removeOneFromCart () {
-    const check_index = shopCart.findIndex(item => item.Id === Id)
+    const check_index = CartSlice.findIndex(item => item.Id === Id)
     if (check_index !== -1) {
-      shopCart[check_index].Quantity = shopCart[check_index].Quantity - 1
+      CartSlice[check_index].Quantity = CartSlice[check_index].Quantity - 1
     } else {
     }
 
-    dispatch(cart(shopCart))
+    dispatch(cart(CartSlice))
   }
 
   return (
