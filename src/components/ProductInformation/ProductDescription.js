@@ -1,12 +1,12 @@
 import { Container, Tab, Header } from 'semantic-ui-react'
+import Title from '../../Assets/Title'
 
 function ProductDescription ({ Description }) {
   return (
     <Tab.Pane>
       <Container text>
-        <Header as='h3' dividing>
-          Description
-        </Header>
+        <Title Name='Description' />
+
         <p>
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
           commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque

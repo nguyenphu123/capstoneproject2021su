@@ -3,7 +3,7 @@ import '../../App.css'
 import axios from 'axios'
 import React from 'react'
 import { Button, Card, Header } from 'semantic-ui-react'
-
+import Title from '../../Assets/Title'
 import HorizontalItem from './HorizontalItem'
 
 class HorizontalItemLList extends React.Component {
@@ -29,13 +29,9 @@ class HorizontalItemLList extends React.Component {
   render () {
     return (
       <>
-        <div class='section-title'>
-          <Header textAlign='left' as='h1' color='black'>
-            <h4>{this.props.topic}</h4>
-          </Header>
-        </div>
+        <Title Name={this.props.topic} />
 
-        <div class='trend__content'>
+        <div class='trend__content' style={{ marginTop: '100px' }}>
           <Card.Group>
             {this.state.products.map(
               ({ Id, Name, ImageStorages, CurrentPrice }) => (
@@ -49,9 +45,6 @@ class HorizontalItemLList extends React.Component {
             )}
           </Card.Group>
         </div>
-        {/* <Button inverted color='blue' style={{ marginTop: '10px' }}>
-          See more...
-        </Button> */}
       </>
     )
   }

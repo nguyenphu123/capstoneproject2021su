@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 // import { useAlert } from 'react-alert'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
+import Title from '../Assets/Title'
 
 import { useDispatch, useSelector } from 'react-redux'
 import SeeMoreButton from '../Assets/SeeMoreButton'
@@ -27,17 +28,11 @@ function HomePage () {
 
   return (
     <div>
-      <div class='section-title'>
-        <Header textAlign='left' as='h1' color='black'>
-          <h4>Flash deals</h4>
-        </Header>
-      </div>
+      <Title Name='Flash Deal' />
+
       <SaleOff />
-      <div class='section-title'>
-        <Header textAlign='left' as='h1' color='black'>
-          <h4>Categories</h4>
-        </Header>
-      </div>
+      <Title Name='Categories' />
+
       <CategoryList />
       <VerticalItemList
         topic='New Product'

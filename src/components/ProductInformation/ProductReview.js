@@ -4,6 +4,7 @@ import 'react-image-gallery/styles/css/image-gallery.css'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Title from '../../Assets/Title'
 
 import axios from 'axios'
 // import React, { useEffect, useState } from 'react'
@@ -28,9 +29,7 @@ function ProductReview ({ Comments }) {
       <Grid.Column>
         <List>
           <List.Item>
-            <Header as='h5' color='black'>
-              Rating
-            </Header>
+            <Title Name='Rating' />
           </List.Item>
           <List.Item>
             <Rating icon='star' defaultRating={5} maxRating={5} disabled />
@@ -50,9 +49,7 @@ function ProductReview ({ Comments }) {
         </List>
 
         <Comment.Group>
-          <Header as='h3' dividing>
-            Comments
-          </Header>
+          <Title Name='Comments' />
 
           <Comment>
             <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />

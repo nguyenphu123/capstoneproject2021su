@@ -57,19 +57,6 @@ function Category ({ Id, Name, img }) {
         </Card>
       </Link>
     </div>
-    // <Grid.Column>
-    //   <Card href={'/Category/' + Id}>
-    //     <Image
-    //       size='small'
-    //       src={`/${'assets/img/categories/category-1.jpg'}`}
-    //       wrapped
-    //       ui={false}
-    //     />
-    //     <Card.Content>
-    //       <Card.Description>{Name}</Card.Description>
-    //     </Card.Content>
-    //   </Card>
-    // </Grid.Column>
   )
 }
 

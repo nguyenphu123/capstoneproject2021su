@@ -28,9 +28,6 @@ function Categories () {
       </div>
 
       <Grid centered>
-        {/* {Array.from(Array(10), (e, i) => {
-          return <Category name='' img='' />
-        })} */}
         {categorylist.map(({ Id, Name }) => (
           <Category Id={Id} Name={Name} img='' />
         ))}

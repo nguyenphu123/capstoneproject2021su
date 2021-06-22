@@ -2,7 +2,10 @@ import '../../App.css'
 
 function SaleOff () {
   return (
-    <div>
+    <>
+      <br />
+      <br />
+
       <section class='discount'>
         <div class='container'>
           <div class='row' style={{ backgroundColor: '#ffffff' }}>
@@ -44,7 +47,7 @@ function SaleOff () {
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }
 

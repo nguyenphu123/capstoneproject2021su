@@ -3,6 +3,7 @@ import '../../App.css'
 import axios from 'axios'
 import React from 'react'
 import { Button, Card, Header } from 'semantic-ui-react'
+import Title from '../../Assets/Title'
 
 import VerticalItem from './VerticalItem'
 
@@ -32,48 +33,36 @@ class VerticalItemList extends React.Component {
   render () {
     return (
       <>
-        <div class='col-lg-4 col-md-4'>
-          <div class='section-title'>
-            <Header textAlign='left' as='h1' color='black'>
-              <h4>{this.props.topic}</h4>
-            </Header>
-          </div>
+        <Title Name={this.props.topic} />
+        <div style={{ marginTop: '100px' }}>
+          <Card.Group itemsPerRow={6}>
+            {this.state.products.map(
+              ({
+                Id,
+                Name,
+                Price,
+                Quantity,
+                Star,
+                Description,
+                Code,
+                CurrentPrice,
+                CategoryId,
+                Status,
+                ImageStorages
+              }) => (
+                <VerticalItem
+                  Id={Id}
+                  Name={Name}
+                  Status={Status}
+                  Price={Price}
+                  CurrentPrice={CurrentPrice}
+                  ImageStorages={ImageStorages}
+                  Quantity={Quantity}
+                />
+              )
+            )}
+          </Card.Group>
         </div>
-
-        <section class='product spad'>
-          <div class='container'>
-            <Card.Group itemsPerRow={6}>
-              {this.state.products.map(
-                ({
-                  Id,
-                  Name,
-                  Price,
-                  Quantity,
-                  Star,
-                  Description,
-                  Code,
-                  CurrentPrice,
-                  CategoryId,
-                  Status,
-                  ImageStorages
-                }) => (
-                  <VerticalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                  />
-                )
-              )}
-            </Card.Group>
-          </div>
-        </section>
-        {/* <Button inverted color='blue' style={{ marginTop: '10px' }}>
-          See more...
-        </Button> */}
       </>
     )
   }

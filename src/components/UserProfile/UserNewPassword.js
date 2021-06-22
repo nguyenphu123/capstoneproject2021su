@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Grid } from 'semantic-ui-react'
+import Title from '../../Assets/Title'
 
-function UserNewPassword () {
+function UserNewPassword ({ password }) {
   const genderOptions = [
     { key: 'm', text: 'Male', value: 'male' },
     { key: 'f', text: 'Female', value: 'female' },
@@ -9,8 +10,10 @@ function UserNewPassword () {
   ]
 
   return (
-    <Form>
-      <Form.Group widths='equal'>
+    <>
+      <Title Name='Reset Password ?' />
+
+      <Form size='large'>
         <Form.Input
           fluid
           icon='lock'
@@ -18,33 +21,39 @@ function UserNewPassword () {
           placeholder='Password'
           type='password'
           value={password}
-          onChange={handleChangePassword}
+          label='Current password'
+
+          // onChange={handleChangePassword}
         />
 
         <Form.Input
           fluid
           icon='lock'
           iconPosition='left'
-          placeholder='Password'
+          placeholder='New Password'
           type='password'
           value={password}
-          onChange={handleChangePassword}
+          label='New Password'
+
+          // onChange={handleChangePassword}
         />
 
         <Form.Input
           fluid
           icon='lock'
           iconPosition='left'
-          placeholder='Password'
+          placeholder='Reapet new Password'
           type='password'
           value={password}
-          onChange={handleChangePassword}
+          label='Re enter new password'
+
+          // onChange={handleChangePassword}
         />
-        <Button color='pink' fluid size='large'>
+        <Button color='pink' size='large'>
           Change
         </Button>
-      </Form.Group>
-    </Form>
+      </Form>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import '../../App.css'
 import 'react-image-gallery/styles/css/image-gallery.css'
+import Title from '../../Assets/Title'
 
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
@@ -19,9 +20,8 @@ function ProductQuestionAndAnswer ({ QuestionList }) {
     <Tab.Pane>
       <Grid.Column>
         <Comment.Group>
-          <Header as='h3' dividing>
-            Question
-          </Header>
+         <Title Name='Question' />
+
 
           <Comment>
             <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
