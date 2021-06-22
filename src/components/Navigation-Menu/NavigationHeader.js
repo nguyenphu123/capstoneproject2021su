@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Image, Search } from 'semantic-ui-react'
 
 import { loginUser, logout } from '../../features/User/UserSlice'
-import CartButton from '../Cart/CartButton'
+import CartButton from '../../Assets/CartButton'
 
 // import { Link } from 'react-router-dom'
 const mapDispatch = { logout, loginUser }

@@ -7,7 +7,7 @@ import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 
 import { useDispatch, useSelector } from 'react-redux'
-
+import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
@@ -22,7 +22,6 @@ function HomePage () {
     //     'Wellcome ' + UserSlice.UserName
     //   )
     // }
-
     // alert.success('Wellcome ' + UserSlice.UserName)
   }, [UserSlice])
 
@@ -44,16 +43,14 @@ function HomePage () {
         topic='New Product'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-      <Button inverted color='blue' style={{ marginTop: '10px' }}>
-        See more...
-      </Button>
+      <SeeMoreButton Url='/' />
+
       <VerticalItemList
         topic='You may like'
         apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
       />
-      <Button inverted color='blue' style={{ marginTop: '10px' }}>
-        See more...
-      </Button>
+      <SeeMoreButton Url='/' />
+
       <section class='trend spad'>
         <div class='container'>
           <div class='row'>
@@ -64,6 +61,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
+              <SeeMoreButton Url='/' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <HorizontalItemList
@@ -72,6 +70,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
+              <SeeMoreButton Url='/' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <HorizontalItemList
@@ -80,6 +79,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
+              <SeeMoreButton Url='/' />
             </div>
           </div>
         </div>

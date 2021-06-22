@@ -49,9 +49,9 @@ class HorizontalItemLList extends React.Component {
             )}
           </Card.Group>
         </div>
-        <Button inverted color='blue' style={{ marginTop: '10px' }}>
+        {/* <Button inverted color='blue' style={{ marginTop: '10px' }}>
           See more...
-        </Button>
+        </Button> */}
       </>
     )
   }

@@ -13,7 +13,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
-
+import SeeMoreButton from '../../Assets/SeeMoreButton'
+import ProductQuestionAndAnswer from './ProductQuestionAndAnswer'
+import ProductDescription from './ProductDescription'
+import ProductReview from './ProductReview'
 import InputSpinner from 'react-bootstrap-input-spinner'
 import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
@@ -126,96 +129,17 @@ function ProductInformation () {
   const panes = [
     {
       menuItem: 'Description',
-      render: () => <Tab.Pane>Tab 2 Content</Tab.Pane>
+      render: () => <ProductDescription Description={''} />
     },
     {
       menuItem: 'Comments and Reviews',
-      render: () => (
-        <Tab.Pane>
-          <Grid.Column>
-            {/* <Form reply>
-              <Form.TextArea />
-              <Button variant='outlined' color='primary' size='medium'>
-                Add Comment
-              </Button>
-            </Form> */}
-
-            <Comment.Group>
-              <Header as='h3' dividing>
-                Comments
-              </Header>
-
-              <Comment>
-                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' />
-                <Comment.Content>
-                  <Comment.Author as='a'>Matt</Comment.Author>
-                  <Comment.Metadata>
-                    <div>Today at 5:42PM</div>
-                  </Comment.Metadata>
-                  <Comment.Text>How artistic!</Comment.Text>
-                  <Comment.Actions>
-                    <Comment.Action>Reply</Comment.Action>
-                  </Comment.Actions>
-                </Comment.Content>
-              </Comment>
-
-              <Comment>
-                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/elliot.jpg' />
-                <Comment.Content>
-                  <Comment.Author as='a'>Elliot Fu</Comment.Author>
-                  <Comment.Metadata>
-                    <div>Yesterday at 12:30AM</div>
-                  </Comment.Metadata>
-                  <Comment.Text>
-                    <p>
-                      This has been very useful for my research. Thanks as well!
-                    </p>
-                  </Comment.Text>
-                  <Comment.Actions>
-                    <Comment.Action>Reply</Comment.Action>
-                  </Comment.Actions>
-                </Comment.Content>
-                <Comment.Group>
-                  <Comment>
-                    <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/jenny.jpg' />
-                    <Comment.Content>
-                      <Comment.Author as='a'>Jenny Hess</Comment.Author>
-                      <Comment.Metadata>
-                        <div>Just now</div>
-                      </Comment.Metadata>
-                      <Comment.Text>
-                        Elliot you are always so right :)
-                      </Comment.Text>
-                      <Comment.Actions>
-                        <Comment.Action>Reply</Comment.Action>
-                      </Comment.Actions>
-                    </Comment.Content>
-                  </Comment>
-                </Comment.Group>
-              </Comment>
-
-              <Comment>
-                <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/joe.jpg' />
-                <Comment.Content>
-                  <Comment.Author as='a'>Joe Henderson</Comment.Author>
-                  <Comment.Metadata>
-                    <div>5 days ago</div>
-                  </Comment.Metadata>
-                  <Comment.Text>
-                    Dude, this is awesome. Thanks so much
-                  </Comment.Text>
-                  <Comment.Actions>
-                    <Comment.Action>Reply</Comment.Action>
-                  </Comment.Actions>
-                </Comment.Content>
-              </Comment>
-            </Comment.Group>
-          </Grid.Column>
-        </Tab.Pane>
-      )
+      render: () => <ProductReview Comments={[]} />
     },
 
-    { menuItem: 'Q and A', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> }
+    {
+      menuItem: 'Q and A',
+      render: () => <ProductQuestionAndAnswer QuestionList={[]} />
+    }
   ]
 
   if (currentState) {
@@ -224,18 +148,6 @@ function ProductInformation () {
         <Grid>
           <Grid.Row style={{ backgroundColor: '#ffffff' }}>
             <Grid.Column width={5}>
-              {/* <AliceCarousel
-                responsive={responsive}
-                autoPlayInterval={2000}
-                autoPlayDirection='rtl'
-                mouseTracking='true'
-                controlsStrategy='alternate'
-              >
-                {product &&
-                  product.ImageStorages.map(({ ImageUrl }) => (
-                    <img className='sliderimg' src={ImageUrl} />
-                  ))}
-              </AliceCarousel> */}
               <ImageGallery items={images} />
             </Grid.Column>
 
@@ -405,17 +317,13 @@ function ProductInformation () {
               topic='Relative products'
               apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
             />
-            <Button inverted color='blue' style={{ marginTop: '10px' }}>
-              See more...
-            </Button>
+            <SeeMoreButton Url='/' />
 
             <VerticalItemList
               topic='You may like'
               apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
             />
-            <Button inverted color='blue' style={{ marginTop: '10px' }}>
-              See more...
-            </Button>
+            <SeeMoreButton Url='/' />
           </Grid.Column>
         </Grid>
         <NotificationContainer />

@@ -88,11 +88,17 @@ function CategoryPage () {
   return (
     <>
       <Grid centered columns={2}>
-        <Header as='h1' inverted color='red'>
-          Search result
-        </Header>
+        <Grid.Row>
+          <Header as='h1' color='black'>
+            Search result
+          </Header>
+        </Grid.Row>
 
         <Grid.Column>
+          <Header as='h4' color='black'>
+            Filter
+          </Header>
+
           <Dropdown
             text='Color'
             icon='filter'
