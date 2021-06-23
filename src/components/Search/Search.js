@@ -2,6 +2,9 @@ import '../../App.css'
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import IconButton from '@material-ui/core/IconButton'
+import SearchIcon from '@material-ui/icons/Search'
+import { Button, TextField } from '@material-ui/core'
 
 function Search () {
   const [categorylist, setCategorylist] = useState([])
@@ -53,7 +56,17 @@ function Search () {
     //   </div>
     // </MDBCol>
     <div>
-      <input type='text' value={search} onChange={handleChange} />
+      <TextField
+        id='standard-basic'
+        value={search}
+        onChange={handleChange}
+        label='Search'
+        style={{ width: '70%' }}
+      />
+      <IconButton type='submit' aria-label='search'>
+        <SearchIcon />
+      </IconButton>
+      {/* <input type='text' value={search} onChange={handleChange} /> */}
       <SearchResults
         value={search}
         data={searchResult}

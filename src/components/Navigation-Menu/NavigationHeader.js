@@ -11,7 +11,8 @@ import SearchIcon from '@material-ui/icons/Search'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Image, Search } from 'semantic-ui-react'
-
+// import FilterResults from 'react-filter-search'
+import Search from '../Search/Search'
 import { loginUser, logout } from '../../features/User/UserSlice'
 import CartButton from '../../Assets/CartButton'
 
@@ -224,14 +225,15 @@ function NavigationHeader () {
               className={classes.Search}
             >
               <div>
-                <TextField
+                <Search />
+                {/* <TextField
                   id='standard-basic'
                   label='Search'
                   style={{ width: '70%' }}
                 />
                 <IconButton type='submit' aria-label='search'>
                   <SearchIcon />
-                </IconButton>
+                </IconButton> */}
               </div>
             </Typography>
             <Link
