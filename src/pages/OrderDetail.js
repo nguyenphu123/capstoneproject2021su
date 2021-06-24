@@ -185,7 +185,7 @@ function OrderDetail () {
             id='tableTitle'
             component='div'
           >
-            <Title Name='User addresses' />
+            {/* <Title Name='User addresses' /> */}
           </Typography>
         )}
 
@@ -275,7 +275,6 @@ function OrderDetail () {
         </Steps>
       </Segment>
       <Segment vertical>
-        ;
         <div className={classes.root}>
           <Paper className={classes.paper}>
             <EnhancedTableToolbar numSelected={selected.length} />
@@ -304,7 +303,7 @@ function OrderDetail () {
                       return (
                         <TableRow
                           hover
-                          onClick={event => handleClick(event, row.name)}
+                          // onClick={event => handleClick(event, row.name)}
                           role='checkbox'
                           aria-checked={isItemSelected}
                           tabIndex={-1}
@@ -315,9 +314,7 @@ function OrderDetail () {
                             {row.Name}
                           </TableCell>
                           <TableCell align='right'>{row.Quantity}</TableCell>
-                          <TableCell align='right'>
-                            {row.Price}
-                          </TableCell>
+                          <TableCell align='right'>{row.Price}</TableCell>
                           {/* <TableCell align='right'>
                             {row.AddressShipping}
                           </TableCell>

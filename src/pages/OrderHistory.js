@@ -1,4 +1,3 @@
-import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { lighten, makeStyles } from '@material-ui/core/styles'
@@ -29,12 +28,12 @@ import { Dropdown, Tab } from 'semantic-ui-react'
 function OrderHistory (props) {
   const [historylist, setHistorylist] = useState([])
   const UserSlice = useSelector(state => state.UserSlice.user)
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 650
-    }
-  })
-  const classes = useStyles()
+  // const useStyles = makeStyles({
+  //   table: {
+  //     minWidth: 650
+  //   }
+  // })
+  // const classes = useStyles()
   function descendingComparator (a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1
@@ -62,12 +61,6 @@ function OrderHistory (props) {
   }
 
   const headCells = [
-    {
-      id: 'TotalPrice',
-      numeric: false,
-      disablePadding: true,
-      label: 'Total Price'
-    },
     { id: 'Date', numeric: true, disablePadding: false, label: 'Date' },
     {
       id: 'Orderdetails.length',
@@ -81,7 +74,19 @@ function OrderHistory (props) {
       disablePadding: false,
       label: 'Address Shipping'
     },
-    { id: 'Status', numeric: true, disablePadding: false, label: 'Status' }
+    {
+      id: 'TotalPrice',
+      numeric: true,
+      disablePadding: true,
+      label: 'Total Price'
+    },
+    { id: 'Status', numeric: false, disablePadding: false, label: 'Status' },
+    {
+      id: 'View Detail',
+      numeric: false,
+      disablePadding: false,
+      label: 'View Detail'
+    }
   ]
 
   function EnhancedTableHead (props) {
@@ -335,7 +340,7 @@ function OrderHistory (props) {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => {
-                        const isItemSelected = isSelected(row.Name)
+                        // const isItemSelected = isSelected(row.Name)
                         const labelId = `enhanced-table-checkbox-${index}`
 
                         return (
@@ -343,14 +348,11 @@ function OrderHistory (props) {
                             hover
                             onClick={event => handleClick(event, row.name)}
                             role='checkbox'
-                            aria-checked={isItemSelected}
+                            // aria-checked={isItemSelected}
                             tabIndex={-1}
                             key={row.name}
-                            selected={isItemSelected}
+                            // selected={isItemSelected}
                           >
-                            <TableCell component='th' scope='row'>
-                              {row.name}
-                            </TableCell>
                             <TableCell align='right'>{row.Date}</TableCell>
                             <TableCell align='right'>
                               {row.Orderdetails.length}
@@ -361,6 +363,7 @@ function OrderHistory (props) {
                             <TableCell align='right'>
                               {row.TotalPrice}
                             </TableCell>
+
                             <TableCell align='right'>{row.Status}</TableCell>
                             <TableCell align='right'>
                               <DeleteIcon />
@@ -433,16 +436,13 @@ function OrderHistory (props) {
                         return (
                           <TableRow
                             hover
-                            onClick={event => handleClick(event, row.name)}
+                            // onClick={event => handleClick(event, row.name)}
                             role='checkbox'
                             aria-checked={isItemSelected}
                             tabIndex={-1}
                             key={row.name}
                             selected={isItemSelected}
                           >
-                            <TableCell component='th' scope='row'>
-                              {row.name}
-                            </TableCell>
                             <TableCell align='right'>{row.Date}</TableCell>
                             <TableCell align='right'>
                               {row.Orderdetails.length}
@@ -450,10 +450,10 @@ function OrderHistory (props) {
                             <TableCell align='right'>
                               {row.AddressShipping}
                             </TableCell>
+                            <TableCell align='right'>{row.Status}</TableCell>
                             <TableCell align='right'>
                               {row.TotalPrice}
                             </TableCell>
-                            <TableCell align='right'>{row.Status}</TableCell>
                           </TableRow>
                         )
                       })}
@@ -515,7 +515,7 @@ function OrderHistory (props) {
                         page * rowsPerPage + rowsPerPage
                       )
                       .map((row, index) => {
-                        const isItemSelected = isSelected(row.Name)
+                        // const isItemSelected = isSelected(row.Name)
                         const labelId = `enhanced-table-checkbox-${index}`
 
                         return (
@@ -523,14 +523,11 @@ function OrderHistory (props) {
                             hover
                             onClick={event => handleClick(event, row.name)}
                             role='checkbox'
-                            aria-checked={isItemSelected}
+                            // aria-checked={isItemSelected}
                             tabIndex={-1}
                             key={row.name}
-                            selected={isItemSelected}
+                            // selected={isItemSelected}
                           >
-                            <TableCell component='th' scope='row'>
-                              {row.name}
-                            </TableCell>
                             <TableCell align='right'>{row.Date}</TableCell>
                             <TableCell align='right'>
                               {row.Orderdetails.length}
@@ -538,10 +535,11 @@ function OrderHistory (props) {
                             <TableCell align='right'>
                               {row.AddressShipping}
                             </TableCell>
+
+                            <TableCell align='right'>{row.Status}</TableCell>
                             <TableCell align='right'>
                               {row.TotalPrice}
                             </TableCell>
-                            <TableCell align='right'>{row.Status}</TableCell>
                           </TableRow>
                         )
                       })}

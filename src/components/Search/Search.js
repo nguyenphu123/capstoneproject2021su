@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import { Button, TextField } from '@material-ui/core'
+import SearchResults from 'react-filter-search'
 
 function Search () {
   const [categorylist, setCategorylist] = useState([])
@@ -20,7 +21,7 @@ function Search () {
       console.log(res.data)
       setCategorylist(res.data)
     })
-  }, [categorylist])
+  }, [])
 
   function Search (event) {
     const { value } = event.target
@@ -59,7 +60,7 @@ function Search () {
       <TextField
         id='standard-basic'
         value={search}
-        onChange={handleChange}
+        onChange={Search}
         label='Search'
         style={{ width: '70%' }}
       />
