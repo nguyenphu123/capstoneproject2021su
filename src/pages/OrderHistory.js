@@ -19,7 +19,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
-
+import Modal from 'react-awesome-modal'
+import OrderDetail from './OrderDetail'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -27,6 +28,8 @@ import { Dropdown, Tab } from 'semantic-ui-react'
 
 function OrderHistory (props) {
   const [historylist, setHistorylist] = useState([])
+  const [visibility, setVisibility] = useState(false)
+
   const UserSlice = useSelector(state => state.UserSlice.user)
   // const useStyles = makeStyles({
   //   table: {
@@ -34,6 +37,7 @@ function OrderHistory (props) {
   //   }
   // })
   // const classes = useStyles()
+
   function descendingComparator (a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1
@@ -365,6 +369,36 @@ function OrderHistory (props) {
                             </TableCell>
 
                             <TableCell align='right'>{row.Status}</TableCell>
+                            <TableCell>
+                              <section>
+                                <h1>React-Modal Examples</h1>
+                                <input
+                                  type='button'
+                                  value='Open'
+                                  onClick={setVisibility(!visibility)}
+                                />
+                                <Modal
+                                  visible={visibility}
+                                  width='1400'
+                                  height='1300'
+                                  effect='fadeInUp'
+                                  onClickAway={setVisibility(!visibility)}
+                                >
+                                  <div>
+                                    <h1>Title</h1>
+                                    <OrderDetail
+                                      ProductLList={row.ProductDetail}
+                                    />
+                                    <a
+                                      href='javascript:void(0);'
+                                      onClick={setVisibility(!visibility)}
+                                    >
+                                      Close
+                                    </a>
+                                  </div>
+                                </Modal>
+                              </section>
+                            </TableCell>
                             <TableCell align='right'>
                               <DeleteIcon />
                             </TableCell>
@@ -454,6 +488,36 @@ function OrderHistory (props) {
                             <TableCell align='right'>
                               {row.TotalPrice}
                             </TableCell>
+                            <TableCell>
+                              <section>
+                                <h1>React-Modal Examples</h1>
+                                <input
+                                  type='button'
+                                  value='Open'
+                                  onClick={setVisibility(!visibility)}
+                                />
+                                <Modal
+                                  visible={visibility}
+                                  width='1400'
+                                  height='1300'
+                                  effect='fadeInUp'
+                                  onClickAway={setVisibility(!visibility)}
+                                >
+                                  <div>
+                                    <h1>Title</h1>
+                                    <OrderDetail
+                                      ProductLList={row.ProductDetail}
+                                    />
+                                    <a
+                                      href='javascript:void(0);'
+                                      onClick={setVisibility(!visibility)}
+                                    >
+                                      Close
+                                    </a>
+                                  </div>
+                                </Modal>
+                              </section>
+                            </TableCell>
                           </TableRow>
                         )
                       })}
@@ -539,6 +603,36 @@ function OrderHistory (props) {
                             <TableCell align='right'>{row.Status}</TableCell>
                             <TableCell align='right'>
                               {row.TotalPrice}
+                            </TableCell>
+                            <TableCell>
+                              <section>
+                                <h1>React-Modal Examples</h1>
+                                <input
+                                  type='button'
+                                  value='Open'
+                                  onClick={setVisibility(!visibility)}
+                                />
+                                <Modal
+                                  visible={visibility}
+                                  width='1400'
+                                  height='1300'
+                                  effect='fadeInUp'
+                                  onClickAway={setVisibility(!visibility)}
+                                >
+                                  <div>
+                                    <h1>Title</h1>
+                                    <OrderDetail
+                                      ProductLList={row.ProductDetail}
+                                    />
+                                    <a
+                                      href='javascript:void(0);'
+                                      onClick={setVisibility(!visibility)}
+                                    >
+                                      Close
+                                    </a>
+                                  </div>
+                                </Modal>
+                              </section>
                             </TableCell>
                           </TableRow>
                         )

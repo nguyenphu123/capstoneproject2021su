@@ -27,20 +27,20 @@ import { useParams } from 'react-router-dom'
 import { Steps } from 'rsuite'
 import { Image, Item, Segment } from 'semantic-ui-react'
 
-function OrderDetail () {
+function OrderDetail ({ ProductDetail }) {
   const { orderId } = useParams()
   const [historylist, setHistorylist] = useState([])
 
-  useEffect(() => {
-    axios({
-      method: 'GET',
-      url: '/api/category-management'
-    }).then(res => {
-      console.log(res)
-      console.log(res.data)
-      setHistorylist(res.data)
-    })
-  }, [orderId])
+  // useEffect(() => {
+  //   axios({
+  //     method: 'GET',
+  //     url: '/api/category-management'
+  //   }).then(res => {
+  //     console.log(res)
+  //     console.log(res.data)
+  //     setHistorylist(res.data)
+  //   })
+  // }, [orderId])
   function descendingComparator (a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1
@@ -262,7 +262,8 @@ function OrderDetail () {
   const isSelected = name => selected.indexOf(name) !== -1
 
   const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, historylist.length - page * rowsPerPage)
+    rowsPerPage -
+    Math.min(rowsPerPage, ProductDetail.length - page * rowsPerPage)
 
   return (
     <>
@@ -291,14 +292,14 @@ function OrderDetail () {
                   order={order}
                   orderBy={orderBy}
                   onRequestSort={handleRequestSort}
-                  rowCount={historylist.length}
+                  rowCount={ProductDetail.length}
                 />
                 <TableBody>
-                  {stableSort(historylist, getComparator(order, orderBy))
+                  {stableSort(ProductDetail, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
-                      const isItemSelected = isSelected(row.Name)
-                      const labelId = `enhanced-table-checkbox-${index}`
+                      // const isItemSelected = isSelected(row.Name)
+                      // const labelId = `enhanced-table-checkbox-${index}`
 
                       return (
                         <TableRow
@@ -358,7 +359,7 @@ function OrderDetail () {
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component='div'
-              count={historylist.length}
+              count={ProductDetail.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onChangePage={handleChangePage}
