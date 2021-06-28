@@ -50,9 +50,9 @@ function Category ({ Id, Name, img }) {
             title='Paella dish'
           />
           <CardContent>
-            <Typography variant='body2' color='textSecondary' component='p'>
+            <span>
               {Name}
-            </Typography>
+            </span>
           </CardContent>
         </Card>
       </Link>

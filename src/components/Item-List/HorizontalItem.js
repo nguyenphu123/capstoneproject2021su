@@ -1,4 +1,4 @@
-import '../../App.css'
+
 
 import { Card, Header, Image, Rating } from 'semantic-ui-react'
 

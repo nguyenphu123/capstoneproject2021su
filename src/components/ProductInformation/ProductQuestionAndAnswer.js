@@ -1,4 +1,4 @@
-import '../../App.css'
+
 import 'react-image-gallery/styles/css/image-gallery.css'
 import Title from '../../Assets/Title'
 

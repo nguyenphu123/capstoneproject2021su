@@ -45,7 +45,7 @@ function CategoryList () {
 
   return (
     <>
-      <div style={{ marginTop: '100px' }}>
+      <div style={{ marginTop: '10px' }}>
         <Carousel responsive={responsive}>
           {categorylist.map(({ Id, Name }) => (
             <Category

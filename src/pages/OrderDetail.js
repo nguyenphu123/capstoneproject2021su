@@ -1,4 +1,4 @@
-import '../App.css'
+
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { lighten, makeStyles } from '@material-ui/core/styles'
@@ -306,10 +306,10 @@ function OrderDetail ({ ProductDetail }) {
                           hover
                           // onClick={event => handleClick(event, row.name)}
                           role='checkbox'
-                          aria-checked={isItemSelected}
+                          // aria-checked={isItemSelected}
                           tabIndex={-1}
                           key={row.name}
-                          selected={isItemSelected}
+                          // selected={isItemSelected}
                         >
                           <TableCell component='th' scope='row'>
                             {row.Name}
