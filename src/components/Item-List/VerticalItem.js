@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
   pos: {},
   media: {
-    height: 0,
+    height: 10,
     paddingTop: '56.25%' // 16:9
   },
   LikeButton: {
@@ -71,7 +71,84 @@ function VerticalItem ({
   return (
     <Link to={'/Product/' + Id}>
       <Card className={classes.card}>
-        <CardMedia
+        <div className='item'>
+          <div className='item-inner'>
+            <div className='item-img'>
+              <div className='item-img-info'>
+                <CardMedia
+                  className={classes.media}
+                  image={ImageStorages[0].ImageUrl}
+                  title='Paella dish'
+                />
+
+                <div className='new-label new-top-left'>Hot</div>
+                <div className='sale-label sale-top-left'>
+                  -{CurrentPrice / Price}%
+                </div>
+                <div className='item-box-hover'>
+                  <div className='box-inner'>
+                    <div className='product-detail-bnt'>
+                      <Link className='button detail-bnt'>
+                        <span>Quick View</span>
+                      </Link>
+                    </div>
+                    <div className='actions'>
+                      <span className='add-to-links'>
+                        <Link
+                          href='#'
+                          className='link-wishlist'
+                          title='Add to Wishlist'
+                        >
+                          <span>Add to Wishlist</span>
+                        </Link>
+                        <Link
+                          href='#'
+                          className='link-compare add_to_compare'
+                          title='Add to Compare'
+                        >
+                          <span>Add to Compare</span>
+                        </Link>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='add_cart'>
+                {/* <button className='button btn-cart' type='button'>
+                  <span>Add to Cart</span>
+                </button> */}
+              </div>
+            </div>
+            <div className='item-info'>
+              <div className='info-inner'>
+                <div className='item-title'>{Name}</div>
+                <div className='item-content'>
+                  <div className='rating'>
+                    <div className='ratings'>
+                      <div className='rating-box'>
+                        <div className='rating'></div>
+                      </div>
+                      <p className='rating-links'>
+                        <Link href='#'>1 Review(s)</Link>
+                        <span className='separator'>|</span>
+                        <Link href='#'>Add Review</Link>
+                      </p>
+                    </div>
+                  </div>
+                  <div className='item-price'>
+                    <div className='price-box'>
+                      <span className='regular-price'>
+                        <span className='price'>{CurrentPrice},000 vnd</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <CardMedia
           className={classes.media}
           image={ImageStorages[0].ImageUrl}
           title='Paella dish'
@@ -91,7 +168,7 @@ function VerticalItem ({
                 <span style={{ textDecoration: 'line-through' }}>
                   {Price},000 vnd
                 </span>
-                {/* <span>-{CurrentPrice / Price}%</span> */}
+                <span>-{CurrentPrice / Price}%</span>
               </>
             )}
           </Typography>
@@ -119,7 +196,7 @@ function VerticalItem ({
               <AddCircleIcon />
             </IconButton>
           </CardActions>
-        </CardContent>
+        </CardContent> */}
       </Card>
     </Link>
   )
