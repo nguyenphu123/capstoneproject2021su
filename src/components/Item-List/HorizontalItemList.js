@@ -1,5 +1,3 @@
-
-
 import axios from 'axios'
 import React from 'react'
 import { Button, Card, Header } from 'semantic-ui-react'
@@ -29,22 +27,35 @@ class HorizontalItemLList extends React.Component {
   render () {
     return (
       <>
-        <Title Name={this.props.topic} />
-
-        <div class='trend__content' style={{ marginTop: '100px' }}>
-          <Card.Group>
-            {this.state.products.map(
-              ({ Id, Name, ImageStorages, CurrentPrice }) => (
+        <Card.Group itemsPerRow={8}>
+          {this.state.products.map(
+            ({
+              Id,
+              Name,
+              Price,
+              Quantity,
+              Star,
+              Description,
+              Code,
+              CurrentPrice,
+              CategoryId,
+              Status,
+              ImageStorages
+            }) => (
+              <div style={{ float: 'left' }}>
                 <HorizontalItem
                   Id={Id}
                   Name={Name}
-                  ImageStorages={ImageStorages}
+                  Status={Status}
+                  Price={Price}
                   CurrentPrice={CurrentPrice}
+                  ImageStorages={ImageStorages}
+                  Quantity={Quantity}
                 />
-              )
-            )}
-          </Card.Group>
-        </div>
+              </div>
+            )
+          )}
+        </Card.Group>
       </>
     )
   }

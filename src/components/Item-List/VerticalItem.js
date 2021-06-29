@@ -16,7 +16,7 @@ import { Header, Rating } from 'semantic-ui-react'
 
 const useStyles = makeStyles({
   card: {
-    width: 200,
+    width: 270,
     margin: 10,
     transition: 'transform 0.15s ease-in-out',
     '&:hover': {
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
   pos: {},
   media: {
-    height: 10,
+    height: 0,
     paddingTop: '56.25%' // 16:9
   },
   LikeButton: {
@@ -71,75 +71,77 @@ function VerticalItem ({
   return (
     <Link to={'/Product/' + Id}>
       <Card className={classes.card}>
-        <div className='item'>
-          <div className='item-inner'>
-            <div className='item-img'>
-              <div className='item-img-info'>
-                <CardMedia
-                  className={classes.media}
-                  image={ImageStorages[0].ImageUrl}
-                  title='Paella dish'
-                />
+        <div class='slider-items slider-width-col4 products-grid'>
+          <div className='item'>
+            <div className='item-inner'>
+              <div className='item-img'>
+                <div className='item-img-info'>
+                  <img
+                    src={ImageStorages[0].ImageUrl}
+                    alt='Fresh Organic Mustard Leaves '
+                    style={{ width: '200px', height: '200px' }}
+                  />
 
-                <div className='new-label new-top-left'>Hot</div>
-                <div className='sale-label sale-top-left'>
-                  -{CurrentPrice / Price}%
-                </div>
-                <div className='item-box-hover'>
-                  <div className='box-inner'>
-                    <div className='product-detail-bnt'>
-                      <Link className='button detail-bnt'>
-                        <span>Quick View</span>
-                      </Link>
-                    </div>
-                    <div className='actions'>
-                      <span className='add-to-links'>
-                        <Link
-                          href='#'
-                          className='link-wishlist'
-                          title='Add to Wishlist'
-                        >
-                          <span>Add to Wishlist</span>
-                        </Link>
-                        <Link
-                          href='#'
-                          className='link-compare add_to_compare'
-                          title='Add to Compare'
-                        >
-                          <span>Add to Compare</span>
-                        </Link>
-                      </span>
-                    </div>
+                  <div className='new-label new-top-left'>Hot</div>
+                  <div className='sale-label sale-top-left'>
+                    -{Price - CurrentPrice}%
                   </div>
-                </div>
-              </div>
-              <div className='add_cart'>
-                {/* <button className='button btn-cart' type='button'>
-                  <span>Add to Cart</span>
-                </button> */}
-              </div>
-            </div>
-            <div className='item-info'>
-              <div className='info-inner'>
-                <div className='item-title'>{Name}</div>
-                <div className='item-content'>
-                  <div className='rating'>
-                    <div className='ratings'>
-                      <div className='rating-box'>
-                        <div className='rating'></div>
+                  <div className='item-box-hover'>
+                    <div className='box-inner'>
+                      <div className='product-detail-bnt'>
+                        <Link className='button detail-bnt'>
+                          <span>Quick View</span>
+                        </Link>
                       </div>
-                      <p className='rating-links'>
-                        <Link href='#'>1 Review(s)</Link>
-                        <span className='separator'>|</span>
-                        <Link href='#'>Add Review</Link>
-                      </p>
+                      <div className='actions'>
+                        <span className='add-to-links'>
+                          <Link
+                            href='#'
+                            className='link-wishlist'
+                            title='Add to Wishlist'
+                          >
+                            <span>Add to Wishlist</span>
+                          </Link>
+                          <Link
+                            href='#'
+                            className='link-compare add_to_compare'
+                            title='Add to Compare'
+                          >
+                            <span>Add to Compare</span>
+                          </Link>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className='item-price'>
-                    <div className='price-box'>
-                      <span className='regular-price'>
-                        <span className='price'>{CurrentPrice},000 vnd</span>
-                      </span>
+                </div>
+                <div className='add_cart'>
+                  <button className='button btn-cart' type='button'>
+                    <span>Add to Cart</span>
+                  </button>
+                </div>
+              </div>
+              <div className='item-info'>
+                <div className='info-inner'>
+                  <div className='item-title'>{Name}</div>
+                  <div className='item-content'>
+                    <div className='rating'>
+                      <div className='ratings'>
+                        <div className='rating-box'>
+                          <div className='rating'></div>
+                        </div>
+                        <p className='rating-links'>
+                          <Link href='#'>1 Review(s)</Link>
+                          <span className='separator'>|</span>
+                          <Link href='#'>Add Review</Link>
+                        </p>
+                      </div>
+                    </div>
+                    <div className='item-price'>
+                      <div className='price-box'>
+                        <span className='regular-price'>
+                          <span className='price'>{CurrentPrice},000 vnd</span>{' '}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -147,85 +149,9 @@ function VerticalItem ({
             </div>
           </div>
         </div>
-
-        {/* <CardMedia
-          className={classes.media}
-          image={ImageStorages[0].ImageUrl}
-          title='Paella dish'
-        />
-        <CardContent>
-          <Typography variant='h5' component='h2'>
-            {Name}
-          </Typography>
-          <Typography className={classes.title} color='red' gutterBottom>
-            <Header as='h6' color='red'>
-              {CurrentPrice},000 vnd
-            </Header>
-          </Typography>
-          <Typography className={classes.pos} color='textSecondary'>
-            {CurrentPrice === Price ? null : (
-              <>
-                <span style={{ textDecoration: 'line-through' }}>
-                  {Price},000 vnd
-                </span>
-                <span>-{CurrentPrice / Price}%</span>
-              </>
-            )}
-          </Typography>
-          <Rating maxRating={5} />
-          <CardActions>
-            <IconButton
-              onClick={e => e.preventDefault()}
-              className={classes.LikeButton}
-              aria-label='add to favorites'
-            >
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton
-              onClick={e => e.preventDefault()}
-              className={classes.ShareButton}
-              aria-label='share'
-            >
-              <ShareIcon />
-            </IconButton>
-            <IconButton
-              onClick={e => e.preventDefault()}
-              className={classes.AddToWishlistButton}
-              aria-label='Add to watch list'
-            >
-              <AddCircleIcon />
-            </IconButton>
-          </CardActions>
-        </CardContent> */}
       </Card>
     </Link>
   )
-  // <Card as='a'>
-  //   <Card.Content textAlign='left' href={'/Product/' + Id}>
-  //     <Image src={ImageStorages[0].ImageUrl} size='small' />
-
-  //     <Card.Header>{Name}</Card.Header>
-  //     <Card.Meta>
-
-  //     </Card.Meta>
-  //     <Card.Description>
-  //       <Header as='h3' color='red'>
-
-  //       </Header>
-  //     </Card.Description>
-  //   </Card.Content>
-  //   <Card.Content textAlign='left' extra>
-  //     <Rating icon='star' defaultRating={5} maxRating={5} disabled />
-  //   </Card.Content>
-  //   <Card.Content extra>
-  //     <Button basic size='mini' color='green'>
-  //       <Icon name='shopping cart' />
-  //     </Button>
-  //     <Button basic size='mini' color='red'>
-  //       <Icon name='heart' />
-  //     </Button>
-  //   </Card.Content>
-  // </Card>
 }
 
 export default VerticalItem

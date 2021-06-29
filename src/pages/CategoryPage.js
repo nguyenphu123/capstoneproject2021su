@@ -1,5 +1,3 @@
-
-
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -14,6 +12,7 @@ import {
   Pagination,
   Rating
 } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 
@@ -87,154 +86,321 @@ function CategoryPage () {
   }
   return (
     <>
-      <Grid centered columns={2}>
-        <Grid.Row>
-          <Header as='h1' color='black'>
-            Search result
-          </Header>
-        </Grid.Row>
+      <section className='main-container col2-left-layout bounceInUp animated'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-main col-sm-9 col-sm-push-3 product-list'>
+              <div className='pro-coloumn'>
+                <div className='category-description std'>
+                  <div className='slider-items-products'>
+                    <div
+                      id='category-desc-slider'
+                      className='product-flexslider hidden-buttons'
+                    >
+                      <div className='slider-items slider-width-col1 owl-carousel owl-theme'>
+                        <div className='item'>
+                          <Link to='#'>
+                            <img alt='' src='images/category-img1.jpg' />
+                          </Link>
+                          <div className='cat-img-title cat-bg cat-box'>
+                            <div className='small-tag'>Season 2018</div>
+                            <h2 className='cat-heading'>
+                              Organic <span>World</span>
+                            </h2>
+                            <p>GET 40% OFF &sdot; Free Delivery </p>
+                          </div>
+                        </div>
 
-        <Grid.Column>
-          <Header as='h4' color='black'>
-            Filter
-          </Header>
+                        <div className='item'>
+                          <Link to='#'>
+                            <img alt='' src='images/category-img2.jpg' />
+                          </Link>
+                          <div className='cat-img-title cat-bg cat-box'>
+                            <div className='small-tag'>Green World</div>
+                            <h2 className='cat-heading'>
+                              Vegetable <span>sale</span>
+                            </h2>
+                            <p>Save 70% on all items</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-          <Dropdown
-            text='Color'
-            icon='filter'
-            floating
-            labeled
-            button
-            className='icon'
-          >
-            <Dropdown.Menu>
-              <Dropdown.Header content='Search Color' />
-              <Input icon='search' iconPosition='left' name='search' />
-              <Dropdown.Header icon='tags' content='Filter by tag' />
-              <Dropdown.Divider />
-              {colorlist.map(({ Name, Id }) => (
-                <Dropdown.Item
-                  label={{ color: Name, empty: true, circular: true }}
-                  text={Name}
-                  value={Id}
-                />
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          <Dropdown
-            text='Size'
-            icon='filter'
-            floating
-            labeled
-            button
-            className='icon'
-          >
-            <Dropdown.Menu>
-              <Dropdown.Header content='Search Size' />
-              <Input icon='search' iconPosition='left' name='search' />
-              <Dropdown.Header icon='tags' content='Filter by tag' />
-              <Dropdown.Divider />
-              {sizelist.map(({ Name, Id }) => (
-                <Dropdown.Item
-                  label={{ empty: true, circular: true }}
-                  text={Name}
-                  value={Id}
-                />
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </Grid.Column>
-      </Grid>
-      <Grid>
-        <Grid.Row>
-          <Grid.Column
-            style={{ marginTop: '40px', textAlign: 'center' }}
-            width={4}
-          >
-            <List>
-              <List.Item>
-                <Header as='h5' color='black'>
-                  Sub categories
-                </Header>
-              </List.Item>
-              {subList.map(({ Name, Id }) => (
-                <List.Item>
-                  <Checkbox label={Name} value={Id} />
-                </List.Item>
-              ))}
-            </List>
-            <Divider horizontal></Divider>
-            <List>
-              <List.Item>
-                <Header as='h5' color='black'>
-                  Tag
-                </Header>
-              </List.Item>
-              {taglist.map(({ Name, Id }) => (
-                <List.Item>
-                  <Checkbox label={Name} value={Id} />
-                </List.Item>
-              ))}
-            </List>
-            <Divider horizontal></Divider>
-            <List>
-              <List.Item>
-                <Header as='h5' color='black'>
-                  Places
-                </Header>
-              </List.Item>
-              <List.Item>
-                <Checkbox label='Ho Chi Minh city' />
-              </List.Item>
-              <List.Item>
-                <Checkbox label='Ha Noi' />
-              </List.Item>
-            </List>
-            <Divider horizontal></Divider>
-            <List>
-              <List.Item>
-                <Header as='h5' color='black'>
-                  Transports unit
-                </Header>
-              </List.Item>
-              <List.Item>
-                <Checkbox label='Express' />
-              </List.Item>
-            </List>
-            <Divider horizontal></Divider>
-            <List>
-              <List.Item>
-                <Header as='h5' color='black'>
-                  Rating
-                </Header>
-              </List.Item>
-              <List.Item>
-                <Rating icon='star' defaultRating={5} maxRating={5} disabled />
-              </List.Item>
-              <List.Item>
-                <Rating icon='star' defaultRating={4} maxRating={5} disabled />
-              </List.Item>
-              <List.Item>
-                <Rating icon='star' defaultRating={3} maxRating={5} disabled />
-              </List.Item>
-              <List.Item>
-                <Rating icon='star' defaultRating={2} maxRating={5} disabled />
-              </List.Item>
-              <List.Item>
-                <Rating icon='star' defaultRating={1} maxRating={5} disabled />
-              </List.Item>
-            </List>
-          </Grid.Column>
+                <article>
+                  <div className='toolbar'>
+                    <div className='sorter'>
+                      <div className='view-mode'>
+                        <Link
+                          to={'/grid'}
+                          title='Grid'
+                          className='button button-grid'
+                        >
+                          &nbsp;
+                        </Link>
+                        &nbsp;
+                        <span
+                          title='List'
+                          className='button button-active button-list'
+                        >
+                          &nbsp;
+                        </span>
+                        &nbsp;
+                      </div>
+                    </div>
+                    <div className='sort-by'>
+                      <label className='left'>Sort By: </label>
+                      <ul>
+                        <li>
+                          <Link to='#'>
+                            Position<span className='right-arrow'></span>
+                          </Link>
+                          <ul>
+                            <li>
+                              <Link to='#'>Name</Link>
+                            </li>
+                            <li>
+                              <Link to='#'>Price</Link>
+                            </li>
+                            <li>
+                              <Link to='#'>Position</Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <Link
+                        className='button-asc left'
+                        to='#'
+                        title='Set Descending Direction'
+                      >
+                        <span className='top_arrow'></span>
+                      </Link>
+                    </div>
+                    <div className='pager'>
+                      <div className='limiter'>
+                        <label>View: </label>
+                        <ul>
+                          <li>
+                            <Link to='#'>
+                              15<span className='right-arrow'></span>
+                            </Link>
+                            <ul>
+                              <li>
+                                <Link to='#'>20</Link>
+                              </li>
+                              <li>
+                                <Link to='#'>30</Link>
+                              </li>
+                              <li>
+                                <Link to='#'>35</Link>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className='pages'>
+                        <label>Page:</label>
+                        <ul className='pagination'>
+                          <li>
+                            <Link to='#'>&laquo;</Link>
+                          </li>
+                          <li className='active'>
+                            <Link to='#'>1</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>2</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>3</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>4</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>5</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>&raquo;</Link>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <VerticalItemList
+                    topic={category.Name}
+                    apiUrl={'/api/product-management/' + categoryId}
+                  />
 
-          <Grid.Column width={11}>
-            <VerticalItemList
-              topic={category.Name}
-              apiUrl={'/api/product-management/' + categoryId}
-            />
-            <Pagination defaultActivePage={1} totalPages={10} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+                  <div className='toolbar bottom'>
+                    <div className='display-product-option'>
+                      <div className='pages'>
+                        <label>Page:</label>
+                        <ul className='pagination'>
+                          <li>
+                            <Link to='#'>«</Link>
+                          </li>
+                          <li className='active'>
+                            <Link to='#'>1</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>2</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>3</Link>
+                          </li>
+                          <li>
+                            <Link to='#'>»</Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className='product-option-right'>
+                        <div className='sort-by'>
+                          <label className='left'>Sort By: </label>
+                          <ul>
+                            <li>
+                              <Link to='#'>
+                                Position<span className='right-arrow'></span>
+                              </Link>
+                              <ul>
+                                <li>
+                                  <Link to='#'>Name</Link>
+                                </li>
+                                <li>
+                                  <Link to='#'>Price</Link>
+                                </li>
+                                <li>
+                                  <Link to='#'>Position</Link>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                          <Link
+                            className='button-asc left'
+                            to='#'
+                            title='Set Descending Direction'
+                          >
+                            <span className='top_arrow'></span>
+                          </Link>
+                        </div>
+                        <div className='pager'>
+                          <div className='limiter'>
+                            <label>View: </label>
+                            <ul>
+                              <li>
+                                <Link to='#'>
+                                  15<span className='right-arrow'></span>
+                                </Link>
+                                <ul>
+                                  <li>
+                                    <Link to='#'>20</Link>
+                                  </li>
+                                  <li>
+                                    <Link to='#'>30</Link>
+                                  </li>
+                                  <li>
+                                    <Link to='#'>35</Link>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <aside className='col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated'>
+              {/* <!-- BEGIN SIDE-NAV-CATEGORY --> */}
+              <div className='side-nav-categories'>
+                <div className='block-title'> Categories </div>
+
+                {/* <!--block-title--> */}
+
+                {/* <!-- BEGIN BOX-CATEGORY --> */}
+                <div className='box-content box-category'>
+                  <ul></ul>
+                </div>
+
+                {/* <!--box-content box-category--> */}
+              </div>
+
+              {/* <!--side-nav-categories--> */}
+              <div className='block block-layered-nav'>
+                <div className='block-title'> Shop By </div>
+                <div className='block-content'>
+                  <p className='block-subtitle'>Shopping Options</p>
+                  <dl id='narrow-by-list'>
+                    <dt className='odd'>Price</dt>
+                    <dd className='odd'>
+                      <ol>
+                        <li>
+                          <Link to='#'>
+                            <span className='price'>$0.00</span> -
+                            <span className='price'>$99.99</span>
+                          </Link>
+                          (6)
+                        </li>
+                        <li>
+                          <Link to='#'>
+                            <span className='price'>$100.00</span> and above
+                          </Link>
+                          (6)
+                        </li>
+                      </ol>
+                    </dd>
+                    <dt className='even'>Tag</dt>
+
+                    <dd className='even'>
+                      <ol>
+                        {taglist.map(({ Name, Id }) => (
+                          <li>
+                            <Link to='#'>{Name}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </dd>
+                    <dt className='even'>Sub categories</dt>
+
+                    <dd className='even'>
+                      <ol>
+                        {subList.map(({ Name, Id }) => (
+                          <li>
+                            <Link to='#'>{Name}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </dd>
+                    <dt className='odd'>Color</dt>
+                    <dd className='odd'>
+                      <ol>
+                        {colorlist.map(({ Name, Id }) => (
+                          <li>
+                            <Link to='#'>{Name}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </dd>
+                    <dt className='last even'>Size</dt>
+                    <dd className='last even'>
+                      <ol>
+                        {sizelist.map(({ Name, Id }) => (
+                          <li>
+                            <Link to='#'>{Name}</Link>
+                          </li>
+                        ))}
+                      </ol>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

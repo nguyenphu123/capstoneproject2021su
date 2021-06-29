@@ -41,9 +41,22 @@ function Category ({ Id, Name, img }) {
   const classes = useStyles()
 
   return (
-    <div>
-      <Link to={'/Category/' + Id}>
-        <Card className={classes.root}>
+    <Link to={'/Category/' + Id}>
+      <Card className={classes.root}>
+        <div class='slider-items slider-width-col4 products-grid'>
+          <div className='item'>
+            <div className='pro-img'>
+              <img
+                src={img}
+                alt='Fresh Organic Mustard Leaves '
+                style={{ width: '100px', height: '100px' }}
+              />
+              <div className='pro-info'>{Name}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* <Card className={classes.root}>
           <CardMedia
             className={classes.media}
             image={img}
@@ -54,9 +67,9 @@ function Category ({ Id, Name, img }) {
               {Name}
             </span>
           </CardContent>
-        </Card>
-      </Link>
-    </div>
+        </Card> */}
+      </Card>
+    </Link>
   )
 }
 

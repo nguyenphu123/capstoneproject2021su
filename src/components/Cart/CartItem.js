@@ -4,6 +4,7 @@ import RemoveIcon from '@material-ui/icons/Remove'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
+import { Link } from 'react-router-dom'
 
 import { cart } from '../../features/Cart/CartSlice'
 
@@ -46,50 +47,64 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
   }
 
   return (
-    <div className='row no-gutters py-2'>
-      <div className='col-sm-2 p-2'>
-        <img
-          alt={Name}
-          style={{ margin: '0 auto', maxHeight: '50px' }}
-          src={ImageUrl}
-          className='img-fluid d-block'
-        />
-      </div>
-      <div className='col-sm-4 p-2'>
-        <h5 className='mb-1'>{Name}</h5>
-        <p className='mb-1'>Price: {Price * Quantity},000vnd </p>
-      </div>
-      <div className='col-sm-2 p-2 text-center '>
-        <p className='mb-0'>Qty: {Quantity}</p>
-      </div>
-      <div className='col-sm-4 p-2 text-right'>
-        <button
-          onClick={addToCart}
-          className='btn btn-primary btn-sm mr-2 mb-1'
+    <tr class='first last odd'>
+      <td class='image hidden-table'>
+        <Link
+          to={'/'}
+          title='Women&#39;s Georgette Animal Print'
+          class='product-image'
         >
-          <AddCircleOutlineIcon width={'20px'} />
-        </button>
+          <img
+            src={ImageUrl}
+            width='75'
+            alt='Women&#39;s Georgette Animal Print'
+          />
+        </Link>
+      </td>
+      <td>
+        <h2 class='product-name'>
+          <Link to={'/'}>{Name}</Link>
+        </h2>
+      </td>
+      <td class='a-center hidden-table'>
+        <Link href='#' class='edit-bnt' title='Edit item parameters'></Link>
+      </td>
 
-        {Quantity > 1 && (
-          <button
-            onClick={removeOneFromCart}
-            className='btn btn-danger btn-sm mb-1'
-          >
-            <RemoveIcon width={'20px'} />
-          </button>
-        )}
+      <td class='a-right hidden-table'>
+        <span class='cart-price'>
+          <span class='price'>{Price},000 vnd</span>
+        </span>
+      </td>
+      <td class='a-center movewishlist'>
+        <input
+          name='cart[26340][qty]'
+          value='1'
+          size='4'
+          title='Qty'
+          class='input-text qty'
+          maxlength='12'
+        />
+      </td>
+      <td class='a-right movewishlist'>
+        <span class='cart-price'>
+          <span class='price'>{Price * Quantity},000 vnd</span>
+        </span>
+      </td>
+      <td class='a-center last'>
+        <Link
+          onClick={removeFromCart}
+          to='#'
+          title='Remove item'
+          class='button remove-item'
+        >
+          <span>
+            <span>Remove item</span>
+          </span>
+        </Link>
+      </td>
+    </tr>
 
-        {Quantity === 1 && (
-          <button
-            onClick={removeFromCart}
-            className='btn btn-danger btn-sm mb-1'
-          >
-            <DeleteIcon width={'20px'} />
-          </button>
-        )}
-      </div>
-      <NotificationContainer />
-    </div>
+  
   )
 }
 

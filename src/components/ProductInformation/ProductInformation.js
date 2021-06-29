@@ -1,5 +1,5 @@
-
 import 'react-image-gallery/styles/css/image-gallery.css'
+import { Link } from 'react-router-dom'
 
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
@@ -119,6 +119,17 @@ function ProductInformation () {
 
     dispatch(cart(shopCart))
   }
+  function onIncrease () {
+    setQuantity(quantity + 1)
+    console.log(quantity)
+  }
+  function onDecrease () {
+    if (quantity === 0) {
+    } else {
+      setQuantity(quantity - 1)
+      console.log(quantity)
+    }
+  }
 
   function updateNumberPicker (e) {
     setQuantity(e.value + '')
@@ -144,189 +155,241 @@ function ProductInformation () {
 
   if (currentState) {
     return (
-      <div style={{ marginTop: '200px', width: '1300px', marginLeft: '30px' }}>
-        <Grid>
-          <Grid.Row style={{ backgroundColor: '#ffffff' }}>
-            <Grid.Column width={5}>
-              <ImageGallery items={images} />
-            </Grid.Column>
+      <div class='main-container col1-layout wow bounceInUp animated'>
+        <div class='main'>
+          <div class='col-main'>
+            {/* <!-- Endif Next Previous Product --> */}
+            <div
+              class='product-view wow bounceInUp animated'
+              itemscope=''
+              itemtype='http://schema.org/Product'
+              itemid='#product_base'
+            >
+              <div id='messages_product_view'></div>
 
-            <Grid.Column width={11}>
-              <Grid>
-                <Grid.Row>
-                  <Header as='h1'>
-                    {product.Name}
-                    <IconButton
-                      onClick={e => e.preventDefault()}
-                      className={classes.LikeButton}
-                      aria-label='add to favorites'
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                    <IconButton
-                      onClick={e => e.preventDefault()}
-                      className={classes.ShareButton}
-                      aria-label='share'
-                    >
-                      <ShareIcon />
-                    </IconButton>
-                    <IconButton
-                      onClick={e => e.preventDefault()}
-                      className={classes.AddToWishlistButton}
-                      aria-label='Add to watch list'
-                    >
-                      <AddCircleIcon />
-                    </IconButton>
-                  </Header>
-                </Grid.Row>
-                <Grid.Row>
-                  <Grid padded='horizontally'>
-                    <Grid.Column>
-                      <Rating maxRating={5} defaultRating={3} icon='star' />
-                      <a href=''>1848 đánh giá </a>|
-                      <a href=''> 22 câu hỏi đã trả lời</a>
-                    </Grid.Column>
-                  </Grid>
-                </Grid.Row>
-                <Grid.Row>
-                  <Header as='h3' color='red'>
-                    {product.CurrentPrice},000 vnd
-                  </Header>
-                </Grid.Row>
-                <Grid.Row>
-                  {product.CurrentPrice === product.Price ? null : (
-                    <>
-                      <span
-                        style={{
-                          textDecoration: 'line-through',
-                          opacity: '0.7'
-                        }}
-                      >
-                        {product.Price},000 vnd
-                      </span>
-                      <span>
-                        -{(product.CurrentPrice / product.Price) * 100}%
-                      </span>
-                    </>
-                  )}
-                </Grid.Row>
+              <div class='product-essential container'>
+                <div class='row'>
+                  {/* <form action='#' method='post' id='product_addtocart_form'> */}
+                  <div class='product-img-box col-lg-5 col-sm-5 col-xs-12'>
+                    <div class='new-label new-top-left'>Hot</div>
+                    <div class='sale-label sale-top-left'>
+                      {product.CurrentPrice === product.Price ? null : (
+                        <>
+                          <span>-{-product.CurrentPrice + product.Price}%</span>
+                        </>
+                      )}
+                    </div>
 
-                <Grid.Row>
-                  <Table definition>
-                    <Table.Body>
-                      <Table.Row>
-                        <Table.Cell width={2}>Size</Table.Cell>
-                        <Table.Cell>
-                          {product &&
-                            product.Sizes.map(({ Name, Id }) => (
-                              <Button
-                                label={{
-                                  color: Name,
-                                  empty: true,
-                                  circular: true
-                                }}
-                                toggle
-                                text={Name}
-                                value={Id}
-                              />
-                            ))}
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Weight</Table.Cell>
-                        <Table.Cell>6 ounces</Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Color</Table.Cell>
-                        <Table.Cell>
-                          {product &&
-                            product.Colors.map(({ Name, Id }) => (
-                              <Button
-                                label={{
-                                  color: Name,
-                                  empty: true,
-                                  circular: true
-                                }}
-                                toggle
-                                text={Name}
-                                value={Id}
-                              />
-                            ))}
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Brand</Table.Cell>
-                        <Table.Cell>No Brand</Table.Cell>
-                      </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>Voucher</Table.Cell>
-                        <Table.Cell></Table.Cell>
-                      </Table.Row>
-                    </Table.Body>
-                  </Table>
-                </Grid.Row>
-                <Grid.Row>
-                  <Header as='h1' color='black'>
-                    quantity:
-                  </Header>
+                    <ImageGallery items={images} />
 
-                  <InputSpinner
-                    type={'real'}
-                    min={0}
-                    step={1}
-                    value={quantity}
-                    onChange={num => setQuantity(num)}
-                    variant={'dark'}
-                    size='lg'
-                  />
-                </Grid.Row>
-                <Grid.Row>
-                  <div className={classes.root}>
-                    <Button
-                      onClick={addToCart}
-                      variant='outlined'
-                      color='primary'
-                      size='medium'
-                      endIcon={<AddShoppingCartIcon />}
-                      style={{ width: '45%' }}
-                    >
-                      Add to cart
-                    </Button>
-                    <Button
-                      onClick={addToCart}
-                      variant='outlined'
-                      color='secondary'
-                      size='medium'
-                      endIcon={<ShoppingBasketIcon />}
-                      style={{ width: '45%' }}
-                    >
-                      Buy now
-                    </Button>
+                    {/* <!-- end: more-images --> */}
                   </div>
-                </Grid.Row>
-                <Grid.Row></Grid.Row>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
+                  {/* <!--End For version 1,2,6--> */}
+                  {/* <!-- For version 3 --> */}
+                  <div class='product-shop col-lg- col-sm-7 col-xs-12'>
+                    <div class='product-next-prev'>
+                      <Link class='product-next' to=''>
+                        <span></span>
+                      </Link>
+                      <Link class='product-prev' to=''>
+                        <span></span>
+                      </Link>
+                    </div>
 
-          <Grid.Column centered width={16}>
-            <Tab panes={panes} />
-          </Grid.Column>
-          <Grid.Column width={16}>
-            <VerticalItemList
-              topic='Relative products'
-              apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
-            />
-            <SeeMoreButton Url='/' />
+                    <div class='product-name'>
+                      <h1>{product.Name}</h1>
+                    </div>
+                    <div class='ratings'>
+                      <div class='rating-box'>
+                        <div style={{ width: '60%' }} class='rating'></div>
+                      </div>
+                      <p class='rating-links'>
+                        <Link to=''>1 Review</Link>
+                        <span class='separator'>|</span>
+                        <Link to=''>Add Your Review</Link>
+                      </p>
+                    </div>
+                    <div class='price-block'>
+                      <div class='price-box'>
+                        <p class='availability in-stock'>
+                          <span>In Stock</span>
+                        </p>
+                        <p class='special-price'>
+                          <span class='price-label'>Special Price</span>
+                          <span id='product-price-48' class='price'>
+                            {product.CurrentPrice},000 vnd
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class='add-to-box'>
+                      <div class='add-to-cart'>
+                        <div class='pull-left'>
+                          <div class='custom pull-left'>
+                            <button
+                              onClick={onDecrease}
+                              class='reduced items-count'
+                              type='button'
+                            >
+                              <i class='fa fa-minus'>&nbsp;</i>
+                            </button>
+                            <input
+                              type='text'
+                              class='input-text qty'
+                              title='Qty'
+                              value={quantity}
+                              maxlength='12'
+                              id='qty'
+                              name='qty'
+                            />
+                            <button
+                              onClick={onIncrease}
+                              class='increase items-count'
+                              type='button'
+                            >
+                              <i class='fa fa-plus'>&nbsp;</i>
+                            </button>
+                          </div>
+                        </div>
+                        <button
+                          onClick={addToCart}
+                          class='button btn-cart'
+                          title='Add to Cart'
+                          type='button'
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                    <div class='short-description'>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Nam fringilla augue nec est tristique auctor. Donec non
+                        est at libero vulputate rutrum. Morbi ornare lectus quis
+                        justo gravida semper. Nulla tellus mi, vulputate
+                        adipiscing cursus eu, suscipit id nulla. Donec a neque
+                        libero.
+                      </p>
+                    </div>
+                    <div class='email-addto-box'>
+                      <ul class='add-to-links'>
+                        <li>
+                          <Link class='link-wishlist' to={'/'}>
+                            <span>Add to Wishlist</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <span class='separator'>|</span>
+                          <Link class='link-compare' to={'/'}>
+                            <span>Add to Compare</span>
+                          </Link>
+                        </li>
+                      </ul>
+                      <p class='email-friend'>
+                        <Link to='' class=''>
+                          <span>Email to a Friend</span>
+                        </Link>
+                      </p>
+                    </div>
+                    <div class='social'>
+                      <ul class='link'>
+                        <li class='fb'>
+                          <Link to=''></Link>
+                        </li>
+                        <li class='tw'>
+                          <Link to=''></Link>
+                        </li>
+                        <li class='googleplus'>
+                          <Link to=''></Link>
+                        </li>
+                        <li class='rss'>
+                          <Link to=''></Link>
+                        </li>
+                        <li class='pintrest'>
+                          <Link to=''></Link>
+                        </li>
+                        <li class='linkedin'>
+                          <Link to=''></Link>
+                        </li>
+                        <li class='youtube'>
+                          <Link to=''></Link>
+                        </li>
+                      </ul>
+                    </div>
 
-            <VerticalItemList
-              topic='You may like'
-              apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
-            />
-            <SeeMoreButton Url='/' />
-          </Grid.Column>
-        </Grid>
-        <NotificationContainer />
+                    <ul class='shipping-pro'>
+                      <li>Free Wordwide Shipping</li>
+                      <li>30 Days Return</li>
+                      <li>Member Discount</li>
+                    </ul>
+                  </div>
+                  {/* <!--product-shop--> */}
+                  {/* <!--Detail page static block for version 3--> */}
+                  {/* </form> */}
+                </div>
+              </div>
+              {/* <!--product-essential--> */}
+              <div class='product-collateral container'>
+                <ul id='product-detail-tab' class='nav nav-tabs product-tabs'>
+                  <li class='active'>
+                    <Link href='#product_tabs_description' data-toggle='tab'>
+                      Product Description
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='#product_tabs_tags' data-toggle='tab'>
+                      Tags
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='#reviews_tabs' data-toggle='tab'>
+                      Reviews
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='#product_tabs_custom' data-toggle='tab'>
+                      Custom Tab
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href='#product_tabs_custom1' data-toggle='tab'>
+                      Custom Tab1
+                    </Link>
+                  </li>
+                </ul>
+                <ProductReview Comments={[]} />
+              </div>
+              <section className=' wow bounceInUp animated'>
+                <div className='best-pro slider-items-products container'>
+                  <div className='new_title'>
+                    <h2>You may also like</h2>
+                  </div>
+                  <VerticalItemList
+                    topic='New Product'
+                    apiUrl={
+                      '/api/product-management?sort=up&pageIndex=1&pageSize=8'
+                    }
+                  />
+                  <SeeMoreButton Url='/' />
+                </div>
+              </section>
+              <section className=' wow bounceInUp animated'>
+                <div className='best-pro slider-items-products container'>
+                  <div className='new_title'>
+                    <h2>Similar pproducts</h2>
+                  </div>
+                  <VerticalItemList
+                    topic='New Product'
+                    apiUrl={
+                      '/api/product-management?sort=up&pageIndex=1&pageSize=8'
+                    }
+                  />
+                  <SeeMoreButton Url='/' />
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

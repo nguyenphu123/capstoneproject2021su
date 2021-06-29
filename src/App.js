@@ -45,70 +45,58 @@ function App () {
         <NavigationHeader />
 
         <Switch>
-          <Route path='/Login'>
+          {/* <Route path='/Login'>
             <LoginPage />
-            <Footers />
-          </Route>
+          </Route> */}
           <Route path='/Registration'>
             <RegistrationPage />
-            <Footers />
           </Route>
           <Route path='/Category/:categoryId'>
             <Ads />
 
             <CategoryPage topic={'Category1'} />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/Categories'>
             <Ads />
             <CategoryList />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/ImageUploading'>
             <Ads />
             <ImageUploadingPage />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/Product/:productId' exact>
             <ProductDetail />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/Profille/:userId'>
             <Profile />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/OrderHistory'>
             <OrderHistory />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/OrderDetail/:id'>
             <OrderDetail />
-            <Footers />
           </Route>
           <Route path='/Cart'>
             <ShoppingCart />
             <Widget />
-            <Footers />
           </Route>
           <Route path='/PaymentInfo'>
             <PaymentConfirm />
             <Widget />
-            <Footers />
           </Route>
 
           <Route path='/' exact>
-           
             <HomePage />
             <Widget />
-            <Footers />
           </Route>
         </Switch>
+        <Footers />
       </BrowserRouter>
     </FadeIn>
   )

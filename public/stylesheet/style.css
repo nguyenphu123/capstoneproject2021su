@@ -6195,6 +6195,7 @@ blockquote:before {
   padding: 70px 0px 80px 0px;
   overflow: hidden;
   margin-top: 40px;
+  object-fit: fill;
 }
 
 .mid-section .container {
@@ -6436,9 +6437,13 @@ blockquote:before {
 .slider-items-products {
   position: relative;
 }
+.slider-items .slider-width-col4 .products-grid{
+  opacity: 1;
+}
 .slider-items-products .item {
   text-align: center;
   margin: 0 20px;
+  
 }
 .slider-items-products .item .product-image {
   display: block;
@@ -11404,7 +11409,7 @@ button.button.login:before {
 #toTop {
   color: #fff;
   text-align: center;
-  bottom: 60px;
+  bottom: 100px;
   display: none;
   height: 40px;
   line-height: 40px;

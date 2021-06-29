@@ -32,43 +32,37 @@ class VerticalItemList extends React.Component {
   render () {
     return (
       <>
-        <div id='best-seller' class='product-flexslider hidden-buttons'>
-          <div class='slider-items slider-width-col4 products-grid'>
-            <Card.Group itemsPerRow={6}>
-              {this.state.products.map(
-                ({
-                  Id,
-                  Name,
-                  Price,
-                  Quantity,
-                  Star,
-                  Description,
-                  Code,
-                  CurrentPrice,
-                  CategoryId,
-                  Status,
-                  ImageStorages
-                }) => (
-                  <VerticalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                  />
-                )
-              )}
-            </Card.Group>
-          </div>
-        </div>
+        <Card.Group itemsPerRow={8}>
+          {this.state.products.map(
+            ({
+              Id,
+              Name,
+              Price,
+              Quantity,
+              Star,
+              Description,
+              Code,
+              CurrentPrice,
+              CategoryId,
+              Status,
+              ImageStorages
+            }) => (
+              <div style={{ float: 'left' }}>
+                <VerticalItem
+                  Id={Id}
+                  Name={Name}
+                  Status={Status}
+                  Price={Price}
+                  CurrentPrice={CurrentPrice}
+                  ImageStorages={ImageStorages}
+                  Quantity={Quantity}
+                />
+              </div>
+            )
+          )}
+          
+        </Card.Group>
       </>
-
-      /* <Title Name={this.props.topic} />
-        <div style={{ marginTop: '100px' }}> */
-
-      /* </div> */
     )
   }
 }

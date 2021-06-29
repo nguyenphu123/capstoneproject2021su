@@ -50,6 +50,21 @@ function NavigationHeader () {
 
   return (
     <>
+      <Modal
+        visible={visibility}
+        width='1000'
+        height='500'
+        effect='fadeInUp'
+        onClickAway={SetLoginForm}
+      >
+        <div>
+          <LoginPage />
+          <a href='javascript:void(0);' onClick={SetLoginForm}>
+            Close
+          </a>
+        </div>
+      </Modal>
+
       <header>
         <div className='container'>
           <div className='row'>
@@ -104,45 +119,56 @@ function NavigationHeader () {
                           <span>Search With Image</span>
                         </Link>
                       </li>
-
-                      {categorylist.map(({ Id, Name, SubCategory }) => (
-                        <li className='mega-menu'>
-                          <Link className='level-top' to={'/Category/' + Id}>
-                            <span>{Name}</span>
-                          </Link>
-                          <div className='level0-wrapper dropdown-6col'>
-                            <div className='container'>
-                              <div className='level0-wrapper2'>
-                                <div className='col-1'>
-                                  <div className='nav-block nav-block-center'>
-                                    <ul className='level0'>
-                                      {categorylist.map(({ Id, Name }) => (
-                                        <li className='level2 nav-6-1-1'>
-                                          <Link to={'/Category/' + Id}>
+                      <li className='mega-menu'>
+                        <Link className='level-top' to={'/'}>
+                          <span>Categories</span>
+                        </Link>
+                        <div className='level0-wrapper dropdown-6col'>
+                          <div className='container'>
+                            <div className='level0-wrapper2'>
+                              <div className='col-1'>
+                                <div className='nav-block nav-block-center'>
+                                  <ul className='level0'>
+                                    {categorylist.map(
+                                      ({ Id, Name, SubCategory }) => (
+                                        <li className='level3 nav-6-1 parent item'>
+                                          <Link
+                                            className='level-top'
+                                            to={'/Category/' + Id}
+                                          >
                                             <span>{Name}</span>
                                           </Link>
+                                          <ul className='level1'>
+                                            {categorylist.map(
+                                              ({ Id, Name }) => (
+                                                <li className='level2 nav-6-1-1'>
+                                                  <Link to={'/Category/' + Id}>
+                                                    <span>{Name}</span>
+                                                  </Link>
+                                                </li>
+                                              )
+                                            )}
+                                          </ul>
                                         </li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                </div>
-
-                                <div className='col-2'>
-                                  <div className='menu_image'>
-                                    <Link title='' to={'/'}>
-                                      <img
-                                        alt='menu_image'
-                                        src='images/banner.jpg'
-                                      />
-                                    </Link>
+                                      )
+                                    )}
+                                  </ul>
+                                  <div className='col-2'>
+                                    {/* <div className='menu_image'>
+                                      <Link title='' to={'/grid'}>
+                                        <img
+                                          alt='menu_image'
+                                          src='images/banner.jpg'
+                                        />
+                                      </Link>
+                                    </div> */}
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </li>
-                      ))}
-
+                        </div>
+                      </li>
                       <li className='fl-custom-tabmenulink mega-menu'>
                         <Link to={'/'} className='level-top'>
                           <span>Deals</span>
@@ -278,30 +304,9 @@ function NavigationHeader () {
                         </li>
                         <li className='last'>
                           {UserSlice === null ? (
-                            <section>
-                              <Link onClick={SetLoginForm} title='Login'>
-                                <span>Login</span>
-                              </Link>
-
-                              <Modal
-                                visible={visibility}
-                                width='1400'
-                                height='1300'
-                                effect='fadeInUp'
-                                onClickAway={SetLoginForm}
-                              >
-                                <div>
-                                  <h1>Title</h1>
-                                  <LoginPage />
-                                  <a
-                                    href='javascript:void(0);'
-                                    onClick={SetLoginForm}
-                                  >
-                                    Close
-                                  </a>
-                                </div>
-                              </Modal>
-                            </section>
+                            <Link onClick={SetLoginForm} title='Login'>
+                              <span>Login</span>
+                            </Link>
                           ) : (
                             <Link
                               onClick={() => dispatch(logout())}
@@ -330,7 +335,19 @@ function NavigationHeader () {
                       )}
                     </div>
                     {CartSlice === null || CartSlice.length === 0 ? (
-                      <div>Let buy some clothes</div>
+                      <>
+                        <div className='fl-mini-cart-content'>
+                          <div className='block-subtitle'>
+                            <div className='top-subtotal'>
+                              0,
+                              <span className='price'>0</span>
+                            </div>
+                          </div>
+                          <ul className='mini-products-list' id='cart-sidebar'>
+                            <div>Let buy some clothes</div>
+                          </ul>
+                        </div>
+                      </>
                     ) : (
                       <>
                         <div className='fl-mini-cart-content'>

@@ -45,16 +45,24 @@ function CategoryList () {
 
   return (
     <>
-      <div style={{ marginTop: '10px' }}>
-        <Carousel responsive={responsive}>
-          {categorylist.map(({ Id, Name }) => (
-            <Category
-              Id={Id}
-              Name={Name}
-              img='//vn-test-11.slatic.net/p/bdc70a474f5b0d1f3ca8d2137ad4a651.jpg_720x720q80.jpg_.webp'
-            />
-          ))}
-        </Carousel>
+      <div className='top-cate'>
+        <div className='featured-pro container'>
+          <div className='row'>
+            <div className='col-lg-12'>
+              <Carousel responsive={responsive}>
+                {categorylist.map(({ Id, Name }) => (
+                  <div className='slider-items-products'>
+                    <Category
+                      Id={Id}
+                      Name={Name}
+                      img='//vn-test-11.slatic.net/p/bdc70a474f5b0d1f3ca8d2137ad4a651.jpg_720x720q80.jpg_.webp'
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )

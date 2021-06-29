@@ -1,11 +1,10 @@
-
-
 import Button from '@material-ui/core/Button'
 import React, { useEffect, useState } from 'react'
 import { AtmMomo, GrabPay, Mastercard, Paypal, Visa } from 'react-pay-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Header } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 import CartItem from '../components/Cart/CartItem'
 import { emptyCart } from '../features/Cart/CartSlice'
@@ -52,112 +51,330 @@ function ShoppingCart () {
     }
 
     return (
-      <div
-        style={{ marginTop: '200px' }}
-        title='Cart'
-        description='This is the Cart page'
-      >
-        <div>
-          <div className='text-center mt-5'>
-            <h1>Your Cart</h1>
-           
-          </div>
-
-          <div className='row no-gutters justify-content-center'>
-            <div className='col-sm-9 p-3'>
-              {CartSlice.length > 0 ? (
-                <div style={{ marginLeft: '100px' }}>
-                  <div>
-                    <div className='card card-body border-0'>
-                      {CartSlice.map(
-                        ({ ProductId, Name, Quantity, CurrentPrice, img }) => (
-                          <CartItem
-                            Id={ProductId}
-                            Name={Name}
-                            Quantity={Quantity}
-                            Price={CurrentPrice * Quantity}
-                            ImageUrl={img}
-                          />
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className='p-3 text-center text-muted'>
-                  Your cart is empty
-                </div>
-              )}
-
-              {/* {checkout && (
-                  <div className='p-3 text-center text-success'>
-                    <p>Checkout successfull</p>
-                    <Link to='/' className='btn btn-outline-success btn-sm'>
-                      BUY MORE
-                    </Link>
-                  </div>
-                )} */}
-            </div>
-            {CartSlice.length > 0 && (
-              <div className='col-sm-3 p-3'>
-                <div className='card card-body'>
-                  <p className='mb-1'>Total Items</p>
-                  <h4 className=' mb-3 txt-right'>{CartSlice.length}</h4>
-                  <p className='mb-1'>Total Payment</p>
-                  <h3 className='m-0 txt-right'>
-                    {CartSlice.reduce(
-                      (accumulator, currentValue) =>
-                        accumulator +
-                        currentValue.CurrentPrice * currentValue.Quantity,
-                      0
-                    )}
-                    ,000 VND
-                  </h3>
-                  We Accept
-                  <div class='footer__payment'>
-                    <a href='/'>
-                      <Visa style={{ width: 50 }} />
-                    </a>
-                    <a href='/'>
-                      <Mastercard style={{ width: 50 }} />
-                    </a>
-                    <a href='/'>
-                      <Paypal style={{ width: 50 }} />
-                    </a>
-                    <a href='/'>
-                      <AtmMomo style={{ width: 50 }} />
-                    </a>
-                    <a href='/'>
-                      <GrabPay style={{ width: 50 }} />
-                    </a>
-                  </div>
-                  <hr className='my-4' />
-                  <div className='text-center'>
-                    <Button
-                      onClick={checkOut}
-                      variant='outlined'
-                      color='primary'
-                      size='medium'
-                      // endIcon={<AddShoppingCartIcon />}
-                      style={{ width: '45%' }}
-                    >
-                      Check out
-                    </Button>
-
-                    <button
-                      type='button'
-                      className='btn btn-outlineprimary btn-sm'
-                      onClick={dispatch(emptyCart)}
-                    >
-                      CLEAR
-                    </button>
-                  </div>
+      <>
+        <div class='page-heading'>
+          <div class='container'>
+            <div class='row'>
+              <div class='col-xs-12'>
+                <div class='page-title'>
+                  <h2>Shopping Cart</h2>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
-      </div>
+
+        {/* <!-- BEGIN Main Container --> */}
+
+        <div class='main-container col1-layout wow bounceInUp animated'>
+          <div class='main'>
+            <div class='cart wow bounceInUp animated'>
+              <div class='table-responsive shopping-cart-tbl  container'>
+                <form action='' method='post'>
+                  <input
+                    name='form_key'
+                    type='hidden'
+                    value='EPYwQxF6xoWcjLUr'
+                  />
+                  <fieldset>
+                    <table
+                      id='shopping-cart-table'
+                      class='data-table cart-table table-striped'
+                    >
+                      <colgroup>
+                        <col width='1' />
+                        <col />
+                        <col width='1' />
+                        <col width='1' />
+                        <col width='1' />
+                        <col width='1' />
+                        <col width='1' />
+                      </colgroup>
+                      <thead>
+                        <tr class='first last'>
+                          <th rowspan='1'>&nbsp;</th>
+                          <th rowspan='1'>
+                            <span class='nobr'>Product Name</span>
+                          </th>
+                          <th rowspan='1'></th>
+                          <th class='a-center' colspan='1'>
+                            <span class='nobr'>Unit Price</span>
+                          </th>
+                          <th rowspan='1' class='a-center'>
+                            Qty
+                          </th>
+                          <th class='a-center' colspan='1'>
+                            Subtotal
+                          </th>
+                          <th rowspan='1' class='a-center'>
+                            &nbsp;
+                          </th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr class='first last'>
+                          <td colspan='50' class='a-right last'>
+                            <button
+                              type='button'
+                              title='Continue Shopping'
+                              class='button btn-continue'
+                              onClick=''
+                            >
+                              <span>
+                                <span>Continue Shopping</span>
+                              </span>
+                            </button>
+                            <button
+                              type='submit'
+                              name='update_cart_action'
+                              value='update_qty'
+                              title='Update Cart'
+                              class='button btn-update'
+                            >
+                              <span>
+                                <span>Update Cart</span>
+                              </span>
+                            </button>
+                            <button
+                              type='submit'
+                              name='update_cart_action'
+                              value='empty_cart'
+                              title='Clear Cart'
+                              class='button btn-empty'
+                              id='empty_cart_button'
+                            >
+                              <span>
+                                <span>Clear Cart</span>
+                              </span>
+                            </button>
+                          </td>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        {CartSlice.map(
+                          ({
+                            ProductId,
+                            Name,
+                            Quantity,
+                            CurrentPrice,
+                            img
+                          }) => (
+                            <CartItem
+                              Id={ProductId}
+                              Name={Name}
+                              Quantity={Quantity}
+                              Price={CurrentPrice * Quantity}
+                              ImageUrl={img}
+                            />
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </fieldset>
+                </form>
+              </div>
+
+              {/* <!-- BEGIN CART COLLATERALS --> */}
+
+              <div class='cart-collaterals container'>
+                {/* <!-- BEGIN COL2 SEL COL 1 --> */}
+                <div class='row'>
+                  {/* <!-- BEGIN TOTALS COL 2 --> */}
+                  <div class='col-sm-4'>
+                    <div class='shipping'>
+                      <h3>We Accept</h3>
+                      <div class='shipping-form'>
+                        <Visa style={{ margin: 10, width: 100 }} />
+                        <AtmMomo style={{ margin: 10, width: 100 }} />
+                        <GrabPay style={{ margin: 10, width: 100 }} />
+                        <Mastercard style={{ margin: 10, width: 100 }} />
+                        <Paypal style={{ margin: 10, width: 100 }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class='col-sm-4'>
+                    <div class='discount'>
+                      <h3>Discount Codes</h3>
+                      <form id='discount-coupon-form' action='' method='post'>
+                        <label for='coupon_code'>
+                          Enter your coupon code if you have one.
+                        </label>
+                        <input
+                          type='hidden'
+                          name='remove'
+                          id='remove-coupone'
+                          value='0'
+                        />
+                        <input
+                          class='input-text fullwidth'
+                          type='text'
+                          id='coupon_code'
+                          name='coupon_code'
+                          value=''
+                        />
+                        <button
+                          type='button'
+                          title='Apply Coupon'
+                          class='button coupon '
+                          onClick='discountForm.submit(false)'
+                          value='Apply Coupon'
+                        >
+                          <span>Apply Coupon</span>
+                        </button>
+                      </form>
+                    </div>
+
+                    {/* <!--discount--> */}
+                  </div>
+
+                  {/* <!--col-sm-4--> */}
+
+                  <div class='col-sm-4'>
+                    <div class='totals'>
+                      <h3>Shopping Cart Total</h3>
+                      <div class='inner'>
+                        <table
+                          id='shopping-cart-totals-table'
+                          class='table shopping-cart-table-total'
+                        >
+                          <colgroup>
+                            <col />
+                            <col width='1' />
+                          </colgroup>
+                          <tfoot>
+                            <tr>
+                              <td class='a-left' colspan='1'>
+                                <strong>Grand Total</strong>
+                              </td>
+                              <td class='a-right'>
+                                <strong>
+                                  <span class='price'>
+                                    {CartSlice.reduce(
+                                      (accumulator, currentValue) =>
+                                        accumulator +
+                                        currentValue.CurrentPrice *
+                                          currentValue.Quantity,
+                                      0
+                                    )}
+                                    ,000 VND
+                                  </span>
+                                </strong>
+                              </td>
+                            </tr>
+                          </tfoot>
+                          <tbody>
+                            <tr>
+                              <td class='a-left' colspan='1'>
+                                Subtotal{' '}
+                              </td>
+                              <td class='a-right'>
+                                <span class='price'>
+                                  {CartSlice.reduce(
+                                    (accumulator, currentValue) =>
+                                      accumulator +
+                                      currentValue.CurrentPrice *
+                                        currentValue.Quantity,
+                                    0
+                                  )}
+                                  ,000 VND
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <ul class='checkout'>
+                          <li>
+                            <button
+                              type='button'
+                              title='Proceed to Checkout'
+                              class='button btn-proceed-checkout'
+                              onClick={checkOut}
+                            >
+                              <span>Proceed to Checkout</span>
+                            </button>
+                          </li>
+                          <br />
+                          <li>
+                            <Link
+                              to={'/multiple-addresses'}
+                              title='Checkout with Multiple Addresses'
+                            >
+                              Checkout with Multiple Addresses
+                            </Link>
+                          </li>
+                          <br />
+                        </ul>
+                      </div>
+
+                      {/* <!--inner--> */}
+                    </div>
+
+                    {/* <!--totals--> */}
+                  </div>
+
+                  {/* <!--col-sm-4--> */}
+                </div>
+
+                {/* <!--cart-collaterals--> */}
+              </div>
+            </div>
+
+            {/* <!--cart--> */}
+          </div>
+
+          {/* <!--main-container--> */}
+        </div>
+
+        {/* <!--col1-layout--> */}
+
+        <div class='container'>
+          <div class='row our-features-box'>
+            <ul>
+              <li>
+                <div class='feature-box'>
+                  <div class='icon-truck'></div>
+                  <div class='content'>FREE SHIPPING on order over $99</div>
+                </div>
+              </li>
+              <li>
+                <div class='feature-box'>
+                  <div class='icon-support'></div>
+                  <div class='content'>
+                    Have a question?
+                    <br />
+                    +1 800 789 0000
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class='feature-box'>
+                  <div class='icon-money'></div>
+                  <div class='content'>100% Money Back Guarantee</div>
+                </div>
+              </li>
+              <li>
+                <div class='feature-box'>
+                  <div class='icon-return'></div>
+                  <div class='content'>30 days return Service</div>
+                </div>
+              </li>
+              <li class='last'>
+                <div class='feature-box'>
+                  {' '}
+                  <Link href='#'>
+                    <i class='fa fa-apple'></i> download
+                  </Link>{' '}
+                  <Link href='#'>
+                    <i class='fa fa-android'></i> download
+                  </Link>{' '}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </>
     )
   }
   return (

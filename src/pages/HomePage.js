@@ -76,51 +76,146 @@ function HomePage () {
             topic='New Product'
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
+          <SeeMoreButton Url='/' />
         </div>
       </section>
-
-      <SeeMoreButton Url='/' />
-
-      {/*  <VerticalItemList
-          topic='You may like'
-          apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
-        />
-        <SeeMoreButton Url='/' />
-
-        <section class='trend spad'>
-          <div class='container'>
-            <div class='row'>
-              <div class='col-lg-4 col-md-4 col-sm-6'>
-                <HorizontalItemList
-                  topic='Best Seller'
-                  apiUrl={
-                    '/api/product-management?sort=up&pageIndex=1&pageSize=3'
-                  }
-                />
-                <SeeMoreButton Url='/' />
+      <section className=' wow bounceInUp animated'>
+        <div className='best-pro slider-items-products container'>
+          <div className='new_title'>
+            <h2>Trending</h2>
+            <h4>Current trend</h4>
+          </div>
+          <VerticalItemList
+            topic='New Product'
+            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
+          />
+          <SeeMoreButton Url='/' />
+        </div>
+      </section>
+      <section class='trend spad'>
+        <div class='container'>
+          <div class='row'>
+            <div class='col-lg-4 col-md-4 col-sm-6'>
+              <div className='new_title'>
+                <h2>Trending</h2>
+                <h4>Current trend</h4>
               </div>
-              <div class='col-lg-4 col-md-4 col-sm-6'>
-                <HorizontalItemList
-                  topic='Top'
-                  apiUrl={
-                    '/api/product-management?sort=up&pageIndex=1&pageSize=3'
-                  }
-                />
-                <SeeMoreButton Url='/' />
+
+              <HorizontalItemList
+                topic='Best Seller'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=3'
+                }
+              />
+              <SeeMoreButton Url='/' />
+            </div>
+            <div class='col-lg-4 col-md-4 col-sm-6'>
+              <div className='new_title'>
+                <h2>Trending</h2>
+                <h4>Current trend</h4>
               </div>
-              <div class='col-lg-4 col-md-4 col-sm-6'>
-                <HorizontalItemList
-                  topic='Feature'
-                  apiUrl={
-                    '/api/product-management?sort=up&pageIndex=1&pageSize=3'
-                  }
-                />
-                <SeeMoreButton Url='/' />
+
+              <HorizontalItemList
+                topic='Top'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=3'
+                }
+              />
+              <SeeMoreButton Url='/' />
+            </div>
+            <div class='col-lg-4 col-md-4 col-sm-6'>
+              <div className='new_title'>
+                <h2>Trending</h2>
+                <h4>Current trend</h4>
+              </div>
+
+              <HorizontalItemList
+                topic='Feature'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=3'
+                }
+              />
+              <SeeMoreButton Url='/' />
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className='mid-section'>
+        <div className='container'>
+          <div className='row'>
+            <h3></h3>
+            <h2>Special Product</h2>
+          </div>
+          <div className='row'>
+            <div className='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+              <div className='block1'>
+                <strong>Popular</strong>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                  diam nonummy habitant morbi.
+                </p>
+              </div>
+              <div className='block2'>
+                <strong>100% cottons</strong>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                  diam nonummy habitant morbi.
+                </p>
+              </div>
+            </div>
+            <div className='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+              <div className='spl-pro'>
+                <Link to={'/'} title='Fresh Organic Mustard Leaves '>
+                  <img
+                    src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
+                    alt='Fresh Organic Mustard Leaves '
+                  />
+                </Link>
+                <div className='item-info'>
+                  <div className='info-inner'>
+                    <div className='item-title'>
+                      <Link to={'/'} title='Fresh Organic Mustard Leaves '>
+                        Jacket
+                      </Link>
+                    </div>
+                    <div className='item-content'>
+                      <div className='rating'>
+                        <div className='ratings'>
+                          <div className='rating-box'>
+                            <div className='rating'></div>
+                          </div>
+                          <p className='rating-links'>
+                            <Link to={'/'}>1 Review(s)</Link>
+                            <span className='separator'>|</span>
+                            <Link to={'/'}>Add Review</Link>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='col-lg-4 col-md-4 col-sm-4 col-xs-12'>
+              <div className='block3'>
+                <strong>Good </strong>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                  diam nonummy habitant morbi.
+                </p>
+              </div>
+              <div className='block4'>
+                <strong>Safe From Pesticides</strong>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                  diam nonummy habitant morbi.
+                </p>
               </div>
             </div>
           </div>
-        </section>
-        <NotificationContainer /> */}
+        </div>
+      </div>
+      <NotificationContainer />
     </>
   )
 }
