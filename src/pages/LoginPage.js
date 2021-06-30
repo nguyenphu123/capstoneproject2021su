@@ -39,16 +39,7 @@ function LoginPage () {
   useEffect(() => {
     // dispatch(userActions.logout())
   }, [])
-  useEffect(() => {
-    if (UserSlice !== null) {
-      NotificationManager.success(
-        'Success message',
-        'Wellcome ' + UserSlice.UserName
-      )
-    }
-
-    // alert.success('Wellcome ' + UserSlice.UserName)
-  }, [UserSlice])
+  
 
   function handleChange (e) {}
 

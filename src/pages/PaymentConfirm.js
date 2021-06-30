@@ -51,10 +51,13 @@ function PaymentConfirm () {
     setCurrentPhone(UserSlice.Phone)
   }, [UserSlice])
   useEffect(() => {
-    NotificationManager.success(
-      'Success message',
-      'We have reiceived your order'
-    )
+    if (finishBuy) {
+      NotificationManager.success(
+        'Success message',
+        'We have reiceived your order'
+      )
+    } else {
+    }
   }, [finishBuy])
 
   if (finishBuy) {

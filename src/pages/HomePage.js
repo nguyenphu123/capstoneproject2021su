@@ -19,6 +19,16 @@ function HomePage () {
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [categorylist, setCategorylist] = useState([])
   const [loadComplete, setLoadComplete] = useState(false)
+  useEffect(() => {
+    if (UserSlice !== null) {
+      NotificationManager.success(
+        'Success message',
+        'Wellcome ' + UserSlice.UserName
+      )
+    }
+
+    // alert.success('Wellcome ' + UserSlice.UserName)
+  }, [UserSlice])
 
   useEffect(() => {
     axios({

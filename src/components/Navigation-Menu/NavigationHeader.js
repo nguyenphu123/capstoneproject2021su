@@ -22,6 +22,10 @@ function NavigationHeader () {
   const [loadComplete, setLoadComplete] = useState(false)
   const [visibility, setVisibility] = useState(false)
   const [currentCart, setCurrentCart] = useState([])
+  const [search, setSearch] = useState('')
+  const [searchFilter, setSearchFilter] = useState([])
+  const [searchId, setSearchId] = useState('')
+
   useEffect(() => {
     axios({
       method: 'GET',
@@ -29,10 +33,10 @@ function NavigationHeader () {
     }).then(res => {
       console.log(res)
       console.log(res.data)
-      const size = 2
-      const items = res.data.slice(0, size)
+      // const size = 2
+      // const items = res.data.slice(0, size)
 
-      setCategorylist(items)
+      setCategorylist(res.data)
     })
     setLoadComplete(true)
   }, [!loadComplete])
@@ -54,7 +58,29 @@ function NavigationHeader () {
     e.stopPropagation()
     setVisibility(!visibility)
   }
-
+  function handleSearch (e) {
+    setSearch(e.target.value)
+  }
+  function handleSearchResult (e) {
+    for (let index = 0; index < categorylist.length; index++) {
+      if (categorylist[index].Name === search) {
+        setSearchId(categorylist[index].Id)
+        break
+      } else {
+        for (
+          let jindex = 0;
+          jindex < categorylist[index].SubCategories.length;
+          jindex++
+        ) {
+          if (categorylist[index].SubCategories[jindex].Name === search) {
+            setSearchId(categorylist[index].SubCategories[jindex].Id)
+            break
+          }
+        }
+      }
+    }
+  }
+  
   return (
     <>
       <Modal
@@ -137,7 +163,7 @@ function NavigationHeader () {
                                 <div className='nav-block nav-block-center'>
                                   <ul className='level0'>
                                     {categorylist.map(
-                                      ({ Id, Name, SubCategory }) => (
+                                      ({ Id, Name, SubCategories }) => (
                                         <li className='level3 nav-6-1 parent item'>
                                           <Link
                                             className='level-top'
@@ -146,7 +172,7 @@ function NavigationHeader () {
                                             <span>{Name}</span>
                                           </Link>
                                           <ul className='level1'>
-                                            {categorylist.map(
+                                            {SubCategories.map(
                                               ({ Id, Name }) => (
                                                 <li className='level2 nav-6-1-1'>
                                                   <Link to={'/Category/' + Id}>
@@ -350,7 +376,7 @@ function NavigationHeader () {
                         <div className='fl-mini-cart-content'>
                           <div className='block-subtitle'>
                             <div className='top-subtotal'>
-                              {CartSlice.length},
+                              {currentCart.length},
                               <span className='price'>
                                 {currentCart.reduce(
                                   (accumulator, currentValue) =>
@@ -423,9 +449,15 @@ function NavigationHeader () {
                         type='text'
                         className='form-control'
                         placeholder='Search'
+                        value={search}
+                        onChange={handleSearch}
                       />
                       <span className='input-group-btn'>
-                        <button type='submit' className='search-btn'>
+                        <button
+                          type='submit'
+                          onClick={handleSearchResult}
+                          className='search-btn'
+                        >
                           <span className='glyphicon glyphicon-search'>
                             <span className='sr-only'>Search</span>
                           </span>
