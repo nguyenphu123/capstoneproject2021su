@@ -390,6 +390,7 @@ function ProductInformation () {
             </div>
           </div>
         </div>
+        <NotificationContainer />
       </div>
     )
   }

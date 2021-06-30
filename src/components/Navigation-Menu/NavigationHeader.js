@@ -9,8 +9,9 @@ import Search from '../Search/Search'
 import { loginUser, logout } from '../../features/User/UserSlice'
 import Modal from 'react-awesome-modal'
 import LoginPage from '../../pages/LoginPage'
-// import { Link } from 'react-router-dom'
-const mapDispatch = { logout, loginUser }
+import { emptyCart } from '../../features/Cart/CartSlice'
+
+const mapDispatch = { logout, loginUser, emptyCart }
 
 function NavigationHeader () {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ function NavigationHeader () {
   const [categorylist, setCategorylist] = useState([])
   const [loadComplete, setLoadComplete] = useState(false)
   const [visibility, setVisibility] = useState(false)
-
+  const [currentCart, setCurrentCart] = useState([])
   useEffect(() => {
     axios({
       method: 'GET',
@@ -38,7 +39,13 @@ function NavigationHeader () {
   useEffect(() => {
     setVisibility(false)
   }, [UserSlice])
-
+  useEffect(() => {
+    if (CartSlice === null || CartSlice.length === 0) {
+    } else {
+      setCurrentCart(CartSlice)
+    }
+  }, [CartSlice])
+  console.log(CartSlice)
   function Logout (e) {
     e.stopPropagation()
     dispatch(logout())
@@ -153,16 +160,6 @@ function NavigationHeader () {
                                       )
                                     )}
                                   </ul>
-                                  <div className='col-2'>
-                                    {/* <div className='menu_image'>
-                                      <Link title='' to={'/grid'}>
-                                        <img
-                                          alt='menu_image'
-                                          src='images/banner.jpg'
-                                        />
-                                      </Link>
-                                    </div> */}
-                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -179,7 +176,7 @@ function NavigationHeader () {
                               <div className='grid12-3'>
                                 <div>
                                   <img
-                                    src='images/custom-img1.jpg'
+                                    src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                                     alt='custom-imag'
                                   />
                                 </div>
@@ -192,7 +189,7 @@ function NavigationHeader () {
                               <div className='grid12-3'>
                                 <div>
                                   <img
-                                    src='images/custom-img2.jpg'
+                                    src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                                     alt='custom-imag'
                                   />
                                 </div>
@@ -207,7 +204,7 @@ function NavigationHeader () {
                               <div className='grid12-3'>
                                 <div>
                                   <img
-                                    src='images/custom-img3.jpg'
+                                    src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                                     alt='custom-imag'
                                   />
                                 </div>
@@ -220,7 +217,7 @@ function NavigationHeader () {
                               <div className='grid12-3'>
                                 <div>
                                   <img
-                                    src='images/custom-img4.jpg'
+                                    src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                                     alt='custom-imag'
                                   />
                                 </div>
@@ -324,17 +321,17 @@ function NavigationHeader () {
                 <div className='fl-cart-contain'>
                   <div className='mini-cart'>
                     <div className='basket'>
-                      {CartSlice === null || CartSlice.length === 0 ? (
+                      {currentCart === null || currentCart.length === 0 ? (
                         <Link to={'/Cart'}>
                           <span> 0 </span>
                         </Link>
                       ) : (
                         <Link to={'/Cart'}>
-                          <span> {CartSlice.length} </span>
+                          <span> {currentCart.length} </span>
                         </Link>
                       )}
                     </div>
-                    {CartSlice === null || CartSlice.length === 0 ? (
+                    {currentCart === null || currentCart.length === 0 ? (
                       <>
                         <div className='fl-mini-cart-content'>
                           <div className='block-subtitle'>
@@ -355,7 +352,7 @@ function NavigationHeader () {
                             <div className='top-subtotal'>
                               {CartSlice.length},
                               <span className='price'>
-                                {CartSlice.reduce(
+                                {currentCart.reduce(
                                   (accumulator, currentValue) =>
                                     accumulator +
                                     currentValue.CurrentPrice *
@@ -368,7 +365,7 @@ function NavigationHeader () {
                           </div>
 
                           <ul className='mini-products-list' id='cart-sidebar'>
-                            {CartSlice.map(
+                            {currentCart.map(
                               ({
                                 ProductId,
                                 Name,
@@ -389,27 +386,6 @@ function NavigationHeader () {
                                       />
                                     </Link>
                                     <div className='product-details'>
-                                      <div className='access'>
-                                        <Link
-                                          className='btn-remove1'
-                                          title='Remove This Item'
-                                          to={' '}
-                                        >
-                                          Remove
-                                        </Link>
-                                        <Link
-                                          className='btn-edit'
-                                          title='Edit item'
-                                          to={' '}
-                                        >
-                                          <i className='icon-pencil'></i>
-                                          <span className='hidden'>
-                                            Edit item
-                                          </span>
-                                        </Link>
-                                      </div>
-                                      {/* <!--access--> */}
-                                      <strong>1</strong> x
                                       <span className='price'>
                                         {CurrentPrice},000 VND
                                       </span>

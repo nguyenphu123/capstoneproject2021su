@@ -42,56 +42,73 @@ function App () {
   return (
     <FadeIn>
       <BrowserRouter>
-        <NavigationHeader />
-
         <Switch>
-          {/* <Route path='/Login'>
-            <LoginPage />
-          </Route> */}
           <Route path='/Registration'>
+            <NavigationHeader />
+
             <RegistrationPage />
           </Route>
           <Route path='/Category/:categoryId'>
+            <NavigationHeader />
+
             <Ads />
 
             <CategoryPage topic={'Category1'} />
             <Widget />
           </Route>
           <Route path='/Categories'>
+            <NavigationHeader />
+
             <Ads />
             <CategoryList />
             <Widget />
           </Route>
           <Route path='/ImageUploading'>
+            <NavigationHeader />
+
             <Ads />
             <ImageUploadingPage />
             <Widget />
           </Route>
           <Route path='/Product/:productId' exact>
+            <NavigationHeader />
+
             <ProductDetail />
             <Widget />
           </Route>
           <Route path='/Profille/:userId'>
+            <NavigationHeader />
+
             <Profile />
             <Widget />
           </Route>
           <Route path='/OrderHistory'>
+            <NavigationHeader />
+
             <OrderHistory />
             <Widget />
           </Route>
           <Route path='/OrderDetail/:id'>
+            <NavigationHeader />
+
             <OrderDetail />
           </Route>
           <Route path='/Cart'>
+            <NavigationHeader />
+
             <ShoppingCart />
             <Widget />
           </Route>
           <Route path='/PaymentInfo'>
+            <NavigationHeader />
+
             <PaymentConfirm />
             <Widget />
           </Route>
 
           <Route path='/' exact>
+            <NavigationHeader />
+
             <HomePage />
             <Widget />
           </Route>
