@@ -80,7 +80,7 @@ function NavigationHeader () {
       }
     }
   }
-  
+
   return (
     <>
       <Modal
@@ -167,7 +167,13 @@ function NavigationHeader () {
                                         <li className='level3 nav-6-1 parent item'>
                                           <Link
                                             className='level-top'
-                                            to={'/Category/' + Id}
+                                            to={{
+                                              pathname: '/Category/' + Id,
+                                              key: Math.random(), // we could use Math.random, but that's not guaranteed unique.
+                                              state: {
+                                                applied: true
+                                              }
+                                            }}
                                           >
                                             <span>{Name}</span>
                                           </Link>
@@ -175,7 +181,16 @@ function NavigationHeader () {
                                             {SubCategories.map(
                                               ({ Id, Name }) => (
                                                 <li className='level2 nav-6-1-1'>
-                                                  <Link to={'/Category/' + Id}>
+                                                  <Link
+                                                    to={{
+                                                      pathname:
+                                                        '/Category/' + Id,
+                                                      key: Math.random(), // we could use Math.random, but that's not guaranteed unique.
+                                                      state: {
+                                                        applied: true
+                                                      }
+                                                    }}
+                                                  >
                                                     <span>{Name}</span>
                                                   </Link>
                                                 </li>

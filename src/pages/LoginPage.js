@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { Link } from 'react-router-dom'
-
+import Modal from 'react-awesome-modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import {
@@ -17,7 +17,7 @@ import {
   Message,
   Segment
 } from 'semantic-ui-react'
-
+import RegistrationPage from './RegistrationPage'
 import { loginUser } from '../features/User/UserSlice'
 
 const mapDispatch = { loginUser }
@@ -27,6 +27,7 @@ function LoginPage () {
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
   // const history = useHistory()
+  const [visibility, setVisibility] = useState(false)
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -39,7 +40,6 @@ function LoginPage () {
   useEffect(() => {
     // dispatch(userActions.logout())
   }, [])
-  
 
   function handleChange (e) {}
 
@@ -59,6 +59,11 @@ function LoginPage () {
   function handleChangePassword (e, { value }) {
     setPassword(value)
   }
+  function SetLoginForm (e) {
+    e.stopPropagation()
+    setVisibility(!visibility)
+  }
+
   console.log(UserSlice)
   if (UserSlice) {
     return (
@@ -68,12 +73,27 @@ function LoginPage () {
     )
   } else {
     return (
-      <div class='main-container col1-layout wow bounceInUp animated animated'>
-        <div class='main'>
-          <div class='account-login container'>
-            {/* <!--page-title--> */}
+      <>
+        <Modal
+          visible={visibility}
+          width='1000'
+          height='500'
+          effect='fadeInUp'
+          onClickAway={SetLoginForm}
+        >
+          <div>
+            <RegistrationPage />
+            <a href='javascript:void(0);' onClick={SetLoginForm}>
+              Close
+            </a>
+          </div>
+        </Modal>
 
-            {/* <form action='' method='post' id='login-form'> */}
+        <div class='main-container col1-layout wow bounceInUp animated animated'>
+          <div class='main'>
+            <div class='account-login container'>
+              {/* <!--page-title--> */}
+
               <input name='form_key' type='hidden' value='EPYwQxF6xoWcjLUr' />
               <fieldset class='col2-set'>
                 <div class='col-1 registered-users'>
@@ -175,7 +195,7 @@ function LoginPage () {
                         type='button'
                         title='Create an Account'
                         class='button create-account'
-                        onClick=''
+                        onClick={SetLoginForm}
                       >
                         <span>
                           <span>Create an Account</span>
@@ -212,11 +232,12 @@ function LoginPage () {
                 {/* <!--col-2 registered-users--> */}
               </fieldset>
               {/* <!--col2-set--> */}
-            {/* </form> */}
+              {/* </form> */}
+            </div>
+            {/* <!--account-login--> */}
           </div>
-          {/* <!--account-login--> */}
         </div>
-      </div>
+      </>
     )
   }
 }

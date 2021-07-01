@@ -51,7 +51,7 @@ function HomePage () {
       <Title Name='Categories' /> */}
       <div className='content'>
         {/* <!--Category slider Start--> */}
-        <Ads />
+        {/* <Ads /> */}
         <CategoryList categorylist={categorylist} />
         <div id='top' style={{ marginTop: '10px' }}>
           <div className='container'>

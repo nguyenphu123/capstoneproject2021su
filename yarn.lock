@@ -4437,6 +4437,11 @@ cjs-module-lexer@^0.6.0:
   resolved "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-0.6.0.tgz"
   integrity sha512-uc2Vix1frTfnuzxxu1Hp4ktSvM3QaI4oXl4ZUqL1wjTu/BGki9TrCWoqLTg/drR1KwAEarXuRFCG2Svr1GxPFw==
 
+clamp@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/clamp/-/clamp-1.0.1.tgz#66a0e64011816e37196828fdc8c8c147312c8634"
+  integrity sha1-ZqDmQBGBbjcZaCj9yMjBRzEshjQ=
+
 class-utils@^0.3.5:
   version "0.3.6"
   resolved "https://registry.npmjs.org/class-utils/-/class-utils-0.3.6.tgz"
@@ -5312,12 +5317,27 @@ destroy@~1.0.4:
   resolved "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
+detect-hover@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/detect-hover/-/detect-hover-1.0.3.tgz#7392507cbced1bedc9f129a56b197c1eef9076c3"
+  integrity sha512-HtLoY+tClgYucJNiovNICGWFp9nOGVmHY44s7L62iPqORXM9vujeWFaVcqtA7XRvp/2Y+4RBUfHbDKFGN+xxZQ==
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
   integrity sha1-920GQ1LN9Docts5hnE7jqUdd4gg=
   dependencies:
     repeating "^2.0.0"
+
+detect-it@3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/detect-it/-/detect-it-3.0.3.tgz#8e13daa0b62126150cbf76d083a1d34d1b07d071"
+  integrity sha1-jhPaoLYhJhUMv3bQg6HTTRsH0HE=
+  dependencies:
+    detect-hover "^1.0.2"
+    detect-passive-events "^1.0.4"
+    detect-pointer "^1.0.2"
+    detect-touch-events "^2.0.1"
 
 detect-newline@^3.0.0:
   version "3.1.0"
@@ -5329,6 +5349,16 @@ detect-node@^2.0.4:
   resolved "https://registry.npmjs.org/detect-node/-/detect-node-2.0.4.tgz"
   integrity sha512-ZIzRpLJrOj7jjP2miAtgqIfmzbxa4ZOr5jJc601zklsfEx9oTzmmj2nVpIPRpNlRTIh8lc1kyViIY7BWSGNmKw==
 
+detect-passive-events@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/detect-passive-events/-/detect-passive-events-1.0.5.tgz#ce324db665123bef9e368b8059ff95d95217cc05"
+  integrity sha512-foW7Q35wwOCxVzW0xLf5XeB5Fhe7oyRgvkBYdiP9IWgLMzjqUqTvsJv9ymuEWGjY6AoDXD3OC294+Z9iuOw0QA==
+
+detect-pointer@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/detect-pointer/-/detect-pointer-1.0.3.tgz#27d86d0837951e6c5a0785c8a7fddd9cf5754e08"
+  integrity sha512-d0o/Puo3fiGSCXy6H039h9Kwz+mmYCGKZ/qtPFnpN3WfsumjC1C9b5KKvRu+aYnfdI8peqN/iAe7dPd85qIt2g==
+
 detect-port-alt@1.1.6:
   version "1.1.6"
   resolved "https://registry.npmjs.org/detect-port-alt/-/detect-port-alt-1.1.6.tgz"
@@ -5336,6 +5366,11 @@ detect-port-alt@1.1.6:
   dependencies:
     address "^1.0.1"
     debug "^2.6.0"
+
+detect-touch-events@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/detect-touch-events/-/detect-touch-events-2.0.2.tgz#541cc49b05ca544726a3bf2802c5b23e53aeeebb"
+  integrity sha512-g8GWBkJLiIDRJfRXEdrd1wMXpNyGId2DkbfuwFahSb4OCvn717hyRJtAcEDISfp3zkwEhZ4Y4woHPA6DeyB3Fw==
 
 detective@^5.2.0:
   version "5.2.0"
@@ -6209,6 +6244,11 @@ falafel@^2.0.0:
     isarray "^2.0.1"
     object-keys "^1.0.6"
 
+fast-deep-equal@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.0.0.tgz#96256a3bc975595eb36d82e9929d060d893439ff"
+  integrity sha1-liVqO8l1WV6zbYLpkp0GDYk0Of8=
+
 fast-deep-equal@^3.1.1:
   version "3.1.3"
   resolved "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
@@ -6262,7 +6302,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fbjs@^0.8.1:
+fbjs@^0.8.1, fbjs@^0.8.16:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   integrity sha1-xNWY6taUkRJlPWWIsBpc3Nn5D90=
@@ -7484,7 +7524,7 @@ is-extendable@^0.1.0, is-extendable@^0.1.1:
   resolved "https://registry.npmjs.org/is-extendable/-/is-extendable-0.1.1.tgz"
   integrity sha1-YrEQ4omkcUGOPsNqYX1HLjAd/Ik=
 
-is-extendable@^1.0.1:
+is-extendable@^1.0.0, is-extendable@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/is-extendable/-/is-extendable-1.0.1.tgz"
   integrity sha512-arnXMxT1hhoKo9k1LZdmlNyJdDDfy2v0fXjFlmok4+i8ul/6WlbVge9bhM74OpNPQPMGUToDtz+KXa1PneJxOA==
@@ -8232,7 +8272,7 @@ jest@26.6.0:
     import-local "^3.0.2"
     jest-cli "^26.6.0"
 
-jquery@x.*:
+jquery@^3.6.0, jquery@x.*:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
@@ -9381,7 +9421,7 @@ oauth-sign@~0.9.0:
   resolved "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
 
-object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
+object-assign@4.1.1, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
@@ -9466,6 +9506,13 @@ object.omit@^2.0.0:
   dependencies:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
+
+object.omit@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/object.omit/-/object.omit-3.0.0.tgz#0e3edc2fce2ba54df5577ff529f6d97bd8a522af"
+  integrity sha512-EO+BCv6LJfu+gBIF3ggLicFebFLN5zqzz/WWJlMFfkMyGth+oBkhxzDl0wx2W4GkLzuQs/FsSkXZb2IMWQqmBQ==
+  dependencies:
+    is-extendable "^1.0.0"
 
 object.pick@^1.3.0:
   version "1.3.0"
@@ -10726,7 +10773,16 @@ prop-types-extra@^1.1.0:
     react-is "^16.3.2"
     warning "^4.0.0"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+  integrity sha1-zq8IMCL8RrSjX2nhPvda7Q1jmFY=
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10992,6 +11048,15 @@ react-chat-widget@^3.0.5:
     react-redux "^7.2.0"
     redux "^4.0.5"
 
+react-cursor-position@2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.5.3.tgz#683acdeeba0e225d856fa8a26ae3b4333de7b294"
+  integrity sha512-5eeHSK9QQcs4PromnmgVrlUtKTh2t22zEi4KXts1KmGNvNQgkBKqj/N0Jf+qzG0TVF2PevnCQMqgWzHQk2eFXA==
+  dependencies:
+    object-assign "^4.1.1"
+    object.omit "^3.0.0"
+    prop-types "^15.6.0"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-11.0.4.tgz"
@@ -11064,10 +11129,38 @@ react-image-gallery@^1.1.1:
     react-swipeable "6.0.1"
     resize-observer-polyfill "^1.5.0"
 
+react-image-magnifiers@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-image-magnifiers/-/react-image-magnifiers-1.4.0.tgz#0472e93491d5a199a278d4efc855f03542214601"
+  integrity sha512-ZszHusdsYteccKGysHXUOgLRGtHqfRYuG1koHh3VAvuhrzF4BEs1Ot5tSe1WA2v+EsjAEfYcrRyi/Is4QDD61A==
+  dependencies:
+    prop-types "^15.7.2"
+    react-input-position "^1.3.1"
+
+react-image-magnify@^2.7.4:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.7.4.tgz#9e1210927922eff8146589bc22af7cd7279ec652"
+  integrity sha512-2sE7vr/xYJK7CxNaL6ZQ0OYwH542BBOuALD+lqgTOFQ4OfA1xmD+xyg7wQpO1mxzuyWSccxTgDayncdGfI2y6w==
+  dependencies:
+    clamp "1.0.1"
+    detect-it "3.0.3"
+    fast-deep-equal "1.0.0"
+    object-assign "4.1.1"
+    prop-types "15.6.0"
+    react-cursor-position "2.5.3"
+    react-required-if "1.0.1"
+
 react-images-uploading@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/react-images-uploading/-/react-images-uploading-3.1.2.tgz#c1636bab2cc709cdce47dba3f043a33a8ffe9edf"
   integrity sha512-Yy7r+I/f1gPM1qN95uvAoHOTGMG23Bu4kgXQLJoS7rnAQ/InpI3y6U0S0QMMCX+85c1JNdNZl4Bn/Z4ge39emQ==
+
+react-input-position@^1.3.1:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-input-position/-/react-input-position-1.3.2.tgz#4e1f3b671eb41c0bd9f232846b94328263a7b65b"
+  integrity sha512-0RsvWZ+pBpFki1N4CF7dWWKgQpejQuf9qjrBVdXRE315kk6HBEVk1f8rsod6Rpo88vxPwj5FcBnn7ZlTNq+JRA==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-is@^16.13.1, react-is@^16.3.2, react-is@^16.6.0, react-is@^16.6.3, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
@@ -11147,6 +11240,11 @@ react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.8.3.tgz"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
+
+react-required-if@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-required-if/-/react-required-if-1.0.1.tgz#f41d06bebb75346c206cd1de8dc0ef5b7c8f9abd"
+  integrity sha1-9B0Gvrt1NGwgbNHejcDvW3yPmr0=
 
 react-router-dom@^5.2.0:
   version "5.2.0"

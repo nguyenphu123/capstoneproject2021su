@@ -22,7 +22,7 @@ import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Comment, Grid, Header, Rating, Tab, Table } from 'semantic-ui-react'
-
+import MyImageGalery from './MyImageGalery'
 import { cart } from '../../features/Cart/CartSlice'
 import VerticalItemList from '../Item-List/VerticalItemList'
 
@@ -37,7 +37,8 @@ function ProductInformation () {
   const [shopCart, setShopCart] = useState([])
   const [currentState, setCurrentState] = useState(false)
   const [quantity, setQuantity] = useState(0)
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState({})
+  const [galleries, setGalleries] = useState([])
 
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
@@ -79,13 +80,14 @@ function ProductInformation () {
       setProduct(res.data)
       console.log(res.data.ImageStorages)
       setCurrentState(true)
-
-      setImages(
+      setGalleries(
         res.data.ImageStorages.map(({ ImageUrl }) => ({
           original: `${ImageUrl}`,
           thumbnail: `${ImageUrl}`
         }))
       )
+
+      console.log(images)
     })
   }, [productId])
   function filterByID (item) {
@@ -134,6 +136,7 @@ function ProductInformation () {
   function updateNumberPicker (e) {
     setQuantity(e.value + '')
   }
+
   const responsive = {
     0: { items: 1 }
   }
@@ -154,11 +157,20 @@ function ProductInformation () {
   ]
 
   if (currentState) {
+    const properties = {
+      // thumbnailPosition: 'left',
+      useBrowserFullscreen: false,
+      showPlayButton: false,
+      // renderItem: myRenderItem(),
+      items: galleries
+    }
+
     return (
       <div class='main-container col1-layout wow bounceInUp animated'>
         <div class='main'>
           <div class='col-main'>
             {/* <!-- Endif Next Previous Product --> */}
+
             <div
               class='product-view wow bounceInUp animated'
               itemscope=''
@@ -179,23 +191,13 @@ function ProductInformation () {
                         </>
                       )}
                     </div>
-
-                    <ImageGallery items={images} />
+                    <MyImageGalery items={galleries} />
 
                     {/* <!-- end: more-images --> */}
                   </div>
                   {/* <!--End For version 1,2,6--> */}
                   {/* <!-- For version 3 --> */}
                   <div class='product-shop col-lg- col-sm-7 col-xs-12'>
-                    <div class='product-next-prev'>
-                      <Link class='product-next' to=''>
-                        <span></span>
-                      </Link>
-                      <Link class='product-prev' to=''>
-                        <span></span>
-                      </Link>
-                    </div>
-
                     <div class='product-name'>
                       <h1>{product.Name}</h1>
                     </div>

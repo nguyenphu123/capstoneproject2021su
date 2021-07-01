@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+
 const items = [
   'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg',
   'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg',
   'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
 ]
 function AdsSlideShow () {
-  useEffect(() => {
-    window.sliderr()
-    window.commonjs()
-
-    // if (UserSlice !== null) {
-    //   NotificationManager.success(
-    //     'Success message',
-    //     'Wellcome ' + UserSlice.UserName
-    //   )
-    // }
-    // alert.success('Wellcome ' + UserSlice.UserName)
-  }, [])
+ 
 
   return (
     <div id='thmg-slider-slideshow' class='thmg-slider-slideshow'>

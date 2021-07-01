@@ -9,6 +9,7 @@ import {
   Segment,
   Select
 } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'
@@ -102,102 +103,215 @@ function RegistrationPage () {
   ]
 
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          <Image src='/logo.png' /> Create an Account
-        </Header>
-        <Form size='large' onSubmit={handleSubmit}>
-          <Segment stacked>
-            <Form.Input
-              required
-              fluid
-              icon='user'
-              iconPosition='left'
-              placeholder='E-mail address'
-              value={username}
-              onChange={handleChangeUsername}
-            />
-            <Form.Input
-              required
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              value={password}
-              onChange={handleChangePassword}
-            />
-            <Form.Input
-              fluid
-              required
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              value={matchPassword}
-              onChange={handleChangeMatchPassword}
-            />
+    <div class='main-container col1-layout wow bounceInUp animated animated'>
+      <div class='main'>
+        <div class='account-login container'>
+          {/* <!--page-title--> */}
 
-            <Form.Input
-              fluid
-              required
-              icon='phone'
-              iconPosition='left'
-              placeholder='Password'
-              value={phone}
-              onChange={handleChangePhone}
-            />
-            <Form.Field
-              control={Select}
-              required
-              options={genderOptions}
-              label={{
-                children: 'Gender',
-                htmlFor: 'form-select-control-gender'
-              }}
-              placeholder='Gender'
-              search
-              searchInput={{ id: 'form-select-control-gender' }}
-              onChange={handleChangeGender}
-            />
-            <Form.Input
-              fluid
-              required
-              icon='user'
-              iconPosition='left'
-              placeholder='name'
-              value={name}
-              onChange={handleChangeName}
-            />
-            <Form.Input
-              fluid
-              icon='house'
-              required
-              iconPosition='left'
-              placeholder='address'
-              value={address}
-              onChange={handleChangeAddress}
-            />
-            <Form.Checkbox
-              required
-              label='I agree to the Terms and Conditions'
-              // error={{
-              //   content: 'You must agree to the terms and conditions',
-              //   pointing: 'left'
-              // }}
-              onChange={handleChangeAgreement}
-            />
-            <Button color='pink' fluid size='large'>
-              Registration
-            </Button>
-          </Segment>
-        </Form>
-        {/* <Message>
-          New to us? <a href='/'>Sign Up</a>
-        </Message> */}
-      </Grid.Column>
-    </Grid>
+          <input name='form_key' type='hidden' value='EPYwQxF6xoWcjLUr' />
+          <fieldset class='col2-set'>
+            <div class='col-1 registered-users'>
+              <strong>Registration Customers</strong>
+              <div class='content'>
+                <p>Create Account.</p>
+                <ul class='form-list'>
+                  <li>
+                    <label for='email'>
+                      UserName<em class='required'>*</em>
+                    </label>
+                    <div class='input-box'>
+                      <input
+                        type='text'
+                        name='login[username]'
+                        value={username}
+                        id='email'
+                        class='input-text required-entry validate-email'
+                        title='Email Address'
+                        onChange={e => setUsername(e.target.value)}
+                      />
+                    </div>
+                    <label for='email'>
+                      Gender<em class='required'>*</em>
+                    </label>
+                    <input
+                      type='radio'
+                      name='billing[use_for_shipping]'
+                      id='billing:use_for_shipping_yes'
+                      value={gender}
+                      checked='checked'
+                      title='gender'
+                      onClick={e => setGender(e.target.value)}
+                      class='radio'
+                    />
+                    <label for='email'>Male</label>
+                  </li>
+                  <li>
+                    <label for='pass'>
+                      Password<em class='required'>*</em>
+                    </label>
+                    <div class='input-box'>
+                      <input
+                        value={password}
+                        type='password'
+                        name='login[password]'
+                        class='input-text required-entry validate-password'
+                        id='pass'
+                        title='Password'
+                        onChange={e => setPassword(e.target.value)}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <label for='pass'>
+                      Password confirm<em class='required'>*</em>
+                    </label>
+                    <div class='input-box'>
+                      <input
+                        value={matchPassword}
+                        type='password'
+                        name='login[password]'
+                        class='input-text required-entry validate-password'
+                        id='pass'
+                        title='Password'
+                        onChange={handleChangeMatchPassword}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <label for='email'>
+                      Address<em class='required'>*</em>
+                    </label>
+                    <div class='input-box'>
+                      <input
+                        type='text'
+                        name='login[username]'
+                        value={address}
+                        id='email'
+                        class='input-text required-entry validate-email'
+                        title='Email Address'
+                        onChange={e => setAddress(e.target.value)}
+                      />
+                    </div>
+                  </li>
+                  <li>
+                    <label for='email'>
+                      Email Address<em class='required'>*</em>
+                    </label>
+                    <div class='input-box'>
+                      <input
+                        type='text'
+                        name='login[username]'
+                        // value={username}
+                        id='email'
+                        class='input-text required-entry validate-email'
+                        title='Email Address'
+                        // onChange={e => setAddress(e.target.value)}
+                      />
+                    </div>
+                  </li>
+
+                  <li>
+                    <label for='email'>
+                      Phone <em class='required'>*</em>
+                    </label>
+                    <div class='input-box'>
+                      <input
+                        type='text'
+                        name='login[username]'
+                        value={phone}
+                        id='email'
+                        class='input-text required-entry validate-email'
+                        title='Email Address'
+                        onChange={e => setPhone(e.target.value)}
+                      />
+                    </div>
+                  </li>
+                </ul>
+                <div class='remember-me-popup'>
+                  <div class='remember-me-popup-head'>
+                    <h3 id='text2'>What's this?</h3>
+                    <Link
+                      to={' '}
+                      class='remember-me-popup-close'
+                      onClick='showDiv()'
+                      title='Close'
+                    >
+                      Close
+                    </Link>
+                  </div>
+                  <div class='remember-me-popup-body'>
+                    <p id='text1'>I have read all of the policies and rules</p>
+                    <div class='remember-me-popup-close-button a-right'>
+                      <Link
+                        to={' '}
+                        class='remember-me-popup-close button'
+                        title='Close'
+                        onClick='showDiv()'
+                      >
+                        <span>Close</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                <p class='required'>* Required Fields</p>
+
+                <div class='buttons-set'>
+                  <button
+                    type='submit'
+                    class='button login'
+                    title='Login'
+                    name='send'
+                    id='send2'
+                    onClick={handleSubmit}
+                  >
+                    <span>Registration</span>
+                  </button>
+                </div>
+                {/* <!--buttons-set--> */}
+              </div>
+              {/* <!--content--> */}
+            </div>
+            <div class='col-2 new-users'>
+              <strong>Or</strong>
+              <div class='content'>
+                <div class='buttons-set'>
+                  <br />
+                  <button
+                    style={{ marginTop: '10px' }}
+                    type='button'
+                    title='Create an Account'
+                    class='button create-account'
+                    onClick=''
+                  >
+                    <span>
+                      <span>Registration with google</span>
+                    </span>
+                  </button>
+                  <br />
+
+                  <button
+                    style={{ marginTop: '10px' }}
+                    type='button'
+                    title='Create an Account'
+                    class='button create-account'
+                    onClick=''
+                  >
+                    <span>
+                      <span>Registration with facebook</span>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* <!--col-2 registered-users--> */}
+          </fieldset>
+          {/* <!--col2-set--> */}
+          {/* </form> */}
+        </div>
+        {/* <!--account-login--> */}
+      </div>
+    </div>
   )
 }
 

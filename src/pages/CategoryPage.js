@@ -50,10 +50,12 @@ function CategoryPage () {
       setCategory(res.data)
     })
     // setSubList(category.SubCategories)
-  }, [{ categoryId }])
+  }, [categoryId])
 
   useEffect(() => {
     console.log(categoryId)
+    window.sliderr()
+    window.commonjs()
 
     axios({
       method: 'GET',
