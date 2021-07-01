@@ -25,12 +25,10 @@ import Profile from './pages/Profile'
 import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 
-
-
 function App () {
   useEffect(() => {
     window.sliderr()
-    window.commonjs()
+    // window.commonjs()
 
     // if (UserSlice !== null) {
     //   NotificationManager.success(
@@ -40,8 +38,6 @@ function App () {
     // }
     // alert.success('Wellcome ' + UserSlice.UserName)
   }, [])
-
-  
 
   return (
     <FadeIn>
@@ -53,7 +49,7 @@ function App () {
           <Route path='/Registration'>
             <RegistrationPage />
           </Route>
-          <Route path='/Category/:categoryId'>
+          <Route path='/Category/:categoryId' exact>
             <CategoryPage topic={'Category1'} />
             <Widget />
           </Route>

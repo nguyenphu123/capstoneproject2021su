@@ -13,6 +13,7 @@ import ShareIcon from '@material-ui/icons/Share'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Header, Rating } from 'semantic-ui-react'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles({
   card: {
@@ -70,77 +71,81 @@ function VerticalItem ({
 
   return (
     <Link to={'/Product/' + Id}>
-      <Card className={classes.card}>
-        <div class='slider-items slider-width-col4 products-grid'>
-          <div className='item'>
-            <div className='item-inner'>
-              <div className='item-img'>
-                <div className='item-img-info'>
-                  <img
-                    src={ImageStorages[0].ImageUrl}
-                    alt='Fresh Organic Mustard Leaves '
-                    style={{ width: '200px', height: '200px' }}
-                  />
+      <Tooltip title={<h2 style={{ color: 'lightblue' }}>title</h2>}>
+        <Card className={classes.card}>
+          <div class='slider-items slider-width-col4 products-grid'>
+            <div className='item'>
+              <div className='item-inner'>
+                <div className='item-img'>
+                  <div className='item-img-info'>
+                    <img
+                      src={ImageStorages[0].ImageUrl}
+                      alt='Fresh Organic Mustard Leaves '
+                      style={{ width: '200px', height: '200px' }}
+                    />
 
-                  <div className='new-label new-top-left'>Hot</div>
-                  <div className='sale-label sale-top-left'>
-                    -{Price - CurrentPrice}%
-                  </div>
-                  <div className='item-box-hover'>
-                    <div className='box-inner'>
-                      <div className='product-detail-bnt'>
-                        <Link className='button detail-bnt'>
-                          <span>Quick View</span>
-                        </Link>
-                      </div>
-                      <div className='actions'>
-                        <span className='add-to-links'>
-                          <Link
-                            href='#'
-                            className='link-wishlist'
-                            title='Add to Wishlist'
-                          >
-                            <span>Add to Wishlist</span>
-                          </Link>
-                          <Link
-                            href='#'
-                            className='link-compare add_to_compare'
-                            title='Add to Compare'
-                          >
-                            <span>Add to Compare</span>
-                          </Link>
-                        </span>
-                      </div>
+                    <div className='new-label new-top-left'>Hot</div>
+                    <div className='sale-label sale-top-left'>
+                      -{Price - CurrentPrice}%
                     </div>
-                  </div>
-                </div>
-                <div className='add_cart'>
-                  <button className='button btn-cart' type='button'>
-                    <span>Add to Cart</span>
-                  </button>
-                </div>
-              </div>
-              <div className='item-info'>
-                <div className='info-inner'>
-                  <div className='item-title'>{Name}</div>
-                  <div className='item-content'>
-                    <div className='rating'>
-                      <div className='ratings'>
-                        <div className='rating-box'>
-                          <div className='rating'></div>
+                    <div className='item-box-hover'>
+                      <div className='box-inner'>
+                        <div className='product-detail-bnt'>
+                          <Link className='button detail-bnt'>
+                            <span>Quick View</span>
+                          </Link>
                         </div>
-                        <p className='rating-links'>
-                          <Link href='#'>1 Review(s)</Link>
-                          <span className='separator'>|</span>
-                          <Link href='#'>Add Review</Link>
-                        </p>
+                        <div className='actions'>
+                          <span className='add-to-links'>
+                            <Link
+                              href='#'
+                              className='link-wishlist'
+                              title='Add to Wishlist'
+                            >
+                              <span>Add to Wishlist</span>
+                            </Link>
+                            <Link
+                              href='#'
+                              className='link-compare add_to_compare'
+                              title='Add to Compare'
+                            >
+                              <span>Add to Compare</span>
+                            </Link>
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className='item-price'>
-                      <div className='price-box'>
-                        <span className='regular-price'>
-                          <span className='price'>{CurrentPrice},000 vnd</span>{' '}
-                        </span>
+                  </div>
+                  <div className='add_cart'>
+                    <button className='button btn-cart' type='button'>
+                      <span>Add to Cart</span>
+                    </button>
+                  </div>
+                </div>
+                <div className='item-info'>
+                  <div className='info-inner'>
+                    <div className='item-title'>{Name}</div>
+                    <div className='item-content'>
+                      <div className='rating'>
+                        <div className='ratings'>
+                          <div className='rating-box'>
+                            <div className='rating'></div>
+                          </div>
+                          <p className='rating-links'>
+                            <Link href='#'>1 Review(s)</Link>
+                            <span className='separator'>|</span>
+                            <Link href='#'>Add Review</Link>
+                          </p>
+                        </div>
+                      </div>
+                      <div className='item-price'>
+                        <div className='price-box'>
+                          <span className='regular-price'>
+                            <span className='price'>
+                              {CurrentPrice},000 vnd
+                            </span>{' '}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -148,8 +153,8 @@ function VerticalItem ({
               </div>
             </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </Tooltip>
     </Link>
   )
 }

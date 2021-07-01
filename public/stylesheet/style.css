@@ -6495,13 +6495,12 @@ blockquote:before {
 .slider-items-products {
   position: relative;
 }
-.slider-items .slider-width-col4 .products-grid{
+.slider-items .slider-width-col4 .products-grid {
   opacity: 1;
 }
 .slider-items-products .item {
   text-align: center;
   margin: 0 20px;
-  
 }
 .slider-items-products .item .product-image {
   display: block;
@@ -6521,6 +6520,24 @@ blockquote:before {
   transform: scale(1.2);
   -moz-transform: scale(1.2);
 }
+.slider-items-products .item .description {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.slider-items-products .item .product-image:hover .description {
+  visibility: visible;
+}
+
 #category-desc-slider img {
   width: 100%;
 }

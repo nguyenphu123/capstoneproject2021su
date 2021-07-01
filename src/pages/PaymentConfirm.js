@@ -56,6 +56,7 @@ function PaymentConfirm () {
         'Success message',
         'We have reiceived your order'
       )
+      dispatch(emptyCart())
     } else {
     }
   }, [finishBuy])

@@ -225,7 +225,7 @@ function HomePage () {
           </div>
         </div>
       </div>
-      <NotificationContainer />
+      {/* <NotificationContainer /> */}
     </>
   )
 }

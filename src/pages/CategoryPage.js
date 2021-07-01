@@ -1,17 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-  Checkbox,
-  Divider,
-  Dropdown,
-  Grid,
-  Header,
-  Input,
-  List,
-  Pagination,
-  Rating
-} from 'semantic-ui-react'
+
 import { Link } from 'react-router-dom'
 
 import VerticalItemList from '../components/Item-List/VerticalItemList'
@@ -19,8 +9,12 @@ import VerticalItemList from '../components/Item-List/VerticalItemList'
 function CategoryPage () {
   //id của category
   const { categoryId } = useParams()
+  console.log(categoryId)
   //component dùng url động
-  const [currentURL, setCurrentURL] = useState('')
+  const [currentURL, setCurrentURL] = useState(
+    '/api/product-management/' + categoryId
+  )
+  console.log(currentURL)
   const [category, setCategory] = useState({})
 
   //filter màu
@@ -40,7 +34,7 @@ function CategoryPage () {
 
   useEffect(() => {
     console.log(categoryId)
-    setCurrentURL('/api/product-management/' + categoryId)
+
     axios({
       method: 'GET',
       url: '/api/category-management/' + categoryId
@@ -49,13 +43,17 @@ function CategoryPage () {
       console.log(res.data)
       setCategory(res.data)
     })
+    setCurrentURL('/api/product-management/' + categoryId)
+
     // setSubList(category.SubCategories)
   }, [categoryId])
 
   useEffect(() => {
+    setCurrentURL('/api/product-management/' + categoryId)
+
     console.log(categoryId)
     window.sliderr()
-    window.commonjs()
+    // window.commonjs()
 
     axios({
       method: 'GET',
@@ -229,10 +227,8 @@ function CategoryPage () {
                       </div>
                     </div>
                   </div>
-                  <VerticalItemList
-                    topic={category.Name}
-                    apiUrl={'/api/product-management/' + categoryId}
-                  />
+
+                  <VerticalItemList topic={category.Name} apiUrl={currentURL} />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
