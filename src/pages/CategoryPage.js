@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, withRouter } from 'react-router-dom'
 
 import { Link } from 'react-router-dom'
 
@@ -46,13 +46,13 @@ function CategoryPage () {
     setCurrentURL('/api/product-management/' + categoryId)
 
     // setSubList(category.SubCategories)
-  }, [categoryId])
+  }, [])
 
   useEffect(() => {
     setCurrentURL('/api/product-management/' + categoryId)
 
     console.log(categoryId)
-    window.sliderr()
+
     // window.commonjs()
 
     axios({
@@ -403,4 +403,4 @@ function CategoryPage () {
   )
 }
 
-export default CategoryPage
+export default withRouter(CategoryPage)

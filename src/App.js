@@ -41,7 +41,7 @@ function App () {
 
   return (
     <FadeIn>
-      <BrowserRouter>
+      <BrowserRouter forceRefresh>
         <NavigationHeader />
         <Ads />
 
@@ -49,47 +49,41 @@ function App () {
           <Route path='/Registration'>
             <RegistrationPage />
           </Route>
-          <Route path='/Category/:categoryId' exact>
-            <CategoryPage topic={'Category1'} />
-            <Widget />
-          </Route>
+          <Route
+            path='/Category/:categoryId'
+            render={() => <CategoryPage topic={'Category1'} />}
+          ></Route>
           <Route path='/Categories'>
             <CategoryList />
-            <Widget />
           </Route>
           <Route path='/ImageUploading'>
             <ImageUploadingPage />
-            <Widget />
           </Route>
           <Route path='/Product/:productId' exact>
             <ProductDetail />
-            <Widget />
           </Route>
           <Route path='/Profille/:userId'>
             <Profile />
-            <Widget />
           </Route>
           <Route path='/OrderHistory'>
             <OrderHistory />
-            <Widget />
           </Route>
           <Route path='/OrderDetail/:id'>
             <OrderDetail />
           </Route>
           <Route path='/Cart'>
             <ShoppingCart />
-            <Widget />
           </Route>
           <Route path='/PaymentInfo'>
             <PaymentConfirm />
-            <Widget />
           </Route>
 
           <Route path='/' exact>
             <HomePage />
-            <Widget />
           </Route>
         </Switch>
+        <Widget />
+
         <Footers />
       </BrowserRouter>
     </FadeIn>

@@ -16,7 +16,7 @@ function AdsSlideShow () {
           id='thm_slider_wrapper'
           class='thm_slider_wrapper fullwidthbanner-container'
         >
-          <div id='thm-rev-slider' class='rev_slider fullwidthabanner'>
+          <div id='thm-rev-slider' class='rev_slider fullwidthabanner' style={{heigth:'30%'}}>
             <ul>
               {items.map(({ img }) => (
                 <li
