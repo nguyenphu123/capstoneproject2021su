@@ -44,6 +44,7 @@ function CategoryPage () {
       setCategory(res.data)
     })
     setCurrentURL('/api/product-management/' + categoryId)
+    // window.location.reload()
 
     // setSubList(category.SubCategories)
   }, [])

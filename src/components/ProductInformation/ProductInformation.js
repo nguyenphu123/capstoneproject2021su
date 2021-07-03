@@ -134,7 +134,7 @@ function ProductInformation () {
   }
 
   function updateNumberPicker (e) {
-    setQuantity(e.value + '')
+    setQuantity(e.target.value + '')
   }
 
   const responsive = {
@@ -243,6 +243,7 @@ function ProductInformation () {
                               maxlength='12'
                               id='qty'
                               name='qty'
+                              onChange={updateNumberPicker}
                             />
                             <button
                               onClick={onIncrease}

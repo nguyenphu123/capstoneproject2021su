@@ -14,7 +14,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
-
+import emailjs from 'emailjs-com'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -85,7 +85,7 @@ function PaymentConfirm () {
     console.log(CartSlice)
     console.log(UserSlice)
 
-    function onSubmit () {
+    function onSubmit (e) {
       console.log(UserSlice)
 
       if (UserSlice !== null) {
@@ -118,7 +118,24 @@ function PaymentConfirm () {
           data: JSON.stringify(order)
         }).then(res => {
           dispatch(emptyCart())
-          setFinishBuy(true)
+          e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+
+          emailjs
+            .sendForm(
+              'YOUR_SERVICE_ID',
+              'YOUR_TEMPLATE_ID',
+              // e.target,
+              'YOUR_USER_ID'
+            )
+            .then(
+              result => {
+                //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior)
+                setFinishBuy(true)
+              },
+              error => {
+                console.log(error.text)
+              }
+            )
         })
       } else {
         setIsLogin(false)
