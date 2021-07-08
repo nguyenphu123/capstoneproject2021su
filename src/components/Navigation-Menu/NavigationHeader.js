@@ -130,7 +130,12 @@ function NavigationHeader () {
                   <div>
                     <img
                       href={'/'}
-                      src='https://laz-img-cdn.alicdn.com/images/ims-web/TB1T7K2d8Cw3KVjSZFuXXcAOpXa.png'
+                      src='https://t4.ftcdn.net/jpg/03/34/53/51/360_F_334535136_vvbWaKEpsHIMS4dpJUxgXZL6clQX7VGs.jpg'
+                      style={{
+                        width: '250px',
+                        height: '100px',
+                        objectFit: 'contain'
+                      }}
                     />
                   </div>
                 </div>
@@ -473,7 +478,6 @@ function NavigationHeader () {
                     <form className='navbar-form' role='search'>
                       <div className='input-group'>
                         <SearchBar categories={categorylist} />
-                        
                       </div>
                     </form>
                   </div>

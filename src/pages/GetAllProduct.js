@@ -1,18 +1,23 @@
-import axios from 'axios'
+import { Header, Button } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
-import { useParams, withRouter } from 'react-router-dom'
-
+// import { useAlert } from 'react-alert'
+import 'react-notifications/lib/notifications.css'
+import { NotificationContainer, NotificationManager } from 'react-notifications'
+import Title from '../Assets/Title'
+import Ads from '../components/Ads/AdsSlideShow'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
+import { useDispatch, useSelector } from 'react-redux'
+import SeeMoreButton from '../Assets/SeeMoreButton'
+import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
+import SaleOff from '../components/Sale-Off/SaleOff'
+import CategoryList from './CategoryList'
 
-function CategoryPage () {
-  //id của category
-  const { categoryId } = useParams()
-  console.log(categoryId)
-  //component dùng url động
+function GetAllProduct () {
   const [currentURL, setCurrentURL] = useState(
-    '/api/product-management/' + categoryId
+    '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
   )
   console.log(currentURL)
   const [category, setCategory] = useState({})
@@ -33,26 +38,20 @@ function CategoryPage () {
   const [subList, setSubList] = useState([])
 
   useEffect(() => {
-    console.log(categoryId)
-
-    axios({
-      method: 'GET',
-      url: '/api/category-management/' + categoryId
-    }).then(res => {
-      console.log(res)
-      console.log(res.data)
-      setCategory(res.data)
-    })
-    setCurrentURL('/api/product-management/' + categoryId)
+    // axios({
+    //   method: 'GET',
+    //   url: '/api/category-management/' + categoryId
+    // }).then(res => {
+    //   console.log(res)
+    //   console.log(res.data)
+    //   setCategory(res.data)
+    // })
     // window.location.reload()
-
     // setSubList(category.SubCategories)
   }, [])
 
   useEffect(() => {
-    setCurrentURL('/api/product-management/' + categoryId)
-
-    console.log(categoryId)
+    // console.log(categoryId)
 
     // window.commonjs()
 
@@ -85,6 +84,7 @@ function CategoryPage () {
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
+
   return (
     <>
       <section className='main-container col2-left-layout bounceInUp animated'>
@@ -320,7 +320,7 @@ function CategoryPage () {
                       <ol>
                         {taglist.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -331,7 +331,7 @@ function CategoryPage () {
                       <ol>
                         {subList.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -341,7 +341,7 @@ function CategoryPage () {
                       <ol>
                         {colorlist.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -351,7 +351,7 @@ function CategoryPage () {
                       <ol>
                         {sizelist.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -367,4 +367,4 @@ function CategoryPage () {
   )
 }
 
-export default withRouter(CategoryPage)
+export default GetAllProduct

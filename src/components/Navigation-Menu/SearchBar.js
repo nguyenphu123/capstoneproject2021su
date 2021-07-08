@@ -14,7 +14,7 @@ export default class SearchBar extends Component {
     this.state = {
       data: [],
       value: '',
-      filterVisibility: 'hidden',
+      filterVisibility: 'none',
       hover: false,
       SearchResult: ''
     }
@@ -71,9 +71,9 @@ export default class SearchBar extends Component {
   handleChange = event => {
     const { value } = event.target
     if (value === '') {
-      this.setState({ value, filterVisibility: 'hidden' })
+      this.setState({ value, filterVisibility: 'none' })
     } else {
-      this.setState({ value, filterVisibility: 'visible' })
+      this.setState({ value, filterVisibility: 'inline' })
     }
   }
   setInvisible = result => {
@@ -109,23 +109,25 @@ export default class SearchBar extends Component {
                 <span className='sr-only'>Search</span>
               </span>
             </button>
-          </span>
-          <FilterResults
-            value={value}
-            data={data}
-            renderResults={results => (
-              <div style={{ visibility: this.state.filterVisibility }}>
-                {results.map(el => (
-                  <div
-                    className='search-Item'
-                    onClick={() => this.setInvisible(el.Id)}
-                  >
-                    <span>{el.Name}</span>
+            <div style={{ Position: 'Absolute', zIndex: '1000' }}>
+              <FilterResults
+                value={value}
+                data={data}
+                renderResults={results => (
+                  <div style={{ display: this.state.filterVisibility }}>
+                    {results.map(el => (
+                      <div
+                        className='search-Item'
+                        onClick={() => this.setInvisible(el.Id)}
+                      >
+                        <span>{el.Name}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
-          />
+                )}
+              />
+            </div>
+          </span>
         </div>
 
         // <Grid>

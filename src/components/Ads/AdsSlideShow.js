@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const items = [
   'https://pages.lazada.vn/wow/gcp/route/lazada/vn/upr_1000345_lazada/channel/vn/upr-router/vn?spm=a2o4n.home.top.dbr6.19056afevjwfCO&hybrid=1&data_prefetch=true&at_iframe=1&wh_pid=/lazada/channel/vn/thoi-trang/sieu-hoi-balo-tui-vi&scm=1003.4.icms-zebra-5000379-2587043.OTHER_6045501404_7424723&prefetch_replace=1',
@@ -89,9 +90,9 @@ function AdsSlideShow () {
                         heigth: '200px'
                       }}
                     >
-                      <a href='#' class='buy-btn'>
+                      <Link to='/AllProduct' class='buy-btn'>
                         Shop Now
-                      </a>
+                      </Link>
                     </div>
                     <div
                       class='tp-caption Title sft  tp-resizeme '

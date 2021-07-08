@@ -24,6 +24,7 @@ import ProductDetail from './pages/ProductDetail'
 import Profile from './pages/Profile'
 import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
+import GetAllProduct from './pages/GetAllProduct'
 
 function App () {
   useEffect(() => {
@@ -58,6 +59,12 @@ function App () {
               </>
             )}
           ></Route>
+          <Route path='/AllProduct'>
+            <NavigationHeader />
+            <Ads />
+            <GetAllProduct />
+          </Route>
+
           <Route path='/Categories'>
             <NavigationHeader />
             <Ads />

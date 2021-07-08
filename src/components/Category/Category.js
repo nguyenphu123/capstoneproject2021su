@@ -48,7 +48,7 @@ function Category ({ Id, Name, img }) {
             <div className='pro-img'>
               <img
                 src={img}
-                alt='Fresh Organic Mustard Leaves '
+                alt='404'
                 style={{ width: '100px', height: '100px' }}
               />
               <div className='pro-info'>{Name}</div>

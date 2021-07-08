@@ -14200,6 +14200,7 @@ button.btn-share,
   position: relative;
   box-sizing: border-box;
   transition: all 500ms ease;
+  /* margin-right: 100px; */
 }
 .search-Item:hover {
   color: #ff7a59;
