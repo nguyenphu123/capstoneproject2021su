@@ -34,7 +34,7 @@ function ProductInformation () {
   const [reviewlist, setReviewlist] = useState([])
   const [review, setReview] = useState('')
   const [product, setProduct] = useState({})
-  const [shopCart, setShopCart] = useState([])
+
   const [currentState, setCurrentState] = useState(false)
   const [quantity, setQuantity] = useState(0)
   const [images, setImages] = useState({})
@@ -42,6 +42,8 @@ function ProductInformation () {
 
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
+  const [shopCart, setShopCart] = useState(CartSlice)
+
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -91,6 +93,17 @@ function ProductInformation () {
       console.log(images)
     })
   }, [productId])
+  useEffect(() => {
+    if (CartSlice !== null || CartSlice.length !== 0) {
+      const check_index = shopCart.findIndex(item => item.Id === productId)
+      if (check_index !== -1) {
+        setQuantity(shopCart[check_index].Quantity)
+      } else {
+      }
+    } else {
+    }
+  }, [CartSlice])
+
   function filterByID (item) {
     if (productId === item.Id) {
       return true

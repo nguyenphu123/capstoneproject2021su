@@ -14,7 +14,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
-// import { SMTPClient } from 'emailjs'
+import emailjs from 'emailjs-com'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -95,6 +95,8 @@ function PaymentConfirm () {
     console.log(UserSlice)
 
     function onSubmit (e) {
+      e.preventDefault()
+
       console.log(UserSlice)
 
       if (UserSlice !== null) {
@@ -128,7 +130,7 @@ function PaymentConfirm () {
           headers: { 'content-type': 'application/json' },
           data: JSON.stringify(order)
         }).then(res => {
-          // dispatch(emptyCart())
+          dispatch(emptyCart())
           console.log(res)
           // axios({
           //   method: 'post',
@@ -141,38 +143,24 @@ function PaymentConfirm () {
           //   console.log(res)
           // })
           e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
-          // client.send(
-          //   {
-          //     text: 'i hope this works',
-          //     from: 'phunguyen12111998@gmail.com',
-          //     to: currentEmail,
-          //     subject: 'testing emailjs'
-          //   },
-          //   (err, message) => {
-          //     console.log(err || message)
-          //   }
-          // )
-          // emailjs
-          //   .sendForm(
-          //     'service_u88dl2r',
-          //     'template_omuck9t',
-          //     currentEmail,
-          //     'user_32k4I6JJIEyo5ehBoH1Ae'
-          //   )
-          //   .then(
-          //     result => {
-          //       alert(
-          //         'Message Sent, We will get back to you shortly',
-          //         result.text
-          //       )
 
-          //       //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior)
-          //       // setFinishBuy(true)
-          //     },
-          //     error => {
-          //       console.log(error.text)
-          //     }
-          //   )
+          emailjs
+            .sendForm(
+              'service_nueuo8m',
+              'template_omuck9t',
+              e.target,
+              'user_32k4I6JJIEyo5ehBoH1Ae'
+            )
+            .then(
+              result => {
+                console.log(result.text)
+              },
+              error => {
+                console.log(error.text)
+              }
+            )
+
+          setFinishBuy(true)
         })
       } else {
         setIsLogin(false)
@@ -244,7 +232,7 @@ function PaymentConfirm () {
                                           <input
                                             type='text'
                                             id='billing:firstname'
-                                            name='billing[firstname]'
+                                            name='Name'
                                             value={currentName}
                                             onChange={handleChangeName}
                                             title='First Name'
@@ -257,7 +245,7 @@ function PaymentConfirm () {
                                   </li>
                                   <li class='fields'>
                                     <div class='input-box'>
-                                      <label for='billing:email'>
+                                      <label for='Email'>
                                         Email Address
                                         <em class='required'>*</em>
                                       </label>
@@ -460,14 +448,27 @@ function PaymentConfirm () {
                         </div>
                         <div class='buttons-set' id='payment-buttons-container'>
                           <p class='required'>* Required Fields</p>
-                          <button
-                            type='button'
-                            class='button continue'
-                            onClick={onSubmit}
-                          >
-                            <span>Finish</span>
-                          </button>
+                          <form onSubmit={onSubmit}>
+                            <button
+                              type='button'
+                              class='button continue'
+                              type='submit'
 
+                              // onClick={onSubmit}
+                            >
+                              <span>Finish</span>
+                            </button>
+                            <input
+                              type='text'
+                              name='Name'
+                              value={currentName}
+                              onChange={handleChangeName}
+                              title='First Name'
+                              maxlength='255'
+                              class='input-text required-entry'
+                              style={{ visibility: 'hidden' }}
+                            />
+                          </form>
                           <span
                             class='please-wait'
                             id='payment-please-wait'
@@ -486,6 +487,7 @@ function PaymentConfirm () {
                     </li>
                   </ol>
                 </section>
+
                 <aside
                   class='col-right sidebar col-sm-3 wow bounceInUp animated animated'
                   style={{ visibility: 'visible' }}
@@ -568,7 +570,7 @@ function PaymentConfirm () {
         </>
       )
     }
-    return <Redirect to={'/Login'} />
+    return <Redirect to={'/'} />
   } else {
     return <Redirect to={'/'} />
   }

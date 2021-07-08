@@ -3,7 +3,7 @@ import FilterResults from 'react-filter-search'
 import axios from 'axios'
 import React, { Component } from 'react'
 import { Search, Grid, Header, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 // const initialState = { isLoading: false, results: [], value: '' }
 // const getResults = () => _.times(5, () => ({}))
@@ -14,7 +14,9 @@ export default class SearchBar extends Component {
     this.state = {
       data: [],
       value: '',
-      filterVisibility: 'hidden'
+      filterVisibility: 'hidden',
+      hover: false,
+      SearchResult: ''
     }
   }
   componentWillMount () {
@@ -59,6 +61,12 @@ export default class SearchBar extends Component {
   //     })
   //   }, 300)
   // }
+  handleMouseEnter = () => {
+    this.setState({ hover: true })
+  }
+  handleMouseLeave = () => {
+    this.setState({ hover: false })
+  }
 
   handleChange = event => {
     const { value } = event.target
@@ -68,63 +76,73 @@ export default class SearchBar extends Component {
       this.setState({ value, filterVisibility: 'visible' })
     }
   }
-  setInvisible = () => {
-    this.setState({ value: '', filterVisibility: 'hidden' })
+  setInvisible = result => {
+    this.setState({
+      value: '',
+      filterVisibility: 'hidden',
+      SearchResult: result
+    })
   }
   render () {
-    const { data, value } = this.state
+    const { data, value, hover } = this.state
 
     // const { isLoading, value, results } = this.state
+    if (this.state.SearchResult !== '') {
+      return <Redirect to={'/Category/' + this.state.SearchResult} />
+    } else {
+      return (
+        <div>
+          <input
+            type='text'
+            className='form-control'
+            placeholder='Search'
+            value={value}
+            onChange={this.handleChange}
+          />
+          <span className='input-group-btn'>
+            <button
+              type='submit'
+              // onClick={handleSearchResult}
+              className='search-btn'
+            >
+              <span className='glyphicon glyphicon-search'>
+                <span className='sr-only'>Search</span>
+              </span>
+            </button>
+          </span>
+          <FilterResults
+            value={value}
+            data={data}
+            renderResults={results => (
+              <div style={{ visibility: this.state.filterVisibility }}>
+                {results.map(el => (
+                  <div
+                    className='search-Item'
+                    onClick={() => this.setInvisible(el.Id)}
+                  >
+                    <span>{el.Name}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          />
+        </div>
 
-    return (
-      <div>
-        <input
-          type='text'
-          className='form-control'
-          placeholder='Search'
-          value={value}
-          onChange={this.handleChange}
-        />
-        <span className='input-group-btn'>
-          <button
-            type='submit'
-            // onClick={handleSearchResult}
-            className='search-btn'
-          >
-            <span className='glyphicon glyphicon-search'>
-              <span className='sr-only'>Search</span>
-            </span>
-          </button>
-        </span>
-        <FilterResults
-          value={value}
-          data={data}
-          renderResults={results => (
-            <div style={{ visibility: this.state.filterVisibility }}>
-              {results.map(el => (
-                <div onClick={() => this.setInvisible()}>
-                  <span>{el.Name}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        />
-      </div>
-
-      // <Grid>
-      //   <Grid.Column width={8}>
-      //     <Search
-      //       category
-      //       loading={isLoading}
-      //       onResultSelect={this.handleResultSelect}
-      //       onSearchChange={_.debounce(this.handleSearchChange, 500, {
-      //         leading: true
-      //       })}
-      //       results={results}
-      //       value={value}
-      //     />
-      //   </Grid.Column>
-      // </Grid>
-    )
+        // <Grid>
+        //   <Grid.Column width={8}>
+        //     <Search
+        //       category
+        //       loading={isLoading}
+        //       onResultSelect={this.handleResultSelect}
+        //       onSearchChange={_.debounce(this.handleSearchChange, 500, {
+        //         leading: true
+        //       })}
+        //       results={results}
+        //       value={value}
+        //     />
+        //   </Grid.Column>
+        // </Grid>
+      )
+    }
   }
 }
