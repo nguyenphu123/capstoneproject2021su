@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { Link } from 'react-router-dom'
 
-import { cart } from '../../features/Cart/CartSlice'
+import { cart, emptyCart } from '../../features/Cart/CartSlice'
 
-const mapDispatch = { cart }
+const mapDispatch = { cart, emptyCart }
 
 function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
+  const [quantity, setQuantity] = useState(Quantity)
   function addToCart () {
     const check_index = CartSlice.findIndex(item => item.Id === Id)
     if (check_index !== -1) {
@@ -31,19 +32,28 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       CartSlice.splice(check_index, 1)
     } else {
     }
-    NotificationManager.success('Success message', 'Product added to cart')
+    NotificationManager.success('Success message', 'Product updated to cart')
 
     dispatch(cart(CartSlice))
   }
   function removeOneFromCart () {
     const check_index = CartSlice.findIndex(item => item.Id === Id)
     if (check_index !== -1) {
-      CartSlice[check_index].Quantity = CartSlice[check_index].Quantity - 1
+      if (Quantity === 1) {
+        if (CartSlice.length === 1) {
+          dispatch(emptyCart())
+        } else {
+          CartSlice.splice(check_index, 1)
+        }
+      } else {
+        CartSlice[check_index].Quantity = CartSlice[check_index].Quantity - 1
+      }
+
+      dispatch(cart(CartSlice))
+
+      NotificationManager.success('Success message', 'Product Removed to cart')
     } else {
     }
-    NotificationManager.success('Success message', 'Product added to cart')
-
-    dispatch(cart(CartSlice))
   }
 
   return (
@@ -76,14 +86,34 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
         </span>
       </td>
       <td class='a-center movewishlist'>
-        <input
-          name='cart[26340][qty]'
-          value='1'
-          size='4'
-          title='Qty'
-          class='input-text qty'
-          maxlength='12'
-        />
+        <div class='pull-left'>
+          <div class='custom pull-left'>
+            <button
+              onClick={removeOneFromCart}
+              class='reduced items-count'
+              type='button'
+            >
+              <i class='fa fa-minus'>&nbsp;</i>
+            </button>
+            <input
+              type='text'
+              class='input-text qty'
+              title='Qty'
+              value={quantity}
+              maxlength='12'
+              id='qty'
+              name='qty'
+              // onChange={updateNumberPicker}
+            />
+            <button
+              onClick={addToCart}
+              class='increase items-count'
+              type='button'
+            >
+              <i class='fa fa-plus'>&nbsp;</i>
+            </button>
+          </div>
+        </div>
       </td>
       <td class='a-right movewishlist'>
         <span class='cart-price'>
@@ -103,8 +133,6 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
         </Link>
       </td>
     </tr>
-
-  
   )
 }
 

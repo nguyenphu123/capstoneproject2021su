@@ -77,6 +77,7 @@ function ProductInformation () {
       url: '/api/product-management/productId?productId=' + productId,
       headers: {}
     }).then(res => {
+      console.log(res.data)
       setProduct(res.data)
       console.log(res.data.ImageStorages)
       setCurrentState(true)

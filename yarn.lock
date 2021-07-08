@@ -5607,6 +5607,11 @@ emailjs-com@^3.1.0:
   resolved "https://registry.yarnpkg.com/emailjs-com/-/emailjs-com-3.1.0.tgz#442927269bf04f366ca30d67b4272f55961979da"
   integrity sha512-e6rs1F2wTl4vrsTXNNCUPK5cFfuPXYcKJlZgPtsThOidIp5dbgNS5SUrpnP3qxt9p5Om0lkFCVkmBi1a6hQFnw==
 
+emailjs@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/emailjs/-/emailjs-3.5.0.tgz#de1316bbbbbf6da1f9926137b637701b27747fd1"
+  integrity sha512-Ii5im1e9dOhMUKpK51aGKmRGPMUTfW/cffyEPwa0dYZpLoTOLrz4Vk1/1kLh64dZUrzRvxGYOOrCbcVKovWPDw==
+
 emittery@^0.7.1:
   version "0.7.2"
   resolved "https://registry.npmjs.org/emittery/-/emittery-0.7.2.tgz"

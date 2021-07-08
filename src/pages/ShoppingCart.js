@@ -49,6 +49,9 @@ function ShoppingCart () {
       } else {
       }
     }
+    function removeAll () {
+      dispatch(emptyCart())
+    }
 
     return (
       <>
@@ -121,10 +124,12 @@ function ShoppingCart () {
                               onClick=''
                             >
                               <span>
-                                <span>Continue Shopping</span>
+                                <span>
+                                  <Link to='/'>Continue Shopping</Link>
+                                </span>
                               </span>
                             </button>
-                            <button
+                            {/* <button
                               type='submit'
                               name='update_cart_action'
                               value='update_qty'
@@ -134,7 +139,7 @@ function ShoppingCart () {
                               <span>
                                 <span>Update Cart</span>
                               </span>
-                            </button>
+                            </button> */}
                             <button
                               type='submit'
                               name='update_cart_action'
@@ -142,6 +147,7 @@ function ShoppingCart () {
                               title='Clear Cart'
                               class='button btn-empty'
                               id='empty_cart_button'
+                              onClick={removeAll}
                             >
                               <span>
                                 <span>Clear Cart</span>

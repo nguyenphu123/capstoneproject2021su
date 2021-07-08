@@ -14,13 +14,20 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
-import emailjs from 'emailjs-com'
+// import { SMTPClient } from 'emailjs'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import { emptyCart } from '../features/Cart/CartSlice'
 
 const mapDispatch = { emptyCart }
+// const client = new SMTPClient({
+//   user: 'phu nguyen',
+//   password: 'Mu125690',
+//   host: 'phunguyen12111998@gmail.com',
+//   ssl: true
+// })
 
 function PaymentConfirm () {
   const dispatch = useDispatch()
@@ -29,8 +36,10 @@ function PaymentConfirm () {
   const [isLogin, setIsLogin] = useState(true)
   const [currentAddress, setCurrentAddress] = useState('')
   const [currentName, setCurrentName] = useState('')
-  const [currentEmail, setCurrentEmail] = useState('')
-  const [currentCity, setCurrentCity] = useState('')
+  const [currentEmail, setCurrentEmail] = useState(
+    'phunguyen12111998@gmail.com'
+  )
+  const [currentCity, setCurrentCity] = useState('tp hcm')
   const [currentPhone, setCurrentPhone] = useState('')
 
   const [isEdit, setIsEdit] = useState(true)
@@ -46,8 +55,8 @@ function PaymentConfirm () {
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
     setCurrentName(UserSlice.Name)
-    setCurrentEmail('')
-    setCurrentCity('')
+    // setCurrentEmail('')
+    // setCurrentCity('')
     setCurrentPhone(UserSlice.Phone)
   }, [UserSlice])
   useEffect(() => {
@@ -109,6 +118,8 @@ function PaymentConfirm () {
             .slice(0, 19)
             .replace('T', ' '),
           Status: true,
+          Phone: currentPhone,
+
           OrderDetails: CartSlice
         }
         axios({
@@ -117,25 +128,51 @@ function PaymentConfirm () {
           headers: { 'content-type': 'application/json' },
           data: JSON.stringify(order)
         }).then(res => {
-          dispatch(emptyCart())
+          // dispatch(emptyCart())
+          console.log(res)
+          // axios({
+          //   method: 'post',
+          //   url:
+          //     '/api/order-management/' + order.TotalPrice + '?currentOrderId=0',
+          //   headers: { 'content-type': 'application/json' }
+          //   // data: JSON.stringify(order)
+          // }).then(res => {
+          //   // dispatch(emptyCart())
+          //   console.log(res)
+          // })
           e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+          // client.send(
+          //   {
+          //     text: 'i hope this works',
+          //     from: 'phunguyen12111998@gmail.com',
+          //     to: currentEmail,
+          //     subject: 'testing emailjs'
+          //   },
+          //   (err, message) => {
+          //     console.log(err || message)
+          //   }
+          // )
+          // emailjs
+          //   .sendForm(
+          //     'service_u88dl2r',
+          //     'template_omuck9t',
+          //     currentEmail,
+          //     'user_32k4I6JJIEyo5ehBoH1Ae'
+          //   )
+          //   .then(
+          //     result => {
+          //       alert(
+          //         'Message Sent, We will get back to you shortly',
+          //         result.text
+          //       )
 
-          emailjs
-            .sendForm(
-              'YOUR_SERVICE_ID',
-              'YOUR_TEMPLATE_ID',
-              // e.target,
-              'YOUR_USER_ID'
-            )
-            .then(
-              result => {
-                //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior)
-                setFinishBuy(true)
-              },
-              error => {
-                console.log(error.text)
-              }
-            )
+          //       //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior)
+          //       // setFinishBuy(true)
+          //     },
+          //     error => {
+          //       console.log(error.text)
+          //     }
+          //   )
         })
       } else {
         setIsLogin(false)
