@@ -81,6 +81,8 @@ function App () {
             <ProductDetail />
           </Route>
           <Route path='/Profille/:userId'>
+            <NavigationHeader />
+
             <Profile />
           </Route>
           <Route path='/OrderHistory'>

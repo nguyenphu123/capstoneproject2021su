@@ -22,6 +22,8 @@ import Switch from '@material-ui/core/Switch'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import Title from '../../Assets/Title'
+import 'semantic-ui-css/semantic.min.css'
+
 function UserAddress () {
   const genderOptions = [
     { key: 'm', text: 'Male', value: 'male' },

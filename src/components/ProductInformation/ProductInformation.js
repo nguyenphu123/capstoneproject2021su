@@ -1,5 +1,7 @@
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { Link } from 'react-router-dom'
+import ToggleButton from '@material-ui/lab/ToggleButton'
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
@@ -34,6 +36,11 @@ function ProductInformation () {
   const [reviewlist, setReviewlist] = useState([])
   const [review, setReview] = useState('')
   const [product, setProduct] = useState({})
+  const [colors, setColors] = useState([])
+  const [currentColor, setCurrentColor] = useState('')
+  const [sizes, setSizes] = useState([])
+  const [currentSize, setCurrentSize] = useState(0)
+  const [maxQuantity, setMaxQuantity] = useState(0)
 
   const [currentState, setCurrentState] = useState(false)
   const [quantity, setQuantity] = useState(0)
@@ -83,12 +90,25 @@ function ProductInformation () {
       setProduct(res.data)
       console.log(res.data.ImageStorages)
       setCurrentState(true)
+      setColors(
+        res.data.Elements.map(({ Color }) => ({
+          Color: Color
+        }))
+      )
+
+      setSizes(
+        res.data.Elements.map(({ Size }) => ({
+          Size: Size
+        }))
+      )
       setGalleries(
         res.data.ImageStorages.map(({ ImageUrl }) => ({
           original: `${ImageUrl}`,
           thumbnail: `${ImageUrl}`
         }))
       )
+      setCurrentColor(colors[0])
+      setCurrentSize(sizes[0])
 
       console.log(images)
     })
@@ -144,6 +164,28 @@ function ProductInformation () {
     } else {
       setQuantity(quantity - 1)
       console.log(quantity)
+    }
+  }
+  const handleColor = (event, newColor) => {
+    setCurrentColor(newColor)
+    const check_index = product.Elements.findIndex(
+      item => item.Color === currentColor && item.Size === currentSize
+    )
+    if (check_index !== -1) {
+      setMaxQuantity(product.Elements[check_index].Quantity)
+    } else {
+      setMaxQuantity(0)
+    }
+  }
+  const handleSize = (event, newSize) => {
+    setCurrentSize(newSize)
+    const check_index = product.Elements.findIndex(
+      item => item.Color === currentColor && item.Size === currentSize
+    )
+    if (check_index !== -1) {
+      setMaxQuantity(product.Elements[check_index].Quantity)
+    } else {
+      setMaxQuantity(0)
     }
   }
 
@@ -236,6 +278,40 @@ function ProductInformation () {
                             {product.CurrentPrice},000 vnd
                           </span>
                         </p>
+                        <div>
+                          <ToggleButtonGroup
+                            value={currentColor}
+                            exclusive
+                            onChange={handleColor}
+                            aria-label='Color'
+                          >
+                            {colors.map(({ Color }) => (
+                              <ToggleButton
+                                value={Color}
+                                style={{ backgroundColor: Color }}
+                                aria-label='left aligned'
+                              ></ToggleButton>
+                            ))}
+                          </ToggleButtonGroup>
+                        </div>
+                        <br />
+                        <div>
+                          <ToggleButtonGroup
+                            value={currentSize}
+                            exclusive
+                            onChange={handleSize}
+                            aria-label='Size'
+                          >
+                            {sizes.map(({ Size }) => (
+                              <ToggleButton
+                                value={Size}
+                                aria-label='left aligned'
+                              >
+                                {Size}
+                              </ToggleButton>
+                            ))}
+                          </ToggleButtonGroup>
+                        </div>
                       </div>
                     </div>
                     <div class='add-to-box'>
