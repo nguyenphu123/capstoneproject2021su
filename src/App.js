@@ -50,7 +50,7 @@ function App () {
             <RegistrationPage />
           </Route>
           <Route
-            path='/Category/:categoryId'
+            path='/Category/:categoryId/:currentPage'
             render={() => (
               <>
                 <NavigationHeader />
@@ -59,13 +59,13 @@ function App () {
               </>
             )}
           ></Route>
-          <Route path='/AllProduct'>
+          <Route path='/AllProduct/:currentPage'>
             <NavigationHeader />
             <Ads />
             <GetAllProduct />
           </Route>
 
-          <Route path='/Categories'>
+          <Route path='/Categories/:currentPage'>
             <NavigationHeader />
             <Ads />
             <CategoryList />

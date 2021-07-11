@@ -26,6 +26,7 @@ function NavigationHeader () {
   const [search, setSearch] = useState('')
   const [searchFilter, setSearchFilter] = useState([])
   const [searchId, setSearchId] = useState('')
+  const [searchList, setSearchList] = useState([])
 
   useEffect(() => {
     axios({
@@ -38,6 +39,11 @@ function NavigationHeader () {
       // const items = res.data.slice(0, size)
 
       setCategorylist(res.data)
+      setSearchList(res.data)
+      for (let index = 0; index < res.data.length; index++) {
+        const element = array[index].SubCategories
+        searchList.push({ Name: element })
+      }
     })
     setLoadComplete(true)
   }, [!loadComplete])
@@ -177,7 +183,8 @@ function NavigationHeader () {
                                             <Link
                                               className='level-top'
                                               to={{
-                                                pathname: '/Category/' + Id,
+                                                pathname:
+                                                  '/Category/' + Id + '/1',
                                                 key: Math.random(), // we could use Math.random, but that's not guaranteed unique.
                                                 state: {
                                                   applied: true
@@ -193,7 +200,9 @@ function NavigationHeader () {
                                                     <Link
                                                       to={{
                                                         pathname:
-                                                          '/Category/' + Id,
+                                                          '/Category/' +
+                                                          Id +
+                                                          '/1',
                                                         key: Math.random(), // we could use Math.random, but that's not guaranteed unique.
                                                         state: {
                                                           applied: true
@@ -477,7 +486,7 @@ function NavigationHeader () {
                   <div className='collapse navbar-collapse'>
                     <form className='navbar-form' role='search'>
                       <div className='input-group'>
-                        <SearchBar categories={categorylist} />
+                        <SearchBar categories={searchList} />
                       </div>
                     </form>
                   </div>

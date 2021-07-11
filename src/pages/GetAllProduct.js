@@ -7,7 +7,7 @@ import Title from '../Assets/Title'
 import Ads from '../components/Ads/AdsSlideShow'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import PagnationBar from '../Assets/PagnationBar'
 import { useDispatch, useSelector } from 'react-redux'
 import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
@@ -142,7 +142,7 @@ function GetAllProduct () {
                       </Link>
                     </div>
                     <div className='pager'>
-                      <div className='limiter'>
+                      {/* <div className='limiter'>
                         <label>View: </label>
                         <ul>
                           <li>
@@ -162,8 +162,8 @@ function GetAllProduct () {
                             </ul>
                           </li>
                         </ul>
-                      </div>
-                      <div className='pages'>
+                      </div> */}
+                      {/* <div className='pages'>
                         <label>Page:</label>
                         <ul className='pagination'>
                           <li>
@@ -188,7 +188,7 @@ function GetAllProduct () {
                             <Link to='#'>&raquo;</Link>
                           </li>
                         </ul>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -196,28 +196,9 @@ function GetAllProduct () {
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <div className='pages'>
-                        <label>Page:</label>
-                        <ul className='pagination'>
-                          <li>
-                            <Link to='#'>«</Link>
-                          </li>
-                          <li className='active'>
-                            <Link to='#'>1</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>2</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>3</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>»</Link>
-                          </li>
-                        </ul>
-                      </div>
+                      <PagnationBar apiUrl={currentURL} />
                       <div className='product-option-right'>
-                        <div className='sort-by'>
+                        {/* <div className='sort-by'>
                           <label className='left'>Sort By: </label>
                           <ul>
                             <li>
@@ -244,9 +225,9 @@ function GetAllProduct () {
                           >
                             <span className='top_arrow'></span>
                           </Link>
-                        </div>
+                        </div> */}
                         <div className='pager'>
-                          <div className='limiter'>
+                          {/* <div className='limiter'>
                             <label>View: </label>
                             <ul>
                               <li>
@@ -266,7 +247,7 @@ function GetAllProduct () {
                                 </ul>
                               </li>
                             </ul>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>

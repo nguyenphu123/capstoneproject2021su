@@ -88,7 +88,7 @@ export default class SearchBar extends Component {
 
     // const { isLoading, value, results } = this.state
     if (this.state.SearchResult !== '') {
-      return <Redirect to={'/Category/' + this.state.SearchResult} />
+      return <Redirect to={'/Category/' + this.state.SearchResult + '/1'} />
     } else {
       return (
         <div>

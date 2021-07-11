@@ -5,6 +5,7 @@ import { useParams, withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 import VerticalItemList from '../components/Item-List/VerticalItemList'
+import PagnationBar from '../Assets/PagnationBar'
 
 function CategoryPage () {
   //id của category
@@ -142,7 +143,7 @@ function CategoryPage () {
                       </Link>
                     </div>
                     <div className='pager'>
-                      <div className='limiter'>
+                      {/* <div className='limiter'>
                         <label>View: </label>
                         <ul>
                           <li>
@@ -162,8 +163,8 @@ function CategoryPage () {
                             </ul>
                           </li>
                         </ul>
-                      </div>
-                      <div className='pages'>
+                      </div> */}
+                      {/* <div className='pages'>
                         <label>Page:</label>
                         <ul className='pagination'>
                           <li>
@@ -188,7 +189,7 @@ function CategoryPage () {
                             <Link to='#'>&raquo;</Link>
                           </li>
                         </ul>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -196,28 +197,9 @@ function CategoryPage () {
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <div className='pages'>
-                        <label>Page:</label>
-                        <ul className='pagination'>
-                          <li>
-                            <Link to='#'>«</Link>
-                          </li>
-                          <li className='active'>
-                            <Link to='#'>1</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>2</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>3</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>»</Link>
-                          </li>
-                        </ul>
-                      </div>
+                      <PagnationBar apiUrl={currentURL} />
                       <div className='product-option-right'>
-                        <div className='sort-by'>
+                        {/* <div className='sort-by'>
                           <label className='left'>Sort By: </label>
                           <ul>
                             <li>
@@ -244,9 +226,9 @@ function CategoryPage () {
                           >
                             <span className='top_arrow'></span>
                           </Link>
-                        </div>
+                        </div> */}
                         <div className='pager'>
-                          <div className='limiter'>
+                          {/* <div className='limiter'>
                             <label>View: </label>
                             <ul>
                               <li>
@@ -266,7 +248,7 @@ function CategoryPage () {
                                 </ul>
                               </li>
                             </ul>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -320,7 +302,7 @@ function CategoryPage () {
                       <ol>
                         {taglist.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -331,7 +313,7 @@ function CategoryPage () {
                       <ol>
                         {subList.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -341,7 +323,7 @@ function CategoryPage () {
                       <ol>
                         {colorlist.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
@@ -351,7 +333,7 @@ function CategoryPage () {
                       <ol>
                         {sizelist.map(({ Name, Id }) => (
                           <li>
-                            <Link to='#'>{Name}</Link>
+                            <Link to='/'>{Name}</Link>
                           </li>
                         ))}
                       </ol>
