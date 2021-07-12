@@ -88,7 +88,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
               className='foo'
               displayType={'text'}
               thousandSeparator={true}
-              prefix={'$'}
+              prefix={''}
               renderText={(value, props) => (
                 <div {...props}>{value},000VND</div>
               )}
@@ -134,7 +134,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
               className='foo'
               displayType={'text'}
               thousandSeparator={true}
-              prefix={'$'}
+              prefix={''}
               renderText={(value, props) => (
                 <div {...props}>{value},000VND</div>
               )}

@@ -145,7 +145,7 @@ function HorizontalItem ({
                               className='foo'
                               displayType={'text'}
                               thousandSeparator={true}
-                              prefix={'$'}
+                              prefix={''}
                               renderText={(value, props) => (
                                 <div {...props}>{value},000VND</div>
                               )}
