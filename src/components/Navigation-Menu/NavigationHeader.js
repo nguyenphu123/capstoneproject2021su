@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
-
+import NumberFormat from 'react-number-format'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Image } from 'semantic-ui-react'
@@ -41,7 +41,7 @@ function NavigationHeader () {
       setCategorylist(res.data)
       setSearchList(res.data)
       for (let index = 0; index < res.data.length; index++) {
-        const element = array[index].SubCategories
+        const element = res.data[index].SubCategories
         searchList.push({ Name: element })
       }
     })
@@ -416,14 +416,22 @@ function NavigationHeader () {
                               <div className='top-subtotal'>
                                 {CartSlice.length},
                                 <span className='price'>
-                                  {CartSlice.reduce(
-                                    (accumulator, currentValue) =>
-                                      accumulator +
-                                      currentValue.CurrentPrice *
-                                        currentValue.Quantity,
-                                    0
-                                  )}
-                                  ,000 VND
+                                  <NumberFormat
+                                    value={CartSlice.reduce(
+                                      (accumulator, currentValue) =>
+                                        accumulator +
+                                        currentValue.CurrentPrice *
+                                          currentValue.Quantity,
+                                      0
+                                    )}
+                                    className='foo'
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'$'}
+                                    renderText={(value, props) => (
+                                      <div {...props}>{value},000VND</div>
+                                    )}
+                                  />
                                 </span>
                               </div>
                             </div>
@@ -454,7 +462,18 @@ function NavigationHeader () {
                                       </Link>
                                       <div className='product-details'>
                                         <span className='price'>
-                                          {CurrentPrice},000 VND
+                                          <NumberFormat
+                                            value={CurrentPrice}
+                                            className='foo'
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            prefix={'$'}
+                                            renderText={(value, props) => (
+                                              <div {...props}>
+                                                {value},000VND
+                                              </div>
+                                            )}
+                                          />
                                         </span>
                                         <p className='product-name'>
                                           <Link to={'/product-details'}>

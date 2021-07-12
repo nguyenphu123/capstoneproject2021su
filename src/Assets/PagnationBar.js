@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, withRouter } from 'react-router-dom'
+import axios from 'axios'
 
 import { Link } from 'react-router-dom'
 
-function PagnationBar ({ apiUrl }) {
+function PagnationBar ({ Name, apiUrl }) {
   const { currentPage, categoryId } = useParams()
 
   const [page, setPage] = useState(currentPage)
@@ -27,22 +28,18 @@ function PagnationBar ({ apiUrl }) {
       <ul className='pagination'>
         {currentPage === 1 ? null : (
           <li>
-            <Link to={'/Category/' + categoryId + '/' + currentPage - 1}>
-              «
-            </Link>
+            <Link to={'/' + Name + '/' + currentPage - 1}>«</Link>
           </li>
         )}
 
         {numOfPage.map(({ Page }) => (
           <li className='active'>
-            <Link to={'/Category/' + categoryId + '/' + Page}>{Page}</Link>
+            <Link to={'/' + Name + '/' + Page}>{Page}</Link>
           </li>
         ))}
         {currentPage === numOfPage.length ? null : (
           <li>
-            <Link to={'/Category/' + categoryId + '/' + currentPage + 1}>
-              «
-            </Link>
+            <Link to={'/' + Name + '/' + currentPage + 1}>«</Link>
           </li>
         )}
       </ul>

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
+import NumberFormat from 'react-number-format'
 import CartItem from '../components/Cart/CartItem'
 import { emptyCart } from '../features/Cart/CartSlice'
 
@@ -256,14 +256,22 @@ function ShoppingCart () {
                               <td class='a-right'>
                                 <strong>
                                   <span class='price'>
-                                    {CartSlice.reduce(
-                                      (accumulator, currentValue) =>
-                                        accumulator +
-                                        currentValue.CurrentPrice *
-                                          currentValue.Quantity,
-                                      0
-                                    )}
-                                    ,000 VND
+                                    <NumberFormat
+                                      value={CartSlice.reduce(
+                                        (accumulator, currentValue) =>
+                                          accumulator +
+                                          currentValue.CurrentPrice *
+                                            currentValue.Quantity,
+                                        0
+                                      )}
+                                      className='foo'
+                                      displayType={'text'}
+                                      thousandSeparator={true}
+                                      prefix={'$'}
+                                      renderText={(value, props) => (
+                                        <div {...props}>{value},000VND</div>
+                                      )}
+                                    />
                                   </span>
                                 </strong>
                               </td>
@@ -272,18 +280,26 @@ function ShoppingCart () {
                           <tbody>
                             <tr>
                               <td class='a-left' colspan='1'>
-                                Subtotal{' '}
+                                Subtotal
                               </td>
                               <td class='a-right'>
                                 <span class='price'>
-                                  {CartSlice.reduce(
-                                    (accumulator, currentValue) =>
-                                      accumulator +
-                                      currentValue.CurrentPrice *
-                                        currentValue.Quantity,
-                                    0
-                                  )}
-                                  ,000 VND
+                                  <NumberFormat
+                                    value={CartSlice.reduce(
+                                      (accumulator, currentValue) =>
+                                        accumulator +
+                                        currentValue.CurrentPrice *
+                                          currentValue.Quantity,
+                                      0
+                                    )}
+                                    className='foo'
+                                    displayType={'text'}
+                                    thousandSeparator={true}
+                                    prefix={'$'}
+                                    renderText={(value, props) => (
+                                      <div {...props}>{value},000VND</div>
+                                    )}
+                                  />
                                 </span>
                               </td>
                             </tr>

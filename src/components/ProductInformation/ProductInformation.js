@@ -1,8 +1,6 @@
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { Link } from 'react-router-dom'
-import ToggleButton from '@material-ui/lab/ToggleButton'
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
-
+import NumberFormat from 'react-number-format'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -16,6 +14,8 @@ import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import SeeMoreButton from '../../Assets/SeeMoreButton'
+import ToggleGroupColor from '../../Assets/ToggleGroupColor'
+import ToggleGroupSize from '../../Assets/ToggleGroupSize'
 import ProductQuestionAndAnswer from './ProductQuestionAndAnswer'
 import ProductDescription from './ProductDescription'
 import ProductReview from './ProductReview'
@@ -115,6 +115,8 @@ function ProductInformation () {
   }, [productId])
   useEffect(() => {
     if (CartSlice !== null || CartSlice.length !== 0) {
+      setShopCart(CartSlice)
+
       const check_index = shopCart.findIndex(item => item.Id === productId)
       if (check_index !== -1) {
         setQuantity(shopCart[check_index].Quantity)
@@ -132,6 +134,16 @@ function ProductInformation () {
   }
 
   function addToCart () {
+    const cartItem = {
+      ProductId: productId,
+      CurrentPrice: product.CurrentPrice,
+      Quantity: quantity,
+      TotalLine: 0,
+      img: product.ImageStorages[0].ImageUrl,
+      Name: product.Name
+    }
+    const myCart = []
+    console.log(cartItem)
     const check_index = shopCart.findIndex(item => item.Id === productId)
     if (check_index !== -1) {
       shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
@@ -140,16 +152,11 @@ function ProductInformation () {
         'Product in cart has been increase'
       )
     } else {
-      const cartItem = {
-        ProductId: productId,
-        CurrentPrice: product.CurrentPrice,
-        Quantity: quantity,
-        TotalLine: 0,
-        img: product.ImageStorages[0].ImageUrl,
-        Name: product.Name
-      }
+      myCart.push(cartItem)
 
-      shopCart.push(cartItem)
+      setShopCart(myCart)
+      dispatch(cart(myCart))
+
       NotificationManager.success('Success message', 'Product added to cart')
     }
 
@@ -166,28 +173,28 @@ function ProductInformation () {
       console.log(quantity)
     }
   }
-  const handleColor = (event, newColor) => {
-    setCurrentColor(newColor)
-    const check_index = product.Elements.findIndex(
-      item => item.Color === currentColor && item.Size === currentSize
-    )
-    if (check_index !== -1) {
-      setMaxQuantity(product.Elements[check_index].Quantity)
-    } else {
-      setMaxQuantity(0)
-    }
-  }
-  const handleSize = (event, newSize) => {
-    setCurrentSize(newSize)
-    const check_index = product.Elements.findIndex(
-      item => item.Color === currentColor && item.Size === currentSize
-    )
-    if (check_index !== -1) {
-      setMaxQuantity(product.Elements[check_index].Quantity)
-    } else {
-      setMaxQuantity(0)
-    }
-  }
+  // const handleColor = (event, newColor) => {
+  //   setCurrentColor(newColor)
+  //   const check_index = product.Elements.findIndex(
+  //     item => item.Color === currentColor && item.Size === currentSize
+  //   )
+  //   if (check_index !== -1) {
+  //     setMaxQuantity(product.Elements[check_index].Quantity)
+  //   } else {
+  //     setMaxQuantity(0)
+  //   }
+  // }
+  // const handleSize = (event, newSize) => {
+  //   setCurrentSize(newSize)
+  //   const check_index = product.Elements.findIndex(
+  //     item => item.Color === currentColor && item.Size === currentSize
+  //   )
+  //   if (check_index !== -1) {
+  //     setMaxQuantity(product.Elements[check_index].Quantity)
+  //   } else {
+  //     setMaxQuantity(0)
+  //   }
+  // }
 
   function updateNumberPicker (e) {
     setQuantity(e.target.value + '')
@@ -275,42 +282,26 @@ function ProductInformation () {
                         <p class='special-price'>
                           <span class='price-label'>Special Price</span>
                           <span id='product-price-48' class='price'>
-                            {product.CurrentPrice},000 vnd
+                            <NumberFormat
+                              value={product.CurrentPrice}
+                              className='foo'
+                              displayType={'text'}
+                              thousandSeparator={true}
+                              prefix={'$'}
+                              renderText={(value, props) => (
+                                <div {...props}>{value},000VND</div>
+                              )}
+                            />
                           </span>
                         </p>
                         <div>
-                          <ToggleButtonGroup
-                            value={currentColor}
-                            exclusive
-                            onChange={handleColor}
-                            aria-label='Color'
-                          >
-                            {colors.map(({ Color }) => (
-                              <ToggleButton
-                                value={Color}
-                                style={{ backgroundColor: Color }}
-                                aria-label='left aligned'
-                              ></ToggleButton>
-                            ))}
-                          </ToggleButtonGroup>
-                        </div>
-                        <br />
-                        <div>
-                          <ToggleButtonGroup
-                            value={currentSize}
-                            exclusive
-                            onChange={handleSize}
-                            aria-label='Size'
-                          >
-                            {sizes.map(({ Size }) => (
-                              <ToggleButton
-                                value={Size}
-                                aria-label='left aligned'
-                              >
-                                {Size}
-                              </ToggleButton>
-                            ))}
-                          </ToggleButtonGroup>
+                          <div>
+                            <ToggleGroupColor />
+                          </div>
+                          <div>
+                            <br />
+                            <ToggleGroupSize />
+                          </div>
                         </div>
                       </div>
                     </div>

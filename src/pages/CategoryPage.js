@@ -197,7 +197,10 @@ function CategoryPage () {
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <PagnationBar apiUrl={currentURL} />
+                      <PagnationBar
+                        Name={'Category/' + categoryId}
+                        apiUrl={currentURL}
+                      />
                       <div className='product-option-right'>
                         {/* <div className='sort-by'>
                           <label className='left'>Sort By: </label>

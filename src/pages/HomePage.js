@@ -107,8 +107,8 @@ function HomePage () {
           <div class='row'>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
-                <h2>Trending</h2>
-                <h4>Current trend</h4>
+                <h2>Top view</h2>
+                
               </div>
 
               <HorizontalItemList
@@ -121,8 +121,8 @@ function HomePage () {
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
-                <h2>Trending</h2>
-                <h4>Current trend</h4>
+                <h2>Top like</h2>
+                
               </div>
 
               <HorizontalItemList
@@ -135,8 +135,8 @@ function HomePage () {
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
-                <h2>Trending</h2>
-                <h4>Current trend</h4>
+                <h2>Top wishlist</h2>
+                
               </div>
 
               <HorizontalItemList

@@ -65,11 +65,11 @@ function App () {
             <GetAllProduct />
           </Route>
 
-          <Route path='/Categories/:currentPage'>
+          {/* <Route path='/Categories/:currentPage'>
             <NavigationHeader />
             <Ads />
             <CategoryList />
-          </Route>
+          </Route> */}
           <Route path='/ImageUploading'>
             <NavigationHeader />
             <Ads />

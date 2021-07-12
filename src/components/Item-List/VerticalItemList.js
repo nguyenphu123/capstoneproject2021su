@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { Button, Card, Header } from 'semantic-ui-react'
 import Title from '../../Assets/Title'
+import { withRouter } from 'react-router-dom'
 
 import VerticalItem from './VerticalItem'
 import { Link } from 'react-router-dom'
@@ -11,7 +12,9 @@ class VerticalItemList extends React.Component {
     super()
 
     this.state = {
-      products: []
+      products: [],
+      currentPage: '1',
+      pageSize: 50
     }
   }
   componentDidMount () {
@@ -24,12 +27,20 @@ class VerticalItemList extends React.Component {
       console.log(res)
       console.log(res.data)
       this.setState({
-        products: res.data
+        products: res.data,
+        // currentPage: this.props.match.params
       })
     })
   }
 
   render () {
+    const indexOfLastPost = this.state.currentPage * this.state.pageSize
+    const indexOfFirstPost = indexOfLastPost - this.state.pageSize
+    const currentPosts = this.state.products.slice(
+      indexOfFirstPost,
+      indexOfLastPost
+    )
+
     return (
       <>
         <Card.Group itemsPerRow={8}>
@@ -60,7 +71,6 @@ class VerticalItemList extends React.Component {
               </div>
             )
           )}
-          
         </Card.Group>
       </>
     )

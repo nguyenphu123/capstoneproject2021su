@@ -21,6 +21,8 @@ function RegistrationPage () {
   const [gender, setGender] = useState(true)
   const [phone, setPhone] = useState(0)
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+
   const [address, setAddress] = useState('')
   const [agreement, setAgreement] = useState(false)
 
@@ -94,6 +96,9 @@ function RegistrationPage () {
   }
   function handleChangePhone (e, { value }) {
     setPhone(value)
+  }
+  function handleChangeEmail (e, { value }) {
+    setEmail(value)
   }
 
   const genderOptions = [
@@ -201,11 +206,11 @@ function RegistrationPage () {
                       <input
                         type='text'
                         name='login[username]'
-                        // value={username}
+                        value={email}
                         id='email'
                         class='input-text required-entry validate-email'
                         title='Email Address'
-                        // onChange={e => setAddress(e.target.value)}
+                        onChange={e => setEmail(e.target.value)}
                       />
                     </div>
                   </li>
@@ -256,23 +261,24 @@ function RegistrationPage () {
 
                 <p class='required'>* Required Fields</p>
 
-                <div class='buttons-set'>
-                  <button
-                    type='submit'
-                    class='button login'
-                    title='Login'
-                    name='send'
-                    id='send2'
-                    onClick={handleSubmit}
-                  >
-                    <span>Registration</span>
-                  </button>
-                </div>
                 {/* <!--buttons-set--> */}
               </div>
               {/* <!--content--> */}
             </div>
             <div class='col-2 new-users'>
+              <div class='buttons-set'>
+                <button
+                  type='submit'
+                  class='button login'
+                  title='Login'
+                  name='send'
+                  id='send2'
+                  onClick={handleSubmit}
+                >
+                  <span>Registration</span>
+                </button>
+              </div>
+
               <strong>Or</strong>
               <div class='content'>
                 <div class='buttons-set'>

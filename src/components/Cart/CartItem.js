@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import { Link } from 'react-router-dom'
-
+import NumberFormat from 'react-number-format'
 import { cart, emptyCart } from '../../features/Cart/CartSlice'
 
 const mapDispatch = { cart, emptyCart }
@@ -82,7 +82,18 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
 
       <td class='a-right hidden-table'>
         <span class='cart-price'>
-          <span class='price'>{Price},000 vnd</span>
+          <span class='price'>
+            <NumberFormat
+              value={Price}
+              className='foo'
+              displayType={'text'}
+              thousandSeparator={true}
+              prefix={'$'}
+              renderText={(value, props) => (
+                <div {...props}>{value},000VND</div>
+              )}
+            />
+          </span>
         </span>
       </td>
       <td class='a-center movewishlist'>
@@ -117,7 +128,18 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl }) {
       </td>
       <td class='a-right movewishlist'>
         <span class='cart-price'>
-          <span class='price'>{Price * Quantity},000 vnd</span>
+          <span class='price'>
+            <NumberFormat
+              value={Price * Quantity}
+              className='foo'
+              displayType={'text'}
+              thousandSeparator={true}
+              prefix={'$'}
+              renderText={(value, props) => (
+                <div {...props}>{value},000VND</div>
+              )}
+            />
+          </span>
         </span>
       </td>
       <td class='a-center last'>

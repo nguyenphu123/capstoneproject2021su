@@ -30,7 +30,7 @@ function OrderDetail ({ ProductDetail }) {
               headData={elements}
               renderHead={(item, index) => renderHead(item, index)}
               bodyData={ProductDetail}
-              renderBody={(item, index) => renderBody(item, index)}
+              renderBody={(item, index) => renderBodyElements(item, index)}
             />
           </div>
         </div>

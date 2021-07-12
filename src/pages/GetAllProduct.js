@@ -5,6 +5,7 @@ import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import Title from '../Assets/Title'
 import Ads from '../components/Ads/AdsSlideShow'
+import { useParams, withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import PagnationBar from '../Assets/PagnationBar'
@@ -16,8 +17,10 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 
 function GetAllProduct () {
+  const { currentPage, categoryId } = useParams()
+
   const [currentURL, setCurrentURL] = useState(
-    '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+    '/api/product-management?sort=up&pageIndex=1&pageSize=5000'
   )
   console.log(currentURL)
   const [category, setCategory] = useState({})
@@ -196,7 +199,7 @@ function GetAllProduct () {
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <PagnationBar apiUrl={currentURL} />
+                      <PagnationBar Name={'AllProduct'} apiUrl={currentURL} />
                       <div className='product-option-right'>
                         {/* <div className='sort-by'>
                           <label className='left'>Sort By: </label>

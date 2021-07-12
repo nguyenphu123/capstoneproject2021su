@@ -1,5 +1,5 @@
 import '../../App.css'
-
+import NumberFormat from 'react-number-format'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
@@ -139,7 +139,18 @@ function HorizontalItem ({
                     <div className='item-price'>
                       <div className='price-box'>
                         <span className='regular-price'>
-                          <span className='price'>{CurrentPrice},000 vnd</span>{' '}
+                          <span className='price'>
+                            <NumberFormat
+                              value={CurrentPrice}
+                              className='foo'
+                              displayType={'text'}
+                              thousandSeparator={true}
+                              prefix={'$'}
+                              renderText={(value, props) => (
+                                <div {...props}>{value},000VND</div>
+                              )}
+                            />
+                          </span>
                         </span>
                       </div>
                     </div>
