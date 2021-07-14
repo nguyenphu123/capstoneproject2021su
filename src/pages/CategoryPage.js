@@ -142,55 +142,7 @@ function CategoryPage () {
                         <span className='top_arrow'></span>
                       </Link>
                     </div>
-                    <div className='pager'>
-                      {/* <div className='limiter'>
-                        <label>View: </label>
-                        <ul>
-                          <li>
-                            <Link to='#'>
-                              15<span className='right-arrow'></span>
-                            </Link>
-                            <ul>
-                              <li>
-                                <Link to='#'>20</Link>
-                              </li>
-                              <li>
-                                <Link to='#'>30</Link>
-                              </li>
-                              <li>
-                                <Link to='#'>35</Link>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div> */}
-                      {/* <div className='pages'>
-                        <label>Page:</label>
-                        <ul className='pagination'>
-                          <li>
-                            <Link to='#'>&laquo;</Link>
-                          </li>
-                          <li className='active'>
-                            <Link to='#'>1</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>2</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>3</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>4</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>5</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>&raquo;</Link>
-                          </li>
-                        </ul>
-                      </div> */}
-                    </div>
+                    <div className='pager'></div>
                   </div>
 
                   <VerticalItemList topic={category.Name} apiUrl={currentURL} />
@@ -202,57 +154,7 @@ function CategoryPage () {
                         apiUrl={currentURL}
                       />
                       <div className='product-option-right'>
-                        {/* <div className='sort-by'>
-                          <label className='left'>Sort By: </label>
-                          <ul>
-                            <li>
-                              <Link to='#'>
-                                Position<span className='right-arrow'></span>
-                              </Link>
-                              <ul>
-                                <li>
-                                  <Link to='#'>Name</Link>
-                                </li>
-                                <li>
-                                  <Link to='#'>Price</Link>
-                                </li>
-                                <li>
-                                  <Link to='#'>Position</Link>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                          <Link
-                            className='button-asc left'
-                            to='#'
-                            title='Set Descending Direction'
-                          >
-                            <span className='top_arrow'></span>
-                          </Link>
-                        </div> */}
-                        <div className='pager'>
-                          {/* <div className='limiter'>
-                            <label>View: </label>
-                            <ul>
-                              <li>
-                                <Link to='#'>
-                                  15<span className='right-arrow'></span>
-                                </Link>
-                                <ul>
-                                  <li>
-                                    <Link to='#'>20</Link>
-                                  </li>
-                                  <li>
-                                    <Link to='#'>30</Link>
-                                  </li>
-                                  <li>
-                                    <Link to='#'>35</Link>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div> */}
-                        </div>
+                        <div className='pager'></div>
                       </div>
                     </div>
                   </div>

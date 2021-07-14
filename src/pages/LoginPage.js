@@ -19,6 +19,7 @@ import {
 } from 'semantic-ui-react'
 import RegistrationPage from './RegistrationPage'
 import { loginUser } from '../features/User/UserSlice'
+import { ToastContainer, toast } from 'react-toastify'
 
 const mapDispatch = { loginUser }
 
@@ -38,10 +39,10 @@ function LoginPage () {
 
   // reset login status
   useEffect(() => {
-    // dispatch(userActions.logout())
-  }, [])
-
-  function handleChange (e) {}
+    if (UserSlice) {
+      toast.success('Welcome' + UserSlice.Name)
+    }
+  }, [UserSlice])
 
   function handleSubmit (e) {
     const authData = {
@@ -64,10 +65,11 @@ function LoginPage () {
     setVisibility(!visibility)
   }
 
-  console.log(UserSlice)
   if (UserSlice) {
     return (
       <>
+        <ToastContainer autoClose={5000} />
+
         <Redirect to={'/'} />
       </>
     )

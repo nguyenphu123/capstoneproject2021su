@@ -7,14 +7,24 @@ import { useParams } from 'react-router-dom'
 import { Steps } from 'rsuite'
 import { Image, Item, Segment } from 'semantic-ui-react'
 import Table from '../Assets/table/Table'
+import NumberFormat from 'react-number-format'
 
-function OrderDetail ({ ProductDetail }) {
+function OrderDetail ({ Orderdetails }) {
   const elements = ['Id', 'Price', 'Quantity']
 
   const renderBodyElements = (item, index) => (
     <tr key={index}>
       <td>{item.ProductId}</td>
-      <td>{item.CurrentPrice}</td>
+      <td>
+        <NumberFormat
+          value={item.CurrentPrice}
+          className='foo'
+          displayType={'text'}
+          thousandSeparator={true}
+          prefix={''}
+          renderText={(value, props) => <div {...props}>{value},000VND</div>}
+        />
+      </td>
       <td>{item.Quantity}</td>
     </tr>
   )
@@ -29,7 +39,7 @@ function OrderDetail ({ ProductDetail }) {
               limit='1000'
               headData={elements}
               renderHead={(item, index) => renderHead(item, index)}
-              bodyData={ProductDetail}
+              bodyData={Orderdetails}
               renderBody={(item, index) => renderBodyElements(item, index)}
             />
           </div>

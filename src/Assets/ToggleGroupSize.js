@@ -10,24 +10,17 @@ function ToggleGroupSize ({ list, currentSize, onChangeSize }) {
 
   return (
     <Button.Group>
-      <Button toggle active={true}>
-        42
-      </Button>
-      <Button toggle active={false}>
-        43
-      </Button>
-
-      {/* {list.map(({ Size }) =>
-        currentSize === Size ? (
+      {list.map(({ Size }) =>
+        currentSize === Size.Id ? (
           <Button toggle active={true}>
-            {Size}
+            {Size.Name}
           </Button>
         ) : (
           <Button onClick={handleClick} toggle active={false}>
-            >{Size}
+            >{Size.Name}
           </Button>
         )
-      )} */}
+      )}
     </Button.Group>
   )
 }

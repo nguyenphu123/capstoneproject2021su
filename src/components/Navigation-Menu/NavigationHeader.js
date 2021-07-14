@@ -330,31 +330,29 @@ function NavigationHeader () {
                         </div>
                         <ul className='links'>
                           {UserSlice !== null ? (
-                            <li>
-                              <Link
-                                to={'/Profille/' + UserSlice.Id}
-                                title='My Account'
-                              >
-                                Profile
-                              </Link>
-                            </li>
-                          ) : null}
-                          <li>
-                            <Link to={'/OrderHistory'} title='History'>
-                              Order History
-                            </Link>
-                          </li>
+                            <>
+                              <li>
+                                <Link
+                                  to={'/Profille/' + UserSlice.Id}
+                                  title='My Account'
+                                >
+                                  Profile
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to={'/OrderHistory'} title='History'>
+                                  Order History
+                                </Link>
+                              </li>
 
-                          <li>
-                            <Link to={'/wishlist'} title='Wishlist'>
-                              Wishlist
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to={'/checkout'} title='Checkout'>
-                              Checkout
-                            </Link>
-                          </li>
+                              <li>
+                                <Link to={'/wishlist'} title='Wishlist'>
+                                  Wishlist
+                                </Link>
+                              </li>
+                            </>
+                          ) : null}
+
                           <li>
                             <Link to={'/blog'} title='Blog'>
                               <span>Blog</span>
@@ -427,7 +425,7 @@ function NavigationHeader () {
                                     className='foo'
                                     displayType={'text'}
                                     thousandSeparator={true}
-                                    prefix={'$'}
+                                    prefix={''}
                                     renderText={(value, props) => (
                                       <div {...props}>{value},000VND</div>
                                     )}
@@ -467,7 +465,7 @@ function NavigationHeader () {
                                             className='foo'
                                             displayType={'text'}
                                             thousandSeparator={true}
-                                            prefix={'$'}
+                                            prefix={''}
                                             renderText={(value, props) => (
                                               <div {...props}>
                                                 {value},000VND

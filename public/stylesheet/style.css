@@ -14208,3 +14208,9 @@ button.btn-share,
   border: #ff7a59 solid 1px;
   background: #fff;
 }
+.table-history {
+  top: 20%;
+  left: 20%;
+  /* -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+}

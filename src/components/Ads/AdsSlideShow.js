@@ -7,6 +7,19 @@ const items = [
   'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
 ]
 function AdsSlideShow () {
+  useEffect(() => {
+    window.sliderr()
+    window.commonjs()
+
+    // if (UserSlice !== null) {
+    //   NotificationManager.success(
+    //     'Success message',
+    //     'Wellcome ' + UserSlice.UserName
+    //   )
+    // }
+    // alert.success('Wellcome ' + UserSlice.UserName)
+  }, [])
+
   return (
     <div id='thmg-slider-slideshow' class='thmg-slider-slideshow'>
       <div class='container'>
@@ -90,7 +103,7 @@ function AdsSlideShow () {
                         heigth: '200px'
                       }}
                     >
-                      <Link to='/AllProduct' class='buy-btn'>
+                      <Link to='/AllProduct/1' class='buy-btn'>
                         Shop Now
                       </Link>
                     </div>

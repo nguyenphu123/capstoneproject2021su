@@ -23,10 +23,21 @@ import InputSpinner from 'react-bootstrap-input-spinner'
 import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { Comment, Grid, Header, Rating, Tab, Table } from 'semantic-ui-react'
+
 import MyImageGalery from './MyImageGalery'
 import { cart } from '../../features/Cart/CartSlice'
 import VerticalItemList from '../Item-List/VerticalItemList'
+import { ToastContainer, toast } from 'react-toastify'
+import {
+  Divider,
+  Grid,
+  Image,
+  Header,
+  Label,
+  Icon,
+  Segment,
+  Tab
+} from 'semantic-ui-react'
 
 const mapDispatch = { cart }
 
@@ -46,7 +57,7 @@ function ProductInformation () {
   const [quantity, setQuantity] = useState(0)
   const [images, setImages] = useState({})
   const [galleries, setGalleries] = useState([])
-
+  const [elements, setElements] = useState([])
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const [shopCart, setShopCart] = useState(CartSlice)
@@ -89,28 +100,38 @@ function ProductInformation () {
       console.log(res.data)
       setProduct(res.data)
       console.log(res.data.ImageStorages)
-      setCurrentState(true)
-      setColors(
-        res.data.Elements.map(({ Color }) => ({
-          Color: Color
-        }))
-      )
 
-      setSizes(
-        res.data.Elements.map(({ Size }) => ({
-          Size: Size
-        }))
-      )
+      // setColors(
+      //   res.data.Elements.map(({ Color }) => ({
+      //     Color: Color
+      //   }))
+      // )
+
+      // setSizes(
+      //   res.data.Elements.map(({ Size }) => ({
+      //     Size: Size
+      //   }))
+      // )
+      for (let index = 0; index < res.data.Elements.length; index++) {
+        const element = res.data.Elements[index]
+        colors.push(element.Color)
+        sizes.push(element.Size)
+      }
       setGalleries(
         res.data.ImageStorages.map(({ ImageUrl }) => ({
           original: `${ImageUrl}`,
           thumbnail: `${ImageUrl}`
         }))
       )
-      setCurrentColor(colors[0])
-      setCurrentSize(sizes[0])
+
+      console.log(sizes)
+      console.log(colors)
 
       console.log(images)
+      setCurrentColor(colors[0].Id)
+      setCurrentSize(sizes[0].Id)
+
+      setCurrentState(true)
     })
   }, [productId])
   useEffect(() => {
@@ -147,17 +168,14 @@ function ProductInformation () {
     const check_index = shopCart.findIndex(item => item.Id === productId)
     if (check_index !== -1) {
       shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
-      NotificationManager.success(
-        'Success message',
-        'Product in cart has been increase'
-      )
+      toast.success('Cart has been updated')
     } else {
       myCart.push(cartItem)
 
       setShopCart(myCart)
       dispatch(cart(myCart))
 
-      NotificationManager.success('Success message', 'Product added to cart')
+      toast.success('Item has been added')
     }
 
     dispatch(cart(shopCart))
@@ -296,11 +314,19 @@ function ProductInformation () {
                         </p>
                         <div>
                           <div>
-                            <ToggleGroupColor />
+                            <ToggleGroupColor
+                              list={colors}
+                              currentColor={currentColor}
+                              onChangeColor={value => setCurrentColor(value)}
+                            />
                           </div>
                           <div>
                             <br />
-                            <ToggleGroupSize />
+                            <ToggleGroupSize
+                              list={sizes}
+                              currentSize={currentSize}
+                              onChangeColor={value => setCurrentSize(value)}
+                            />
                           </div>
                         </div>
                       </div>
@@ -414,7 +440,18 @@ function ProductInformation () {
               </div>
               {/* <!--product-essential--> */}
               <div class='product-collateral container'>
-                <ul id='product-detail-tab' class='nav nav-tabs product-tabs'>
+                <Tab
+                  menu={{
+                    color: 'green',
+                    attached: false,
+                    tabular: false,
+                    secondary: true,
+                    pointing: true
+                  }}
+                  panes={panes}
+                />
+
+                {/* <ul id='product-detail-tab' class='nav nav-tabs product-tabs'>
                   <li class='active'>
                     <Link href='#product_tabs_description' data-toggle='tab'>
                       Product Description
@@ -430,18 +467,9 @@ function ProductInformation () {
                       Reviews
                     </Link>
                   </li>
-                  <li>
-                    <Link href='#product_tabs_custom' data-toggle='tab'>
-                      Custom Tab
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href='#product_tabs_custom1' data-toggle='tab'>
-                      Custom Tab1
-                    </Link>
-                  </li>
-                </ul>
-                <ProductReview Comments={[]} />
+                 
+                </ul> */}
+                {/* <ProductReview Comments={[]} /> */}
               </div>
               <section className=' wow bounceInUp animated'>
                 <div className='best-pro slider-items-products container'>
@@ -474,7 +502,7 @@ function ProductInformation () {
             </div>
           </div>
         </div>
-        <NotificationContainer />
+        <ToastContainer autoClose={5000} />
       </div>
     )
   }

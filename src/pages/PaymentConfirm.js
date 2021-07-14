@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button'
-import Checkbox from '@material-ui/core/Checkbox'
+// import Checkbox from '@material-ui/core/Checkbox'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Grid from '@material-ui/core/Grid'
@@ -15,6 +15,11 @@ import React, { useEffect, useState } from 'react'
 import 'react-notifications/lib/notifications.css'
 import { NotificationContainer, NotificationManager } from 'react-notifications'
 import emailjs from 'emailjs-com'
+import { v4 as uuidv4 } from 'uuid'
+import { Form, Checkbox } from 'semantic-ui-react'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -44,12 +49,12 @@ function PaymentConfirm () {
 
   const [isEdit, setIsEdit] = useState(true)
   const [shipOption, setShipOption] = useState('')
-  const [paywithPaypal, setPaywithPaypal] = useState(false)
+  const [paywithMomo, setPaywithMomo] = useState(false)
   const [redirectPage, setRedirectPage] = useState('/')
   const [finishBuy, setFinishBuy] = useState(false)
 
-  const handleChangePaypal = () => {
-    setPaywithPaypal(!paywithPaypal)
+  const handleChangeMomo = () => {
+    setPaywithMomo(!paywithMomo)
   }
 
   useEffect(() => {
@@ -95,6 +100,7 @@ function PaymentConfirm () {
     console.log(UserSlice)
 
     function onSubmit (e) {
+      const orderId = uuidv4()
       e.preventDefault()
 
       console.log(UserSlice)
@@ -110,58 +116,117 @@ function PaymentConfirm () {
           0
         )
         //Do the math!
+        if (paywithMomo) {
+          const order = {
+            UserId: UserSlice.Id,
+            OrderId: orderId,
+            TotalPrice: totalPrice,
+            AddressShipping: currentAddress,
+            Date: new Date()
+              .toISOString()
+              .slice(0, 19)
+              .replace('T', ' '),
+            Status: true,
+            Phone: currentPhone,
 
-        const order = {
-          UserId: UserSlice.Id,
-          TotalPrice: totalPrice,
-          AddressShipping: currentAddress,
-          Date: new Date()
-            .toISOString()
-            .slice(0, 19)
-            .replace('T', ' '),
-          Status: true,
-          Phone: currentPhone,
+            OrderDetails: CartSlice
+          }
+          axios({
+            method: 'post',
+            url:
+              '/api/order-management/' +
+              order.TotalPrice * 1000 +
+              '?currentOrderId=' +
+              orderId,
+            headers: { 'content-type': 'application/json' }
+            // data: JSON.stringify(order)
+          }).then(res => {
+            // dispatch(emptyCart())
+            console.log(res)
+            window.open(res.data, '_blank')
 
-          OrderDetails: CartSlice
+            axios({
+              method: 'post',
+              url: '/api/order-management/users/orders',
+              headers: { 'content-type': 'application/json' },
+              data: JSON.stringify(order)
+            }).then(res => {
+              dispatch(emptyCart())
+              console.log(res)
+
+              e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+
+              emailjs
+                .sendForm(
+                  'service_nueuo8m',
+                  'template_omuck9t',
+                  e.target,
+                  'user_32k4I6JJIEyo5ehBoH1Ae'
+                )
+                .then(
+                  result => {
+                    console.log(result.text)
+                  },
+                  error => {
+                    console.log(error.text)
+                  }
+                )
+              toast.success('We have received your order')
+
+              setTimeout(function () {
+                setFinishBuy(true)
+              }, 5000)
+            })
+          })
+        } else {
+          const order = {
+            UserId: UserSlice.Id,
+            OrderId: orderId,
+            TotalPrice: totalPrice,
+            AddressShipping: currentAddress,
+            Date: new Date()
+              .toISOString()
+              .slice(0, 19)
+              .replace('T', ' '),
+            Status: true,
+            Phone: currentPhone,
+
+            OrderDetails: CartSlice
+          }
+
+          axios({
+            method: 'post',
+            url: '/api/order-management/users/orders',
+            headers: { 'content-type': 'application/json' },
+            data: JSON.stringify(order)
+          }).then(res => {
+            dispatch(emptyCart())
+            console.log(res)
+
+            e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+
+            emailjs
+              .sendForm(
+                'service_nueuo8m',
+                'template_omuck9t',
+                e.target,
+                'user_32k4I6JJIEyo5ehBoH1Ae'
+              )
+              .then(
+                result => {
+                  console.log(result.text)
+                },
+                error => {
+                  console.log(error.text)
+                }
+              )
+            toast.success('We have received your order')
+
+            setTimeout(function () {
+              setFinishBuy(true)
+            }, 5000)
+          })
         }
-        axios({
-          method: 'post',
-          url: '/api/order-management/users/orders',
-          headers: { 'content-type': 'application/json' },
-          data: JSON.stringify(order)
-        }).then(res => {
-          dispatch(emptyCart())
-          console.log(res)
-          // axios({
-          //   method: 'post',
-          //   url:
-          //     '/api/order-management/' + order.TotalPrice + '?currentOrderId=0',
-          //   headers: { 'content-type': 'application/json' }
-          //   // data: JSON.stringify(order)
-          // }).then(res => {
-          //   // dispatch(emptyCart())
-          //   console.log(res)
-          // })
-          e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
-
-          emailjs
-            .sendForm(
-              'service_nueuo8m',
-              'template_omuck9t',
-              e.target,
-              'user_32k4I6JJIEyo5ehBoH1Ae'
-            )
-            .then(
-              result => {
-                console.log(result.text)
-              },
-              error => {
-                console.log(error.text)
-              }
-            )
-
-          setFinishBuy(true)
-        })
       } else {
         setIsLogin(false)
         console.log(isLogin)
@@ -172,6 +237,9 @@ function PaymentConfirm () {
     }
     function handleChange (e, { value }) {
       setShipOption(value)
+    }
+    function handlePayMethod () {
+      setPaywithMomo(!paywithMomo)
     }
 
     if (isLogin) {
@@ -357,6 +425,35 @@ function PaymentConfirm () {
                                 </div>
                               </fieldset>
                             </li>
+
+                            <li class=''>
+                              <Form>
+                                <Form.Field>
+                                  <Checkbox
+                                    radio
+                                    label='pay on delivery'
+                                    name='checkboxRadioGroup'
+                                    value='this'
+                                    checked={!paywithMomo}
+                                    onChange={() =>
+                                      setPaywithMomo(!paywithMomo)
+                                    }
+                                  />
+                                </Form.Field>
+                                <Form.Field>
+                                  <Checkbox
+                                    radio
+                                    label='Or pay with MOMO'
+                                    name='checkboxRadioGroup'
+                                    value='that'
+                                    checked={paywithMomo}
+                                    onChange={() =>
+                                      setPaywithMomo(!paywithMomo)
+                                    }
+                                  />
+                                </Form.Field>
+                              </Form>
+                            </li>
                             <li class=''>
                               <input
                                 type='radio'
@@ -390,6 +487,27 @@ function PaymentConfirm () {
                             id='billing-buttons-container'
                           >
                             <p class='required'>* Required Fields</p>
+                            <form onSubmit={onSubmit}>
+                              <button
+                                type='button'
+                                class='button continue'
+                                type='submit'
+
+                                // onClick={onSubmit}
+                              >
+                                <span>Finish</span>
+                              </button>
+                              <input
+                                type='text'
+                                name='Name'
+                                value={currentName}
+                                onChange={handleChangeName}
+                                title='First Name'
+                                maxlength='255'
+                                class='input-text required-entry'
+                                style={{ visibility: 'hidden' }}
+                              />
+                            </form>
 
                             <span
                               class='please-wait'
@@ -409,7 +527,7 @@ function PaymentConfirm () {
                       </div>
                     </li>
 
-                    <li id='opc-payment' class='section'>
+                    {/* <li id='opc-payment' class='section'>
                       <div class='step-title'>
                         <span class='number'>2</span>
                         <h3 class='one_page_heading'> Payment Information</h3>
@@ -417,14 +535,14 @@ function PaymentConfirm () {
                       <div
                         id='checkout-step-payment'
                         class='step a-item'
-                        // style={{ display: 'none' }}
+                        
                       >
                         <fieldset>
                           <dl
                             class='sp-methods'
                             id='checkout-payment-method-load'
                           >
-                            {/* <!-- Content dynamically loaded. Content from the methods.phtml is loaded during the ajax call --> */}
+                           
                           </dl>
                         </fieldset>
 
@@ -448,27 +566,7 @@ function PaymentConfirm () {
                         </div>
                         <div class='buttons-set' id='payment-buttons-container'>
                           <p class='required'>* Required Fields</p>
-                          <form onSubmit={onSubmit}>
-                            <button
-                              type='button'
-                              class='button continue'
-                              type='submit'
-
-                              // onClick={onSubmit}
-                            >
-                              <span>Finish</span>
-                            </button>
-                            <input
-                              type='text'
-                              name='Name'
-                              value={currentName}
-                              onChange={handleChangeName}
-                              title='First Name'
-                              maxlength='255'
-                              class='input-text required-entry'
-                              style={{ visibility: 'hidden' }}
-                            />
-                          </form>
+                          
                           <span
                             class='please-wait'
                             id='payment-please-wait'
@@ -484,7 +582,7 @@ function PaymentConfirm () {
                           </span>
                         </div>
                       </div>
-                    </li>
+                    </li> */}
                   </ol>
                 </section>
 
@@ -566,7 +664,7 @@ function PaymentConfirm () {
               </ul>
             </div>
           </div>
-          <NotificationContainer />
+          <ToastContainer autoClose={5000} />
         </>
       )
     }

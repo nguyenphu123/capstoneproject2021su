@@ -10,6 +10,8 @@ import {
   Select
 } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import emailjs from 'emailjs-com'
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'
@@ -64,6 +66,22 @@ function RegistrationPage () {
       }).then(res => {
         console.log(res)
         console.log(res.data)
+        toast.success('thank you for your registration')
+        emailjs
+          .sendForm(
+            'service_nueuo8m',
+            'template_omuck9t',
+            e.target,
+            'user_32k4I6JJIEyo5ehBoH1Ae'
+          )
+          .then(
+            result => {
+              console.log(result.text)
+            },
+            error => {
+              console.log(error.text)
+            }
+          )
       })
     } else {
     }
@@ -224,7 +242,7 @@ function RegistrationPage () {
                         type='text'
                         name='login[username]'
                         value={phone}
-                        id='email'
+                        id='phone'
                         class='input-text required-entry validate-email'
                         title='Email Address'
                         onChange={e => setPhone(e.target.value)}
@@ -267,16 +285,27 @@ function RegistrationPage () {
             </div>
             <div class='col-2 new-users'>
               <div class='buttons-set'>
-                <button
-                  type='submit'
-                  class='button login'
-                  title='Login'
-                  name='send'
-                  id='send2'
-                  onClick={handleSubmit}
-                >
-                  <span>Registration</span>
-                </button>
+                <form onSubmit={handleSubmit}>
+                  <button
+                    type='submit'
+                    class='button login'
+                    title='Login'
+                    name='send'
+                    id='send2'
+                  >
+                    <span>Registration</span>
+                  </button>
+
+                  <input
+                    type='text'
+                    name='Name'
+                    value={email}
+                    id='email'
+                    title='Email'
+                    class='input-text required-entry'
+                    style={{ visibility: 'hidden' }}
+                  />
+                </form>
               </div>
 
               <strong>Or</strong>
@@ -317,6 +346,7 @@ function RegistrationPage () {
         </div>
         {/* <!--account-login--> */}
       </div>
+      <ToastContainer autoClose={5000} />
     </div>
   )
 }
