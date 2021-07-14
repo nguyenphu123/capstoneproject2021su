@@ -29,7 +29,7 @@ import GetAllProduct from './pages/GetAllProduct'
 function App () {
   useEffect(() => {
     window.sliderr()
-    // window.commonjs()
+    window.commonjs()
 
     // if (UserSlice !== null) {
     //   NotificationManager.success(
