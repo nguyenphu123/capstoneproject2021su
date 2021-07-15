@@ -41,7 +41,7 @@ function Category ({ Id, Name, img }) {
   const classes = useStyles()
 
   return (
-    <Link to={'/Category/' + Id}>
+    <Link to={'/Category/' + Id +'/1'}>
       <Card className={classes.root}>
         <div class='slider-items slider-width-col4 products-grid'>
           <div className='item'>

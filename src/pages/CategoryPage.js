@@ -88,11 +88,18 @@ function CategoryPage () {
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
-  handleChangeColor = (e, { value }) => setColor(value)
-  handleChangeSize = (e, { value }) => setSize(value)
-  handleChangeTag = (e, { value }) => setTag(value)
-  handleChangeCategory = (e, { value }) => setSub(value)
-
+  function handleChangeColor (e, { value }) {
+    setColor(value)
+  }
+  function handleChangeSize (e, { value }) {
+    setSize(value)
+  }
+  function handleChangeTag (e, { value }) {
+    setTag(value)
+  }
+  function handleChangeCategory (e, { value }) {
+    setSub(value)
+  }
   return (
     <>
       <section className='main-container col2-left-layout bounceInUp animated'>

@@ -57,7 +57,7 @@ function HomePage () {
           <div className='container'>
             <div className='row'>
               <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                <Link to={'/Category/12345678-1234-1243-1234-123456789012'} data-scroll-goto='1'>
+                <Link to={'/Category/12345678-1234-1243-1234-123456789012/1'} data-scroll-goto='1'>
                   <img
                     src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                     alt='promotion-banner1'
@@ -65,7 +65,7 @@ function HomePage () {
                 </Link>
               </div>
               <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                <Link to={'/Category/12345678-1234-1243-1234-123456789012'} data-scroll-goto='2'>
+                <Link to={'/Category/12345678-1234-1243-1234-123456789012/1'} data-scroll-goto='2'>
                   <img
                     src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                     alt='promotion-banner2'

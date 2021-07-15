@@ -15,6 +15,7 @@ import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
+import { Form, Checkbox } from 'semantic-ui-react'
 
 function GetAllProduct () {
   const { currentPage, categoryId } = useParams()
@@ -39,6 +40,7 @@ function GetAllProduct () {
   const [taglist, setTaglist] = useState([])
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
+  const [sub, setSub] = useState('')
 
   useEffect(() => {
     // axios({
@@ -87,10 +89,18 @@ function GetAllProduct () {
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
-  handleChangeColor = (e, { value }) => setColor(value)
-  handleChangeSize = (e, { value }) => setSize(value)
-  handleChangeTag = (e, { value }) => setTag(value)
-  handleChangeCategory = (e, { value }) => setSub(value)
+  function handleChangeColor (e, { value }) {
+    setColor(value)
+  }
+  function handleChangeSize (e, { value }) {
+    setSize(value)
+  }
+  function handleChangeTag (e, { value }) {
+    setTag(value)
+  }
+  function handleChangeCategory (e, { value }) {
+    setSub(value)
+  }
 
   return (
     <>
@@ -240,7 +250,7 @@ function GetAllProduct () {
                         </Form>
                       </ol>
                     </dd>
-                    <dt className='even'>Sub categories</dt>
+                    {/* <dt className='even'>Sub categories</dt>
 
                     <dd className='even'>
                       <ol>
@@ -261,7 +271,7 @@ function GetAllProduct () {
                           ))}
                         </Form>
                       </ol>
-                    </dd>
+                    </dd> */}
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>
                       <ol>

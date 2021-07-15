@@ -4,8 +4,8 @@ import axios from 'axios'
 
 import { Link } from 'react-router-dom'
 
-function PagnationBar ({ Name, apiUrl }) {
-  const { currentPage, categoryId } = useParams()
+function PagnationBar ({ Name, apiUrl, colorId, categoryId, sizeId, tagId }) {
+  const { currentPage } = useParams()
 
   const [page, setPage] = useState(currentPage)
   const [numOfPage, setNumOfPage] = useState([])
@@ -17,22 +17,22 @@ function PagnationBar ({ Name, apiUrl }) {
       console.log(res)
       console.log(res.data)
       let result = res.data
-      if (this.props.colorId !== '') {
+      if (colorId !== '') {
         result = res.data.filter(x =>
-          x.Elements.findIndex(item => item.Color.Id === this.props.colorId)
+          x.Elements.findIndex(item => item.Color.Id === colorId)
         )
       }
-      if (this.props.categoryId !== '') {
-        result = res.data.filter(x => x.CategoryId === this.props.categoryId)
+      if (categoryId !== '') {
+        result = res.data.filter(x => x.CategoryId === categoryId)
       }
-      if (this.props.sizeId !== '') {
+      if (sizeId !== '') {
         result = res.data.filter(x =>
-          x.Elements.findIndex(item => item.Size.Id === this.props.sizeId)
+          x.Elements.findIndex(item => item.Size.Id === sizeId)
         )
       }
-      if (this.props.tagId !== '') {
+      if (tagId !== '') {
         result = res.data.filter(x =>
-          x.Tags.findIndex(item => item.Id === this.props.tagId)
+          x.Tags.findIndex(item => item.Id === tagId)
         )
       }
 

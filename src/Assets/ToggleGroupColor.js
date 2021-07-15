@@ -10,19 +10,14 @@ function ToggleGroupColor ({ list, currentColor, onChangeColor }) {
   console.log(list)
   return (
     <Button.Group>
-      {list.map(({ Color }) =>
-        currentColor === Color.Id ? (
-          <Button color={Color.Name} toggle active={true}>
-            {Color.Name}
+      {list.map(({ Name, Id }) =>
+        currentColor === Id ? (
+          <Button color={Name} toggle active={true}>
+            {Name}
           </Button>
         ) : (
-          <Button
-            color={Color.Name}
-            onClick={handleClick}
-            toggle
-            active={false}
-          >
-            >{Color.Name}
+          <Button color={Name} onClick={handleClick} toggle active={false}>
+            >{Name}
           </Button>
         )
       )}

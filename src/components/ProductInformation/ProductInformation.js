@@ -227,12 +227,12 @@ function ProductInformation () {
       render: () => <ProductDescription Description={''} />
     },
     {
-      menuItem: 'Comments and Reviews',
+      menuItem: 'Rating',
       render: () => <ProductReview Comments={[]} />
     },
 
     {
-      menuItem: 'Q and A',
+      menuItem: 'Comments and Reviews',
       render: () => <ProductQuestionAndAnswer QuestionList={[]} />
     }
   ]
