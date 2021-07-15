@@ -191,28 +191,28 @@ function ProductInformation () {
       console.log(quantity)
     }
   }
-  // const handleColor = (event, newColor) => {
-  //   setCurrentColor(newColor)
-  //   const check_index = product.Elements.findIndex(
-  //     item => item.Color === currentColor && item.Size === currentSize
-  //   )
-  //   if (check_index !== -1) {
-  //     setMaxQuantity(product.Elements[check_index].Quantity)
-  //   } else {
-  //     setMaxQuantity(0)
-  //   }
-  // }
-  // const handleSize = (event, newSize) => {
-  //   setCurrentSize(newSize)
-  //   const check_index = product.Elements.findIndex(
-  //     item => item.Color === currentColor && item.Size === currentSize
-  //   )
-  //   if (check_index !== -1) {
-  //     setMaxQuantity(product.Elements[check_index].Quantity)
-  //   } else {
-  //     setMaxQuantity(0)
-  //   }
-  // }
+  const handleColor = (event, newColor) => {
+    setCurrentColor(newColor)
+    const check_index = product.Elements.findIndex(
+      item => item.Color === currentColor && item.Size === currentSize
+    )
+    if (check_index !== -1) {
+      setMaxQuantity(product.Elements[check_index].Quantity)
+    } else {
+      setMaxQuantity(0)
+    }
+  }
+  const handleSize = (event, newSize) => {
+    setCurrentSize(newSize)
+    const check_index = product.Elements.findIndex(
+      item => item.Color === currentColor && item.Size === currentSize
+    )
+    if (check_index !== -1) {
+      setMaxQuantity(product.Elements[check_index].Quantity)
+    } else {
+      setMaxQuantity(0)
+    }
+  }
 
   function updateNumberPicker (e) {
     setQuantity(e.target.value + '')

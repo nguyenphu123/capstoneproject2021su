@@ -16,15 +16,35 @@ function PagnationBar ({ Name, apiUrl }) {
     }).then(res => {
       console.log(res)
       console.log(res.data)
-      if (res.data.length < 50) {
+      let result = res.data
+      if (this.props.colorId !== '') {
+        result = res.data.filter(x =>
+          x.Elements.findIndex(item => item.Color.Id === this.props.colorId)
+        )
+      }
+      if (this.props.categoryId !== '') {
+        result = res.data.filter(x => x.CategoryId === this.props.categoryId)
+      }
+      if (this.props.sizeId !== '') {
+        result = res.data.filter(x =>
+          x.Elements.findIndex(item => item.Size.Id === this.props.sizeId)
+        )
+      }
+      if (this.props.tagId !== '') {
+        result = res.data.filter(x =>
+          x.Tags.findIndex(item => item.Id === this.props.tagId)
+        )
+      }
+
+      if (result.length < 50) {
       } else {
-        const ProductPage = res.data.length / 50
+        const ProductPage = result.length / 50
         if (ProductPage === parseInt(ProductPage, 10)) {
           for (let index = 0; index < ProductPage; index++) {
             numOfPage.push({ Page: index })
           }
         } else {
-          const ProductPage = Math.round(res.data.length / 50) + 1
+          const ProductPage = Math.round(result.length / 50) + 1
           for (let index = 0; index < ProductPage; index++) {
             numOfPage.push({ Page: index })
           }

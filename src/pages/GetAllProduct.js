@@ -87,6 +87,10 @@ function GetAllProduct () {
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
+  handleChangeColor = (e, { value }) => setColor(value)
+  handleChangeSize = (e, { value }) => setSize(value)
+  handleChangeTag = (e, { value }) => setTag(value)
+  handleChangeCategory = (e, { value }) => setSub(value)
 
   return (
     <>
@@ -144,114 +148,30 @@ function GetAllProduct () {
                         <span className='top_arrow'></span>
                       </Link>
                     </div>
-                    <div className='pager'>
-                      {/* <div className='limiter'>
-                        <label>View: </label>
-                        <ul>
-                          <li>
-                            <Link to='#'>
-                              15<span className='right-arrow'></span>
-                            </Link>
-                            <ul>
-                              <li>
-                                <Link to='#'>20</Link>
-                              </li>
-                              <li>
-                                <Link to='#'>30</Link>
-                              </li>
-                              <li>
-                                <Link to='#'>35</Link>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div> */}
-                      {/* <div className='pages'>
-                        <label>Page:</label>
-                        <ul className='pagination'>
-                          <li>
-                            <Link to='#'>&laquo;</Link>
-                          </li>
-                          <li className='active'>
-                            <Link to='#'>1</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>2</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>3</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>4</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>5</Link>
-                          </li>
-                          <li>
-                            <Link to='#'>&raquo;</Link>
-                          </li>
-                        </ul>
-                      </div> */}
-                    </div>
+                    <div className='pager'></div>
                   </div>
 
-                  <VerticalItemList topic={category.Name} apiUrl={currentURL} />
+                  <VerticalItemList
+                    topic={category.Name}
+                    apiUrl={currentURL}
+                    colorId={color}
+                    categoryId={sub}
+                    sizeId={size}
+                    tagId={tag}
+                  />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <PagnationBar Name={'AllProduct'} apiUrl={currentURL} />
+                      <PagnationBar
+                        Name={'AllProduct'}
+                        apiUrl={currentURL}
+                        colorId={color}
+                        categoryId={sub}
+                        sizeId={size}
+                        tagId={tag}
+                      />
                       <div className='product-option-right'>
-                        {/* <div className='sort-by'>
-                          <label className='left'>Sort By: </label>
-                          <ul>
-                            <li>
-                              <Link to='#'>
-                                Position<span className='right-arrow'></span>
-                              </Link>
-                              <ul>
-                                <li>
-                                  <Link to='#'>Name</Link>
-                                </li>
-                                <li>
-                                  <Link to='#'>Price</Link>
-                                </li>
-                                <li>
-                                  <Link to='#'>Position</Link>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                          <Link
-                            className='button-asc left'
-                            to='#'
-                            title='Set Descending Direction'
-                          >
-                            <span className='top_arrow'></span>
-                          </Link>
-                        </div> */}
-                        <div className='pager'>
-                          {/* <div className='limiter'>
-                            <label>View: </label>
-                            <ul>
-                              <li>
-                                <Link to='#'>
-                                  15<span className='right-arrow'></span>
-                                </Link>
-                                <ul>
-                                  <li>
-                                    <Link to='#'>20</Link>
-                                  </li>
-                                  <li>
-                                    <Link to='#'>30</Link>
-                                  </li>
-                                  <li>
-                                    <Link to='#'>35</Link>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div> */}
-                        </div>
+                        <div className='pager'></div>
                       </div>
                     </div>
                   </div>
@@ -302,42 +222,86 @@ function GetAllProduct () {
 
                     <dd className='even'>
                       <ol>
-                        {taglist.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {taglist.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={tag === Id}
+                                  onChange={handleChangeTag}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                     <dt className='even'>Sub categories</dt>
 
                     <dd className='even'>
                       <ol>
-                        {subList.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {subList.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={sub === Id}
+                                  onChange={handleChangeCategory}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>
                       <ol>
-                        {colorlist.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {colorlist.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={color === Id}
+                                  onChange={handleChangeColor}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                     <dt className='last even'>Size</dt>
                     <dd className='last even'>
                       <ol>
-                        {sizelist.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {sizelist.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={size === Id}
+                                  onChange={handleChangeSize}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                   </dl>

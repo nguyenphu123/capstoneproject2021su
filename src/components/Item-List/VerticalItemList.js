@@ -26,8 +26,29 @@ class VerticalItemList extends React.Component {
     }).then(res => {
       console.log(res)
       console.log(res.data)
+      let result = res.data
+      if (this.props.colorId !== '') {
+        result = res.data.filter(x =>
+          x.Elements.findIndex(item => item.Color.Id === this.props.colorId)
+        )
+      }
+      if (this.props.categoryId !== '') {
+        result = res.data.filter(x => x.CategoryId === this.props.categoryId)
+      }
+      if (this.props.sizeId !== '') {
+        result = res.data.filter(x =>
+          x.Elements.findIndex(item => item.Size.Id === this.props.sizeId)
+        )
+      }
+      if (this.props.tagId !== '') {
+        result = res.data.filter(x =>
+          x.Tags.findIndex(item => item.Id === this.props.tagId)
+        )
+      }
+
       this.setState({
-        products: res.data,
+        products: result
+
         // currentPage: this.props.match.params
       })
     })

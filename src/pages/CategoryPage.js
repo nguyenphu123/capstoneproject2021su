@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, withRouter } from 'react-router-dom'
+import { Form, Checkbox } from 'semantic-ui-react'
 
 import { Link } from 'react-router-dom'
 
@@ -32,6 +33,7 @@ function CategoryPage () {
   const [taglist, setTaglist] = useState([])
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
+  const [sub, setSub] = useState('')
 
   useEffect(() => {
     console.log(categoryId)
@@ -86,6 +88,11 @@ function CategoryPage () {
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
+  handleChangeColor = (e, { value }) => setColor(value)
+  handleChangeSize = (e, { value }) => setSize(value)
+  handleChangeTag = (e, { value }) => setTag(value)
+  handleChangeCategory = (e, { value }) => setSub(value)
+
   return (
     <>
       <section className='main-container col2-left-layout bounceInUp animated'>
@@ -145,13 +152,24 @@ function CategoryPage () {
                     <div className='pager'></div>
                   </div>
 
-                  <VerticalItemList topic={category.Name} apiUrl={currentURL} />
+                  <VerticalItemList
+                    topic={category.Name}
+                    apiUrl={currentURL}
+                    colorId={color}
+                    categoryId={sub}
+                    sizeId={size}
+                    tagId={tag}
+                  />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
                       <PagnationBar
                         Name={'Category/' + categoryId}
                         apiUrl={currentURL}
+                        colorId={color}
+                        categoryId={sub}
+                        sizeId={size}
+                        tagId={tag}
                       />
                       <div className='product-option-right'>
                         <div className='pager'></div>
@@ -191,13 +209,11 @@ function CategoryPage () {
                             <span className='price'>$0.00</span> -
                             <span className='price'>$99.99</span>
                           </Link>
-                          (6)
                         </li>
                         <li>
                           <Link to='#'>
                             <span className='price'>$100.00</span> and above
                           </Link>
-                          (6)
                         </li>
                       </ol>
                     </dd>
@@ -205,42 +221,86 @@ function CategoryPage () {
 
                     <dd className='even'>
                       <ol>
-                        {taglist.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {taglist.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={tag === Id}
+                                  onChange={handleChangeTag}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                     <dt className='even'>Sub categories</dt>
 
                     <dd className='even'>
                       <ol>
-                        {subList.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {subList.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={sub === Id}
+                                  onChange={handleChangeCategory}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>
                       <ol>
-                        {colorlist.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {colorlist.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={color === Id}
+                                  onChange={handleChangeColor}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                     <dt className='last even'>Size</dt>
                     <dd className='last even'>
                       <ol>
-                        {sizelist.map(({ Name, Id }) => (
-                          <li>
-                            <Link to='/'>{Name}</Link>
-                          </li>
-                        ))}
+                        <Form>
+                          {sizelist.map(({ Name, Id }) => (
+                            <li>
+                              <Form.Field>
+                                <Checkbox
+                                  radio
+                                  label={Name}
+                                  name='checkboxRadioGroup'
+                                  value={Id}
+                                  checked={size === Id}
+                                  onChange={handleChangeSize}
+                                />
+                              </Form.Field>
+                            </li>
+                          ))}
+                        </Form>
                       </ol>
                     </dd>
                   </dl>
