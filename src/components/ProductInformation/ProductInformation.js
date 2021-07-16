@@ -136,7 +136,7 @@ function ProductInformation () {
     })
   }, [productId])
   useEffect(() => {
-    if (CartSlice !== null || CartSlice.length !== 0) {
+    if (CartSlice.length !== null || CartSlice.length !== 0) {
       setShopCart(CartSlice)
 
       const check_index = shopCart.findIndex(item => item.Id === productId)
@@ -179,24 +179,33 @@ function ProductInformation () {
         })
       }
 
-      setShopCart([...shopCart, cartItem])
+      setShopCart(shopCart => [...shopCart, cartItem])
+      console.log(shopCart)
 
       toast.success('Item has been added')
     }
-
-    dispatch(cart(shopCart))
   }
+
   function onIncrease () {
-    setQuantity(quantity + 1)
-    console.log(quantity)
+    setQuantity(quantity => quantity + 1)
   }
   function onDecrease () {
     if (quantity === 0) {
     } else {
-      setQuantity(quantity - 1)
-      console.log(quantity)
+      setQuantity(quantity => quantity - 1)
     }
   }
+  useEffect(() => {
+    if (quantity !== 0) {
+      setQuantity(quantity => quantity)
+    }
+  }, [quantity])
+  useEffect(() => {
+    if (shopCart.length !== 0) {
+      dispatch(cart(shopCart))
+    }
+  }, [shopCart])
+
   const handleColor = (event, newColor) => {
     setCurrentColor(newColor)
     const check_index = product.Elements.findIndex(
@@ -377,9 +386,7 @@ function ProductInformation () {
                         <div class='pull-left'>
                           <div class='custom pull-left'>
                             <button
-                              onClick={() =>
-                                quantity > 0 ? setQuantity(quantity - 1) : null
-                              }
+                              onClick={() => (quantity > 0 ? onDecrease : null)}
                               class='reduced items-count'
                               type='button'
                             >
@@ -396,7 +403,7 @@ function ProductInformation () {
                               onChange={e => setQuantity(e.target.value)}
                             />
                             <button
-                              onClick={() => setQuantity(quantity + 1)}
+                              onClick={onIncrease}
                               class='increase items-count'
                               type='button'
                             >

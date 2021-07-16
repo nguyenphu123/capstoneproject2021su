@@ -49,7 +49,8 @@ function ShoppingCart () {
       } else {
       }
     }
-    function removeAll () {
+    function removeAll (e) {
+      e.preventDefault()
       dispatch(emptyCart())
     }
 
@@ -141,12 +142,9 @@ function ShoppingCart () {
                               </span>
                             </button> */}
                             <button
-                              type='submit'
                               name='update_cart_action'
-                              value='empty_cart'
                               title='Clear Cart'
                               class='button btn-empty'
-                              id='empty_cart_button'
                               onClick={removeAll}
                             >
                               <span>

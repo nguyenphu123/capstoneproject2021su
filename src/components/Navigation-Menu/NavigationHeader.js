@@ -234,10 +234,17 @@ function NavigationHeader () {
                               <div className='header-nav-dropdown-wrapper clearer'>
                                 <div className='grid12-3'>
                                   <div>
-                                    <img
-                                      src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-                                      alt='custom-imag'
-                                    />
+                                    <Link
+                                      to={
+                                        '/Category/12345678-1234-1243-1234-123856089012/1'
+                                      }
+                                      data-scroll-goto='1'
+                                    >
+                                      <img
+                                        src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
+                                        alt='custom-imag'
+                                      />
+                                    </Link>
                                   </div>
                                   <h4 className='heading'>Up to 70% Off</h4>
                                   <p>
@@ -245,7 +252,7 @@ function NavigationHeader () {
                                     adipiscing elit.
                                   </p>
                                 </div>
-                                <div className='grid12-3'>
+                                {/* <div className='grid12-3'>
                                   <div>
                                     <img
                                       src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
@@ -259,8 +266,8 @@ function NavigationHeader () {
                                     Sed et quam lacus. Fusce condimentum
                                     eleifend enim a feugiat.
                                   </p>
-                                </div>
-                                <div className='grid12-3'>
+                                </div> */}
+                                {/* <div className='grid12-3'>
                                   <div>
                                     <img
                                       src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
@@ -274,8 +281,8 @@ function NavigationHeader () {
                                     Sed et quam lacus. Fusce condimentum
                                     eleifend enim a feugiat.
                                   </p>
-                                </div>
-                                <div className='grid12-3'>
+                                </div> */}
+                                {/* <div className='grid12-3'>
                                   <div>
                                     <img
                                       src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
@@ -289,7 +296,7 @@ function NavigationHeader () {
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit.
                                   </p>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                           </div>
