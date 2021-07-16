@@ -161,7 +161,9 @@ function ShoppingCart () {
                             Name,
                             Quantity,
                             CurrentPrice,
-                            img
+                            img,
+                            Color,
+                            Size
                           }) => (
                             <CartItem
                               Id={ProductId}
@@ -169,6 +171,8 @@ function ShoppingCart () {
                               Quantity={Quantity}
                               Price={CurrentPrice * Quantity}
                               ImageUrl={img}
+                              Color={Color}
+                              Size={Size}
                             />
                           )
                         )}

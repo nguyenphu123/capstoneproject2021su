@@ -16,7 +16,8 @@ export default class SearchBar extends Component {
       value: '',
       filterVisibility: 'none',
       hover: false,
-      SearchResult: ''
+      SearchResult: '',
+      SearchId: ''
     }
   }
   componentWillMount () {
@@ -76,12 +77,22 @@ export default class SearchBar extends Component {
       this.setState({ value, filterVisibility: 'inline' })
     }
   }
-  setInvisible = result => {
+  setInvisible = (name, id) => {
     this.setState({
-      value: '',
+      value: name,
       filterVisibility: 'hidden',
-      SearchResult: result
+      SearchId: id
+
+      // SearchResult: result
     })
+  }
+  SearchResult = () => {
+    if (this.state.SearchId === '') {
+    } else {
+      this.setState({
+        SearchResult: this.state.SearchId
+      })
+    }
   }
   render () {
     const { data, value, hover } = this.state
@@ -102,7 +113,7 @@ export default class SearchBar extends Component {
           <span className='input-group-btn'>
             <button
               type='submit'
-              // onClick={handleSearchResult}
+              onClick={() => this.SearchResult()}
               className='search-btn'
             >
               <span className='glyphicon glyphicon-search'>
@@ -118,7 +129,7 @@ export default class SearchBar extends Component {
                     {results.map(el => (
                       <div
                         className='search-Item'
-                        onClick={() => this.setInvisible(el.Id)}
+                        onClick={() => this.setInvisible(el.Name, el.Id)}
                       >
                         <span>{el.Name}</span>
                       </div>
@@ -129,21 +140,6 @@ export default class SearchBar extends Component {
             </div>
           </span>
         </div>
-
-        // <Grid>
-        //   <Grid.Column width={8}>
-        //     <Search
-        //       category
-        //       loading={isLoading}
-        //       onResultSelect={this.handleResultSelect}
-        //       onSearchChange={_.debounce(this.handleSearchChange, 500, {
-        //         leading: true
-        //       })}
-        //       results={results}
-        //       value={value}
-        //     />
-        //   </Grid.Column>
-        // </Grid>
       )
     }
   }

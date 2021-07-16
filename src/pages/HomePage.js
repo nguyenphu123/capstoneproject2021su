@@ -89,7 +89,7 @@ function HomePage () {
             <h4>So you get to know me better</h4>
           </div>
           <VerticalItemList
-            topic='New Product'
+            reset={true}
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
           <SeeMoreButton Url='/AllProduct/1' />
@@ -102,7 +102,7 @@ function HomePage () {
             <h4>Current trend</h4>
           </div>
           <VerticalItemList
-            topic='New Product'
+            reset={true}
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
           <SeeMoreButton Url='/AllProduct/1' />

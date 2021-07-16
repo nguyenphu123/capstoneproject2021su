@@ -51,6 +51,27 @@ function CategoryPage () {
 
     // setSubList(category.SubCategories)
   }, [])
+  useEffect(() => {
+    if (color !== '') {
+      setColor(color => color)
+
+      setCurrentURL('/api/product-management/' + categoryId)
+    }
+  }, [color])
+  useEffect(() => {
+    if (size !== '') {
+      setColor(size => size)
+
+      setCurrentURL('/api/product-management/' + categoryId)
+    }
+  }, [size])
+  useEffect(() => {
+    if (tag !== '') {
+      setColor(tag => tag)
+
+      setCurrentURL('/api/product-management/' + categoryId)
+    }
+  }, [tag])
 
   useEffect(() => {
     setCurrentURL('/api/product-management/' + categoryId)
@@ -160,6 +181,7 @@ function CategoryPage () {
                   </div>
 
                   <VerticalItemList
+                    reset={false}
                     topic={category.Name}
                     apiUrl={currentURL}
                     colorId={color}

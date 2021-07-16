@@ -14193,20 +14193,19 @@ button.btn-share,
 }
 .search-Item {
   border: none;
-  background: #ff7a59;
-  color: #fff;
-  padding: 10px;
+  background: #fff;
+  color: #000;
+
   font-size: 16px;
-  border-radius: 5px;
-  position: relative;
+
   box-sizing: border-box;
   transition: all 500ms ease;
   /* margin-right: 100px; */
 }
 .search-Item:hover {
-  color: #ff7a59;
-  border: #ff7a59 solid 1px;
-  background: #fff;
+  color: #bcbcbd;
+  
+  background: rgb(88, 87, 148);
 }
 .table-history {
   top: 20%;

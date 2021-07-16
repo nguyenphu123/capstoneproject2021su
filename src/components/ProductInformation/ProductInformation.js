@@ -51,7 +51,7 @@ function ProductInformation () {
   const [colors, setColors] = useState([])
   const [currentColor, setCurrentColor] = useState('')
   const [sizes, setSizes] = useState([])
-  const [currentSize, setCurrentSize] = useState(0)
+  const [currentSize, setCurrentSize] = useState('')
   const [maxQuantity, setMaxQuantity] = useState(0)
 
   const [currentState, setCurrentState] = useState(false)
@@ -329,11 +329,6 @@ function ProductInformation () {
                         </p>
                         <div>
                           <div>
-                            {/* <ToggleGroupColor
-                              list={colors}
-                              currentColor={currentColor}
-                              onChangeColor={value => setCurrentColor(value)}
-                            /> */}
                             <Button.Group>
                               {colors.map(({ Name, Id }) =>
                                 currentColor === Id ? (
@@ -355,11 +350,7 @@ function ProductInformation () {
                           </div>
                           <div>
                             <br />
-                            {/* <ToggleGroupSize
-                              list={sizes}
-                              currentSize={currentSize}
-                              onChangeColor={value => setCurrentSize(value)}
-                            /> */}
+
                             <Button.Group>
                               {sizes.map(({ Name, Id }) =>
                                 currentSize === Id ? (

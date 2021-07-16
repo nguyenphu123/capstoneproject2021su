@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import ReactList from 'react-list'
 import LazyLoading from 'react-list-lazy-load'
 import PagnationBar from '../../Assets/PagnationBar'
-
+import equal from 'fast-deep-equal'
 import VerticalItem from './VerticalItem'
 import { Link } from 'react-router-dom'
 function mergePage (items, newItems, offset) {
@@ -25,7 +25,8 @@ class VerticalItemList extends React.Component {
       products: [],
       currentPage: 1,
       pageSize: 9,
-      isLoading: true
+      isLoading: true,
+      isUpdated: true
     }
   }
   componentDidMount () {
@@ -38,24 +39,6 @@ class VerticalItemList extends React.Component {
       console.log(res)
       console.log(res.data)
       let result = res.data
-      if (this.props.colorId !== '') {
-        result = res.data.filter(x =>
-          x.Elements.findIndex(item => item.Color.Id === this.props.colorId)
-        )
-      }
-      if (this.props.categoryId !== '') {
-        result = res.data.filter(x => x.CategoryId === this.props.categoryId)
-      }
-      if (this.props.sizeId !== '') {
-        result = res.data.filter(x =>
-          x.Elements.findIndex(item => item.Size.Id === this.props.sizeId)
-        )
-      }
-      if (this.props.tagId !== '') {
-        result = res.data.filter(x =>
-          x.Tags.findIndex(item => item.Id === this.props.tagId)
-        )
-      }
 
       this.setState({
         products: result,
@@ -64,7 +47,65 @@ class VerticalItemList extends React.Component {
       })
     })
   }
+  componentDidUpdate (prevProps) {
+    if (this.props.reset && this.state.isUpdated) {
+      axios({
+        method: 'GET',
+        url: this.props.apiUrl
+      }).then(res => {
+        console.log(res)
+        console.log(res.data)
+        let result = res.data
 
+        this.setState({
+          products: result,
+          isLoading: false,
+          isUpdated: false
+
+          // currentPage: this.props.match.params
+        })
+      })
+    } else {
+      if (!equal(this.props.colorId, prevProps.colorId)) {
+        if (this.props.colorId !== '') {
+          const result = this.state.products.filter(x =>
+            x.Elements.findIndex(item => item.Color.Id === this.props.colorId)
+          )
+          this.setState({
+            products: result
+            // isLoading: false
+            // currentPage: this.props.match.params
+          })
+        }
+      }
+      if (!equal(this.props.sizeId, prevProps.sizeId)) {
+        if (this.props.sizeId !== '') {
+          const result = this.state.products.filter(x =>
+            x.Elements.findIndex(item => item.Size.Id === this.props.sizeId)
+          )
+
+          this.setState({
+            products: result
+            // isLoading: false
+            // currentPage: this.props.match.params
+          })
+        }
+      }
+      if (!equal(this.props.tagId, prevProps.tagId)) {
+        if (this.props.tagId !== '') {
+          const result = this.state.products.filter(x =>
+            x.Tags.findIndex(item => item.Id === this.props.tagId)
+          )
+
+          this.setState({
+            products: result
+            // isLoading: false
+            // currentPage: this.props.match.params
+          })
+        }
+      }
+    }
+  }
   render () {
     const indexOfLastPost = this.state.currentPage * this.state.pageSize
 

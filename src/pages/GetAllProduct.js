@@ -23,7 +23,7 @@ function GetAllProduct () {
   const [currentURL, setCurrentURL] = useState(
     '/api/product-management?sort=up&pageIndex=1&pageSize=5000'
   )
-  console.log(currentURL)
+
   const [category, setCategory] = useState({})
 
   //filter màu
@@ -43,17 +43,26 @@ function GetAllProduct () {
   const [sub, setSub] = useState('')
 
   useEffect(() => {
-    // axios({
-    //   method: 'GET',
-    //   url: '/api/category-management/' + categoryId
-    // }).then(res => {
-    //   console.log(res)
-    //   console.log(res.data)
-    //   setCategory(res.data)
-    // })
-    // window.location.reload()
-    // setSubList(category.SubCategories)
-  }, [])
+    if (color !== '') {
+      setColor(color => color)
+
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    }
+  }, [color])
+  useEffect(() => {
+    if (size !== '') {
+      setColor(size => size)
+
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    }
+  }, [size])
+  useEffect(() => {
+    if (tag !== '') {
+      setColor(tag => tag)
+
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    }
+  }, [tag])
 
   useEffect(() => {
     // console.log(categoryId)
@@ -162,6 +171,7 @@ function GetAllProduct () {
                   </div>
 
                   <VerticalItemList
+                    reset={false}
                     topic={category.Name}
                     apiUrl={currentURL}
                     colorId={color}
