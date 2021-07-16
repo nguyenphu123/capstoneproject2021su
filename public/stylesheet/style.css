@@ -14214,3 +14214,15 @@ button.btn-share,
   /* -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); */
 }
+/*Image upload*/
+.image-item {
+  display: flex;
+  margin: 10px 600px;
+  height: 400px;
+  width: 400px;
+}
+.image-item__btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}

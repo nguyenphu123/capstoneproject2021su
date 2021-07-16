@@ -168,18 +168,19 @@ function GetAllProduct () {
                     categoryId={sub}
                     sizeId={size}
                     tagId={tag}
+                    currentLink={'/AllProduct/'}
                   />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <PagnationBar
+                      {/* <PagnationBar
                         Name={'AllProduct'}
                         apiUrl={currentURL}
                         colorId={color}
                         categoryId={sub}
                         sizeId={size}
                         tagId={tag}
-                      />
+                      /> */}
                       <div className='product-option-right'>
                         <div className='pager'></div>
                       </div>

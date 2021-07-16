@@ -10,7 +10,10 @@ import Typography from '@material-ui/core/Typography'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { cart } from '../../features/Cart/CartSlice'
+import { ToastContainer, toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { Header, Rating } from 'semantic-ui-react'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -53,6 +56,7 @@ const useStyles = makeStyles({
     }
   }
 })
+const mapDispatch = { cart }
 
 function VerticalItem ({
   Id,
@@ -67,11 +71,49 @@ function VerticalItem ({
   Status,
   ImageStorages
 }) {
+  const CartSlice = useSelector(state => state.CartSlice.cart)
+  const [shopCart, setShopCart] = useState(CartSlice)
+  const dispatch = useDispatch()
+
   const classes = useStyles()
+  function addToCart (e) {
+    e.preventDefault()
+    const cartItem = {
+      ProductId: Id,
+      CurrentPrice: CurrentPrice,
+      Quantity: 1,
+      TotalLine: 0,
+      img: ImageStorages[0].ImageUrl,
+      Name: Name,
+      Color: '',
+      Size: '',
+      Description: JSON.stringify({
+        Color: '',
+        Size: '',
+        img: ImageStorages[0].ImageUrl
+      })
+    }
+    const myCart = []
+    console.log(cartItem)
+    const check_index = shopCart.findIndex(item => item.Id === Id)
+    if (check_index !== -1) {
+      shopCart[check_index].Quantity = shopCart[check_index].Quantity + 1
+      toast.success('Cart has been updated')
+    } else {
+      myCart.push(cartItem)
+
+      setShopCart(myCart)
+      dispatch(cart(myCart))
+
+      toast.success('Item has been added')
+    }
+
+    dispatch(cart(shopCart))
+  }
 
   return (
     <Link to={'/Product/' + Id}>
-      <Tooltip title={<h2 style={{ color: 'lightblue' }}>title</h2>}>
+      <Tooltip title={<h5 style={{ color: 'white' }}>{Description}</h5>}>
         <Card className={classes.card}>
           <div class='slider-items slider-width-col4 products-grid'>
             <div className='item'>
@@ -86,7 +128,7 @@ function VerticalItem ({
 
                     <div className='new-label new-top-left'>Hot</div>
                     <div className='sale-label sale-top-left'>
-                      -{Price - CurrentPrice}%
+                      -{(Price - CurrentPrice) / 100}%
                     </div>
                     <div className='item-box-hover'>
                       <div className='box-inner'>
@@ -124,7 +166,9 @@ function VerticalItem ({
                 </div>
                 <div className='item-info'>
                   <div className='info-inner'>
-                    <div className='item-title'>{Name}</div>
+                    <div className='item-title' style={{ fontSize: '14.3px' }}>
+                      {Name}
+                    </div>
                     <div className='item-content'>
                       <div className='rating'>
                         <div className='ratings'>

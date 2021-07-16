@@ -1,6 +1,5 @@
-
-
-import Button from '@material-ui/core/Button'
+import { Button, Header, Icon, Segment } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import React from 'react'
 import ImageUploading from 'react-images-uploading'
 
@@ -31,27 +30,52 @@ function ImageUploadingPage () {
           isDragging,
           dragProps
         }) => (
-          // write your building UI
-          <div className='upload__image-wrapper'>
+          <Segment placeholder>
+            <Header icon>
+              Upload your image here
+              <div className='upload__image-wrapper'>
+                {imageList.map((image, index) => (
+                  <div key={index} className='image-item'>
+                    <img src={image.data_url} alt='' />
+                    <div className='image-item__btn-wrapper'>
+                      <Button
+                        inverted
+                        color='blue'
+                        style={{ marginTop: '10px' }}
+                        onClick={() => onImageUpdate(index)}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        inverted
+                        color='blue'
+                        style={{ marginTop: '10px' }}
+                        onClick={() => onImageRemove(index)}
+                      >
+                        Remove
+                      </Button>
+                      <Button
+                        as={Link}
+                        to={'/Category/12345678-1234-1243-1234-123456789012/1'}
+                        inverted
+                        color='blue'
+                        style={{ marginTop: '10px' }}
+                      >
+                        Search
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Header>
             <Button
+              fluid
+              icon='upload'
               style={isDragging ? { color: 'red' } : null}
               onClick={onImageUpload}
               {...dragProps}
-            >
-              Click or Drop here
-            </Button>
-            &nbsp;
-            {imageList.map((image, index) => (
-              <div key={index} className='image-item'>
-                <img src={image.data_url} alt='' width='1000' />
-                <div className='image-item__btn-wrapper'>
-                  <Button onClick={() => onImageUpdate(index)}>Update</Button>
-                  <Button onClick={() => onImageRemove(index)}>Remove</Button>
-                  <a href='/Category1'>Search</a>
-                </div>
-              </div>
-            ))}
-          </div>
+            ></Button>
+          </Segment>
         )}
       </ImageUploading>
     </div>

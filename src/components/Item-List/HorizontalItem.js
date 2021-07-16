@@ -84,7 +84,7 @@ function HorizontalItem ({
 
                   <div className='new-label new-top-left'>Hot</div>
                   <div className='sale-label sale-top-left'>
-                    -{Price - CurrentPrice}%
+                    -{(Price - CurrentPrice) / 100}%
                   </div>
                   <div className='item-box-hover'>
                     <div className='box-inner'>

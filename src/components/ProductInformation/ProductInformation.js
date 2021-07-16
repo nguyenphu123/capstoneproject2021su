@@ -1,7 +1,7 @@
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
@@ -36,7 +36,8 @@ import {
   Label,
   Icon,
   Segment,
-  Tab
+  Tab,
+  Button
 } from 'semantic-ui-react'
 
 const mapDispatch = { cart }
@@ -155,25 +156,30 @@ function ProductInformation () {
   }
 
   function addToCart () {
-    const cartItem = {
-      ProductId: productId,
-      CurrentPrice: product.CurrentPrice,
-      Quantity: quantity,
-      TotalLine: 0,
-      img: product.ImageStorages[0].ImageUrl,
-      Name: product.Name
-    }
     const myCart = []
-    console.log(cartItem)
+    console.log(shopCart)
     const check_index = shopCart.findIndex(item => item.Id === productId)
     if (check_index !== -1) {
       shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
       toast.success('Cart has been updated')
     } else {
-      myCart.push(cartItem)
+      const cartItem = {
+        ProductId: productId,
+        CurrentPrice: product.CurrentPrice,
+        Quantity: quantity,
+        TotalLine: 0,
+        img: product.ImageStorages[0].ImageUrl,
+        Name: product.Name,
+        Color: currentColor,
+        Size: currentSize,
+        Description: JSON.stringify({
+          Color: currentColor,
+          Size: currentSize,
+          img: product.ImageStorages[0].ImageUrl
+        })
+      }
 
-      setShopCart(myCart)
-      dispatch(cart(myCart))
+      setShopCart([...shopCart, cartItem])
 
       toast.success('Item has been added')
     }
@@ -314,19 +320,54 @@ function ProductInformation () {
                         </p>
                         <div>
                           <div>
-                            <ToggleGroupColor
+                            {/* <ToggleGroupColor
                               list={colors}
                               currentColor={currentColor}
                               onChangeColor={value => setCurrentColor(value)}
-                            />
+                            /> */}
+                            <Button.Group>
+                              {colors.map(({ Name, Id }) =>
+                                currentColor === Id ? (
+                                  <Button color={Name} toggle active={true}>
+                                    {Name}
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    color={Name}
+                                    onClick={value => setCurrentColor(value)}
+                                    toggle
+                                    active={false}
+                                  >
+                                    >{Name}
+                                  </Button>
+                                )
+                              )}
+                            </Button.Group>
                           </div>
                           <div>
                             <br />
-                            <ToggleGroupSize
+                            {/* <ToggleGroupSize
                               list={sizes}
                               currentSize={currentSize}
                               onChangeColor={value => setCurrentSize(value)}
-                            />
+                            /> */}
+                            <Button.Group>
+                              {sizes.map(({ Name, Id }) =>
+                                currentSize === Id ? (
+                                  <Button toggle active={true}>
+                                    {Name}
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    onClick={value => setCurrentSize(value)}
+                                    toggle
+                                    active={false}
+                                  >
+                                    >{Name}
+                                  </Button>
+                                )
+                              )}
+                            </Button.Group>
                           </div>
                         </div>
                       </div>
@@ -336,7 +377,9 @@ function ProductInformation () {
                         <div class='pull-left'>
                           <div class='custom pull-left'>
                             <button
-                              onClick={onDecrease}
+                              onClick={() =>
+                                quantity > 0 ? setQuantity(quantity - 1) : null
+                              }
                               class='reduced items-count'
                               type='button'
                             >
@@ -350,10 +393,10 @@ function ProductInformation () {
                               maxlength='12'
                               id='qty'
                               name='qty'
-                              onChange={updateNumberPicker}
+                              onChange={e => setQuantity(e.target.value)}
                             />
                             <button
-                              onClick={onIncrease}
+                              onClick={() => setQuantity(quantity + 1)}
                               class='increase items-count'
                               type='button'
                             >

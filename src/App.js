@@ -29,7 +29,7 @@ import GetAllProduct from './pages/GetAllProduct'
 function App () {
   useEffect(() => {
     window.sliderr()
-    window.commonjs()
+    // window.commonjs()
 
     // if (UserSlice !== null) {
     //   NotificationManager.success(
@@ -72,7 +72,7 @@ function App () {
           </Route> */}
           <Route path='/ImageUploading'>
             <NavigationHeader />
-            <Ads />
+            {/* <Ads /> */}
             <ImageUploadingPage />
           </Route>
           <Route path='/Product/:productId' exact>

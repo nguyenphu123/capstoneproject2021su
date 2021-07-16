@@ -166,18 +166,19 @@ function CategoryPage () {
                     categoryId={sub}
                     sizeId={size}
                     tagId={tag}
+                    currentLink={'/Category/' + categoryId + '/'}
                   />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      <PagnationBar
+                      {/* <PagnationBar
                         Name={'Category/' + categoryId}
                         apiUrl={currentURL}
                         colorId={color}
                         categoryId={sub}
                         sizeId={size}
                         tagId={tag}
-                      />
+                      /> */}
                       <div className='product-option-right'>
                         <div className='pager'></div>
                       </div>

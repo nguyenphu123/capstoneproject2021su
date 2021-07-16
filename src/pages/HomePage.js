@@ -57,7 +57,10 @@ function HomePage () {
           <div className='container'>
             <div className='row'>
               <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                <Link to={'/Category/12345678-1234-1243-1234-123456789012/1'} data-scroll-goto='1'>
+                <Link
+                  to={'/Category/12345678-1234-1243-1234-123456789012/1'}
+                  data-scroll-goto='1'
+                >
                   <img
                     src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                     alt='promotion-banner1'
@@ -65,7 +68,10 @@ function HomePage () {
                 </Link>
               </div>
               <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                <Link to={'/Category/12345678-1234-1243-1234-123456789012/1'} data-scroll-goto='2'>
+                <Link
+                  to={'/Category/12345678-1234-1243-1234-123456789012/1'}
+                  data-scroll-goto='2'
+                >
                   <img
                     src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
                     alt='promotion-banner2'
@@ -86,7 +92,7 @@ function HomePage () {
             topic='New Product'
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
-          <SeeMoreButton Url='/' />
+          <SeeMoreButton Url='/AllProduct/1' />
         </div>
       </section>
       <section className=' wow bounceInUp animated'>
@@ -99,7 +105,7 @@ function HomePage () {
             topic='New Product'
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
-          <SeeMoreButton Url='/' />
+          <SeeMoreButton Url='/AllProduct/1' />
         </div>
       </section>
       <section class='trend spad'>
@@ -108,7 +114,6 @@ function HomePage () {
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
                 <h2>Top view</h2>
-                
               </div>
 
               <HorizontalItemList
@@ -117,12 +122,11 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
-              <SeeMoreButton Url='/' />
+              <SeeMoreButton Url='/AllProduct/1' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
                 <h2>Top like</h2>
-                
               </div>
 
               <HorizontalItemList
@@ -131,12 +135,11 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
-              <SeeMoreButton Url='/' />
+              <SeeMoreButton Url='/AllProduct/1' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
                 <h2>Top wishlist</h2>
-                
               </div>
 
               <HorizontalItemList
@@ -145,7 +148,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
-              <SeeMoreButton Url='/' />
+              <SeeMoreButton Url='/AllProduct/1' />
             </div>
           </div>
         </div>
@@ -177,15 +180,18 @@ function HomePage () {
               <div className='spl-pro'>
                 <Link to={'/'} title='Fresh Organic Mustard Leaves '>
                   <img
-                    src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
+                    src='https://static.nike.com/a/images/t_prod_ss/w_960,c_limit,f_auto/zww68xpjqf1jmluv3rol/air-jordan-1-mid-fearless-blue-the-great-release-date.jpg'
                     alt='Fresh Organic Mustard Leaves '
                   />
                 </Link>
                 <div className='item-info'>
                   <div className='info-inner'>
                     <div className='item-title'>
-                      <Link to={'/'} title='Fresh Organic Mustard Leaves '>
-                        Jacket
+                      <Link
+                        to={'/Product/12341234-1234-1234-1234-123412331234'}
+                        title='Fresh Organic Mustard Leaves '
+                      >
+                        AIR JORDAN 1
                       </Link>
                     </div>
                     <div className='item-content'>
@@ -215,7 +221,7 @@ function HomePage () {
                 </p>
               </div>
               <div className='block4'>
-                <strong>Safe From Pesticides</strong>
+                <strong>Safe From Injury</strong>
                 <p>
                   Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
                   diam nonummy habitant morbi.

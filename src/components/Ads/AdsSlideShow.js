@@ -9,7 +9,7 @@ const items = [
 function AdsSlideShow () {
   useEffect(() => {
     window.sliderr()
-    window.commonjs()
+    // window.commonjs()
 
     // if (UserSlice !== null) {
     //   NotificationManager.success(
