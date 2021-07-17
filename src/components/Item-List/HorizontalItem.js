@@ -1,4 +1,4 @@
-import '../../App.css'
+
 import NumberFormat from 'react-number-format'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -13,6 +13,7 @@ import ShareIcon from '@material-ui/icons/Share'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Header, Rating } from 'semantic-ui-react'
+
 
 const useStyles = makeStyles({
   card: {

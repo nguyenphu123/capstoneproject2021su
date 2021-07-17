@@ -3,6 +3,7 @@ import { Button, Form, Grid } from 'semantic-ui-react'
 import Title from '../../Assets/Title'
 import 'semantic-ui-css/semantic.min.css'
 
+
 function UserNewPassword ({ password }) {
   const genderOptions = [
     { key: 'm', text: 'Male', value: 'male' },

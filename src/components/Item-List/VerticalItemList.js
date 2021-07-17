@@ -9,6 +9,8 @@ import PagnationBar from '../../Assets/PagnationBar'
 import equal from 'fast-deep-equal'
 import VerticalItem from './VerticalItem'
 import { Link } from 'react-router-dom'
+
+
 function mergePage (items, newItems, offset) {
   const merged = items.slice()
   newItems.forEach((item, idx) => {

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Grid, Icon } from 'semantic-ui-react'
 
+
 import Category from './Category'
 
 function Categories () {

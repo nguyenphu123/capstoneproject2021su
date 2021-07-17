@@ -9,6 +9,7 @@ import {
   Segment,
   Tab
 } from 'semantic-ui-react'
+import '../../App.css'
 
 // import { makeStyles } from '@material-ui/core/styles'
 // import Avatar from '@material-ui/core/Avatar'

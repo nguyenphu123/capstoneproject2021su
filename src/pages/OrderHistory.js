@@ -27,7 +27,7 @@ import { useSelector } from 'react-redux'
 import { Dropdown, Tab } from 'semantic-ui-react'
 import Table from '../Assets/table/Table'
 import NumberFormat from 'react-number-format'
-import '../App.css'
+
 
 function OrderHistory (props) {
   const UserSlice = useSelector(state => state.UserSlice.user)

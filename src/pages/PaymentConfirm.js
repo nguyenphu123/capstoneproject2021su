@@ -18,7 +18,7 @@ import emailjs from 'emailjs-com'
 import { v4 as uuidv4 } from 'uuid'
 import { Form, Checkbox } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
-import '../App.css'
+
 import 'react-toastify/dist/ReactToastify.css'
 import { useParams } from 'react-router-dom'
 

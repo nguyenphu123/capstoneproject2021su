@@ -7,6 +7,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import { Button, TextField } from '@material-ui/core'
 import SearchResults from 'react-filter-search'
 
+
 function Search () {
   const [categorylist, setCategorylist] = useState([])
   const [search, setSearch] = useState(' ')

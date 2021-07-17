@@ -1,10 +1,10 @@
-import '../App.css'
+
 import 'react-multi-carousel/lib/styles.css'
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel'
-import '../App.css'
+
 
 import Category from '../components/Category/Category'
 

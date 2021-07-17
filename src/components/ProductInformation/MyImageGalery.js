@@ -6,6 +6,7 @@ import ReactImageMagnify from 'react-image-magnify'
 import { SideBySideMagnifier } from 'react-image-magnifiers'
 import SideExampleControls from './SideExampleControls'
 
+
 class MyImageGalery extends Component {
   state = {
     alwaysInPlace: true,

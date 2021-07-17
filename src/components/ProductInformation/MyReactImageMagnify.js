@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import ReactImageMagnify from 'react-image-magnify'
 import { withStyles } from '@material-ui/core/styles'
 
+
 const styles = theme => ({
   root: {}
 })

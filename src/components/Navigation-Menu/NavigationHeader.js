@@ -12,6 +12,7 @@ import Modal from 'react-awesome-modal'
 import LoginPage from '../../pages/LoginPage'
 import { emptyCart } from '../../features/Cart/CartSlice'
 
+
 const mapDispatch = { logout, loginUser, emptyCart }
 
 function NavigationHeader () {

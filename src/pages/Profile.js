@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Tab } from 'semantic-ui-react'
-import '../App.css'
+
 
 import UserNewPassword from '../components/UserProfile/UserNewPassword'
 import UserInformation from '../components/UserProfile/UserInformation'

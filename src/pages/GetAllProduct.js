@@ -16,7 +16,7 @@ import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 import { Form, Checkbox } from 'semantic-ui-react'
-import '../App.css'
+
 
 function GetAllProduct () {
   const { currentPage, categoryId } = useParams()

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import PagnationBar from '../Assets/PagnationBar'
-import '../App.css'
+
 
 function CategoryPage () {
   //id của category

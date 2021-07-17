@@ -2,6 +2,7 @@
 import { Button } from 'semantic-ui-react'
 import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
 
+
 function Footers () {
   return (
     <>

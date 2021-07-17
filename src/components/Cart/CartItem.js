@@ -11,6 +11,7 @@ import { Button } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 
+
 const mapDispatch = { cart, emptyCart }
 
 function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
@@ -83,7 +84,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
       }
     } else {
       if (Quantity === 1) {
-        CartSlice.splice(check_index, 1)
+        // CartSlice.splice(check_index, 1)
       } else {
         if (check_index !== -1) {
           shopCart[check_index].Quantity = quantity

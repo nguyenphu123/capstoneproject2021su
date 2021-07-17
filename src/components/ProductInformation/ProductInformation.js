@@ -24,6 +24,7 @@ import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+
 import MyImageGalery from './MyImageGalery'
 import { cart } from '../../features/Cart/CartSlice'
 import VerticalItemList from '../Item-List/VerticalItemList'

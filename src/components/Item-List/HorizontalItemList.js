@@ -4,6 +4,7 @@ import { Button, Card, Header } from 'semantic-ui-react'
 import Title from '../../Assets/Title'
 import HorizontalItem from './HorizontalItem'
 
+
 class HorizontalItemLList extends React.Component {
   constructor () {
     super()

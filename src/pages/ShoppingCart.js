@@ -10,7 +10,7 @@ import CartItem from '../components/Cart/CartItem'
 import { emptyCart } from '../features/Cart/CartSlice'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import '../App.css'
+
 
 const mapDispatch = { emptyCart }
 
