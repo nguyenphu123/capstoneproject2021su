@@ -136,7 +136,7 @@ function ProductInformation () {
     })
   }, [productId])
   useEffect(() => {
-    if (CartSlice.length !== null || CartSlice.length !== 0) {
+    if (CartSlice !== null) {
       setShopCart(CartSlice)
 
       const check_index = shopCart.findIndex(item => item.Id === productId)
@@ -201,8 +201,10 @@ function ProductInformation () {
     }
   }, [quantity])
   useEffect(() => {
-    if (shopCart.length !== 0) {
-      dispatch(cart(shopCart))
+    if (shopCart !== null) {
+      if (shopCart.length !== 0) {
+        dispatch(cart(shopCart))
+      }
     }
   }, [shopCart])
 

@@ -20,6 +20,7 @@ import {
 import RegistrationPage from './RegistrationPage'
 import { loginUser } from '../features/User/UserSlice'
 import { ToastContainer, toast } from 'react-toastify'
+import '../App.css'
 
 const mapDispatch = { loginUser }
 

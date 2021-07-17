@@ -14,6 +14,7 @@ import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
+import '../App.css'
 
 function HomePage () {
   const UserSlice = useSelector(state => state.UserSlice.user)

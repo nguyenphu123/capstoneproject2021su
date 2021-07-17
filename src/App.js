@@ -98,7 +98,7 @@ function App () {
 
             <ShoppingCart />
           </Route>
-          <Route path='/PaymentInfo'>
+          <Route path='/PaymentInfo/:IsPay?'>
             <PaymentConfirm />
           </Route>
 

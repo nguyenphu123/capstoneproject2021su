@@ -12,6 +12,7 @@ import {
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import emailjs from 'emailjs-com'
+import '../App.css'
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'

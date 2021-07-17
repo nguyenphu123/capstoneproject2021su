@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 import CartItem from '../components/Cart/CartItem'
 import { emptyCart } from '../features/Cart/CartSlice'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import '../App.css'
 
 const mapDispatch = { emptyCart }
 
@@ -43,10 +46,11 @@ function ShoppingCart () {
       setShipOption(value)
     }
     function checkOut () {
-      setFinishBuy(true)
       if (isLogin) {
-        setRedirectPage('/PaymentInfo')
+        setFinishBuy(true)
+        setRedirectPage('/PaymentInfo/')
       } else {
+        toast.warn('Pleas Login before checkout')
       }
     }
     function removeAll (e) {
@@ -398,6 +402,7 @@ function ShoppingCart () {
             </ul>
           </div>
         </div>
+        <ToastContainer autoClose={5000} />
       </>
     )
   }

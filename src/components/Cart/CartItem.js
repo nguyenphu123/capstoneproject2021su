@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 import { cart, emptyCart } from '../../features/Cart/CartSlice'
 import { Button } from 'semantic-ui-react'
+import { ToastContainer, toast } from 'react-toastify'
+import axios from 'axios'
 
 const mapDispatch = { cart, emptyCart }
 
@@ -16,10 +18,9 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const [quantity, setQuantity] = useState(Quantity)
   const [currentColor, setCurrentColor] = useState(Color)
-
+  const [product, setProduct] = useState({})
   const [currentSize, setCurrentSize] = useState(Size)
   const [colors, setColors] = useState([])
-
   const [sizes, setSizes] = useState([])
   const [shopCart, setShopCart] = useState(CartSlice)
 

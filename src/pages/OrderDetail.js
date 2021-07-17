@@ -8,6 +8,7 @@ import { Steps } from 'rsuite'
 import { Image, Item, Segment } from 'semantic-ui-react'
 import Table from '../Assets/table/Table'
 import NumberFormat from 'react-number-format'
+import '../App.css'
 
 function OrderDetail ({ Orderdetails }) {
   const elements = ['Id', 'Price', 'Quantity']

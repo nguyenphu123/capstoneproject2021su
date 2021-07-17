@@ -18,11 +18,13 @@ import emailjs from 'emailjs-com'
 import { v4 as uuidv4 } from 'uuid'
 import { Form, Checkbox } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
-
+import '../App.css'
 import 'react-toastify/dist/ReactToastify.css'
+import { useParams } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+
 
 import { emptyCart } from '../features/Cart/CartSlice'
 
@@ -35,15 +37,15 @@ const mapDispatch = { emptyCart }
 // })
 
 function PaymentConfirm () {
+  const { IsPay } = useParams()
+
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [isLogin, setIsLogin] = useState(true)
   const [currentAddress, setCurrentAddress] = useState('')
   const [currentName, setCurrentName] = useState('')
-  const [currentEmail, setCurrentEmail] = useState(
-    'phunguyen12111998@gmail.com'
-  )
+  const [currentEmail, setCurrentEmail] = useState('')
   const [currentCity, setCurrentCity] = useState('tp hcm')
   const [currentPhone, setCurrentPhone] = useState('')
 
@@ -52,6 +54,20 @@ function PaymentConfirm () {
   const [paywithMomo, setPaywithMomo] = useState(false)
   const [redirectPage, setRedirectPage] = useState('/')
   const [finishBuy, setFinishBuy] = useState(false)
+  const orderId = uuidv4()
+  const totalPrice = CartSlice.reduce(
+    (accumulator, currentValue) =>
+      accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+    0
+  )
+
+  useEffect(() => {
+    if (CartSlice.length !== 0) {
+      setFinishBuy(false)
+    } else {
+    }
+    setTimeout(function () {}, 5000)
+  }, [finishBuy])
 
   const handleChangeMomo = () => {
     setPaywithMomo(!paywithMomo)
@@ -60,12 +76,79 @@ function PaymentConfirm () {
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
     setCurrentName(UserSlice.Name)
-    // setCurrentEmail('')
+    setCurrentEmail(UserSlice.Email)
+    // setCurrentCity('')
+    setCurrentPhone(UserSlice.Phone)
+  }, [UserSlice])
+  useEffect(() => {
+    const Ispay = window.location.href.includes('true')
+    const Id = window.location.href.includes(orderId)
+
+    if (Ispay && Id) {
+      const order = {
+        UserId: UserSlice.Id,
+        OrderId: orderId,
+        TotalPrice: totalPrice,
+        AddressShipping: currentAddress,
+        Date: new Date()
+          .toISOString()
+          .slice(0, 19)
+          .replace('T', ' '),
+        Status: true,
+        Phone: currentPhone,
+
+        OrderDetails: CartSlice
+      }
+      const listener = e => {
+        axios({
+          method: 'post',
+          url: '/api/order-management/users/orders',
+          headers: { 'content-type': 'application/json' },
+          data: JSON.stringify(order)
+        }).then(res => {
+          dispatch(emptyCart())
+          console.log(res)
+
+          e.preventDefault()
+
+          emailjs
+            .sendForm(
+              'service_nueuo8m',
+              'template_omuck9t',
+              e.target,
+              'user_32k4I6JJIEyo5ehBoH1Ae'
+            )
+            .then(
+              result => {
+                console.log(result.text)
+              },
+              error => {
+                console.log(error.text)
+              }
+            )
+          toast.success('We have received your order')
+          setFinishBuy(true)
+
+          setTimeout(function () {
+            console.log(finishBuy)
+          }, 5000)
+        })
+      }
+    } else {
+    }
+  }, [])
+  console.log(finishBuy)
+
+  useEffect(() => {
+    setCurrentAddress(UserSlice.Address)
+    setCurrentName(UserSlice.Name)
+    setCurrentEmail(UserSlice.Email)
     // setCurrentCity('')
     setCurrentPhone(UserSlice.Phone)
   }, [UserSlice])
   useEffect(() => {
     if (finishBuy) {
+      console.log(finishBuy)
       NotificationManager.success(
         'Success message',
         'We have reiceived your order'
@@ -73,6 +156,9 @@ function PaymentConfirm () {
       dispatch(emptyCart())
     } else {
     }
+    setTimeout(function () {
+      setFinishBuy(false)
+    }, 5000)
   }, [finishBuy])
 
   if (finishBuy) {
@@ -100,7 +186,6 @@ function PaymentConfirm () {
     console.log(UserSlice)
 
     function onSubmit (e) {
-      const orderId = uuidv4()
       e.preventDefault()
 
       console.log(UserSlice)
@@ -110,11 +195,6 @@ function PaymentConfirm () {
 
         //loop through the array
 
-        const totalPrice = CartSlice.reduce(
-          (accumulator, currentValue) =>
-            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-          0
-        )
         //Do the math!
         if (paywithMomo) {
           const order = {
@@ -143,40 +223,7 @@ function PaymentConfirm () {
           }).then(res => {
             // dispatch(emptyCart())
             console.log(res)
-            window.open(res.data, '_blank')
-
-            axios({
-              method: 'post',
-              url: '/api/order-management/users/orders',
-              headers: { 'content-type': 'application/json' },
-              data: JSON.stringify(order)
-            }).then(res => {
-              dispatch(emptyCart())
-              console.log(res)
-
-              e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
-
-              emailjs
-                .sendForm(
-                  'service_nueuo8m',
-                  'template_omuck9t',
-                  e.target,
-                  'user_32k4I6JJIEyo5ehBoH1Ae'
-                )
-                .then(
-                  result => {
-                    console.log(result.text)
-                  },
-                  error => {
-                    console.log(error.text)
-                  }
-                )
-              toast.success('We have received your order')
-
-              setTimeout(function () {
-                setFinishBuy(true)
-              }, 5000)
-            })
+            window.open(res.data, '_self')
           })
         } else {
           const order = {
@@ -526,63 +573,6 @@ function PaymentConfirm () {
                         </fieldset>
                       </div>
                     </li>
-
-                    {/* <li id='opc-payment' class='section'>
-                      <div class='step-title'>
-                        <span class='number'>2</span>
-                        <h3 class='one_page_heading'> Payment Information</h3>
-                      </div>
-                      <div
-                        id='checkout-step-payment'
-                        class='step a-item'
-                        
-                      >
-                        <fieldset>
-                          <dl
-                            class='sp-methods'
-                            id='checkout-payment-method-load'
-                          >
-                           
-                          </dl>
-                        </fieldset>
-
-                        <div
-                          class='tool-tip'
-                          id='payment-tool-tip'
-                          style={{ display: 'none' }}
-                        >
-                          <div class='btn-close'>
-                            <a
-                              href='#'
-                              id='payment-tool-tip-close'
-                              title='Close'
-                            >
-                              Close
-                            </a>
-                          </div>
-                          <div class='tool-tip-content'>
-                            Card Verification Number Visual Reference
-                          </div>
-                        </div>
-                        <div class='buttons-set' id='payment-buttons-container'>
-                          <p class='required'>* Required Fields</p>
-                          
-                          <span
-                            class='please-wait'
-                            id='payment-please-wait'
-                            style={{ display: 'none' }}
-                          >
-                            <img
-                              src='images/opc-ajax-loader.gif'
-                              alt='Loading next step...'
-                              title='Loading next step...'
-                              class='v-middle'
-                            />
-                            Loading next step...
-                          </span>
-                        </div>
-                      </div>
-                    </li> */}
                   </ol>
                 </section>
 
