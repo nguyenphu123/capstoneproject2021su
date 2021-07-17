@@ -25,7 +25,6 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-
 import { emptyCart } from '../features/Cart/CartSlice'
 
 const mapDispatch = { emptyCart }
@@ -43,11 +42,11 @@ function PaymentConfirm () {
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [isLogin, setIsLogin] = useState(true)
-  const [currentAddress, setCurrentAddress] = useState('')
+  const [currentAddress, setCurrentAddress] = useState(UserSlice.Address)
   const [currentName, setCurrentName] = useState('')
   const [currentEmail, setCurrentEmail] = useState('')
   const [currentCity, setCurrentCity] = useState('tp hcm')
-  const [currentPhone, setCurrentPhone] = useState('')
+  const [currentPhone, setCurrentPhone] = useState(UserSlice.Phone)
 
   const [isEdit, setIsEdit] = useState(true)
   const [shipOption, setShipOption] = useState('')
@@ -55,11 +54,9 @@ function PaymentConfirm () {
   const [redirectPage, setRedirectPage] = useState('/')
   const [finishBuy, setFinishBuy] = useState(false)
   const orderId = uuidv4()
-  const totalPrice = CartSlice.reduce(
-    (accumulator, currentValue) =>
-      accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-    0
-  )
+  const totalPrice = 0
+  const Ispay = window.location.href.includes('true')
+  console.log(Ispay)
 
   useEffect(() => {
     if (CartSlice.length !== 0) {
@@ -81,14 +78,23 @@ function PaymentConfirm () {
     setCurrentPhone(UserSlice.Phone)
   }, [UserSlice])
   useEffect(() => {
-    const Ispay = window.location.href.includes('true')
-    const Id = window.location.href.includes(orderId)
+    setCurrentAddress(UserSlice.Address)
+    setCurrentName(UserSlice.Name)
+    setCurrentEmail(UserSlice.Email)
+    // setCurrentCity('')
+    setCurrentPhone(UserSlice.Phone)
 
-    if (Ispay && Id) {
+    const Id = window.location.href.includes(orderId)
+    console.log(Ispay)
+    if (Ispay) {
       const order = {
         UserId: UserSlice.Id,
         OrderId: orderId,
-        TotalPrice: totalPrice,
+        TotalPrice: CartSlice.reduce(
+          (accumulator, currentValue) =>
+            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+          0
+        ),
         AddressShipping: currentAddress,
         Date: new Date()
           .toISOString()
@@ -99,44 +105,37 @@ function PaymentConfirm () {
 
         OrderDetails: CartSlice
       }
-      const listener = e => {
-        axios({
-          method: 'post',
-          url: '/api/order-management/users/orders',
-          headers: { 'content-type': 'application/json' },
-          data: JSON.stringify(order)
-        }).then(res => {
-          dispatch(emptyCart())
-          console.log(res)
 
-          e.preventDefault()
+      axios({
+        method: 'post',
+        url: '/api/order-management/users/orders',
+        headers: { 'content-type': 'application/json' },
+        data: JSON.stringify(order)
+      }).then(res => {
+        dispatch(emptyCart())
+        console.log(res)
+        const listener = e => {
+          // window.Email.send({
+          //   SecureToken: 'C973D7AD-F097-4B95-91F4-40ABC5567812',
+          //   To: 'currentEmail',
+          //   From: 'phunguyen12111998@gmail.com',
+          //   Subject: 'This is the subject',
+          //   Body: 'And this is the body'
+          // }).then(message => alert(message))
+          document.getElementById('finish-form').submit()
+        }
+        document.getElementById('finish-form').submit()
 
-          emailjs
-            .sendForm(
-              'service_nueuo8m',
-              'template_omuck9t',
-              e.target,
-              'user_32k4I6JJIEyo5ehBoH1Ae'
-            )
-            .then(
-              result => {
-                console.log(result.text)
-              },
-              error => {
-                console.log(error.text)
-              }
-            )
-          toast.success('We have received your order')
-          setFinishBuy(true)
-
-          setTimeout(function () {
-            console.log(finishBuy)
-          }, 5000)
-        })
-      }
+        toast.success('We have received your order')
+        setFinishBuy(true)
+        console.log(finishBuy)
+        setTimeout(function () {
+          console.log(finishBuy)
+        }, 5000)
+      })
     } else {
     }
-  }, [])
+  }, [UserSlice])
   console.log(finishBuy)
 
   useEffect(() => {
@@ -162,7 +161,29 @@ function PaymentConfirm () {
   }, [finishBuy])
 
   if (finishBuy) {
-    return <Redirect to={redirectPage} />
+    return (
+      <>
+        <form
+          style={{ visibility: 'hidden' }}
+          id='finish-form'
+          onSubmit={onSubmit2}
+        >
+          <input
+            type='text'
+            name='Name'
+            value={currentName}
+            onChange={handleChangeName}
+            title='First Name'
+            maxlength='255'
+            class='input-text required-entry'
+            style={{ visibility: 'hidden' }}
+          />
+        </form>
+        <ToastContainer autoClose={5000} />
+
+        <Redirect to={redirectPage} />
+      </>
+    )
   }
   function handleChangeAddress (e) {
     setCurrentAddress(e.target.value)
@@ -200,7 +221,11 @@ function PaymentConfirm () {
           const order = {
             UserId: UserSlice.Id,
             OrderId: orderId,
-            TotalPrice: totalPrice,
+            TotalPrice: CartSlice.reduce(
+              (accumulator, currentValue) =>
+                accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+              0
+            ),
             AddressShipping: currentAddress,
             Date: new Date()
               .toISOString()
@@ -222,6 +247,23 @@ function PaymentConfirm () {
             // data: JSON.stringify(order)
           }).then(res => {
             // dispatch(emptyCart())
+            e.preventDefault()
+
+            emailjs
+              .sendForm(
+                'service_nueuo8m',
+                'template_omuck9t',
+                e.target,
+                'user_32k4I6JJIEyo5ehBoH1Ae'
+              )
+              .then(
+                result => {
+                  console.log(result.text)
+                },
+                error => {
+                  console.log(error.text)
+                }
+              )
             console.log(res)
             window.open(res.data, '_self')
           })
@@ -279,6 +321,41 @@ function PaymentConfirm () {
         console.log(isLogin)
       }
     }
+    function onSubmit2 (e) {
+      e.preventDefault()
+
+      console.log(UserSlice)
+
+      if (UserSlice !== null) {
+        //reference the element in the "JSON" aka object literal we want
+
+        //loop through the array
+
+        //Do the math!
+
+        e.preventDefault()
+
+        emailjs
+          .sendForm(
+            'service_nueuo8m',
+            'template_omuck9t',
+            e.target,
+            'user_32k4I6JJIEyo5ehBoH1Ae'
+          )
+          .then(
+            result => {
+              console.log(result.text)
+            },
+            error => {
+              console.log(error.text)
+            }
+          )
+      } else {
+        setIsLogin(false)
+        console.log(isLogin)
+      }
+    }
+
     function setEdit () {
       setIsEdit(!isEdit)
     }
