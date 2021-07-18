@@ -7,12 +7,12 @@ import { Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 import CartItem from '../components/Cart/CartItem'
-import { emptyCart } from '../features/Cart/CartSlice'
+import { cart, emptyCart, deleteItem } from '../features/Cart/CartSlice'
+
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-
-const mapDispatch = { emptyCart }
+const mapDispatch = { cart, emptyCart, deleteItem }
 
 function ShoppingCart () {
   const dispatch = useDispatch()
@@ -22,6 +22,7 @@ function ShoppingCart () {
   const [currentAddress, setCurrentAddress] = useState('')
   const [isEdit, setIsEdit] = useState(true)
   const [finishBuy, setFinishBuy] = useState(false)
+  const [shopCart, setShopCart] = useState(CartSlice)
 
   const [shipOption, setShipOption] = useState('')
   const [redirectPage, setRedirectPage] = useState('/Login')
@@ -38,7 +39,7 @@ function ShoppingCart () {
     return <Redirect to={redirectPage} />
   }
 
-  if (CartSlice !== null) {
+  if (CartSlice !== null || CartSlice.length !== 0) {
     function setEdit () {
       setIsEdit(!isEdit)
     }
@@ -56,6 +57,9 @@ function ShoppingCart () {
     function removeAll (e) {
       e.preventDefault()
       dispatch(emptyCart())
+    }
+    function removeFromCart (Id) {
+      dispatch(deleteItem(Id))
     }
 
     return (
@@ -169,15 +173,29 @@ function ShoppingCart () {
                             Color,
                             Size
                           }) => (
-                            <CartItem
-                              Id={ProductId}
-                              Name={Name}
-                              Quantity={Quantity}
-                              Price={CurrentPrice * Quantity}
-                              ImageUrl={img}
-                              Color={Color}
-                              Size={Size}
-                            />
+                            <tr class='first last odd'>
+                              <CartItem
+                                Id={ProductId}
+                                Name={Name}
+                                Quantity={Quantity}
+                                Price={CurrentPrice * Quantity}
+                                ImageUrl={img}
+                                Color={Color}
+                                Size={Size}
+                              />
+                              
+                              <td class='a-center last'>
+                                <Button
+                                  onClick={() => removeFromCart(ProductId)}
+                                  title='Remove item'
+                                  class='button remove-item'
+                                >
+                                  <span>
+                                    <span>Remove item</span>
+                                  </span>
+                                </Button>
+                              </td>
+                            </tr>
                           )
                         )}
                       </tbody>

@@ -26,8 +26,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import { emptyCart } from '../features/Cart/CartSlice'
+import { createOrder, removeOrder } from '../features/OrderData/OrderDataSlice'
 
-const mapDispatch = { emptyCart }
+const mapDispatch = { emptyCart, createOrder, removeOrder }
 // const client = new SMTPClient({
 //   user: 'phu nguyen',
 //   password: 'Mu125690',
@@ -41,6 +42,8 @@ function PaymentConfirm () {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const UserSlice = useSelector(state => state.UserSlice.user)
+  const OrderSlice = useSelector(state => state.OrderSlice.order)
+
   const [isLogin, setIsLogin] = useState(true)
   const [currentAddress, setCurrentAddress] = useState(UserSlice.Address)
   const [currentName, setCurrentName] = useState('')
@@ -78,73 +81,37 @@ function PaymentConfirm () {
     setCurrentPhone(UserSlice.Phone)
   }, [UserSlice])
   useEffect(() => {
-    setCurrentAddress(UserSlice.Address)
-    setCurrentName(UserSlice.Name)
-    setCurrentEmail(UserSlice.Email)
+    setCurrentAddress(OrderSlice.AddressShipping)
+    setCurrentName(OrderSlice.Name)
+    setCurrentEmail(OrderSlice.Email)
     // setCurrentCity('')
-    setCurrentPhone(UserSlice.Phone)
+    setCurrentPhone(OrderSlice.Phone)
 
-    const Id = window.location.href.includes(orderId)
-    console.log(Ispay)
-    if (Ispay) {
-      const order = {
-        UserId: UserSlice.Id,
-        OrderId: orderId,
-        TotalPrice: CartSlice.reduce(
-          (accumulator, currentValue) =>
-            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-          0
-        ),
-        AddressShipping: currentAddress,
-        Date: new Date()
-          .toISOString()
-          .slice(0, 19)
-          .replace('T', ' '),
-        Status: true,
-        Phone: currentPhone,
-
-        OrderDetails: CartSlice
-      }
-
-      axios({
-        method: 'post',
-        url: '/api/order-management/users/orders',
-        headers: { 'content-type': 'application/json' },
-        data: JSON.stringify(order)
-      }).then(res => {
-        dispatch(emptyCart())
-        console.log(res)
-        const listener = e => {
-          // window.Email.send({
-          //   SecureToken: 'C973D7AD-F097-4B95-91F4-40ABC5567812',
-          //   To: 'currentEmail',
-          //   From: 'phunguyen12111998@gmail.com',
-          //   Subject: 'This is the subject',
-          //   Body: 'And this is the body'
-          // }).then(message => alert(message))
-          document.getElementById('finish-form').submit()
-        }
+    axios({
+      method: 'post',
+      url: '/api/order-management/users/orders',
+      headers: { 'content-type': 'application/json' },
+      data: JSON.stringify(OrderSlice)
+    }).then(res => {
+      dispatch(emptyCart())
+      console.log(res)
+      const listener = e => {
         document.getElementById('finish-form').submit()
+      }
+      document.getElementById('finish-form').submit()
 
-        toast.success('We have received your order')
-        setFinishBuy(true)
+      toast.success('We have received your order')
+      setFinishBuy(true)
+      dispatch(removeOrder())
+
+      setTimeout(function () {
         console.log(finishBuy)
-        setTimeout(function () {
-          console.log(finishBuy)
-        }, 5000)
-      })
-    } else {
-    }
-  }, [UserSlice])
+      }, 5000)
+    })
+  }, [OrderSlice])
+
   console.log(finishBuy)
 
-  useEffect(() => {
-    setCurrentAddress(UserSlice.Address)
-    setCurrentName(UserSlice.Name)
-    setCurrentEmail(UserSlice.Email)
-    // setCurrentCity('')
-    setCurrentPhone(UserSlice.Phone)
-  }, [UserSlice])
   useEffect(() => {
     if (finishBuy) {
       console.log(finishBuy)
@@ -161,6 +128,41 @@ function PaymentConfirm () {
   }, [finishBuy])
 
   if (finishBuy) {
+    function onSubmit2 (e) {
+      e.preventDefault()
+
+      console.log(UserSlice)
+
+      if (UserSlice !== null) {
+        //reference the element in the "JSON" aka object literal we want
+
+        //loop through the array
+
+        //Do the math!
+
+        e.preventDefault()
+
+        emailjs
+          .sendForm(
+            'service_nueuo8m',
+            'template_omuck9t',
+            e.target,
+            'user_32k4I6JJIEyo5ehBoH1Ae'
+          )
+          .then(
+            result => {
+              console.log(result.text)
+            },
+            error => {
+              console.log(error.text)
+            }
+          )
+      } else {
+        setIsLogin(false)
+        console.log(isLogin)
+      }
+    }
+
     return (
       <>
         <form
@@ -217,9 +219,11 @@ function PaymentConfirm () {
         //loop through the array
 
         //Do the math!
+
         if (paywithMomo) {
           const order = {
             UserId: UserSlice.Id,
+            Name: currentName,
             OrderId: orderId,
             TotalPrice: CartSlice.reduce(
               (accumulator, currentValue) =>
@@ -233,9 +237,11 @@ function PaymentConfirm () {
               .replace('T', ' '),
             Status: true,
             Phone: currentPhone,
-
+            Email: currentEmail,
             OrderDetails: CartSlice
           }
+          dispatch(createOrder(order))
+
           axios({
             method: 'post',
             url:
@@ -247,26 +253,27 @@ function PaymentConfirm () {
             // data: JSON.stringify(order)
           }).then(res => {
             // dispatch(emptyCart())
-            e.preventDefault()
 
-            emailjs
-              .sendForm(
-                'service_nueuo8m',
-                'template_omuck9t',
-                e.target,
-                'user_32k4I6JJIEyo5ehBoH1Ae'
-              )
-              .then(
-                result => {
-                  console.log(result.text)
-                },
-                error => {
-                  console.log(error.text)
-                }
-              )
             console.log(res)
             window.open(res.data, '_self')
           })
+          e.preventDefault()
+
+          emailjs
+            .sendForm(
+              'service_nueuo8m',
+              'template_omuck9t',
+              e.target,
+              'user_32k4I6JJIEyo5ehBoH1Ae'
+            )
+            .then(
+              result => {
+                console.log(result.text)
+              },
+              error => {
+                console.log(error.text)
+              }
+            )
         } else {
           const order = {
             UserId: UserSlice.Id,
@@ -316,40 +323,6 @@ function PaymentConfirm () {
             }, 5000)
           })
         }
-      } else {
-        setIsLogin(false)
-        console.log(isLogin)
-      }
-    }
-    function onSubmit2 (e) {
-      e.preventDefault()
-
-      console.log(UserSlice)
-
-      if (UserSlice !== null) {
-        //reference the element in the "JSON" aka object literal we want
-
-        //loop through the array
-
-        //Do the math!
-
-        e.preventDefault()
-
-        emailjs
-          .sendForm(
-            'service_nueuo8m',
-            'template_omuck9t',
-            e.target,
-            'user_32k4I6JJIEyo5ehBoH1Ae'
-          )
-          .then(
-            result => {
-              console.log(result.text)
-            },
-            error => {
-              console.log(error.text)
-            }
-          )
       } else {
         setIsLogin(false)
         console.log(isLogin)

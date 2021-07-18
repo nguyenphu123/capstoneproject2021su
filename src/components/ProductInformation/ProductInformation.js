@@ -138,10 +138,14 @@ function ProductInformation () {
   useEffect(() => {
     if (CartSlice !== null) {
       setShopCart(CartSlice)
-
-      const check_index = shopCart.findIndex(item => item.Id === productId)
+      console.log(CartSlice)
+      const check_index = shopCart.findIndex(
+        item => item.ProductId === productId
+      )
       if (check_index !== -1) {
         setQuantity(shopCart[check_index].Quantity)
+        setCurrentColor(shopCart[check_index].Color)
+        setCurrentSize(shopCart[check_index].Size)
       } else {
       }
     } else {
@@ -219,6 +223,16 @@ function ProductInformation () {
     } else {
       setMaxQuantity(0)
     }
+    if (CartSlice !== null) {
+      const check_indexQuantity = CartSlice.findIndex(
+        item => item.Color === currentColor && item.Size === currentSize
+      )
+      if (check_indexQuantity !== -1) {
+        setQuantity(shopCart[check_index].Quantity)
+      } else {
+      }
+    } else {
+    }
   }
   const handleSize = (event, newSize) => {
     setCurrentSize(newSize)
@@ -229,6 +243,16 @@ function ProductInformation () {
       setMaxQuantity(product.Elements[check_index].Quantity)
     } else {
       setMaxQuantity(0)
+    }
+    if (CartSlice !== null) {
+      const check_indexQuantity = CartSlice.findIndex(
+        item => item.Size === currentSize && item.Color === currentColor
+      )
+      if (check_indexQuantity !== -1) {
+        setQuantity(shopCart[check_index].Quantity)
+      } else {
+      }
+    } else {
     }
   }
 
