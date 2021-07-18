@@ -1,13 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, withRouter } from 'react-router-dom'
-import { Form, Checkbox } from 'semantic-ui-react'
+import { Form, Checkbox, Button } from 'semantic-ui-react'
 
 import { Link } from 'react-router-dom'
 
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import PagnationBar from '../Assets/PagnationBar'
-
 
 function CategoryPage () {
   //id của category
@@ -56,23 +55,35 @@ function CategoryPage () {
     if (color !== '') {
       setColor(color => color)
 
-      setCurrentURL('/api/product-management/' + categoryId)
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setColor('')
     }
   }, [color])
   useEffect(() => {
     if (size !== '') {
-      setColor(size => size)
+      setSize(size => size)
 
-      setCurrentURL('/api/product-management/' + categoryId)
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setSize('')
     }
   }, [size])
   useEffect(() => {
     if (tag !== '') {
       setColor(tag => tag)
 
-      setCurrentURL('/api/product-management/' + categoryId)
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setSub('')
     }
   }, [tag])
+  function resetAll () {
+    setColor('')
+    setSize('')
+    setTag('')
+    setSub('')
+  }
 
   useEffect(() => {
     setCurrentURL('/api/product-management/' + categoryId)
@@ -332,6 +343,11 @@ function CategoryPage () {
                             </li>
                           ))}
                         </Form>
+                      </ol>
+                    </dd>
+                    <dd className='last even'>
+                      <ol>
+                        <Button content='Reset' onClick={resetAll} primary />
                       </ol>
                     </dd>
                   </dl>

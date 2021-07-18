@@ -67,58 +67,82 @@ class VerticalItemList extends React.Component {
         })
       })
     } else {
-      if (!equal(this.props.colorId, prevProps.colorId)) {
-        if (this.props.colorId !== '') {
-          const result = this.state.products.filter(
-            x => x.Elements.length !== 0
-          )
-          const colorResult = result.filter(
-            x =>
-              x.Elements.findIndex(
-                item => item.Color.Id === this.props.colorId
-              ) !== -1
-          )
+      if (
+        this.props.colorId === '' &&
+        this.props.sizeId === '' &&
+        this.props.tagId === ''
+      ) {
+        axios({
+          method: 'GET',
+          url: this.props.apiUrl
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          let result = res.data
 
-          if (this.state.products.length !== []) {
-            this.setState({
-              products: colorResult
-            })
+          this.setState({
+            products: result,
+            isLoading: false,
+            isUpdated: false
+
+            // currentPage: this.props.match.params
+          })
+        })
+      } else {
+        if (!equal(this.props.colorId, prevProps.colorId)) {
+          if (this.props.colorId !== '') {
+            const result = this.state.products.filter(
+              x => x.Elements.length !== 0
+            )
+            const colorResult = result.filter(
+              x =>
+                x.Elements.findIndex(
+                  item => item.Color.Id === this.props.colorId
+                ) !== -1
+            )
+
+            if (this.state.products.length !== []) {
+              this.setState({
+                products: colorResult
+              })
+            }
           }
         }
-      }
-      if (!equal(this.props.sizeId, prevProps.sizeId)) {
-        if (this.props.sizeId !== '') {
-          const result = this.state.products.filter(
-            x => x.Elements.length !== 0
-          )
-          const sizeResult = result.filter(
-            x =>
-              x.Elements.findIndex(
-                item => item.Size.Id === this.props.sizeId
-              ) !== -1
-          )
-          if (this.state.products.length !== []) {
-            this.setState({
-              products: sizeResult
-              // isLoading: false
-              // currentPage: this.props.match.params
-            })
+        if (!equal(this.props.sizeId, prevProps.sizeId)) {
+          if (this.props.sizeId !== '') {
+            const result = this.state.products.filter(
+              x => x.Elements.length !== 0
+            )
+            const sizeResult = result.filter(
+              x =>
+                x.Elements.findIndex(
+                  item => item.Size.Id === this.props.sizeId
+                ) !== -1
+            )
+            if (this.state.products.length !== []) {
+              this.setState({
+                products: sizeResult
+                // isLoading: false
+                // currentPage: this.props.match.params
+              })
+            }
           }
         }
-      }
-      if (!equal(this.props.tagId, prevProps.tagId)) {
-        if (this.props.tagId !== '') {
-          const result = this.state.products.filter(
-            x =>
-              x.Tags.findIndex(item => item.Tag.Id === this.props.tagId) !== -1
-          )
-          console.log(result)
-          if (this.state.products.length !== []) {
-            this.setState({
-              products: result
-              // isLoading: false
-              // currentPage: this.props.match.params
-            })
+        if (!equal(this.props.tagId, prevProps.tagId)) {
+          if (this.props.tagId !== '') {
+            const result = this.state.products.filter(
+              x =>
+                x.Tags.findIndex(item => item.Tag.Id === this.props.tagId) !==
+                -1
+            )
+            console.log(result)
+            if (this.state.products.length !== []) {
+              this.setState({
+                products: result
+                // isLoading: false
+                // currentPage: this.props.match.params
+              })
+            }
           }
         }
       }

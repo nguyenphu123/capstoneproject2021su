@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import PagnationBar from '../Assets/PagnationBar'
 import { useDispatch, useSelector } from 'react-redux'
-import SeeMoreButton from '../Assets/SeeMoreButton'
+
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
@@ -41,19 +41,23 @@ function GetAllProduct () {
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
   const [sub, setSub] = useState('')
-
+  
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setColor('')
     }
   }, [color])
   useEffect(() => {
     if (size !== '') {
-      setColor(size => size)
+      setSize(size => size)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setSize('')
     }
   }, [size])
   useEffect(() => {
@@ -61,6 +65,8 @@ function GetAllProduct () {
       setColor(tag => tag)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setSub('')
     }
   }, [tag])
 
@@ -94,7 +100,12 @@ function GetAllProduct () {
       setTaglist(res.data)
     })
   }, [])
-
+  function resetAll () {
+    setColor('')
+    setSize('')
+    setTag('')
+    setSub('')
+  }
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
   }
@@ -226,16 +237,14 @@ function GetAllProduct () {
                       <ol>
                         <li>
                           <Link to='#'>
-                            <span className='price'>$0.00</span> -
-                            <span className='price'>$99.99</span>
+                            <span className='price'>50,000VND</span> -
+                            <span className='price'>100,000VND</span>
                           </Link>
-                          (6)
                         </li>
                         <li>
                           <Link to='#'>
-                            <span className='price'>$100.00</span> and above
+                            <span className='price'>100,000VND</span> and above
                           </Link>
-                          (6)
                         </li>
                       </ol>
                     </dd>
@@ -261,28 +270,7 @@ function GetAllProduct () {
                         </Form>
                       </ol>
                     </dd>
-                    {/* <dt className='even'>Sub categories</dt>
 
-                    <dd className='even'>
-                      <ol>
-                        <Form>
-                          {subList.map(({ Name, Id }) => (
-                            <li>
-                              <Form.Field>
-                                <Checkbox
-                                  radio
-                                  label={Name}
-                                  name='checkboxRadioGroup'
-                                  value={Id}
-                                  checked={sub === Id}
-                                  onChange={handleChangeCategory}
-                                />
-                              </Form.Field>
-                            </li>
-                          ))}
-                        </Form>
-                      </ol>
-                    </dd> */}
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>
                       <ol>
@@ -323,6 +311,11 @@ function GetAllProduct () {
                             </li>
                           ))}
                         </Form>
+                      </ol>
+                    </dd>
+                    <dd className='last even'>
+                      <ol>
+                        <Button content='Reset' onClick={resetAll} primary />
                       </ol>
                     </dd>
                   </dl>
