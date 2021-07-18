@@ -17,7 +17,6 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 import { Form, Checkbox } from 'semantic-ui-react'
 
-
 function GetAllProduct () {
   const { currentPage, categoryId } = useParams()
 

@@ -10,7 +10,6 @@ import equal from 'fast-deep-equal'
 import VerticalItem from './VerticalItem'
 import { Link } from 'react-router-dom'
 
-
 function mergePage (items, newItems, offset) {
   const merged = items.slice()
   newItems.forEach((item, idx) => {
@@ -70,40 +69,57 @@ class VerticalItemList extends React.Component {
     } else {
       if (!equal(this.props.colorId, prevProps.colorId)) {
         if (this.props.colorId !== '') {
-          const result = this.state.products.filter(x =>
-            x.Elements.findIndex(item => item.Color.Id === this.props.colorId)
+          const result = this.state.products.filter(
+            x => x.Elements.length !== 0
           )
-          this.setState({
-            products: result
-            // isLoading: false
-            // currentPage: this.props.match.params
-          })
+          const colorResult = result.filter(
+            x =>
+              x.Elements.findIndex(
+                item => item.Color.Id === this.props.colorId
+              ) !== -1
+          )
+
+          if (this.state.products.length !== []) {
+            this.setState({
+              products: colorResult
+            })
+          }
         }
       }
       if (!equal(this.props.sizeId, prevProps.sizeId)) {
         if (this.props.sizeId !== '') {
-          const result = this.state.products.filter(x =>
-            x.Elements.findIndex(item => item.Size.Id === this.props.sizeId)
+          const result = this.state.products.filter(
+            x => x.Elements.length !== 0
           )
-
-          this.setState({
-            products: result
-            // isLoading: false
-            // currentPage: this.props.match.params
-          })
+          const sizeResult = result.filter(
+            x =>
+              x.Elements.findIndex(
+                item => item.Size.Id === this.props.sizeId
+              ) !== -1
+          )
+          if (this.state.products.length !== []) {
+            this.setState({
+              products: sizeResult
+              // isLoading: false
+              // currentPage: this.props.match.params
+            })
+          }
         }
       }
       if (!equal(this.props.tagId, prevProps.tagId)) {
         if (this.props.tagId !== '') {
-          const result = this.state.products.filter(x =>
-            x.Tags.findIndex(item => item.Id === this.props.tagId)
+          const result = this.state.products.filter(
+            x =>
+              x.Tags.findIndex(item => item.Tag.Id === this.props.tagId) !== -1
           )
-
-          this.setState({
-            products: result
-            // isLoading: false
-            // currentPage: this.props.match.params
-          })
+          console.log(result)
+          if (this.state.products.length !== []) {
+            this.setState({
+              products: result
+              // isLoading: false
+              // currentPage: this.props.match.params
+            })
+          }
         }
       }
     }
