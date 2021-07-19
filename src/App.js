@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import NavigationIcon from '@material-ui/icons/Navigation'
 import { Widget } from 'react-chat-widget'
 import FadeIn from 'react-fade-in'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
@@ -43,7 +43,7 @@ function App () {
 
   return (
     <FadeIn>
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route key='Registration' path='/Registration'>
             <NavigationHeader />
@@ -57,7 +57,10 @@ function App () {
               <>
                 <NavigationHeader />
                 <Ads />
-                <CategoryPage topic={'Category1'} />
+                <CategoryPage
+                  key={randomstring.generate(7)}
+                  topic={'Category1'}
+                />
               </>
             )}
           ></Route>
@@ -120,7 +123,7 @@ function App () {
         <Widget />
 
         <Footers />
-      </BrowserRouter>
+      </Router>
     </FadeIn>
   )
 }

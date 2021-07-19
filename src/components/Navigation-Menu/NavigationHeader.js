@@ -101,10 +101,11 @@ function NavigationHeader () {
           onClickAway={SetLoginForm}
         >
           <div>
-            <LoginPage />
             <a href='javascript:void(0);' onClick={SetLoginForm}>
               Close
             </a>
+
+            <LoginPage />
           </div>
         </Modal>
 

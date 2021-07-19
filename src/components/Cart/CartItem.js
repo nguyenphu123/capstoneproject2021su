@@ -120,7 +120,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
                   ) : (
                     <Button
                       color={Name}
-                      onClick={value => setCurrentColor(Id)}
+                      onClick={() => setCurrentColor(Id)}
                       toggle
                       active={false}
                     >
@@ -141,7 +141,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
                     </Button>
                   ) : (
                     <Button
-                      onClick={value => setCurrentSize(Id)}
+                      onClick={() => setCurrentSize(Id)}
                       toggle
                       active={false}
                     >

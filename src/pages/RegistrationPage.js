@@ -1,18 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Image,
-  Segment,
-  Select
-} from 'semantic-ui-react'
+import { Button, Grid, Header, Image, Segment, Select } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import emailjs from 'emailjs-com'
-
+import { Form, Checkbox } from 'semantic-ui-react'
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'
@@ -146,9 +138,9 @@ function RegistrationPage () {
                     <div class='input-box'>
                       <input
                         type='text'
-                        name='login[username]'
+                        name='username'
                         value={username}
-                        id='email'
+                        id='username'
                         class='input-text required-entry validate-email'
                         title='Email Address'
                         onChange={e => setUsername(e.target.value)}
@@ -157,17 +149,28 @@ function RegistrationPage () {
                     <label for='email'>
                       Gender<em class='required'>*</em>
                     </label>
-                    <input
-                      type='radio'
-                      name='billing[use_for_shipping]'
-                      id='billing:use_for_shipping_yes'
-                      value={gender}
-                      checked='checked'
-                      title='gender'
-                      onClick={e => setGender(e.target.value)}
-                      class='radio'
-                    />
-                    <label for='email'>Male</label>
+                    <Form>
+                      <Form.Field>
+                        <Checkbox
+                          radio
+                          label='Male'
+                          name='checkboxRadioGroup'
+                          value='this'
+                          checked={!gender}
+                          onChange={() => setGender(!gender)}
+                        />
+                      </Form.Field>
+                      <Form.Field>
+                        <Checkbox
+                          radio
+                          label='Female'
+                          name='checkboxRadioGroup'
+                          value='that'
+                          checked={gender}
+                          onChange={() => setGender(!gender)}
+                        />
+                      </Form.Field>
+                    </Form>
                   </li>
                   <li>
                     <label for='pass'>
@@ -193,7 +196,7 @@ function RegistrationPage () {
                       <input
                         value={matchPassword}
                         type='password'
-                        name='login[password]'
+                        name='matchpassword'
                         class='input-text required-entry validate-password'
                         id='pass'
                         title='Password'
