@@ -104,7 +104,7 @@ function AdsSlideShow () {
                         heigth: '200px'
                       }}
                     >
-                      <Link to='/AllProduct/1' class='buy-btn'>
+                      <Link to='/AllProduct/1/Grid' class='buy-btn'>
                         Shop Now
                       </Link>
                     </div>

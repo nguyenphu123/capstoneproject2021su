@@ -10,14 +10,17 @@ import PagnationBar from '../Assets/PagnationBar'
 
 function CategoryPage () {
   //id của category
-  const { categoryId } = useParams()
-  console.log(categoryId)
+  const { currentPage, categoryId, viewStyle, sort, sortOption } = useParams()
+
   //component dùng url động
   const [currentURL, setCurrentURL] = useState(
     '/api/product-management/' + categoryId
   )
-  console.log(currentURL)
+
   const [category, setCategory] = useState({})
+  const [view, setView] = useState(viewStyle)
+  const [sortBy, setSortBy] = useState(sort)
+  const [currentSortOption, setCurrentSortOption] = useState(sortOption)
 
   //filter màu
   const [colorlist, setColorlist] = useState([])

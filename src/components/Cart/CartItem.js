@@ -7,13 +7,22 @@ import {
   cart,
   emptyCart,
   deleteItem,
-  updateItemQuantity
+  updateItemQuantity,
+  updateItemColor,
+  updateItemSize
 } from '../../features/Cart/CartSlice'
 import { Button } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 
-const mapDispatch = { cart, emptyCart, deleteItem, updateItemQuantity }
+const mapDispatch = {
+  cart,
+  emptyCart,
+  deleteItem,
+  updateItemQuantity,
+  updateItemColor,
+  updateItemSize
+}
 
 function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
   const dispatch = useDispatch()
@@ -30,32 +39,17 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
   useEffect(() => {
     if (currentColor !== Color) {
       setCurrentColor(currentColor => currentColor)
-      const check_index = shopCart.findIndex(item => item.Id === Id)
+      dispatch(updateItemColor(Id, currentColor))
 
-      if (check_index !== -1) {
-        shopCart[check_index].Color = currentColor
-        const Description = JSON.stringify(shopCart[check_index].Description)
-        Description.Color = currentColor
-        toast.success('Cart has been updated')
-      }
-
-      dispatch(cart(CartSlice))
+      toast.success('Cart has been updated')
     }
   }, [currentColor])
   useEffect(() => {
     if (currentSize !== Size) {
       setCurrentSize(currentSize => currentSize)
-      const check_index = shopCart.findIndex(item => item.Id === Id)
+      dispatch(updateItemSize(Id, currentSize))
 
-      if (check_index !== -1) {
-        shopCart[check_index].Size = currentSize
-        const Description = JSON.stringify(shopCart[check_index].Description)
-        Description.Size = currentSize
-
-        toast.success('Cart has been updated')
-      }
-
-      dispatch(cart(CartSlice))
+      toast.success('Cart has been updated')
     }
   }, [currentSize])
   useEffect(() => {
@@ -126,7 +120,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
                   ) : (
                     <Button
                       color={Name}
-                      onClick={value => setCurrentColor(value)}
+                      onClick={value => setCurrentColor(Id)}
                       toggle
                       active={false}
                     >
@@ -147,7 +141,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
                     </Button>
                   ) : (
                     <Button
-                      onClick={value => setCurrentSize(value)}
+                      onClick={value => setCurrentSize(Id)}
                       toggle
                       active={false}
                     >

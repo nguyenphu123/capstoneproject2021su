@@ -59,7 +59,7 @@ function App () {
               </>
             )}
           ></Route>
-          <Route path='/AllProduct/:currentPage'>
+          <Route path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'>
             <NavigationHeader />
             <Ads />
             <GetAllProduct />

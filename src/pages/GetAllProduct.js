@@ -18,13 +18,16 @@ import CategoryList from './CategoryList'
 import { Form, Checkbox } from 'semantic-ui-react'
 
 function GetAllProduct () {
-  const { currentPage, categoryId } = useParams()
+  const { currentPage, categoryId, viewStyle, sort, sortOption } = useParams()
 
   const [currentURL, setCurrentURL] = useState(
     '/api/product-management?sort=up&pageIndex=1&pageSize=5000'
   )
 
   const [category, setCategory] = useState({})
+  const [view, setView] = useState(viewStyle)
+  const [sortBy, setSortBy] = useState(sort)
+  const [currentSortOption, setCurrentSortOption] = useState(sortOption)
 
   //filter màu
   const [colorlist, setColorlist] = useState([])
@@ -41,7 +44,7 @@ function GetAllProduct () {
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
   const [sub, setSub] = useState('')
-  
+
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)
@@ -133,19 +136,16 @@ function GetAllProduct () {
                   <div className='toolbar'>
                     <div className='sorter'>
                       <div className='view-mode'>
-                        <Link
-                          to={'/grid'}
-                          title='Grid'
-                          className='button button-grid'
-                        >
-                          &nbsp;
-                        </Link>
+                        <span className='button button-active button-grid'>
+                          <Link to={'/AllProduct/1/Grid'} title='Grid'>
+                            &nbsp;
+                          </Link>
+                        </span>
                         &nbsp;
-                        <span
-                          title='List'
-                          className='button button-active button-list'
-                        >
-                          &nbsp;
+                        <span className='button  button-list'>
+                          <Link to={'/AllProduct/1/List'} title='List'>
+                            &nbsp;
+                          </Link>
                         </span>
                         &nbsp;
                       </div>
@@ -159,13 +159,10 @@ function GetAllProduct () {
                           </Link>
                           <ul>
                             <li>
-                              <Link to='#'>Name</Link>
+                              <Link to='/AllProduct/1/List/Name'>Name</Link>
                             </li>
                             <li>
-                              <Link to='#'>Price</Link>
-                            </li>
-                            <li>
-                              <Link to='#'>Position</Link>
+                              <Link to='/AllProduct/1/List/Price'>Price</Link>
                             </li>
                           </ul>
                         </li>

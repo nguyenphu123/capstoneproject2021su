@@ -25,7 +25,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import MyImageGalery from './MyImageGalery'
-import { cart } from '../../features/Cart/CartSlice'
+import {
+  cart,
+  emptyCart,
+  deleteItem,
+  updateItemQuantity,
+  updateItemColor,
+  updateItemSize
+} from '../../features/Cart/CartSlice'
+
 import VerticalItemList from '../Item-List/VerticalItemList'
 import { ToastContainer, toast } from 'react-toastify'
 import {
@@ -40,7 +48,14 @@ import {
   Button
 } from 'semantic-ui-react'
 
-const mapDispatch = { cart }
+const mapDispatch = {
+  cart,
+  emptyCart,
+  deleteItem,
+  updateItemQuantity,
+  updateItemColor,
+  updateItemSize
+}
 
 function ProductInformation () {
   const { productId } = useParams()
@@ -159,38 +174,56 @@ function ProductInformation () {
     }
     return false
   }
+  useEffect(() => {
+    if (currentColor !== '') {
+      console.log(currentColor)
+      setCurrentColor(currentColor => currentColor)
+    } else {
+    }
+  }, [currentColor])
+  useEffect(() => {
+    if (currentSize !== '') {
+      console.log(currentSize)
+      setCurrentSize(currentSize => currentSize)
+    } else {
+    }
+  }, [currentSize])
 
   function addToCart () {
-    const myCart = []
-    console.log(shopCart)
-    const check_index = shopCart.findIndex(item => item.Id === productId)
-    if (check_index !== -1) {
-      shopCart[check_index].Quantity = shopCart[check_index].Quantity + quantity
-      toast.success('Cart has been updated')
+    if (product.Elements.length === 0) {
+      toast.error('Sorry product not availble for buying')
     } else {
-      const cartItem = {
-        ProductId: productId,
-        CurrentPrice: product.CurrentPrice,
-        Quantity: quantity,
-        TotalLine: 0,
-        img: product.ImageStorages[0].ImageUrl,
-        Name: product.Name,
-        Color: currentColor,
-        Size: currentSize,
-        Description: JSON.stringify({
+      const check_index = shopCart.findIndex(
+        item => item.ProductId === productId
+      )
+      if (check_index !== -1) {
+        dispatch(updateItemQuantity(productId, quantity))
+
+        toast.success('Cart has been updated')
+      } else {
+        const cartItem = {
+          ProductId: productId,
+          CurrentPrice: product.CurrentPrice,
+          Quantity: quantity,
+          TotalLine: 0,
+          img: product.ImageStorages[0].ImageUrl,
+          Name: product.Name,
           Color: currentColor,
           Size: currentSize,
-          img: product.ImageStorages[0].ImageUrl
-        })
+          Description: JSON.stringify({
+            Color: currentColor,
+            Size: currentSize,
+            img: product.ImageStorages[0].ImageUrl
+          })
+        }
+
+        setShopCart(shopCart => [...shopCart, cartItem])
+        console.log(shopCart)
+
+        toast.success('Item has been added')
       }
-
-      setShopCart(shopCart => [...shopCart, cartItem])
-      console.log(shopCart)
-
-      toast.success('Item has been added')
     }
   }
-
   function onIncrease () {
     setQuantity(quantity => quantity + 1)
   }
@@ -336,9 +369,16 @@ function ProductInformation () {
                     </div>
                     <div class='price-block'>
                       <div class='price-box'>
-                        <p class='availability in-stock'>
-                          <span>In Stock</span>
-                        </p>
+                        {product.Elements.length === 0 ? (
+                          <p class='availability in-stock'>
+                            <span>Not Available </span>
+                          </p>
+                        ) : (
+                          <p class='availability in-stock'>
+                            <span>In Stock</span>
+                          </p>
+                        )}
+
                         <p class='special-price'>
                           <span class='price-label'>Special Price</span>
                           <span id='product-price-48' class='price'>
@@ -365,11 +405,11 @@ function ProductInformation () {
                                 ) : (
                                   <Button
                                     color={Name}
-                                    onClick={value => setCurrentColor(value)}
+                                    onClick={value => setCurrentColor(Id)}
                                     toggle
                                     active={false}
                                   >
-                                    >{Name}
+                                    {Name}
                                   </Button>
                                 )
                               )}
@@ -386,11 +426,11 @@ function ProductInformation () {
                                   </Button>
                                 ) : (
                                   <Button
-                                    onClick={value => setCurrentSize(value)}
+                                    onClick={value => setCurrentSize(Id)}
                                     toggle
                                     active={false}
                                   >
-                                    >{Name}
+                                    {Name}
                                   </Button>
                                 )
                               )}
@@ -440,14 +480,7 @@ function ProductInformation () {
                       </div>
                     </div>
                     <div class='short-description'>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nam fringilla augue nec est tristique auctor. Donec non
-                        est at libero vulputate rutrum. Morbi ornare lectus quis
-                        justo gravida semper. Nulla tellus mi, vulputate
-                        adipiscing cursus eu, suscipit id nulla. Donec a neque
-                        libero.
-                      </p>
+                      <p>{product.Description}</p>
                     </div>
                     <div class='email-addto-box'>
                       <ul class='add-to-links'>
