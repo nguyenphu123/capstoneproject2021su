@@ -299,11 +299,11 @@ function ProductInformation () {
   const panes = [
     {
       menuItem: 'Description',
-      render: () => <ProductDescription Description={''} />
+      render: () => <ProductDescription Description={product.Description} />
     },
     {
       menuItem: 'Rating',
-      render: () => <ProductReview Comments={[]} />
+      render: () => <ProductReview />
     },
 
     {

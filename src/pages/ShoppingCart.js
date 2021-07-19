@@ -39,7 +39,7 @@ function ShoppingCart () {
     return <Redirect to={redirectPage} />
   }
 
-  if (CartSlice !== null || CartSlice.length !== 0) {
+  if (CartSlice !== null && CartSlice.length !== 0) {
     function setEdit () {
       setIsEdit(!isEdit)
     }
@@ -183,7 +183,7 @@ function ShoppingCart () {
                                 Color={Color}
                                 Size={Size}
                               />
-                              
+
                               <td class='a-center last'>
                                 <Button
                                   onClick={() => removeFromCart(ProductId)}
@@ -423,11 +423,12 @@ function ShoppingCart () {
         <ToastContainer autoClose={5000} />
       </>
     )
+  } else {
+    return (
+      <div style={{ marginTop: '250px' }}>
+        <Header as='h1'>Let buy some clothes</Header>
+      </div>
+    )
   }
-  return (
-    <div style={{ marginTop: '250px' }}>
-      <Header as='h1'>Let buy some clothes</Header>
-    </div>
-  )
 }
 export default ShoppingCart

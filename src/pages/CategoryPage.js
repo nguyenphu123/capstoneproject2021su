@@ -208,14 +208,6 @@ function CategoryPage () {
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      {/* <PagnationBar
-                        Name={'Category/' + categoryId}
-                        apiUrl={currentURL}
-                        colorId={color}
-                        categoryId={sub}
-                        sizeId={size}
-                        tagId={tag}
-                      /> */}
                       <div className='product-option-right'>
                         <div className='pager'></div>
                       </div>
@@ -246,7 +238,7 @@ function CategoryPage () {
                 <div className='block-content'>
                   <p className='block-subtitle'>Shopping Options</p>
                   <dl id='narrow-by-list'>
-                    <dt className='odd'>Price</dt>
+                    {/* <dt className='odd'>Price</dt>
                     <dd className='odd'>
                       <ol>
                         <li>
@@ -261,7 +253,7 @@ function CategoryPage () {
                           </Link>
                         </li>
                       </ol>
-                    </dd>
+                    </dd> */}
                     <dt className='even'>Tag</dt>
 
                     <dd className='even'>

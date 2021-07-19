@@ -1,10 +1,8 @@
-
 import 'react-multi-carousel/lib/styles.css'
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel'
-
 
 import Category from '../components/Category/Category'
 
@@ -56,8 +54,12 @@ function CategoryList () {
       Id: '351772a7-a733-4b07-8c3d-42b7694d2b12',
       Url:
         'https://specials-images.forbesimg.com/imageserve/5fce964d2a25eb72755f987f/960x0.jpg?fit=scale'
+    },
+    {
+      Id: '7288ae78-a5ce-42ac-940f-d84e538e3492',
+      Url:
+        'https://salt.tikicdn.com/cache/w444/ts/product/e8/78/cb/d8ec029a8180e2207a198a15f929b988.jpg'
     }
-    // { Id: '', Url: '' },
     // { Id: '', Url: '' },
     // { Id: '', Url: '' },
     // { Id: '', Url: '' },

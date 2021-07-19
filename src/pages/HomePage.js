@@ -15,7 +15,6 @@ import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 
-
 function HomePage () {
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [categorylist, setCategorylist] = useState([])
@@ -93,7 +92,7 @@ function HomePage () {
             reset={true}
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
-          <SeeMoreButton Url='/AllProduct/1' />
+          <SeeMoreButton Url='/AllProduct/1/Grid' />
         </div>
       </section>
       <section className=' wow bounceInUp animated'>
@@ -106,7 +105,7 @@ function HomePage () {
             reset={true}
             apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
           />
-          <SeeMoreButton Url='/AllProduct/1' />
+          <SeeMoreButton Url='/AllProduct/1/Grid' />
         </div>
       </section>
       <section class='trend spad'>
@@ -123,7 +122,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
-              <SeeMoreButton Url='/AllProduct/1' />
+              <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
@@ -136,7 +135,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
-              <SeeMoreButton Url='/AllProduct/1' />
+              <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
@@ -149,7 +148,7 @@ function HomePage () {
                   '/api/product-management?sort=up&pageIndex=1&pageSize=3'
                 }
               />
-              <SeeMoreButton Url='/AllProduct/1' />
+              <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
           </div>
         </div>

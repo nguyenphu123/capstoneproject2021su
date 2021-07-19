@@ -211,7 +211,7 @@ function GetAllProduct () {
             <aside className='col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated'>
               {/* <!-- BEGIN SIDE-NAV-CATEGORY --> */}
               <div className='side-nav-categories'>
-                <div className='block-title'> Categories </div>
+                <div className='block-title'> All Product </div>
 
                 {/* <!--block-title--> */}
 
@@ -229,7 +229,7 @@ function GetAllProduct () {
                 <div className='block-content'>
                   <p className='block-subtitle'>Shopping Options</p>
                   <dl id='narrow-by-list'>
-                    <dt className='odd'>Price</dt>
+                    {/* <dt className='odd'>Price</dt>
                     <dd className='odd'>
                       <ol>
                         <li>
@@ -244,7 +244,7 @@ function GetAllProduct () {
                           </Link>
                         </li>
                       </ol>
-                    </dd>
+                    </dd> */}
                     <dt className='even'>Tag</dt>
 
                     <dd className='even'>
