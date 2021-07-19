@@ -252,7 +252,7 @@ function RegistrationPage () {
                   </li>
                 </ul>
                 <div class='remember-me-popup'>
-                  <div class='remember-me-popup-head'>
+                  {/* <div class='remember-me-popup-head'>
                     <h3 id='text2'>What's this?</h3>
                     <Link
                       to={' '}
@@ -262,10 +262,10 @@ function RegistrationPage () {
                     >
                       Close
                     </Link>
-                  </div>
+                  </div> */}
                   <div class='remember-me-popup-body'>
                     <p id='text1'>I have read all of the policies and rules</p>
-                    <div class='remember-me-popup-close-button a-right'>
+                    {/* <div class='remember-me-popup-close-button a-right'>
                       <Link
                         to={' '}
                         class='remember-me-popup-close button'
@@ -274,7 +274,7 @@ function RegistrationPage () {
                       >
                         <span>Close</span>
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -310,7 +310,7 @@ function RegistrationPage () {
               </div>
 
               <strong>Or</strong>
-              <div class='content'>
+              {/* <div class='content'>
                 <div class='buttons-set'>
                   <br />
                   <button
@@ -338,7 +338,7 @@ function RegistrationPage () {
                     </span>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
             {/* <!--col-2 registered-users--> */}
           </fieldset>

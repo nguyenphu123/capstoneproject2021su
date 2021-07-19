@@ -15,7 +15,7 @@ import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
-import { Form, Checkbox } from 'semantic-ui-react'
+import { Form, Checkbox, Dropdown } from 'semantic-ui-react'
 
 function GetAllProduct () {
   const { currentPage, categoryId, viewStyle, sort, sortOption } = useParams()
@@ -27,7 +27,7 @@ function GetAllProduct () {
   const [category, setCategory] = useState({})
   const [view, setView] = useState(viewStyle)
   const [sortBy, setSortBy] = useState(sort)
-  const [currentSortOption, setCurrentSortOption] = useState(sortOption)
+  const [currentSortOption, setCurrentSortOption] = useState('asc')
 
   //filter màu
   const [colorlist, setColorlist] = useState([])
@@ -44,6 +44,10 @@ function GetAllProduct () {
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
   const [sub, setSub] = useState('')
+  const options = [
+    { key: 1, text: 'Price', value: 'price' },
+    { key: 2, text: 'Name', value: 'name' }
+  ]
 
   useEffect(() => {
     if (color !== '') {
@@ -65,13 +69,31 @@ function GetAllProduct () {
   }, [size])
   useEffect(() => {
     if (tag !== '') {
-      setColor(tag => tag)
+      setSub(tag => tag)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     } else {
       setSub('')
     }
   }, [tag])
+  useEffect(() => {
+    if (sortBy !== '') {
+      setSortBy(sortBy => sortBy)
+
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setSortBy('')
+    }
+  }, [sortBy])
+  useEffect(() => {
+    if (currentSortOption !== '') {
+      setCurrentSortOption(currentSortOption => currentSortOption)
+
+      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    } else {
+      setCurrentSortOption('')
+    }
+  }, [currentSortOption])
 
   useEffect(() => {
     // console.log(categoryId)
@@ -124,6 +146,15 @@ function GetAllProduct () {
   function handleChangeCategory (e, { value }) {
     setSub(value)
   }
+  function handleChangeSortBy () {
+    setSortBy('price')
+    console.log('ok')
+    if (currentSortOption === 'asc') {
+      setCurrentSortOption('dec')
+    } else {
+      setCurrentSortOption('asc')
+    }
+  }
 
   return (
     <>
@@ -152,28 +183,31 @@ function GetAllProduct () {
                     </div>
                     <div className='sort-by'>
                       <label className='left'>Sort By: </label>
-                      <ul>
-                        <li>
-                          <Link to='#'>
-                            Position<span className='right-arrow'></span>
-                          </Link>
-                          <ul>
-                            <li>
-                              <Link to='/AllProduct/1/List/Name'>Name</Link>
-                            </li>
-                            <li>
-                              <Link to='/AllProduct/1/List/Price'>Price</Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
+                      <Button
+                        icon={
+                          currentSortOption === 'asc'
+                            ? 'arrow up'
+                            : 'arrow down'
+                        }
+                        content='Price'
+                        onClick={handleChangeSortBy}
+                      />
+
+                      {/* <Dropdown
+                        onChange={handleChangeSortBy}
+                        clearable
+                        options={options}
+                        selection
+                        value={sortBy}
+                      />
+
                       <Link
                         className='button-asc left'
-                        to='#'
+                        to={'/AllProduct/1/Grid/' + sortBy + '/asc'}
                         title='Set Descending Direction'
                       >
                         <span className='top_arrow'></span>
-                      </Link>
+                      </Link> */}
                     </div>
                     <div className='pager'></div>
                   </div>
@@ -186,6 +220,8 @@ function GetAllProduct () {
                     categoryId={sub}
                     sizeId={size}
                     tagId={tag}
+                    sortBy={sortBy}
+                    sortOption={currentSortOption}
                     currentLink={'/AllProduct/'}
                   />
 
@@ -245,7 +281,7 @@ function GetAllProduct () {
                         </li>
                       </ol>
                     </dd> */}
-                    <dt className='even'>Tag</dt>
+                    {/* <dt className='even'>Tag</dt>
 
                     <dd className='even'>
                       <ol>
@@ -266,7 +302,7 @@ function GetAllProduct () {
                           ))}
                         </Form>
                       </ol>
-                    </dd>
+                    </dd> */}
 
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>

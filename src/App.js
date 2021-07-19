@@ -25,6 +25,7 @@ import Profile from './pages/Profile'
 import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
+var randomstring = require('randomstring')
 
 function App () {
   useEffect(() => {
@@ -44,12 +45,13 @@ function App () {
     <FadeIn>
       <BrowserRouter>
         <Switch>
-          <Route path='/Registration'>
+          <Route key='Registration' path='/Registration'>
             <NavigationHeader />
             <Ads />
             <RegistrationPage />
           </Route>
           <Route
+            key={randomstring.generate(7)}
             path='/Category/:categoryId/:currentPage'
             render={() => (
               <>
@@ -59,7 +61,10 @@ function App () {
               </>
             )}
           ></Route>
-          <Route path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'>
+          <Route
+            key={randomstring.generate(7)}
+            path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'
+          >
             <NavigationHeader />
             <Ads />
             <GetAllProduct />
@@ -70,22 +75,26 @@ function App () {
             <Ads />
             <CategoryList />
           </Route> */}
-          <Route path='/ImageUploading'>
+          <Route key={'ImageUploading'} path='/ImageUploading'>
             <NavigationHeader />
             {/* <Ads /> */}
             <ImageUploadingPage />
           </Route>
-          <Route path='/Product/:productId' exact>
+          <Route
+            key={randomstring.generate(7)}
+            path='/Product/:productId'
+            exact
+          >
             <NavigationHeader />
 
             <ProductDetail />
           </Route>
-          <Route path='/Profille/:userId'>
+          <Route key={randomstring.generate(7)} path='/Profille/:userId'>
             <NavigationHeader />
 
             <Profile />
           </Route>
-          <Route path='/OrderHistory'>
+          <Route key={'OrderHistory'} path='/OrderHistory'>
             <NavigationHeader />
 
             <OrderHistory />
@@ -93,12 +102,12 @@ function App () {
           {/* <Route path='/OrderDetail/:id'>
             <OrderDetail />
           </Route> */}
-          <Route path='/Cart'>
+          <Route key={'Cart'} path='/Cart'>
             <NavigationHeader />
 
             <ShoppingCart />
           </Route>
-          <Route path='/PaymentInfo/:IsPay?'>
+          <Route key={'PaymentInfo'} path='/PaymentInfo/:IsPay?'>
             <PaymentConfirm />
           </Route>
 

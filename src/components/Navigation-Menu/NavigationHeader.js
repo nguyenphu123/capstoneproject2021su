@@ -12,7 +12,6 @@ import Modal from 'react-awesome-modal'
 import LoginPage from '../../pages/LoginPage'
 import { emptyCart } from '../../features/Cart/CartSlice'
 
-
 const mapDispatch = { logout, loginUser, emptyCart }
 
 function NavigationHeader () {
@@ -253,51 +252,6 @@ function NavigationHeader () {
                                     adipiscing elit.
                                   </p>
                                 </div>
-                                {/* <div className='grid12-3'>
-                                  <div>
-                                    <img
-                                      src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-                                      alt='custom-imag'
-                                    />
-                                  </div>
-                                  <h4 className='heading'>
-                                    Big Sale - Get 50% oFF
-                                  </h4>
-                                  <p>
-                                    Sed et quam lacus. Fusce condimentum
-                                    eleifend enim a feugiat.
-                                  </p>
-                                </div> */}
-                                {/* <div className='grid12-3'>
-                                  <div>
-                                    <img
-                                      src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-                                      alt='custom-imag'
-                                    />
-                                  </div>
-                                  <h4 className='heading'>
-                                    SALE UP TO 40% OFF
-                                  </h4>
-                                  <p>
-                                    Sed et quam lacus. Fusce condimentum
-                                    eleifend enim a feugiat.
-                                  </p>
-                                </div> */}
-                                {/* <div className='grid12-3'>
-                                  <div>
-                                    <img
-                                      src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-                                      alt='custom-imag'
-                                    />
-                                  </div>
-                                  <h4 className='heading'>
-                                    Summer Sale! limited time
-                                  </h4>
-                                  <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit.
-                                  </p>
-                                </div> */}
                               </div>
                             </div>
                           </div>
@@ -312,30 +266,6 @@ function NavigationHeader () {
                     <div className='no-js'>
                       <Link title='Company' className='clicker'></Link>
                       <div className='fl-nav-links'>
-                        <div className='language-currency'>
-                          <div className='fl-language'>
-                            <ul className='lang'>
-                              <li>
-                                <Link to={' '}>
-                                  <img src='images/english.png' alt='English' />
-                                  <span>English</span>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to={' '}>
-                                  <img src='images/francais.png' alt='French' />
-                                  <span>French</span>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to={' '}>
-                                  <img src='images/german.png' alt='German' />
-                                  <span>German</span>
-                                </Link>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
                         <ul className='links'>
                           {UserSlice !== null ? (
                             <>
@@ -383,6 +313,59 @@ function NavigationHeader () {
                           </li>
                         </ul>
                       </div>
+                    </div>
+                  </div>
+                  <div className='fl-links'>
+                    <div className='no-js'>
+                      <div className='fl-nav-links'>Hello</div>
+                      {/* <div className='fl-nav-links'>
+                        <ul className='links'>
+                          {UserSlice !== null ? (
+                            <>
+                              <li>
+                                <Link
+                                  to={'/Profille/' + UserSlice.Id}
+                                  title='My Account'
+                                >
+                                  Profile
+                                </Link>
+                              </li>
+                              <li>
+                                <Link to={'/OrderHistory'} title='History'>
+                                  Order History
+                                </Link>
+                              </li>
+
+                              <li>
+                                <Link to={'/wishlist'} title='Wishlist'>
+                                  Wishlist
+                                </Link>
+                              </li>
+                            </>
+                          ) : null}
+
+                          <li>
+                            <Link to={'/blog'} title='Blog'>
+                              <span>Blog</span>
+                            </Link>
+                          </li>
+                          <li className='last'>
+                            {UserSlice === null ? (
+                              <Link onClick={SetLoginForm} title='Login'>
+                                <span>Login</span>
+                              </Link>
+                            ) : (
+                              <Link
+                                onClick={() => dispatch(logout())}
+                                to={'/'}
+                                title='Login'
+                              >
+                                <span>Sign out</span>
+                              </Link>
+                            )}
+                          </li>
+                        </ul>
+                      </div> */}
                     </div>
                   </div>
                   <div className='fl-cart-contain'>
@@ -507,7 +490,6 @@ function NavigationHeader () {
                       )}
                     </div>
                   </div>
-
                   <div className='collapse navbar-collapse'>
                     <form className='navbar-form' role='search'>
                       <div className='input-group'>

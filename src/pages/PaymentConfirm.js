@@ -42,7 +42,7 @@ function PaymentConfirm () {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const UserSlice = useSelector(state => state.UserSlice.user)
-  const OrderSlice = useSelector(state => state.OrderSlice.order)
+  const OrderSlice = useSelector(state => state.OrderDataSlice.order)
 
   const [isLogin, setIsLogin] = useState(true)
   const [currentAddress, setCurrentAddress] = useState(UserSlice.Address)
@@ -81,44 +81,41 @@ function PaymentConfirm () {
     setCurrentPhone(UserSlice.Phone)
   }, [UserSlice])
   useEffect(() => {
-    setCurrentAddress(OrderSlice.AddressShipping)
-    setCurrentName(OrderSlice.Name)
-    setCurrentEmail(OrderSlice.Email)
-    // setCurrentCity('')
-    setCurrentPhone(OrderSlice.Phone)
+    console.log(OrderSlice)
+    if (OrderSlice !== null) {
+      setCurrentAddress(OrderSlice.AddressShipping)
+      setCurrentName(OrderSlice.Name)
+      setCurrentEmail(OrderSlice.Email)
+      // setCurrentCity('')
+      setCurrentPhone(OrderSlice.Phone)
 
-    axios({
-      method: 'post',
-      url: '/api/order-management/users/orders',
-      headers: { 'content-type': 'application/json' },
-      data: JSON.stringify(OrderSlice)
-    }).then(res => {
-      dispatch(emptyCart())
-      console.log(res)
-      const listener = e => {
-        document.getElementById('finish-form').submit()
-      }
-      document.getElementById('finish-form').submit()
+      axios({
+        method: 'post',
+        url: '/api/order-management/users/orders',
+        headers: { 'content-type': 'application/json' },
+        data: JSON.stringify(OrderSlice)
+      }).then(res => {
+        dispatch(emptyCart())
+        console.log(res)
 
-      toast.success('We have received your order')
-      setFinishBuy(true)
-      dispatch(removeOrder())
+        toast.success('We have received your order')
 
-      setTimeout(function () {
-        console.log(finishBuy)
-      }, 5000)
-    })
+        dispatch(removeOrder())
+
+        setTimeout(function () {
+          setFinishBuy(true)
+        }, 5000)
+      })
+    } else {
+    }
   }, [OrderSlice])
 
   console.log(finishBuy)
 
   useEffect(() => {
     if (finishBuy) {
-      console.log(finishBuy)
-      NotificationManager.success(
-        'Success message',
-        'We have reiceived your order'
-      )
+      // document.getElementById('finishform').submit()
+
       dispatch(emptyCart())
     } else {
     }
@@ -167,7 +164,7 @@ function PaymentConfirm () {
       <>
         <form
           style={{ visibility: 'hidden' }}
-          id='finish-form'
+          id='finishform'
           onSubmit={onSubmit2}
         >
           <input
@@ -240,13 +237,12 @@ function PaymentConfirm () {
             Email: currentEmail,
             OrderDetails: CartSlice
           }
-          dispatch(createOrder(order))
 
           axios({
             method: 'post',
             url:
               '/api/order-management/' +
-              order.TotalPrice * 1000 +
+              order.TotalPrice * 10 +
               '?currentOrderId=' +
               orderId,
             headers: { 'content-type': 'application/json' }
@@ -254,7 +250,8 @@ function PaymentConfirm () {
           }).then(res => {
             // dispatch(emptyCart())
 
-            console.log(res)
+            dispatch(createOrder(order))
+
             window.open(res.data, '_self')
           })
           e.preventDefault()

@@ -64,7 +64,7 @@ export const updateItemQuantity = (Id, Quantity) => async dispatch => {
 
     if (check_index !== -1) {
       cart[check_index].Quantity = Quantity
-      console.log(Quantity)
+      cart[check_index].TotalLine = Quantity * cart[check_index].CurrentPrice
     } else {
     }
 

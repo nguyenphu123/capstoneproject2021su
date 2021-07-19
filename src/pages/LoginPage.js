@@ -21,7 +21,6 @@ import RegistrationPage from './RegistrationPage'
 import { loginUser } from '../features/User/UserSlice'
 import { ToastContainer, toast } from 'react-toastify'
 
-
 const mapDispatch = { loginUser }
 
 function LoginPage () {
@@ -85,10 +84,11 @@ function LoginPage () {
           onClickAway={SetLoginForm}
         >
           <div>
-            <RegistrationPage />
             <a href='javascript:void(0);' onClick={SetLoginForm}>
               Close
             </a>
+
+            <RegistrationPage />
           </div>
         </Modal>
 
@@ -205,7 +205,7 @@ function LoginPage () {
                         </span>
                       </button>
                       <br />
-                      <button
+                      {/* <button
                         style={{ marginTop: '10px' }}
                         type='button'
                         title='Create an Account'
@@ -215,10 +215,10 @@ function LoginPage () {
                         <span>
                           <span>Login with google</span>
                         </span>
-                      </button>
+                      </button> */}
                       <br />
 
-                      <button
+                      {/* <button
                         style={{ marginTop: '10px' }}
                         type='button'
                         title='Create an Account'
@@ -228,7 +228,7 @@ function LoginPage () {
                         <span>
                           <span>Login with facebook</span>
                         </span>
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

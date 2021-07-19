@@ -67,6 +67,32 @@ class VerticalItemList extends React.Component {
         })
       })
     } else {
+      if (!equal(this.props.sortOption, prevProps.sortOption)) {
+        console.log(this.props.sortOption)
+        if (this.props.sortOption !== '') {
+          if (this.props.sortOption === 'asc') {
+            let result = this.state.products.sort((a, b) =>
+              a.Price > b.Price ? 1 : -1
+            )
+
+            this.setState({
+              products: result,
+              isLoading: false,
+              isUpdated: false
+            })
+          } else {
+            let result = this.state.products.sort((a, b) =>
+              a.Price < b.Price ? 1 : -1
+            )
+
+            this.setState({
+              products: result,
+              isLoading: false,
+              isUpdated: false
+            })
+          }
+        }
+      }
       if (
         this.props.colorId === '' &&
         this.props.sizeId === '' &&
@@ -78,15 +104,37 @@ class VerticalItemList extends React.Component {
         }).then(res => {
           console.log(res)
           console.log(res.data)
-          let result = res.data
+          // if (
+          //   this.props.sortBy === 'price' &&
+          //   this.props.sortOption === 'asc'
+          // ) {
 
-          this.setState({
-            products: result,
-            isLoading: false,
-            isUpdated: false
+          //   console.log(result)
+          //   this.setState({
+          //     products: result,
+          //     isLoading: false,
+          //     isUpdated: false
+          //   })
+          // } else {
+          if (this.props.sortOption === 'asc') {
+            let result = res.data.sort((a, b) => (a.Price > b.Price ? 1 : -1))
 
-            // currentPage: this.props.match.params
-          })
+            this.setState({
+              products: result,
+              isLoading: false,
+              isUpdated: false
+            })
+          } else {
+            let result = res.data.sort((a, b) => (a.Price < b.Price ? 1 : -1))
+
+            this.setState({
+              products: result,
+              isLoading: false,
+              isUpdated: false
+            })
+          }
+
+          // }
         })
       } else {
         if (!equal(this.props.colorId, prevProps.colorId)) {
@@ -188,12 +236,13 @@ class VerticalItemList extends React.Component {
                 }
               })
             } else {
-              const result = this.state.products.filter(
-                x =>
-                  x.Tags.findIndex(item => item.Tag.Id === this.props.tagId) !==
-                  -1
+              const result = this.state.products.filter(x =>
+                x.Tags.length === 0
+                  ? null
+                  : x.Tags.findIndex(item => item.Id === this.props.tagId) !==
+                    -1
               )
-
+              console.log(result)
               if (this.state.products.length !== []) {
                 this.setState({
                   products: result

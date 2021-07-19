@@ -117,22 +117,14 @@ function ProductInformation () {
       setProduct(res.data)
       console.log(res.data.ImageStorages)
 
-      // setColors(
-      //   res.data.Elements.map(({ Color }) => ({
-      //     Color: Color
-      //   }))
-      // )
-
-      // setSizes(
-      //   res.data.Elements.map(({ Size }) => ({
-      //     Size: Size
-      //   }))
-      // )
-      for (let index = 0; index < res.data.Elements.length; index++) {
-        const element = res.data.Elements[index]
-        colors.push(element.Color)
-        sizes.push(element.Size)
+      if (res.data.Elements.length > 0) {
+        for (let index = 0; index < res.data.Elements.length; index++) {
+          const element = res.data.Elements[index]
+          colors.push(element.Color)
+          sizes.push(element.Size)
+        }
       }
+
       setGalleries(
         res.data.ImageStorages.map(({ ImageUrl }) => ({
           original: `${ImageUrl}`,
@@ -151,22 +143,38 @@ function ProductInformation () {
     })
   }, [productId])
   useEffect(() => {
-    if (CartSlice !== null) {
-      setShopCart(CartSlice)
-      console.log(CartSlice)
-      const check_index = shopCart.findIndex(
-        item => item.ProductId === productId
-      )
-      if (check_index !== -1) {
-        setQuantity(shopCart[check_index].Quantity)
-        setCurrentColor(shopCart[check_index].Color)
-        setCurrentSize(shopCart[check_index].Size)
+    axios({
+      method: 'get',
+      url: '/api/product-management/productId?productId=' + productId,
+      headers: {}
+    }).then(res => {
+      console.log(res.data)
+
+      setCurrentColor(res.data.Elements[0].Color.Id)
+      setCurrentSize(res.data.Elements[0].Size.Id)
+
+      setCurrentState(true)
+      if (CartSlice !== null) {
+        setShopCart(CartSlice)
+        console.log(CartSlice)
+
+        const check_index = shopCart.findIndex(
+          item =>
+            item.ProductId === productId &&
+            item.Color === res.data.Elements[0].Color.Id &&
+            item.Size === res.data.Elements[0].Size.Id
+        )
+        if (check_index !== -1) {
+          setQuantity(shopCart[check_index].Quantity)
+          // setCurrentColor(shopCart[check_index].Color)
+          // setCurrentSize(shopCart[check_index].Size)
+        } else {
+        }
       } else {
+        setShopCart([])
       }
-    } else {
-      setShopCart([])
-    }
-  }, [CartSlice])
+    })
+  }, [CartSlice, productId])
 
   function filterByID (item) {
     if (productId === item.Id) {
@@ -194,7 +202,10 @@ function ProductInformation () {
       toast.error('Sorry product not availble for buying')
     } else {
       const check_index = shopCart.findIndex(
-        item => item.ProductId === productId
+        item =>
+          item.ProductId === productId &&
+          item.Color === currentColor &&
+          item.Size === currentSize
       )
       if (check_index !== -1) {
         dispatch(updateItemQuantity(productId, quantity))
@@ -205,7 +216,7 @@ function ProductInformation () {
           ProductId: productId,
           CurrentPrice: product.CurrentPrice,
           Quantity: quantity,
-          TotalLine: 0,
+          TotalLine: product.CurrentPrice * quantity,
           img: product.ImageStorages[0].ImageUrl,
           Name: product.Name,
           Color: currentColor,
@@ -257,8 +268,11 @@ function ProductInformation () {
       setMaxQuantity(0)
     }
     if (CartSlice !== null) {
-      const check_indexQuantity = CartSlice.findIndex(
-        item => item.Color === currentColor && item.Size === currentSize
+      const check_indexQuantity = shopCart.findIndex(
+        item =>
+          item.ProductId === productId &&
+          item.Color === currentColor &&
+          item.Size === currentSize
       )
       if (check_indexQuantity !== -1) {
         setQuantity(shopCart[check_index].Quantity)
@@ -278,8 +292,11 @@ function ProductInformation () {
       setMaxQuantity(0)
     }
     if (CartSlice !== null) {
-      const check_indexQuantity = CartSlice.findIndex(
-        item => item.Size === currentSize && item.Color === currentColor
+      const check_indexQuantity = shopCart.findIndex(
+        item =>
+          item.ProductId === productId &&
+          item.Size === currentSize &&
+          item.Color === currentColor
       )
       if (check_indexQuantity !== -1) {
         setQuantity(shopCart[check_index].Quantity)
@@ -551,26 +568,6 @@ function ProductInformation () {
                   }}
                   panes={panes}
                 />
-
-                {/* <ul id='product-detail-tab' class='nav nav-tabs product-tabs'>
-                  <li class='active'>
-                    <Link href='#product_tabs_description' data-toggle='tab'>
-                      Product Description
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href='#product_tabs_tags' data-toggle='tab'>
-                      Tags
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href='#reviews_tabs' data-toggle='tab'>
-                      Reviews
-                    </Link>
-                  </li>
-                 
-                </ul> */}
-                {/* <ProductReview Comments={[]} /> */}
               </div>
               <section className=' wow bounceInUp animated'>
                 <div className='best-pro slider-items-products container'>
