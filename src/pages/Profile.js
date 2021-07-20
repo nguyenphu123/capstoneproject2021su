@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Tab } from 'semantic-ui-react'
 
-
 import UserNewPassword from '../components/UserProfile/UserNewPassword'
 import UserInformation from '../components/UserProfile/UserInformation'
 import UserAddress from '../components/UserProfile/UserAddress'
@@ -34,19 +33,19 @@ function Profile () {
         menuItem: 'Addresses',
         render: () => (
           <Tab.Pane>
-            <UserAddress />
+            <UserAddress UserInformation={UserSlice} />
           </Tab.Pane>
         )
       },
-      {
-        menuItem: 'Paymant Account',
-        render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>
-      },
+      // {
+      //   menuItem: 'Payment Account',
+      //   render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>
+      // },
       {
         menuItem: 'Change Password',
         render: () => (
           <Tab.Pane>
-            <UserNewPassword />
+            <UserNewPassword UserInformation={UserSlice} />
           </Tab.Pane>
         )
       }

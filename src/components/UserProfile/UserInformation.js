@@ -73,16 +73,6 @@ function UserInformation ({ UserInformation }) {
               </Header>
             </Segment>
           </div>
-          <div style={{ width: '300px' }}>
-            <Segment style={{ border: '0px' }} clearing>
-              <Header as='h5' floated='left' color='black'>
-                Identity card:
-              </Header>
-              <Header as='h5' floated='right' color='grey'>
-                123456789
-              </Header>
-            </Segment>
-          </div>
 
           <Header as='h4' color='grey'>
             Contact Information
@@ -100,7 +90,7 @@ function UserInformation ({ UserInformation }) {
           <div style={{ width: '300px' }}>
             <Segment style={{ border: '0px' }} clearing>
               <Header as='h5' floated='left' color='black'>
-                Emali:
+                Email:
               </Header>
               <Header as='h5' floated='right' color='grey'>
                 {UserInformation.Email}

@@ -155,9 +155,9 @@ function App () {
 
           <Footers />
         </BrowserRouter>
-        <Fab color='primary' aria-label='add'>
+        {/* <Fab color='primary' aria-label='add'>
           <AddIcon />
-        </Fab>
+        </Fab> */}
       </div>
     </FadeIn>
   )

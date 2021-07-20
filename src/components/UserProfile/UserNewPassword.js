@@ -1,62 +1,161 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Button, Form, Grid } from 'semantic-ui-react'
 import Title from '../../Assets/Title'
 import 'semantic-ui-css/semantic.min.css'
+import { ToastContainer, toast } from 'react-toastify'
+import axios from 'axios'
+import { logout } from '../../features/User/UserSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
+var SHA256 = require('crypto-js/sha256')
 
-function UserNewPassword ({ password }) {
-  const genderOptions = [
-    { key: 'm', text: 'Male', value: 'male' },
-    { key: 'f', text: 'Female', value: 'female' },
-    { key: 'o', text: 'Other', value: 'other' }
-  ]
+const mapDispatch = { logout }
 
-  return (
-    <>
-      <Title Name='Reset Password ?' />
+function UserNewPassword ({ UserInformation }) {
+  const dispatch = useDispatch()
 
-      <Form size='large'>
-        <Form.Input
-          fluid
-          icon='lock'
-          iconPosition='left'
-          placeholder='Password'
-          type='password'
-          value={password}
-          label='Current password'
+  const [newPassword, setNewPassword] = useState('')
+  const [matchNewPassword, setMatchNewPassword] = useState('')
+  const isFirstRun1 = useRef(true)
+  const isFirstRun2 = useRef(true)
+  const [isComplete, setIsComplete] = useState(false)
+  useEffect(() => {
+    if (isFirstRun1.current) {
+      isFirstRun1.current = false
+      if (
+        UserInformation.PassWord === null ||
+        UserInformation.PassWord === undefined ||
+        typeof UserInformation.PassWord === undefined
+      ) {
+        setIsComplete(true)
+      } else {
+        setNewPassword(UserInformation.PassWord)
+      }
+      return
+    } else {
+      if (newPassword === '') {
+        toast.warn('Sorry password cannot be empty')
+      } else {
+        if (newPassword < 8) {
+          toast.warn('Sorry password cannot be under 8 character')
+        } else {
+          var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+          var test = reg.test(newPassword)
+          if (test) {
+          } else {
+            toast.warn('password must contain atleast a letter and a number')
+          }
+        }
+      }
+    }
+  }, [newPassword])
+  useEffect(() => {
+    if (isComplete) {
+      setIsComplete(isComplete => isComplete)
+    }
+  }, [isComplete])
+  useEffect(() => {
+    if (isFirstRun2.current) {
+      isFirstRun2.current = false
+      if (
+        UserInformation.PassWord === null ||
+        UserInformation.PassWord === undefined ||
+        typeof UserInformation.PassWord === undefined
+      ) {
+        setIsComplete(true)
+      } else {
+        setNewPassword(UserInformation.PassWord)
+      }
 
-          // onChange={handleChangePassword}
-        />
+      return
+    } else {
+      if (matchNewPassword !== newPassword) {
+        toast.warn('Your password does not match')
+      } else {
+      }
+    }
+  }, [matchNewPassword])
 
-        <Form.Input
-          fluid
-          icon='lock'
-          iconPosition='left'
-          placeholder='New Password'
-          type='password'
-          value={password}
-          label='New Password'
+  function handleChangePassword (e, { value }) {
+    setNewPassword(value)
+  }
+  function handleChangeMatchPassword (e, { value }) {
+    setMatchNewPassword(value)
+  }
+  function onSubmitChange () {
+    const authData = {
+      Id: UserInformation.Id,
+      UserName: UserInformation.UserName,
+      PassWord: SHA256(newPassword).toString(),
+      RankId: UserInformation.RankId,
+      RoleId: UserInformation.RoleId,
+      Name: UserInformation.Name,
+      Phone: UserInformation.Phone,
+      Address: UserInformation.Address,
+      Gender: UserInformation.Gender,
+      Point: 20,
+      Email: UserInformation.Email
+    }
 
-          // onChange={handleChangePassword}
-        />
+    axios({
+      method: 'put',
+      url: '/api/user-management/users',
+      headers: {},
+      data: authData
+    })
+      .then(res => {
+        toast.success('Change password successful')
+        setIsComplete(true)
+        dispatch(logout())
+      })
+      .catch(function (error) {
+        console.log('Show error notification!')
+        return Promise.reject(error)
+      })
+  }
+  if (isComplete) {
+    return (
+      <>
+        <ToastContainer autoClose={5000} />
 
-        <Form.Input
-          fluid
-          icon='lock'
-          iconPosition='left'
-          placeholder='Reapet new Password'
-          type='password'
-          value={password}
-          label='Re enter new password'
+        <Redirect to={'/'} />
+      </>
+    )
+  } else {
+    return (
+      <>
+        <Title Name='Reset Password ?' />
 
-          // onChange={handleChangePassword}
-        />
-        <Button color='pink' size='large'>
-          Change
-        </Button>
-      </Form>
-    </>
-  )
+        <Form size='large'>
+          <Form.Input
+            fluid
+            icon='lock'
+            iconPosition='left'
+            placeholder='New Password'
+            type='password'
+            value={newPassword}
+            label='New Password'
+            onChange={handleChangePassword}
+          />
+
+          <Form.Input
+            fluid
+            icon='lock'
+            iconPosition='left'
+            placeholder='Reapet new Password'
+            type='password'
+            value={matchNewPassword}
+            label='Re enter new password'
+            onChange={handleChangeMatchPassword}
+          />
+          <Button onClick={onSubmitChange} color='green' size='large'>
+            Change
+          </Button>
+        </Form>
+        <ToastContainer autoClose={5000} />
+      </>
+    )
+  }
 }
-
 export default UserNewPassword
