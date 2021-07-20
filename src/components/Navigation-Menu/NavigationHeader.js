@@ -119,10 +119,14 @@ function NavigationHeader () {
                     <div className='assetBlock'>
                       <div id='slideshow'>
                         <p>
-                          Special Offers! - Get <span>50%</span> off on Sweater
-                        </p>
-                        <p>
-                          sale <span>40%</span> of on bulk shopping!
+                          <Link
+                            className='level-top'
+                            to={
+                              '/Category/6517bd6f-ffd4-4e1a-897a-cf82f5f52c03/1'
+                            }
+                          >
+                            Special Offers! - Get <span>10%</span> off on Shooes{' '}
+                          </Link>
                         </p>
                       </div>
                     </div>
@@ -292,7 +296,7 @@ function NavigationHeader () {
                           ) : null}
 
                           <li>
-                            <Link to={'/blog'} title='Blog'>
+                            <Link to={'/Blog'} title='Blog'>
                               <span>Blog</span>
                             </Link>
                           </li>

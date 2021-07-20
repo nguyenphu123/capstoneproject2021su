@@ -23,6 +23,7 @@ import InputSpinner from 'react-bootstrap-input-spinner'
 import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import Modal from 'react-awesome-modal'
 
 import MyImageGalery from './MyImageGalery'
 import {
@@ -68,6 +69,7 @@ function ProductInformation () {
   const [sizes, setSizes] = useState([])
   const [currentSize, setCurrentSize] = useState('')
   const [maxQuantity, setMaxQuantity] = useState(0)
+  const [visibilityEmail, setVisibilityEmail] = useState(false)
 
   const [currentState, setCurrentState] = useState(false)
   const [quantity, setQuantity] = useState(0)
@@ -124,6 +126,7 @@ function ProductInformation () {
           sizes.push(element.Size)
         }
       }
+      setElements(res.data.Elements)
 
       setGalleries(
         res.data.ImageStorages.map(({ ImageUrl }) => ({
@@ -138,6 +141,16 @@ function ProductInformation () {
       console.log(images)
       setCurrentColor(colors[0].Id)
       setCurrentSize(sizes[0].Id)
+      const check_index = res.data.Elements.findIndex(
+        item => item.Color === colors[0].Id && item.Size === sizes[0].Id
+      )
+      if (check_index !== -1) {
+        setMaxQuantity(res.data.Elements[check_index].Quantity)
+
+        // setCurrentColor(shopCart[check_index].Color)
+        // setCurrentSize(shopCart[check_index].Size)
+      } else {
+      }
 
       setCurrentState(true)
     })
@@ -166,6 +179,8 @@ function ProductInformation () {
         )
         if (check_index !== -1) {
           setQuantity(shopCart[check_index].Quantity)
+          setMaxQuantity(res.data.Elements[0].Quantity)
+
           // setCurrentColor(shopCart[check_index].Color)
           // setCurrentSize(shopCart[check_index].Size)
         } else {
@@ -176,12 +191,12 @@ function ProductInformation () {
     })
   }, [CartSlice, productId])
 
-  function filterByID (item) {
-    if (productId === item.Id) {
-      return true
-    }
-    return false
-  }
+  // function filterByID (item) {
+  //   if (productId === item.Id) {
+  //     return true
+  //   }
+  //   return false
+  // }
   useEffect(() => {
     if (currentColor !== '') {
       console.log(currentColor)
@@ -195,14 +210,14 @@ function ProductInformation () {
         setMaxQuantity(0)
       }
       if (CartSlice !== null) {
-        const check_indexQuantity = shopCart.findIndex(
+        const check_indexQuantity = CartSlice.findIndex(
           item =>
             item.ProductId === productId &&
             item.Color === currentColor &&
             item.Size === currentSize
         )
         if (check_indexQuantity !== -1) {
-          setQuantity(shopCart[check_index].Quantity)
+          setQuantity(CartSlice[check_indexQuantity].Quantity)
         } else {
         }
       } else {
@@ -223,14 +238,18 @@ function ProductInformation () {
         setMaxQuantity(0)
       }
       if (CartSlice !== null) {
-        const check_indexQuantity = shopCart.findIndex(
+        console.log(CartSlice)
+        const check_indexQuantity = CartSlice.findIndex(
           item =>
             item.ProductId === productId &&
             item.Size === currentSize &&
             item.Color === currentColor
         )
+        console.log(check_indexQuantity)
+        console.log(CartSlice)
+
         if (check_indexQuantity !== -1) {
-          setQuantity(shopCart[check_index].Quantity)
+          setQuantity(CartSlice[check_indexQuantity].Quantity)
         } else {
         }
       } else {
@@ -254,6 +273,20 @@ function ProductInformation () {
 
         toast.success('Cart has been updated')
       } else {
+        const check_index = elements.findIndex(
+          item => item.Color.Id === currentColor && item.Size.Id === currentSize
+        )
+        console.log(elements[check_index])
+        console.log(elements)
+
+        if (check_index !== -1) {
+          setMaxQuantity(elements[check_index].Quantity)
+
+          // setCurrentColor(shopCart[check_index].Color)
+          // setCurrentSize(shopCart[check_index].Size)
+        } else {
+        }
+
         const cartItem = {
           ProductId: productId,
           CurrentPrice: product.CurrentPrice,
@@ -263,12 +296,14 @@ function ProductInformation () {
           Name: product.Name,
           Color: currentColor,
           Size: currentSize,
+          SizeList: sizes,
+          ColorList: colors,
           Description: JSON.stringify({
             Color: currentColor,
             Size: currentSize,
             img: product.ImageStorages[0].ImageUrl
           }),
-          MaxQuantity: maxQuantity
+          MaxQuantity: elements[check_index].Quantity
         }
 
         setShopCart(shopCart => [...shopCart, cartItem])
@@ -288,6 +323,19 @@ function ProductInformation () {
     }
   }
   useEffect(() => {
+    setElements(elements => elements)
+
+    console.log(elements)
+  }, [elements])
+
+  useEffect(() => {
+    if (maxQuantity !== 0) {
+      setMaxQuantity(maxQuantity => maxQuantity)
+    }
+    console.log(maxQuantity)
+  }, [maxQuantity])
+
+  useEffect(() => {
     if (quantity !== 0) {
       setQuantity(quantity => quantity)
     }
@@ -299,7 +347,9 @@ function ProductInformation () {
       }
     }
   }, [shopCart])
-
+  function sendEmail () {
+    setVisibilityEmail(!visibilityEmail)
+  }
   const handleColor = (event, newColor) => {
     setCurrentColor(newColor)
     const check_index = product.Elements.findIndex(
@@ -449,7 +499,7 @@ function ProductInformation () {
                               thousandSeparator={true}
                               prefix={''}
                               renderText={(value, props) => (
-                                <div {...props}>{value},000VND</div>
+                                <div {...props}>{value}VND</div>
                               )}
                             />
                           </span>
@@ -556,13 +606,27 @@ function ProductInformation () {
                           </Link>
                         </li>
                       </ul>
-                      <p class='email-friend'>
-                        <Link to='' class=''>
+                      {/* <p class='email-friend'>
+                        <Link onClick={sendEmail} class=''>
                           <span>Email to a Friend</span>
                         </Link>
-                      </p>
+                      </p> */}
+                      {/* <Modal
+                        visible={visibilityEmail}
+                        width='1000'
+                        height='500'
+                        effect='fadeInUp'
+                        onClickAway={sendEmail}
+                      >
+                        <div>
+                          <a href='javascript:void(0);' onClick={sendEmail}>
+                            Close
+                          </a>
+                          <SendEmail />
+                        </div>
+                      </Modal> */}
                     </div>
-                    <div class='social'>
+                    {/* <div class='social'>
                       <ul class='link'>
                         <li class='fb'>
                           <Link to=''></Link>
@@ -586,10 +650,10 @@ function ProductInformation () {
                           <Link to=''></Link>
                         </li>
                       </ul>
-                    </div>
+                    </div> */}
 
                     <ul class='shipping-pro'>
-                      <li>Free Wordwide Shipping</li>
+                      <li>Free in city Shipping</li>
                       <li>30 Days Return</li>
                       <li>Member Discount</li>
                     </ul>

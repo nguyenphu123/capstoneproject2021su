@@ -23,6 +23,8 @@ function ShoppingCart () {
   const [isEdit, setIsEdit] = useState(true)
   const [finishBuy, setFinishBuy] = useState(false)
   const [shopCart, setShopCart] = useState(CartSlice)
+  const [colors, setColors] = useState([])
+  const [sizes, setSizes] = useState([])
 
   const [shipOption, setShipOption] = useState('')
   const [redirectPage, setRedirectPage] = useState('/Login')
@@ -48,10 +50,19 @@ function ShoppingCart () {
     }
     function checkOut () {
       if (isLogin) {
-        setFinishBuy(true)
-        setRedirectPage('/PaymentInfo/')
+        const check_index = CartSlice.findIndex(
+          item => item.MaxQuantity < item.Quantity
+        )
+        if (check_index !== -1) {
+          toast.warn(
+            "we don't haave enough " + CartSlice[check_index].Name + ' to sell'
+          )
+        } else {
+          setFinishBuy(true)
+          setRedirectPage('/PaymentInfo/')
+        }
       } else {
-        toast.warn('Pleas Login before checkout')
+        toast.warn('Please Login before checkout')
       }
     }
     function removeAll (e) {
@@ -171,7 +182,10 @@ function ShoppingCart () {
                             CurrentPrice,
                             img,
                             Color,
-                            Size
+                            Size,
+                            MaxQuantity,
+                            ColorList,
+                            SizeList
                           }) => (
                             <tr class='first last odd'>
                               <CartItem
@@ -182,6 +196,8 @@ function ShoppingCart () {
                                 ImageUrl={img}
                                 Color={Color}
                                 Size={Size}
+                                colors={ColorList}
+                                sizes={SizeList}
                               />
 
                               <td class='a-center last'>
@@ -214,11 +230,7 @@ function ShoppingCart () {
                     <div class='shipping'>
                       <h3>We Accept</h3>
                       <div class='shipping-form'>
-                        <Visa style={{ margin: 10, width: 100 }} />
                         <AtmMomo style={{ margin: 10, width: 100 }} />
-                        <GrabPay style={{ margin: 10, width: 100 }} />
-                        <Mastercard style={{ margin: 10, width: 100 }} />
-                        <Paypal style={{ margin: 10, width: 100 }} />
                       </div>
                     </div>
                   </div>
@@ -293,7 +305,7 @@ function ShoppingCart () {
                                       thousandSeparator={true}
                                       prefix={''}
                                       renderText={(value, props) => (
-                                        <div {...props}>{value},000VND</div>
+                                        <div {...props}>{value}VND</div>
                                       )}
                                     />
                                   </span>
@@ -321,7 +333,7 @@ function ShoppingCart () {
                                     thousandSeparator={true}
                                     prefix={''}
                                     renderText={(value, props) => (
-                                      <div {...props}>{value},000VND</div>
+                                      <div {...props}>{value}VND</div>
                                     )}
                                   />
                                 </span>
@@ -375,51 +387,6 @@ function ShoppingCart () {
 
         {/* <!--col1-layout--> */}
 
-        <div class='container'>
-          <div class='row our-features-box'>
-            <ul>
-              <li>
-                <div class='feature-box'>
-                  <div class='icon-truck'></div>
-                  <div class='content'>FREE SHIPPING on order over $99</div>
-                </div>
-              </li>
-              <li>
-                <div class='feature-box'>
-                  <div class='icon-support'></div>
-                  <div class='content'>
-                    Have a question?
-                    <br />
-                    +1 800 789 0000
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class='feature-box'>
-                  <div class='icon-money'></div>
-                  <div class='content'>100% Money Back Guarantee</div>
-                </div>
-              </li>
-              <li>
-                <div class='feature-box'>
-                  <div class='icon-return'></div>
-                  <div class='content'>30 days return Service</div>
-                </div>
-              </li>
-              <li class='last'>
-                <div class='feature-box'>
-                  {' '}
-                  <Link href='#'>
-                    <i class='fa fa-apple'></i> download
-                  </Link>{' '}
-                  <Link href='#'>
-                    <i class='fa fa-android'></i> download
-                  </Link>{' '}
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
         <ToastContainer autoClose={5000} />
       </>
     )

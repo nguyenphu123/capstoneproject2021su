@@ -8,6 +8,7 @@ import FadeIn from 'react-fade-in'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import AddIcon from '@material-ui/icons/Add'
 
 import Ads from './components/Ads/AdsSlideShow'
 import Footers from './components/Footer/Footers'
@@ -26,10 +27,23 @@ import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
 import SearchResultPage from './pages/SearchResultPage'
+import Blog from './pages/Blog'
 
 var randomstring = require('randomstring')
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1)
+    }
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1)
+  }
+}))
 
 function App () {
+  const classes = useStyles()
+
   useEffect(() => {
     window.sliderr()
     window.commonjs()
@@ -45,95 +59,106 @@ function App () {
 
   return (
     <FadeIn>
-      <BrowserRouter>
-        <Switch>
-          <Route path='/Registration'>
-            <NavigationHeader />
-            <Ads />
-            <RegistrationPage />
-          </Route>
-          <Route
-            // key={randomstring.generate(7)}
-            path='/Category/:categoryId/:currentPage'
-            render={() => (
-              <>
-                <NavigationHeader />
-                <Ads />
-                <CategoryPage
-                  // key={randomstring.generate(7)}
-                  topic={'Category1'}
-                />
-              </>
-            )}
-          ></Route>
-          <Route
-            // key={randomstring.generate(7)}
-            path='/Search/:keyword/:currentPage'
-            render={() => (
-              <>
-                <NavigationHeader />
-                <Ads />
-                <SearchResultPage
-                  // key={randomstring.generate(7)}
-                  topic={'Category1'}
-                />
-              </>
-            )}
-          ></Route>
+      <div className={classes.root}>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/Registration'>
+              <NavigationHeader />
+              <Ads />
+              <RegistrationPage />
+            </Route>
+            <Route
+              // key={randomstring.generate(7)}
+              path='/Category/:categoryId/:currentPage'
+              render={() => (
+                <>
+                  <NavigationHeader />
+                  <Ads />
+                  <CategoryPage
+                    // key={randomstring.generate(7)}
+                    topic={'Category1'}
+                  />
+                </>
+              )}
+            ></Route>
+            <Route
+              // key={randomstring.generate(7)}
+              path='/Search/:keyword/:currentPage'
+              render={() => (
+                <>
+                  <NavigationHeader />
+                  <Ads />
+                  <SearchResultPage
+                    // key={randomstring.generate(7)}
+                    topic={'Category1'}
+                  />
+                </>
+              )}
+            ></Route>
 
-          <Route path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'>
-            <NavigationHeader />
-            <Ads />
-            <GetAllProduct />
-          </Route>
+            <Route path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'>
+              <NavigationHeader />
+              <Ads />
+              <GetAllProduct />
+            </Route>
 
-          {/* <Route path='/Categories/:currentPage'>
+            {/* <Route path='/Categories/:currentPage'>
             <NavigationHeader />
             <Ads />
             <CategoryList />
           </Route> */}
-          <Route path='/ImageUploading'>
-            <NavigationHeader />
-            {/* <Ads /> */}
-            <ImageUploadingPage />
-          </Route>
-          <Route path='/Product/:productId' exact>
-            <NavigationHeader />
+            <Route path='/ImageUploading'>
+              <NavigationHeader />
+              {/* <Ads /> */}
+              <ImageUploadingPage />
+            </Route>
+            <Route path='/Product/:productId' exact>
+              <NavigationHeader />
 
-            <ProductDetail />
-          </Route>
-          <Route path='/Profille/:userId'>
-            <NavigationHeader />
+              <ProductDetail />
+            </Route>
+            <Route path='/Profille/:userId'>
+              <NavigationHeader />
 
-            <Profile />
-          </Route>
-          <Route path='/OrderHistory'>
-            <NavigationHeader />
+              <Profile />
+            </Route>
+            <Route path='/OrderHistory'>
+              <NavigationHeader />
 
-            <OrderHistory />
-          </Route>
-          {/* <Route path='/OrderDetail/:id'>
+              <OrderHistory />
+            </Route>
+            {/* <Route path='/OrderDetail/:id'>
             <OrderDetail />
           </Route> */}
-          <Route path='/Cart'>
-            <NavigationHeader />
+            <Route path='/Cart'>
+              <NavigationHeader />
 
-            <ShoppingCart />
-          </Route>
-          <Route path='/PaymentInfo/:IsPay?'>
-            <PaymentConfirm />
-          </Route>
+              <ShoppingCart />
+            </Route>
+            <Route path='/Blog'>
+              <NavigationHeader />
 
-          <Route path='/' exact>
-            <NavigationHeader />
-            <Ads />
-            <HomePage />
-          </Route>
-        </Switch>
-        <Widget />
+              <Blog />
+            </Route>
 
-        <Footers />
-      </BrowserRouter>
+            <Route path='/PaymentInfo/:IsPay?'>
+              <PaymentConfirm />
+            </Route>
+
+            <Route path='/' exact>
+              <NavigationHeader />
+              <Ads />
+              <HomePage />
+            </Route>
+          </Switch>
+          {/* <Widget /> */}
+
+          <Footers />
+        </BrowserRouter>
+        <Fab color='primary' aria-label='add'>
+          <AddIcon />
+        </Fab>
+      </div>
     </FadeIn>
   )
 }

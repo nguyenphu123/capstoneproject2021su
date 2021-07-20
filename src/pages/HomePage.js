@@ -119,20 +119,20 @@ function HomePage () {
               <HorizontalItemList
                 topic='Best Seller'
                 apiUrl={
-                  '/api/product-management?sort=up&pageIndex=1&pageSize=3'
+                  '/api/recommend-management'
                 }
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
-                <h2>Top like</h2>
+                <h2>Top recommend</h2>
               </div>
 
               <HorizontalItemList
                 topic='Top'
                 apiUrl={
-                  '/api/product-management?sort=up&pageIndex=1&pageSize=3'
+                  '/api/recommend-management'
                 }
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
@@ -145,7 +145,7 @@ function HomePage () {
               <HorizontalItemList
                 topic='Feature'
                 apiUrl={
-                  '/api/product-management?sort=up&pageIndex=1&pageSize=3'
+                  '/api/recommend-management'
                 }
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />

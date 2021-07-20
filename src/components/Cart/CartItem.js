@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
@@ -11,9 +11,8 @@ import {
   updateItemColor,
   updateItemSize
 } from '../../features/Cart/CartSlice'
-import { Button } from 'semantic-ui-react'
+import { Form, Radio, Header } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
-import axios from 'axios'
 
 const mapDispatch = {
   cart,
@@ -24,16 +23,24 @@ const mapDispatch = {
   updateItemSize
 }
 
-function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
+function CartItem ({
+  Id,
+  Name,
+  Quantity,
+  Price,
+  ImageUrl,
+  Color,
+  Size,
+  sizes,
+  colors
+}) {
   const dispatch = useDispatch()
-  const CartSlice = useSelector(state => state.CartSlice.cart)
+
   const [quantity, setQuantity] = useState(Quantity)
   const [currentColor, setCurrentColor] = useState(Color)
-  const [product, setProduct] = useState({})
+
   const [currentSize, setCurrentSize] = useState(Size)
-  const [colors, setColors] = useState([])
-  const [sizes, setSizes] = useState([])
-  const [shopCart, setShopCart] = useState(CartSlice)
+
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -66,23 +73,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
   }, [quantity])
 
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: '/api/product-management/productId?productId=' + Id,
-      headers: {}
-    }).then(res => {
-      console.log(res.data)
-      setProduct(res.data)
-      // setColors([])
-      // setSizes([])
-
-      for (let index = 0; index < res.data.Elements.length; index++) {
-        const element = res.data.Elements[index]
-        colors.push(element.Color)
-        sizes.push(element.Size)
-      }
-      setIsLoading(false)
-    })
+    setIsLoading(false)
   }, [])
 
   function addToCart () {
@@ -108,51 +99,34 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
             <Link to={'/Product/' + Id}>{Name}</Link>
           </h2>
         </td>
+
         <td class='a-center hidden-table'>
           <div>
             <div>
-              <Button.Group>
-                {colors.map(({ Name, Id }) =>
-                  currentColor === Id ? (
-                    <Button color={Name} toggle active={true}>
-                      {Name}
-                    </Button>
-                  ) : (
-                    <Button
-                      color={Name}
-                      onClick={() => setCurrentColor(Id)}
-                      toggle
-                      active={false}
-                    >
-                      >{Name}
-                    </Button>
-                  )
-                )}
-              </Button.Group>
+              {colors.map(({ Name, Id }) => (
+                <Radio
+                  label={Name}
+                  name='radioGroupColor'
+                  value={Id}
+                  checked={currentColor === Id}
+                  onChange={() => setCurrentColor(Id)}
+                />
+              ))}
             </div>
             <div>
-              <br />
-
-              <Button.Group>
-                {sizes.map(({ Name, Id }) =>
-                  currentSize === Id ? (
-                    <Button toggle active={true}>
-                      {Name}
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={() => setCurrentSize(Id)}
-                      toggle
-                      active={false}
-                    >
-                      >{Name}
-                    </Button>
-                  )
-                )}
-              </Button.Group>
+              {sizes.map(({ Name, Id }) => (
+                <Radio
+                  label={Name}
+                  name='radioGroupSize'
+                  value={Id}
+                  checked={currentSize === Id}
+                  onChange={() => setCurrentSize(Id)}
+                />
+              ))}
             </div>
           </div>
         </td>
+
         <td class='a-right hidden-table'>
           <span class='cart-price'>
             <span class='price'>
@@ -162,9 +136,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
                 displayType={'text'}
                 thousandSeparator={true}
                 prefix={''}
-                renderText={(value, props) => (
-                  <div {...props}>{value},000VND</div>
-                )}
+                renderText={(value, props) => <div {...props}>{value}</div>}
               />
             </span>
           </span>
@@ -208,9 +180,7 @@ function CartItem ({ Id, Name, Quantity, Price, ImageUrl, Color, Size }) {
                 displayType={'text'}
                 thousandSeparator={true}
                 prefix={''}
-                renderText={(value, props) => (
-                  <div {...props}>{value},000VND</div>
-                )}
+                renderText={(value, props) => <div {...props}>{value}</div>}
               />
             </span>
           </span>

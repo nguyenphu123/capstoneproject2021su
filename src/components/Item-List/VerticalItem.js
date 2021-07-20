@@ -1,4 +1,3 @@
-
 import NumberFormat from 'react-number-format'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -17,7 +16,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import { Header, Rating } from 'semantic-ui-react'
 import Tooltip from '@material-ui/core/Tooltip'
-
 
 const useStyles = makeStyles({
   card: {
@@ -194,7 +192,7 @@ function VerticalItem ({
                                 thousandSeparator={true}
                                 prefix={''}
                                 renderText={(value, props) => (
-                                  <div {...props}>{value},000VND</div>
+                                  <div {...props}>{value}VND</div>
                                 )}
                               />
                             </span>
