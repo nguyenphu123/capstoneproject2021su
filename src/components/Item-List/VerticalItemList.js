@@ -50,14 +50,50 @@ class VerticalItemList extends React.Component {
   }
   componentDidUpdate (prevProps) {
     if (this.props.reset && this.state.isUpdated) {
-      axios({
-        method: 'GET',
-        url: this.props.apiUrl
-      }).then(res => {
-        console.log(res)
-        console.log(res.data)
-        let result = res.data
+      if (
+        this.props.keyword === '' ||
+        this.props.keyword === null ||
+        this.props.keyword === undefined
+      ) {
+        axios({
+          method: 'GET',
+          url: this.props.apiUrl
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          let result = res.data
 
+          this.setState({
+            products: result,
+            isLoading: false,
+            isUpdated: false
+
+            // currentPage: this.props.match.params
+          })
+        })
+      } else {
+        axios({
+          method: 'GET',
+          url: this.props.apiUrl
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          let result = res.data.filter(x => x.Name.includes(this.props.keyword))
+
+          this.setState({
+            products: result,
+            isLoading: false,
+            isUpdated: false
+
+            // currentPage: this.props.match.params
+          })
+        })
+      }
+    } else {
+      if (!equal(this.props.keyword, prevProps.keyword)) {
+        let result = this.state.products.filter(x =>
+          x.Name.includes(this.props.keyword)
+        )
         this.setState({
           products: result,
           isLoading: false,
@@ -65,8 +101,7 @@ class VerticalItemList extends React.Component {
 
           // currentPage: this.props.match.params
         })
-      })
-    } else {
+      }
       if (!equal(this.props.sortOption, prevProps.sortOption)) {
         console.log(this.props.sortOption)
         if (this.props.sortOption !== '') {
@@ -93,17 +128,11 @@ class VerticalItemList extends React.Component {
           }
         }
       }
-      if (
-        this.props.colorId === '' &&
-        this.props.sizeId === '' &&
-        this.props.tagId === ''
-      ) {
+      if (!equal(this.props.apiUrl, prevProps.apiUrl)) {
         axios({
           method: 'GET',
           url: this.props.apiUrl
         }).then(res => {
-          console.log(res)
-          console.log(res.data)
           // if (
           //   this.props.sortBy === 'price' &&
           //   this.props.sortOption === 'asc'

@@ -4,13 +4,14 @@ import _ from 'lodash'
 import NumberFormat from 'react-number-format'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Image } from 'semantic-ui-react'
+
 // import FilterResults from 'react-filter-search'
 import SearchBar from './SearchBar'
 import { loginUser, logout } from '../../features/User/UserSlice'
 import Modal from 'react-awesome-modal'
 import LoginPage from '../../pages/LoginPage'
 import { emptyCart } from '../../features/Cart/CartSlice'
+import { Header, Image } from 'semantic-ui-react'
 
 const mapDispatch = { logout, loginUser, emptyCart }
 
@@ -130,20 +131,22 @@ function NavigationHeader () {
               </div>
             </div>
           </div>
+
           <div id='header'>
             <div className='container'>
               <div className='header-container row'>
                 <div className='logo'>
                   <div>
-                    <img
-                      href={'/'}
-                      src='https://t4.ftcdn.net/jpg/03/34/53/51/360_F_334535136_vvbWaKEpsHIMS4dpJUxgXZL6clQX7VGs.jpg'
-                      style={{
-                        width: '250px',
-                        height: '100px',
-                        objectFit: 'contain'
-                      }}
-                    />
+                    <Link className='level-top' to={'/'}>
+                      <img
+                        src='https://t4.ftcdn.net/jpg/03/34/53/51/360_F_334535136_vvbWaKEpsHIMS4dpJUxgXZL6clQX7VGs.jpg'
+                        style={{
+                          width: '250px',
+                          height: '100px',
+                          objectFit: 'contain'
+                        }}
+                      />
+                    </Link>
                   </div>
                 </div>
                 <div className='fl-nav-menu'>
@@ -185,11 +188,7 @@ function NavigationHeader () {
                                               className='level-top'
                                               to={{
                                                 pathname:
-                                                  '/Category/' + Id + '/1',
-                                                key: Math.random(), // we could use Math.random, but that's not guaranteed unique.
-                                                state: {
-                                                  applied: true
-                                                }
+                                                  '/Category/' + Id + '/1'
                                               }}
                                             >
                                               <span>{Name}</span>
@@ -203,11 +202,7 @@ function NavigationHeader () {
                                                         pathname:
                                                           '/Category/' +
                                                           Id +
-                                                          '/1',
-                                                        key: Math.random(), // we could use Math.random, but that's not guaranteed unique.
-                                                        state: {
-                                                          applied: true
-                                                        }
+                                                          '/1'
                                                       }}
                                                     >
                                                       <span>{Name}</span>
@@ -264,8 +259,12 @@ function NavigationHeader () {
 
                 <div className='fl-header-right'>
                   <div className='fl-links'>
-                    <div className='no-js'>
-                      <Link title='Company' className='clicker'></Link>
+                    <div className='no-js welcome-user'>
+                      <Header as='h4' textAlign='center'>
+                        welcome,
+                        {UserSlice !== null ? UserSlice.Name : <>customer</>}
+                      </Header>
+
                       <div className='fl-nav-links'>
                         <ul className='links'>
                           {UserSlice !== null ? (
@@ -316,59 +315,7 @@ function NavigationHeader () {
                       </div>
                     </div>
                   </div>
-                  <div className='fl-links'>
-                    <div className='no-js'>
-                      <div className='fl-nav-links'>Hello</div>
-                      {/* <div className='fl-nav-links'>
-                        <ul className='links'>
-                          {UserSlice !== null ? (
-                            <>
-                              <li>
-                                <Link
-                                  to={'/Profille/' + UserSlice.Id}
-                                  title='My Account'
-                                >
-                                  Profile
-                                </Link>
-                              </li>
-                              <li>
-                                <Link to={'/OrderHistory'} title='History'>
-                                  Order History
-                                </Link>
-                              </li>
 
-                              <li>
-                                <Link to={'/wishlist'} title='Wishlist'>
-                                  Wishlist
-                                </Link>
-                              </li>
-                            </>
-                          ) : null}
-
-                          <li>
-                            <Link to={'/blog'} title='Blog'>
-                              <span>Blog</span>
-                            </Link>
-                          </li>
-                          <li className='last'>
-                            {UserSlice === null ? (
-                              <Link onClick={SetLoginForm} title='Login'>
-                                <span>Login</span>
-                              </Link>
-                            ) : (
-                              <Link
-                                onClick={() => dispatch(logout())}
-                                to={'/'}
-                                title='Login'
-                              >
-                                <span>Sign out</span>
-                              </Link>
-                            )}
-                          </li>
-                        </ul>
-                      </div> */}
-                    </div>
-                  </div>
                   <div className='fl-cart-contain'>
                     <div className='mini-cart'>
                       <div className='basket'>

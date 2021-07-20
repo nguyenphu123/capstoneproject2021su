@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import emailjs from 'emailjs-com'
 import { Form, Checkbox } from 'semantic-ui-react'
+var SHA256 = require('crypto-js/sha256')
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'
@@ -36,80 +37,146 @@ function RegistrationPage () {
   }
 
   function handleSubmit (e) {
-    // e.preventDefault()
+    e.preventDefault()
     console.log(username)
     console.log(password)
     const authData = {
       UserName: username,
-      PassWord: password,
-      RankId: 1,
-      RoleId: 1,
+      PassWord: SHA256(password).toString(),
+      RankId: '12341234-1234-1234-1234-123412341234',
+      RoleId: 'd00d3c17-6180-4a32-884c-976cd044ce7b',
       Name: name,
       Phone: phone,
       Address: address,
       Gender: gender,
-      Point: 20
+      Point: 20,
+      Email: email
     }
-    if (username && password && name && address) {
-      axios({
-        method: 'post',
-        url: '/api/user-management/users',
-        headers: {},
-        data: authData
-      }).then(res => {
-        console.log(res)
-        console.log(res.data)
-        toast.success('thank you for your registration')
-        emailjs
-          .sendForm(
-            'service_nueuo8m',
-            'template_omuck9t',
-            e.target,
-            'user_32k4I6JJIEyo5ehBoH1Ae'
-          )
-          .then(
-            result => {
-              console.log(result.text)
-            },
-            error => {
-              console.log(error.text)
-            }
-          )
-      })
+    if (
+      username &&
+      password &&
+      name &&
+      address &&
+      phone &&
+      email &&
+      matchPassword
+    ) {
+      if (agreement) {
+        axios({
+          method: 'post',
+          url: '/api/user-management/users',
+          headers: {},
+          data: authData
+        })
+          .then(res => {
+            console.log(res)
+            console.log(res.data)
+            toast.success(
+              'Thank you for your registration, you can close the registration form now'
+            )
+            e.preventDefault()
+
+            emailjs
+              .sendForm(
+                'service_nueuo8m',
+                'template_fihobul',
+                e.target,
+                'user_32k4I6JJIEyo5ehBoH1Ae'
+              )
+              .then(
+                result => {
+                  console.log(result.text)
+                },
+                error => {
+                  console.log(error.text)
+                }
+              )
+          })
+          .catch(function (error) {
+            console.log('Show error notification!')
+            return Promise.reject(error)
+          })
+      } else {
+        toast.warn('Please accept our policies')
+      }
+    } else {
+      toast.warn('Please fill all required information')
+    }
+  }
+  function handleChangeUsername (e) {
+    if (e.target.value === '') {
+      toast.warn('Sorry user name cannot be empty')
+    } else {
+      if (e.target.value.length < 6) {
+        toast.warn('Sorry user name cannot be under 6 character')
+      } else {
+      }
+    }
+  }
+  function handleChangePassword (e) {
+    if (e.target.value === '') {
+      toast.warn('Sorry password cannot be empty')
+    } else {
+      if (e.target.value.length < 8) {
+        toast.warn('Sorry password cannot be under 8 character')
+      } else {
+        var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+        var test = reg.test(e.target.value)
+        if (test) {
+        } else {
+          toast.warn('password must contain atleast a letter and a number')
+        }
+      }
+    }
+  }
+  function handleChangeMatchPassword () {
+    if (matchPassword !== password) {
+      toast.warn('Your password does not match')
     } else {
     }
-  }
-  function handleChangeUsername (e, { value }) {
-    setUsername(value)
-  }
-  function handleChangePassword (e, { value }) {
-    setPassword(value)
-  }
-  function handleChangeMatchPassword (e, { value }) {
-    setMatchPassword(value)
-    if (password === matchPassword) {
-    } else if (password !== matchPassword) {
-    } else {
-    }
-  }
-  function handleChangeGender (e, { value }) {
-    setGender(value)
   }
 
-  function handleChangeName (e, { value }) {
-    setName(value)
+  function handleChangeName (e) {
+    if (e.target.value === '') {
+      toast.warn('Sorry name cannot be empty')
+    } else {
+    }
   }
-  function handleChangeAddress (e, { value }) {
-    setAddress(value)
+  function handleChangeAddress (e) {
+    if (e.target.value === '') {
+      toast.warn('Sorry address cannot be empty')
+    } else {
+    }
   }
-  function handleChangeAgreement (e, { value }) {
-    setAgreement(value)
+
+  function handleChangePhone (e) {
+    if (e.target.value === '') {
+      toast.warn('Sorry phone cannot be empty')
+    } else {
+      if (e.target.value.length < 10) {
+        toast.warn('Sorry phonenumber cannot be under 10 character')
+      } else {
+        var reg = /(84|0[3|5|7|8|9])+([0-9]{8})/
+        var test = reg.test(e.target.value)
+        if (test) {
+        } else {
+          toast.warn('phone number must contain number only')
+        }
+      }
+    }
   }
-  function handleChangePhone (e, { value }) {
-    setPhone(value)
-  }
-  function handleChangeEmail (e, { value }) {
-    setEmail(value)
+  function handleChangeEmail (e) {
+    if (e.target.value === '') {
+      toast.warn('Sorry email cannot be empty')
+    } else {
+      var reg = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
+      var test = reg.test(e.target.value)
+      if (test) {
+      } else {
+        toast.warn('phone number must contain number only')
+      }
+    }
   }
 
   const genderOptions = [
@@ -126,170 +193,177 @@ function RegistrationPage () {
 
           <input name='form_key' type='hidden' value='EPYwQxF6xoWcjLUr' />
           <fieldset class='col2-set'>
-            <div class='col-1 registered-users'>
-              <strong>Registration Customers</strong>
-              <div class='content'>
-                <p>Create Account.</p>
-                <ul class='form-list'>
-                  <li>
-                    <label for='email'>
-                      UserName<em class='required'>*</em>
-                    </label>
-                    <div class='input-box'>
-                      <input
-                        type='text'
-                        name='username'
-                        value={username}
-                        id='username'
-                        class='input-text required-entry validate-email'
-                        title='Email Address'
-                        onChange={e => setUsername(e.target.value)}
-                      />
-                    </div>
-                    <label for='email'>
-                      Gender<em class='required'>*</em>
-                    </label>
-                    <Form>
-                      <Form.Field>
-                        <Checkbox
-                          radio
-                          label='Male'
-                          name='checkboxRadioGroup'
-                          value='this'
-                          checked={!gender}
-                          onChange={() => setGender(!gender)}
+            <form onSubmit={handleSubmit}>
+              <div class='col-1 registered-users'>
+                <strong>Registration Customers</strong>
+                <div class='content'>
+                  <p>Create Account.</p>
+                  <ul class='form-list'>
+                    <li>
+                      <label for='username'>
+                        UserName<em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          type='text'
+                          name='username'
+                          value={username}
+                          id='username'
+                          class='input-text required-entry validate-email'
+                          title='Email Address'
+                          onChange={e => setUsername(e.target.value)}
+                          onBlur={handleChangeUsername}
                         />
-                      </Form.Field>
-                      <Form.Field>
-                        <Checkbox
-                          radio
-                          label='Female'
-                          name='checkboxRadioGroup'
-                          value='that'
-                          checked={gender}
-                          onChange={() => setGender(!gender)}
-                        />
-                      </Form.Field>
-                    </Form>
-                  </li>
-                  <li>
-                    <label for='pass'>
-                      Password<em class='required'>*</em>
-                    </label>
-                    <div class='input-box'>
-                      <input
-                        value={password}
-                        type='password'
-                        name='login[password]'
-                        class='input-text required-entry validate-password'
-                        id='pass'
-                        title='Password'
-                        onChange={e => setPassword(e.target.value)}
-                      />
-                    </div>
-                  </li>
-                  <li>
-                    <label for='pass'>
-                      Password confirm<em class='required'>*</em>
-                    </label>
-                    <div class='input-box'>
-                      <input
-                        value={matchPassword}
-                        type='password'
-                        name='matchpassword'
-                        class='input-text required-entry validate-password'
-                        id='pass'
-                        title='Password'
-                        onChange={handleChangeMatchPassword}
-                      />
-                    </div>
-                  </li>
-                  <li>
-                    <label for='email'>
-                      Address<em class='required'>*</em>
-                    </label>
-                    <div class='input-box'>
-                      <input
-                        type='text'
-                        name='login[username]'
-                        value={address}
-                        id='email'
-                        class='input-text required-entry validate-email'
-                        title='Email Address'
-                        onChange={e => setAddress(e.target.value)}
-                      />
-                    </div>
-                  </li>
-                  <li>
-                    <label for='email'>
-                      Email Address<em class='required'>*</em>
-                    </label>
-                    <div class='input-box'>
-                      <input
-                        type='text'
-                        name='login[username]'
-                        value={email}
-                        id='email'
-                        class='input-text required-entry validate-email'
-                        title='Email Address'
-                        onChange={e => setEmail(e.target.value)}
-                      />
-                    </div>
-                  </li>
+                      </div>
+                      <label for='email'>
+                        Gender<em class='required'>*</em>
+                      </label>
 
-                  <li>
-                    <label for='email'>
-                      Phone <em class='required'>*</em>
-                    </label>
-                    <div class='input-box'>
-                      <input
-                        type='text'
-                        name='login[username]'
-                        value={phone}
-                        id='phone'
-                        class='input-text required-entry validate-email'
-                        title='Email Address'
-                        onChange={e => setPhone(e.target.value)}
+                      <Checkbox
+                        radio
+                        label='Male'
+                        name='checkboxRadioGroup'
+                        value={true}
+                        checked={gender}
+                        onChange={() => setGender(!gender)}
                       />
-                    </div>
-                  </li>
-                </ul>
-                <div class='remember-me-popup'>
-                  {/* <div class='remember-me-popup-head'>
-                    <h3 id='text2'>What's this?</h3>
-                    <Link
-                      to={' '}
-                      class='remember-me-popup-close'
-                      onClick='showDiv()'
-                      title='Close'
-                    >
-                      Close
-                    </Link>
-                  </div> */}
-                  <div class='remember-me-popup-body'>
-                    <p id='text1'>I have read all of the policies and rules</p>
-                    {/* <div class='remember-me-popup-close-button a-right'>
-                      <Link
-                        to={' '}
-                        class='remember-me-popup-close button'
-                        title='Close'
-                        onClick='showDiv()'
-                      >
-                        <span>Close</span>
-                      </Link>
-                    </div> */}
-                  </div>
+
+                      <Checkbox
+                        radio
+                        label='Female'
+                        name='checkboxRadioGroup'
+                        value={false}
+                        checked={!gender}
+                        onChange={() => setGender(!gender)}
+                      />
+                    </li>
+                    <li>
+                      <label for='password'>
+                        Password<em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          value={password}
+                          type='password'
+                          name='Password'
+                          class='input-text required-entry validate-password'
+                          id='password'
+                          title='Password'
+                          onChange={e => setPassword(e.target.value)}
+                          onBlur={handleChangePassword}
+                        />
+                      </div>
+                    </li>
+                    <li>
+                      <label for='matchpassword'>
+                        Password confirm<em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          value={matchPassword}
+                          type='password'
+                          name='matchpassword'
+                          class='input-text required-entry validate-password'
+                          id='matchpassword'
+                          title='Password'
+                          onChange={e => setMatchPassword(e.target.value)}
+                          onBlur={handleChangeMatchPassword}
+                        />
+                      </div>
+                    </li>
+                    <li>
+                      <label for='email'>
+                        Address<em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          type='text'
+                          name='address'
+                          value={address}
+                          id='address'
+                          class='input-text required-entry validate-email'
+                          title='Address'
+                          onChange={e => setAddress(e.target.value)}
+                        />
+                      </div>
+                    </li>
+                    <li>
+                      <label for='name'>
+                        Name<em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          type='text'
+                          name='name'
+                          value={name}
+                          id='name'
+                          class='input-text required-entry validate-email'
+                          title='name'
+                          onChange={e => setName(e.target.value)}
+                        />
+                      </div>
+                    </li>
+
+                    <li>
+                      <label for='email'>
+                        Email Address<em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          type='text'
+                          name='email'
+                          value={email}
+                          id='email'
+                          class='input-text required-entry validate-email'
+                          title='Email Address'
+                          onChange={e => setEmail(e.target.value)}
+                          onBlur={handleChangeEmail}
+                        />
+                      </div>
+                    </li>
+
+                    <li>
+                      <label for='email'>
+                        Phone <em class='required'>*</em>
+                      </label>
+                      <div class='input-box'>
+                        <input
+                          type='text'
+                          name='phone'
+                          value={phone}
+                          id='phone'
+                          class='input-text required-entry validate-email'
+                          title='Email Address'
+                          onChange={e => setPhone(e.target.value)}
+                          onBlur={handleChangePhone}
+                        />
+                      </div>
+                    </li>
+                  </ul>
+                  <div class='remember-me-popup'></div>
+
+                  {/* <!--buttons-set--> */}
                 </div>
-
-                <p class='required'>* Required Fields</p>
-
-                {/* <!--buttons-set--> */}
+                {/* <!--content--> */}
               </div>
-              {/* <!--content--> */}
-            </div>
-            <div class='col-2 new-users'>
-              <div class='buttons-set'>
-                <form onSubmit={handleSubmit}>
+              <div class='col-2 new-users'>
+                <div class='buttons-set'>
+                  <p class='required'>* Required Fields</p>
+                  <div class='remember-me-popup-body'>
+                    <div>
+                      <h1>Policy</h1>
+                      <br />
+                    </div>
+
+                    <Checkbox
+                      label={' I have read all of the policies and rules'}
+                      name='checkbox'
+                      value='this'
+                      checked={agreement}
+                      onChange={() => setAgreement(!agreement)}
+                    />
+                  </div>
+
                   <button
                     type='submit'
                     class='button login'
@@ -299,50 +373,9 @@ function RegistrationPage () {
                   >
                     <span>Registration</span>
                   </button>
-
-                  <input
-                    type='text'
-                    name='Name'
-                    value={email}
-                    id='email'
-                    title='Email'
-                    class='input-text required-entry'
-                    style={{ visibility: 'hidden' }}
-                  />
-                </form>
-              </div>
-
-              <strong>Or</strong>
-              {/* <div class='content'>
-                <div class='buttons-set'>
-                  <br />
-                  <button
-                    style={{ marginTop: '10px' }}
-                    type='button'
-                    title='Create an Account'
-                    class='button create-account'
-                    onClick=''
-                  >
-                    <span>
-                      <span>Registration with google</span>
-                    </span>
-                  </button>
-                  <br />
-
-                  <button
-                    style={{ marginTop: '10px' }}
-                    type='button'
-                    title='Create an Account'
-                    class='button create-account'
-                    onClick=''
-                  >
-                    <span>
-                      <span>Registration with facebook</span>
-                    </span>
-                  </button>
                 </div>
-              </div> */}
-            </div>
+              </div>
+            </form>
             {/* <!--col-2 registered-users--> */}
           </fieldset>
           {/* <!--col2-set--> */}

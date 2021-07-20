@@ -626,29 +626,7 @@ function PaymentConfirm () {
                 <aside
                   class='col-right sidebar col-sm-3 wow bounceInUp animated animated'
                   style={{ visibility: 'visible' }}
-                >
-                  <div id='checkout-progress-wrapper'>
-                    <div class='block block-progress'>
-                      <div class='block-title'> Your Checkout </div>
-                      <div class='block-content'>
-                        <dl>
-                          <div id='billing-progress-opcheckout'>
-                            <dt> Billing Address</dt>
-                          </div>
-                          <div id='shipping-progress-opcheckout'>
-                            <dt> Shipping Address</dt>
-                          </div>
-                          <div id='shipping_method-progress-opcheckout'>
-                            <dt> Shipping Method</dt>
-                          </div>
-                          <div id='payment-progress-opcheckout'>
-                            <dt> Payment Method</dt>
-                          </div>
-                        </dl>
-                      </div>
-                    </div>
-                  </div>
-                </aside>
+                ></aside>
                 {/* <!--col-right sidebar-->  */}
               </div>
               {/* <!--row-->  */}

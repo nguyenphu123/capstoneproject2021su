@@ -222,7 +222,7 @@ function GetAllProduct () {
                     tagId={tag}
                     sortBy={sortBy}
                     sortOption={currentSortOption}
-                    currentLink={'/AllProduct/'}
+                    currentLink={'/AllProduct/1'}
                   />
 
                   <div className='toolbar bottom'>

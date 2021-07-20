@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import NavigationIcon from '@material-ui/icons/Navigation'
 import { Widget } from 'react-chat-widget'
 import FadeIn from 'react-fade-in'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
@@ -25,6 +25,8 @@ import Profile from './pages/Profile'
 import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
+import SearchResultPage from './pages/SearchResultPage'
+
 var randomstring = require('randomstring')
 
 function App () {
@@ -43,31 +45,43 @@ function App () {
 
   return (
     <FadeIn>
-      <Router>
+      <BrowserRouter>
         <Switch>
-          <Route key='Registration' path='/Registration'>
+          <Route path='/Registration'>
             <NavigationHeader />
             <Ads />
             <RegistrationPage />
           </Route>
           <Route
-            key={randomstring.generate(7)}
+            // key={randomstring.generate(7)}
             path='/Category/:categoryId/:currentPage'
             render={() => (
               <>
                 <NavigationHeader />
                 <Ads />
                 <CategoryPage
-                  key={randomstring.generate(7)}
+                  // key={randomstring.generate(7)}
                   topic={'Category1'}
                 />
               </>
             )}
           ></Route>
           <Route
-            key={randomstring.generate(7)}
-            path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'
-          >
+            // key={randomstring.generate(7)}
+            path='/Search/:keyword/:currentPage'
+            render={() => (
+              <>
+                <NavigationHeader />
+                <Ads />
+                <SearchResultPage
+                  // key={randomstring.generate(7)}
+                  topic={'Category1'}
+                />
+              </>
+            )}
+          ></Route>
+
+          <Route path='/AllProduct/:currentPage/:viewStyle/:sort?/:sortOption?'>
             <NavigationHeader />
             <Ads />
             <GetAllProduct />
@@ -78,26 +92,22 @@ function App () {
             <Ads />
             <CategoryList />
           </Route> */}
-          <Route key={'ImageUploading'} path='/ImageUploading'>
+          <Route path='/ImageUploading'>
             <NavigationHeader />
             {/* <Ads /> */}
             <ImageUploadingPage />
           </Route>
-          <Route
-            key={randomstring.generate(7)}
-            path='/Product/:productId'
-            exact
-          >
+          <Route path='/Product/:productId' exact>
             <NavigationHeader />
 
             <ProductDetail />
           </Route>
-          <Route key={randomstring.generate(7)} path='/Profille/:userId'>
+          <Route path='/Profille/:userId'>
             <NavigationHeader />
 
             <Profile />
           </Route>
-          <Route key={'OrderHistory'} path='/OrderHistory'>
+          <Route path='/OrderHistory'>
             <NavigationHeader />
 
             <OrderHistory />
@@ -105,12 +115,12 @@ function App () {
           {/* <Route path='/OrderDetail/:id'>
             <OrderDetail />
           </Route> */}
-          <Route key={'Cart'} path='/Cart'>
+          <Route path='/Cart'>
             <NavigationHeader />
 
             <ShoppingCart />
           </Route>
-          <Route key={'PaymentInfo'} path='/PaymentInfo/:IsPay?'>
+          <Route path='/PaymentInfo/:IsPay?'>
             <PaymentConfirm />
           </Route>
 
@@ -123,7 +133,7 @@ function App () {
         <Widget />
 
         <Footers />
-      </Router>
+      </BrowserRouter>
     </FadeIn>
   )
 }

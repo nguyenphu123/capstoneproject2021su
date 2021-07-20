@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import PagnationBar from '../Assets/PagnationBar'
 
-function CategoryPage () {
+function SearchResultPage () {
   //id của category
-  const { currentPage, categoryId, viewStyle, sort, sortOption } = useParams()
+  const { currentPage, keyword, viewStyle, sort, sortOption } = useParams()
 
   //component dùng url động
   const [currentURL, setCurrentURL] = useState(
-    '/api/product-management/' + categoryId
+    '/api/product-management?sort=up&pageIndex=1&pageSize=5000'
   )
 
   const [category, setCategory] = useState({})
@@ -45,23 +45,15 @@ function CategoryPage () {
   ]
 
   useEffect(() => {
-    console.log(categoryId)
+    
 
-    axios({
-      method: 'GET',
-      url: '/api/category-management/' + categoryId
-    }).then(res => {
-      console.log(res)
-      console.log(res.data)
-      setCategory(res.data)
-    })
-    setCurrentURL('/api/product-management/' + categoryId)
+    setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     setIsUpdate(false)
 
     // window.location.reload()
 
     // setSubList(category.SubCategories)
-  }, [categoryId, currentPage, isUpdate])
+  }, [keyword, currentPage, isUpdate])
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)
@@ -97,10 +89,6 @@ function CategoryPage () {
   }
 
   useEffect(() => {
-    setCurrentURL('/api/product-management/' + categoryId)
-
-    console.log(categoryId)
-
     // window.commonjs()
 
     axios({
@@ -210,7 +198,8 @@ function CategoryPage () {
                     tagId={tag}
                     sortBy={sortBy}
                     sortOption={currentSortOption}
-                    currentLink={'/Category/' + categoryId + '/1'}
+                    keyword={keyword}
+                    currentLink={'/Search/' + keyword + '/1'}
                   />
 
                   <div className='toolbar bottom'>
@@ -363,4 +352,4 @@ function CategoryPage () {
   )
 }
 
-export default withRouter(CategoryPage)
+export default withRouter(SearchResultPage)

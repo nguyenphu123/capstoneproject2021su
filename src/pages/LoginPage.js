@@ -20,6 +20,7 @@ import {
 import RegistrationPage from './RegistrationPage'
 import { loginUser } from '../features/User/UserSlice'
 import { ToastContainer, toast } from 'react-toastify'
+var SHA256 = require('crypto-js/sha256')
 
 const mapDispatch = { loginUser }
 
@@ -27,6 +28,8 @@ function LoginPage () {
   // const dispatch = useDispatch()
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
+  const UserSliceError = useSelector(state => state.UserSlice.error)
+
   // const history = useHistory()
   const [visibility, setVisibility] = useState(false)
 
@@ -43,15 +46,24 @@ function LoginPage () {
       toast.success('Welcome' + UserSlice.Name)
     }
   }, [UserSlice])
+  useEffect(() => {
+    console.log(UserSliceError)
+
+    if (UserSliceError !== null) {
+      toast.warn('Wrong username or password')
+    }
+  }, [UserSliceError])
 
   function handleSubmit (e) {
     const authData = {
       UserName: username,
-      Password: password
+      Password: SHA256(password).toString()
     }
 
     if (username && password) {
       dispatch(loginUser(authData))
+    } else {
+      toast.warn('Please fill all required information')
     }
   }
   function handleChangeUsername (e, { value }) {
@@ -79,7 +91,7 @@ function LoginPage () {
         <Modal
           visible={visibility}
           width='1000'
-          height='500'
+          height='700'
           effect='fadeInUp'
           onClickAway={SetLoginForm}
         >
@@ -137,35 +149,6 @@ function LoginPage () {
                         </div>
                       </li>
                     </ul>
-                    <div class='remember-me-popup'>
-                      <div class='remember-me-popup-head'>
-                        <h3 id='text2'>What's this?</h3>
-                        <Link
-                          to={' '}
-                          class='remember-me-popup-close'
-                          onClick='showDiv()'
-                          title='Close'
-                        >
-                          Close
-                        </Link>
-                      </div>
-                      <div class='remember-me-popup-body'>
-                        <p id='text1'>
-                          Checking "Remember Me" will let you access your
-                          shopping cart on this computer when you are logged out
-                        </p>
-                        <div class='remember-me-popup-close-button a-right'>
-                          <Link
-                            to={' '}
-                            class='remember-me-popup-close button'
-                            title='Close'
-                            onClick='showDiv()'
-                          >
-                            <span>Close</span>
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
 
                     <p class='required'>* Required Fields</p>
 
@@ -205,30 +188,6 @@ function LoginPage () {
                         </span>
                       </button>
                       <br />
-                      {/* <button
-                        style={{ marginTop: '10px' }}
-                        type='button'
-                        title='Create an Account'
-                        class='button create-account'
-                        onClick=''
-                      >
-                        <span>
-                          <span>Login with google</span>
-                        </span>
-                      </button> */}
-                      <br />
-
-                      {/* <button
-                        style={{ marginTop: '10px' }}
-                        type='button'
-                        title='Create an Account'
-                        class='button create-account'
-                        onClick=''
-                      >
-                        <span>
-                          <span>Login with facebook</span>
-                        </span>
-                      </button> */}
                     </div>
                   </div>
                 </div>
@@ -239,6 +198,7 @@ function LoginPage () {
             </div>
             {/* <!--account-login--> */}
           </div>
+          <ToastContainer autoClose={5000} />
         </div>
       </>
     )

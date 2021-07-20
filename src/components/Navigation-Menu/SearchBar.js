@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { Search, Grid, Header, Segment } from 'semantic-ui-react'
 import { Link, Redirect } from 'react-router-dom'
 
-
 // const initialState = { isLoading: false, results: [], value: '' }
 // const getResults = () => _.times(5, () => ({}))
 
@@ -82,7 +81,7 @@ export default class SearchBar extends Component {
     this.setState({
       value: name,
       filterVisibility: 'hidden',
-      SearchId: id
+      SearchId: name
 
       // SearchResult: result
     })
@@ -100,7 +99,7 @@ export default class SearchBar extends Component {
 
     // const { isLoading, value, results } = this.state
     if (this.state.SearchResult !== '') {
-      return <Redirect to={'/Category/' + this.state.SearchResult + '/1'} />
+      return <Redirect to={'/Search/' + this.state.SearchResult + '/1'} />
     } else {
       return (
         <div>

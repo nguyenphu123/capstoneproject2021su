@@ -186,6 +186,27 @@ function ProductInformation () {
     if (currentColor !== '') {
       console.log(currentColor)
       setCurrentColor(currentColor => currentColor)
+      const check_index = product.Elements.findIndex(
+        item => item.Color === currentColor && item.Size === currentSize
+      )
+      if (check_index !== -1) {
+        setMaxQuantity(product.Elements[check_index].Quantity)
+      } else {
+        setMaxQuantity(0)
+      }
+      if (CartSlice !== null) {
+        const check_indexQuantity = shopCart.findIndex(
+          item =>
+            item.ProductId === productId &&
+            item.Color === currentColor &&
+            item.Size === currentSize
+        )
+        if (check_indexQuantity !== -1) {
+          setQuantity(shopCart[check_index].Quantity)
+        } else {
+        }
+      } else {
+      }
     } else {
     }
   }, [currentColor])
@@ -193,6 +214,27 @@ function ProductInformation () {
     if (currentSize !== '') {
       console.log(currentSize)
       setCurrentSize(currentSize => currentSize)
+      const check_index = product.Elements.findIndex(
+        item => item.Color === currentColor && item.Size === currentSize
+      )
+      if (check_index !== -1) {
+        setMaxQuantity(product.Elements[check_index].Quantity)
+      } else {
+        setMaxQuantity(0)
+      }
+      if (CartSlice !== null) {
+        const check_indexQuantity = shopCart.findIndex(
+          item =>
+            item.ProductId === productId &&
+            item.Size === currentSize &&
+            item.Color === currentColor
+        )
+        if (check_indexQuantity !== -1) {
+          setQuantity(shopCart[check_index].Quantity)
+        } else {
+        }
+      } else {
+      }
     } else {
     }
   }, [currentSize])
@@ -225,7 +267,8 @@ function ProductInformation () {
             Color: currentColor,
             Size: currentSize,
             img: product.ImageStorages[0].ImageUrl
-          })
+          }),
+          MaxQuantity: maxQuantity
         }
 
         setShopCart(shopCart => [...shopCart, cartItem])

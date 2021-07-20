@@ -5,17 +5,29 @@ import axios from 'axios'
 const initialUser = localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
   : null
-console.log(initialUser)
+
+const initialError = localStorage.getItem('error')
+  ? JSON.parse(localStorage.getItem('error'))
+  : null
 
 const UserSlice = createSlice({
   name: 'UserSlice',
   initialState: {
-    user: initialUser
+    user: initialUser,
+    error: initialError
   },
   reducers: {
     loginSuccess: (state, action) => {
       state.user = action.payload
       localStorage.setItem('user', JSON.stringify(action.payload))
+    },
+    loginFailed: (state, action) => {
+      console.log('hello')
+
+      localStorage.setItem(
+        'error',
+        JSON.stringify('Wrong username or password')
+      )
     },
     logoutSuccess: (state, action) => {
       state.user = null
@@ -27,19 +39,27 @@ const UserSlice = createSlice({
 })
 export default UserSlice.reducer
 // Actions
-const { loginSuccess, logoutSuccess } = UserSlice.actions
+const { loginSuccess, logoutSuccess, loginFailed } = UserSlice.actions
 export const loginUser = authData => async dispatch => {
-  console.log(authData)
-
   try {
     axios({
       method: 'post',
       url: '/api/login-management',
       headers: { 'content-type': 'application/json' },
       data: JSON.stringify(authData)
-    }).then(res => {
-      dispatch(loginSuccess(res.data))
     })
+      .then(res => {
+        console.log(res)
+
+        if (res.data === null) {
+          dispatch(loginFailed())
+        } else {
+          dispatch(loginSuccess(res.data))
+        }
+      })
+      .catch(function (error) {
+        dispatch(loginFailed())
+      })
   } catch (e) {
     return console.error(e.message)
   }

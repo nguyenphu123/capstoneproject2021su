@@ -11339,12 +11339,8 @@ button.button.new-address:before {
 .account-login {
   padding: 0px;
   position: relative;
-  background-color: #fff;
+
   border-width: 1px;
-  border-style: solid;
-  border-color: #eee #eee #d5d5d5 #eee;
-  box-shadow: 0 5px 0 rgba(200, 200, 200, 0.2);
-  margin-top: 30px;
 }
 .account-login .page-title h1,
 .account-login .page-title h2 {
@@ -14204,7 +14200,7 @@ button.btn-share,
 }
 .search-Item:hover {
   color: #bcbcbd;
-  
+
   background: rgb(88, 87, 148);
 }
 .table-history {
@@ -14224,4 +14220,9 @@ button.btn-share,
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+}
+.welcome-user {
+  margin-top: 20%;
+  width: 150px;
+  cursor: pointer;
 }
