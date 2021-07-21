@@ -1,4 +1,3 @@
-
 import NumberFormat from 'react-number-format'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -13,7 +12,6 @@ import ShareIcon from '@material-ui/icons/Share'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Header, Rating } from 'semantic-ui-react'
-
 
 const useStyles = makeStyles({
   card: {
@@ -89,11 +87,6 @@ function HorizontalItem ({
                   </div>
                   <div className='item-box-hover'>
                     <div className='box-inner'>
-                      <div className='product-detail-bnt'>
-                        <Link className='button detail-bnt'>
-                          <span>Quick View</span>
-                        </Link>
-                      </div>
                       <div className='actions'>
                         <span className='add-to-links'>
                           <Link
@@ -114,11 +107,6 @@ function HorizontalItem ({
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className='add_cart'>
-                  <button className='button btn-cart' type='button'>
-                    <span>Add to Cart</span>
-                  </button>
                 </div>
               </div>
               <div className='item-info'>

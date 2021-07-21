@@ -131,11 +131,6 @@ function VerticalItem ({
                     </div>
                     <div className='item-box-hover'>
                       <div className='box-inner'>
-                        <div className='product-detail-bnt'>
-                          <Link className='button detail-bnt'>
-                            <span>Quick View</span>
-                          </Link>
-                        </div>
                         <div className='actions'>
                           <span className='add-to-links'>
                             <Link
@@ -156,11 +151,6 @@ function VerticalItem ({
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className='add_cart'>
-                    <button className='button btn-cart' type='button'>
-                      <span>Add to Cart</span>
-                    </button>
                   </div>
                 </div>
                 <div className='item-info'>

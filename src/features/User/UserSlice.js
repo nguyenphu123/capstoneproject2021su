@@ -23,6 +23,11 @@ const UserSlice = createSlice({
 
       localStorage.setItem('user', JSON.stringify(action.payload))
     },
+    updateSuccess: (state, action) => {
+      state.user = action.payload
+
+      localStorage.setItem('user', JSON.stringify(action.payload))
+    },
     loginFailed: (state, action) => {
       console.log('hello')
 
@@ -41,7 +46,12 @@ const UserSlice = createSlice({
 })
 export default UserSlice.reducer
 // Actions
-const { loginSuccess, logoutSuccess, loginFailed } = UserSlice.actions
+const {
+  loginSuccess,
+  logoutSuccess,
+  loginFailed,
+  updateSuccess
+} = UserSlice.actions
 export const loginUser = authData => async dispatch => {
   try {
     axios({
@@ -66,6 +76,14 @@ export const loginUser = authData => async dispatch => {
     return console.error(e.message)
   }
 }
+export const updateUserInformation = authData => async dispatch => {
+  try {
+    dispatch(updateSuccess(authData))
+  } catch (e) {
+    return console.error(e.message)
+  }
+}
+
 export const logout = () => async dispatch => {
   try {
     console.log('hello')

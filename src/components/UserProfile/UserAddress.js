@@ -5,25 +5,26 @@ import axios from 'axios'
 import Title from '../../Assets/Title'
 import 'semantic-ui-css/semantic.min.css'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUserInformation } from '../../features/User/UserSlice'
+
 // const handleChangeDense = event => {
 //   setDense(event.target.checked)
 // }
+const mapDispatch = { updateUserInformation }
 
 function UserAddress ({ UserInformation }) {
-  const [address, setAddress] = useState('')
+  const dispatch = useDispatch()
+
+  const [address, setAddress] = useState(UserInformation.Address)
+
   useEffect(() => {
-    if (
-      UserInformation.Address === null ||
-      UserInformation.Address === undefined ||
-      typeof UserInformation.Address === undefined
-    ) {
-    } else {
-      setAddress(UserInformation.Address)
-    }
+    setAddress(address => address)
   }, [address])
   function handleChangeAddress (e, { value }) {
     setAddress(value)
   }
+
   function onSubmitChange () {
     if (address === '') {
       toast.warn('Sorry address cannot be empty')
@@ -39,7 +40,10 @@ function UserAddress ({ UserInformation }) {
         Address: address,
         Gender: UserInformation.Gender,
         Point: UserInformation.Point,
-        Email: UserInformation.Email
+        Email: UserInformation.Email,
+        Rank: null,
+        Role: null,
+        Orders: null
       }
 
       axios({
@@ -49,7 +53,9 @@ function UserAddress ({ UserInformation }) {
         data: authData
       })
         .then(res => {
-          toast.success('Change password successful')
+          dispatch(updateUserInformation(authData))
+
+          toast.success('Change address successful')
         })
         .catch(function (error) {
           console.log('Show error notification!')
@@ -68,7 +74,6 @@ function UserAddress ({ UserInformation }) {
           icon='home'
           iconPosition='left'
           placeholder='address'
-          type='password'
           value={address}
           label='Your address'
           onChange={handleChangeAddress}

@@ -76,8 +76,9 @@ function UserNewPassword ({ UserInformation }) {
       if (newPassword < 8) {
         toast.warn('Sorry password cannot be under 8 character')
       } else {
-        var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+        var reg = /^(?=.*\d)(?=.*[a-zA-Z]).{8,30}$/
         var test = reg.test(newPassword)
+        console.log(newPassword)
         if (test) {
           const authData = {
             Id: UserInformation.Id,

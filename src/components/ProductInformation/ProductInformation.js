@@ -109,7 +109,7 @@ function ProductInformation () {
   const classes = useStyles()
 
   useEffect(() => {
-    console.log(productId)
+    
     axios({
       method: 'get',
       url: '/api/product-management/productId?productId=' + productId,

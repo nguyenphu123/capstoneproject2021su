@@ -301,7 +301,7 @@ function PaymentConfirm () {
                 .toISOString()
                 .slice(0, 19)
                 .replace('T', ' '),
-              Status: true,
+              Status: false,
               Phone: currentPhone,
 
               OrderDetails: CartSlice
