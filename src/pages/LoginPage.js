@@ -43,7 +43,7 @@ function LoginPage () {
   // reset login status
   useEffect(() => {
     if (UserSlice) {
-      toast.success('Welcome' + UserSlice.Name)
+      toast.success('Welcome ' + UserSlice.Name)
     }
   }, [UserSlice])
   useEffect(() => {
@@ -51,6 +51,8 @@ function LoginPage () {
 
     if (UserSliceError !== null) {
       toast.warn('Wrong username or password')
+    }else{
+
     }
   }, [UserSliceError])
 
@@ -82,7 +84,7 @@ function LoginPage () {
       <>
         <ToastContainer autoClose={5000} />
 
-        <Redirect to={'/'} />
+        <Redirect to={'/LoginSuccess'} />
       </>
     )
   } else {

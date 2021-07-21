@@ -7,28 +7,33 @@ import Title from '../Assets/Title'
 import Ads from '../components/Ads/AdsSlideShow'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import VerticalItemList from '../components/Item-List/VerticalItemList'
 import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
+import { ToastContainer, toast } from 'react-toastify'
 
 function HomePage () {
+  const { Task } = useParams()
+
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [categorylist, setCategorylist] = useState([])
   const [loadComplete, setLoadComplete] = useState(false)
   useEffect(() => {
-    if (UserSlice !== null) {
-      NotificationManager.success(
-        'Success message',
-        'Wellcome ' + UserSlice.UserName
-      )
+    if (Task !== null || Task !== undefined || typeof Task !== undefined) {
+      if (Task === 'LoginSuccess') {
+        // toast.success('Welcome')
+      } else if (Task === 'ResetPassword') {
+        toast.success('Change password successful')
+      } else if (Task === 'FinishPayment') {
+        toast.success('Thank you for shopping at our website')
+      } else {
+      }
     }
-
-    // alert.success('Wellcome ' + UserSlice.UserName)
-  }, [UserSlice])
+  }, [Task])
 
   useEffect(() => {
     axios({
@@ -118,9 +123,7 @@ function HomePage () {
 
               <HorizontalItemList
                 topic='Best Seller'
-                apiUrl={
-                  '/api/recommend-management'
-                }
+                apiUrl={'/api/recommend-management'}
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
@@ -131,9 +134,7 @@ function HomePage () {
 
               <HorizontalItemList
                 topic='Top'
-                apiUrl={
-                  '/api/recommend-management'
-                }
+                apiUrl={'/api/recommend-management'}
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
@@ -144,9 +145,7 @@ function HomePage () {
 
               <HorizontalItemList
                 topic='Feature'
-                apiUrl={
-                  '/api/recommend-management'
-                }
+                apiUrl={'/api/recommend-management'}
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
@@ -230,8 +229,8 @@ function HomePage () {
             </div>
           </div>
         </div>
+        <ToastContainer autoClose={5000} />
       </div>
-      {/* <NotificationContainer /> */}
     </>
   )
 }

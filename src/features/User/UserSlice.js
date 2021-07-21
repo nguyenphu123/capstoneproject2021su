@@ -19,6 +19,8 @@ const UserSlice = createSlice({
   reducers: {
     loginSuccess: (state, action) => {
       state.user = action.payload
+      localStorage.removeItem('error')
+
       localStorage.setItem('user', JSON.stringify(action.payload))
     },
     loginFailed: (state, action) => {

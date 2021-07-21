@@ -145,7 +145,7 @@ function App () {
               <PaymentConfirm />
             </Route>
 
-            <Route path='/' exact>
+            <Route path='/:Task?'>
               <NavigationHeader />
               <Ads />
               <HomePage />

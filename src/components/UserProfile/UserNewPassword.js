@@ -34,20 +34,6 @@ function UserNewPassword ({ UserInformation }) {
       }
       return
     } else {
-      if (newPassword === '') {
-        toast.warn('Sorry password cannot be empty')
-      } else {
-        if (newPassword < 8) {
-          toast.warn('Sorry password cannot be under 8 character')
-        } else {
-          var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
-          var test = reg.test(newPassword)
-          if (test) {
-          } else {
-            toast.warn('password must contain atleast a letter and a number')
-          }
-        }
-      }
     }
   }, [newPassword])
   useEffect(() => {
@@ -84,42 +70,56 @@ function UserNewPassword ({ UserInformation }) {
     setMatchNewPassword(value)
   }
   function onSubmitChange () {
-    const authData = {
-      Id: UserInformation.Id,
-      UserName: UserInformation.UserName,
-      PassWord: SHA256(newPassword).toString(),
-      RankId: UserInformation.RankId,
-      RoleId: UserInformation.RoleId,
-      Name: UserInformation.Name,
-      Phone: UserInformation.Phone,
-      Address: UserInformation.Address,
-      Gender: UserInformation.Gender,
-      Point: 20,
-      Email: UserInformation.Email
-    }
+    if (newPassword === '') {
+      toast.warn('Sorry password cannot be empty')
+    } else {
+      if (newPassword < 8) {
+        toast.warn('Sorry password cannot be under 8 character')
+      } else {
+        var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+        var test = reg.test(newPassword)
+        if (test) {
+          const authData = {
+            Id: UserInformation.Id,
+            UserName: UserInformation.UserName,
+            PassWord: SHA256(newPassword).toString(),
+            RankId: UserInformation.RankId,
+            RoleId: UserInformation.RoleId,
+            Name: UserInformation.Name,
+            Phone: UserInformation.Phone,
+            Address: UserInformation.Address,
+            Gender: UserInformation.Gender,
+            Point: UserInformation.Point,
+            Email: UserInformation.Email
+          }
 
-    axios({
-      method: 'put',
-      url: '/api/user-management/users',
-      headers: {},
-      data: authData
-    })
-      .then(res => {
-        toast.success('Change password successful')
-        setIsComplete(true)
-        dispatch(logout())
-      })
-      .catch(function (error) {
-        console.log('Show error notification!')
-        return Promise.reject(error)
-      })
+          axios({
+            method: 'put',
+            url: '/api/user-management/users',
+            headers: {},
+            data: authData
+          })
+            .then(res => {
+              toast.success('Change password successful')
+              setIsComplete(true)
+              dispatch(logout())
+            })
+            .catch(function (error) {
+              console.log('Show error notification!')
+              return Promise.reject(error)
+            })
+        } else {
+          toast.warn('password must contain atleast a letter and a number')
+        }
+      }
+    }
   }
   if (isComplete) {
     return (
       <>
         <ToastContainer autoClose={5000} />
 
-        <Redirect to={'/'} />
+        <Redirect to={'/ResetPassword'} />
       </>
     )
   } else {

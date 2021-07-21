@@ -57,7 +57,7 @@ function PaymentConfirm () {
 
   const [shipOption, setShipOption] = useState('')
   const [paywithMomo, setPaywithMomo] = useState(false)
-  const [redirectPage, setRedirectPage] = useState('/')
+  const [redirectPage, setRedirectPage] = useState('/FinishPayment')
   const [finishBuy, setFinishBuy] = useState(false)
   const orderId = uuidv4()
   const totalPrice = 0
