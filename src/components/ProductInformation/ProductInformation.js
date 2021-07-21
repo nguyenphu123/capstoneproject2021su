@@ -24,6 +24,7 @@ import ImageGallery from 'react-image-gallery'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Modal from 'react-awesome-modal'
+import { comparator } from '../../features/Comparator/ComparatorSlice'
 
 import MyImageGalery from './MyImageGalery'
 import {
@@ -55,7 +56,8 @@ const mapDispatch = {
   deleteItem,
   updateItemQuantity,
   updateItemColor,
-  updateItemSize
+  updateItemSize,
+  comparator
 }
 
 function ProductInformation () {
@@ -79,6 +81,56 @@ function ProductInformation () {
   const dispatch = useDispatch()
   const CartSlice = useSelector(state => state.CartSlice.cart)
   const [shopCart, setShopCart] = useState(CartSlice)
+  const ComparatorSlice = useSelector(state => state.ComparatorSlice.comparator)
+  const [comparators, setComparators] = useState([])
+
+  const classes = useStyles()
+
+  useEffect(() => {
+    if (comparators !== null) {
+      if (comparators.length !== 0) {
+        dispatch(comparator(comparators))
+      }
+    } else {
+      setComparators([])
+    }
+  }, [comparators])
+  useEffect(() => {
+    if (ComparatorSlice !== null) {
+      if (ComparatorSlice.length !== 0) {
+        console.log(ComparatorSlice)
+        setComparators(ComparatorSlice)
+      }
+    } else {
+      setComparators([])
+    }
+  }, [ComparatorSlice])
+
+  function addToComparator (e) {
+    e.preventDefault()
+    console.log(comparators)
+    const item = {
+      ProductId: Id,
+      CurrentPrice: CurrentPrice,
+      img: ImageStorages[0].ImageUrl,
+      Name: Name,
+      Elements: Elements
+    }
+    if (ComparatorSlice !== null && ComparatorSlice.length !== 0) {
+      console.log(ComparatorSlice)
+
+      const check_index = ComparatorSlice.findIndex(
+        item => item.ProductId === Id
+      )
+      if (check_index !== -1) {
+        console.log(ComparatorSlice)
+      } else {
+        setComparators(comparators => [...comparators, item])
+      }
+    } else {
+      setComparators(comparators => [...comparators, item])
+    }
+  }
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -109,7 +161,6 @@ function ProductInformation () {
   const classes = useStyles()
 
   useEffect(() => {
-    
     axios({
       method: 'get',
       url: '/api/product-management/productId?productId=' + productId,
@@ -601,7 +652,7 @@ function ProductInformation () {
                         </li>
                         <li>
                           <span class='separator'>|</span>
-                          <Link class='link-compare' to={'/'}>
+                          <Link class='link-compare' onClick={addToComparator}>
                             <span>Add to Compare</span>
                           </Link>
                         </li>

@@ -12,7 +12,7 @@ import Modal from 'react-awesome-modal'
 import LoginPage from '../../pages/LoginPage'
 import { emptyCart } from '../../features/Cart/CartSlice'
 import { Header, Image } from 'semantic-ui-react'
-
+import Comparator from '../Comparator/Comparator'
 const mapDispatch = { logout, loginUser, emptyCart }
 
 function NavigationHeader () {
@@ -28,6 +28,7 @@ function NavigationHeader () {
   const [searchFilter, setSearchFilter] = useState([])
   const [searchId, setSearchId] = useState('')
   const [searchList, setSearchList] = useState([])
+  const [openComparator, setOpenComaparator] = useState(false)
 
   useEffect(() => {
     axios({
@@ -67,6 +68,12 @@ function NavigationHeader () {
     e.preventDefault()
     setVisibility(!visibility)
   }
+  function comparator (e) {
+    e.stopPropagation()
+    e.preventDefault()
+    setOpenComaparator(!openComparator)
+  }
+
   function handleSearch (e) {
     setSearch(e.target.value)
   }
@@ -107,6 +114,21 @@ function NavigationHeader () {
             </a>
 
             <LoginPage />
+          </div>
+        </Modal>
+        <Modal
+          visible={openComparator}
+          width='1400'
+          height='500'
+          effect='fadeInUp'
+          onClickAway={comparator}
+        >
+          <a href='javascript:void(0);' onClick={comparator}>
+            Close
+          </a>
+
+          <div className='Modal'>
+            <Comparator />
           </div>
         </Modal>
 
@@ -294,10 +316,14 @@ function NavigationHeader () {
                               </li>
                             </>
                           ) : null}
-
                           <li>
                             <Link to={'/Blog'} title='Blog'>
                               <span>Blog</span>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link onClick={comparator} title='Comparator'>
+                              <span>Comparator</span>
                             </Link>
                           </li>
                           <li className='last'>
@@ -370,7 +396,7 @@ function NavigationHeader () {
                                     thousandSeparator={true}
                                     prefix={''}
                                     renderText={(value, props) => (
-                                      <div {...props}>{value},000VND</div>
+                                      <div {...props}>{value}VND</div>
                                     )}
                                   />
                                 </span>
@@ -410,9 +436,7 @@ function NavigationHeader () {
                                             thousandSeparator={true}
                                             prefix={''}
                                             renderText={(value, props) => (
-                                              <div {...props}>
-                                                {value},000VND
-                                              </div>
+                                              <div {...props}>{value}VND</div>
                                             )}
                                           />
                                         </span>

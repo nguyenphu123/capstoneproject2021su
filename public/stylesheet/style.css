@@ -14226,3 +14226,7 @@ button.btn-share,
   width: 150px;
   cursor: pointer;
 }
+.Modal {
+  height: 400px;
+  overflow: auto;
+}

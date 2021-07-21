@@ -3,12 +3,14 @@ import { combineReducers } from 'redux'
 import UserSlice from '../features/User/UserSlice'
 import CartSlice from '../features/Cart/CartSlice'
 import OrderDataSlice from '../features/OrderData/OrderDataSlice'
+import ComparatorSlice from '../features/Comparator/ComparatorSlice'
 
 const reducer = combineReducers({
   // here we will be adding reducers
   UserSlice,
   CartSlice,
-  OrderDataSlice
+  OrderDataSlice,
+  ComparatorSlice
 })
 const store = configureStore({
   reducer
