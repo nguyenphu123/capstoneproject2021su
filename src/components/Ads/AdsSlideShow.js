@@ -55,7 +55,6 @@ function AdsSlideShow () {
                     data-thumb={ImageBannerStorages[0].ImageUrl}
                   >
                    
-
                     <img
                       src={ImageBannerStorages[0].ImageUrl}
                       data-bgposition='left top'
@@ -64,7 +63,6 @@ function AdsSlideShow () {
                       alt='slider-image1'
                       style={{ heigth: '200px' }}
                     />
-
                     <div class='info'>
                       <div
                         class='tp-caption ExtraLargeTitle sft  tp-resizeme '
@@ -104,7 +102,7 @@ function AdsSlideShow () {
                           heigth: '200px'
                         }}
                       >
-                        <span>Our moto</span>
+                        <span>Our motto</span>
                       </div>
                       <div
                         class='tp-caption sfb  tp-resizeme '

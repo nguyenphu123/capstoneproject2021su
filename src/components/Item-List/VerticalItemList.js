@@ -39,13 +39,23 @@ class VerticalItemList extends React.Component {
     }).then(res => {
       console.log(res)
       console.log(res.data)
-      let result = res.data
 
-      this.setState({
-        products: result,
-        isLoading: false
-        // currentPage: this.props.match.params
-      })
+      if (this.props.topic === 'Super deals') {
+        let result = res.data.sort((a, b) => (a.Price > b.Price ? 1 : -1))
+        this.setState({
+          products: result,
+          isLoading: false
+          // currentPage: this.props.match.params
+        })
+      } else if (this.props.topic === 'Super deals') {
+      } else {
+        let result = res.data
+        this.setState({
+          products: result,
+          isLoading: false
+          // currentPage: this.props.match.params
+        })
+      }
     })
   }
   componentDidUpdate (prevProps) {
@@ -61,15 +71,49 @@ class VerticalItemList extends React.Component {
         }).then(res => {
           console.log(res)
           console.log(res.data)
-          let result = res.data
+          if (this.props.topic === 'Super deals') {
+            let result = res.data.sort((a, b) =>
+              Math.round(((a.Price - a.CurrentPrice) * 100) / a.Price) <
+              Math.round(((b.Price - b.CurrentPrice) * 100) / b.Price)
+                ? 1
+                : -1
+            )
+            let afterSliceResult = result.slice(0, 8)
 
-          this.setState({
-            products: result,
-            isLoading: false,
-            isUpdated: false
+            this.setState({
+              products: afterSliceResult,
+              isLoading: false,
+              isUpdated: false
 
-            // currentPage: this.props.match.params
-          })
+              // currentPage: this.props.match.params
+            })
+          } else if (this.props.topic === 'New arrival') {
+            let result = res.data.sort(function compare (a, b) {
+              var dateA = new Date(a.DateTime)
+              var dateB = new Date(b.DateTime)
+              return dateA - dateB
+            })
+            let afterSliceResult = result.slice(0, 8)
+
+            this.setState({
+              products: afterSliceResult,
+              isLoading: false,
+              isUpdated: false
+
+              // currentPage: this.props.match.params
+            })
+          } else {
+            let result = res.data
+            let afterSliceResult = result.slice(0, 8)
+
+            this.setState({
+              products: afterSliceResult,
+              isLoading: false,
+              isUpdated: false
+
+              // currentPage: this.props.match.params
+            })
+          }
         })
       } else {
         axios({

@@ -83,7 +83,7 @@ function HorizontalItem ({
 
                   <div className='new-label new-top-left'>Hot</div>
                   <div className='sale-label sale-top-left'>
-                    -{(Price - CurrentPrice) / 100}%
+                    -{Math.round(((Price - CurrentPrice) * 100) / Price)}%
                   </div>
                   <div className='item-box-hover'>
                     <div className='box-inner'>
@@ -136,7 +136,7 @@ function HorizontalItem ({
                               thousandSeparator={true}
                               prefix={''}
                               renderText={(value, props) => (
-                                <div {...props}>{value},000VND</div>
+                                <div {...props}>{value}VND</div>
                               )}
                             />
                           </span>

@@ -166,25 +166,6 @@ function CategoryPage () {
               <div className='pro-coloumn'>
                 <article>
                   <div className='toolbar'>
-                    <div className='sorter'>
-                      <div className='view-mode'>
-                        <Link
-                          to={'/grid'}
-                          title='Grid'
-                          className='button button-grid'
-                        >
-                          &nbsp;
-                        </Link>
-                        &nbsp;
-                        <span
-                          title='List'
-                          className='button button-active button-list'
-                        >
-                          &nbsp;
-                        </span>
-                        &nbsp;
-                      </div>
-                    </div>
                     <div className='sort-by'>
                       <label className='left'>Sort By: </label>
                       <Button

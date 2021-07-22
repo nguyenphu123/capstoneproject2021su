@@ -141,7 +141,7 @@ function VerticalItem ({
 
                     <div className='new-label new-top-left'>Hot</div>
                     <div className='sale-label sale-top-left'>
-                      -{(Price - CurrentPrice) / 100}%
+                      -{Math.round(((Price - CurrentPrice) * 100) / Price)}%
                     </div>
                     <div className='item-box-hover'>
                       <div className='box-inner'>

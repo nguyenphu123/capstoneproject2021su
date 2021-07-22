@@ -4,7 +4,6 @@ import { Button, Card, Header } from 'semantic-ui-react'
 import Title from '../../Assets/Title'
 import HorizontalItem from './HorizontalItem'
 
-
 class HorizontalItemLList extends React.Component {
   constructor () {
     super()
@@ -20,9 +19,27 @@ class HorizontalItemLList extends React.Component {
     }).then(res => {
       console.log(res)
       console.log(res.data)
-      this.setState({
-        products: res.data
-      })
+      if (this.props.topic === 'Top luxury') {
+        let result = res.data.sort((a, b) =>
+          a.CurrentPrice < b.CurrentPrice ? 1 : -1
+        )
+        let afterSliceResult = result.slice(0, 3)
+
+        this.setState({
+          products: afterSliceResult
+        })
+      } else {
+        let result = res.data.sort((a, b) =>
+          a.CurrentPrice < b.CurrentPrice ? -1 : 1
+        )
+        console.log(result)
+
+        let afterSliceResult = result.slice(0, 3)
+        console.log(afterSliceResult)
+        this.setState({
+          products: afterSliceResult
+        })
+      }
     })
   }
   render () {

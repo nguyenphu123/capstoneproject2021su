@@ -90,12 +90,13 @@ function HomePage () {
       <section className=' wow bounceInUp animated'>
         <div className='best-pro slider-items-products container'>
           <div className='new_title'>
-            <h2>Best Seller</h2>
-            <h4>So you get to know me better</h4>
+            <h2>Super deals</h2>
+            <h4>Highest discount</h4>
           </div>
           <VerticalItemList
             reset={true}
-            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
+            topic='Super deals'
+            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1000'}
           />
           <SeeMoreButton Url='/AllProduct/1/Grid' />
         </div>
@@ -103,12 +104,13 @@ function HomePage () {
       <section className=' wow bounceInUp animated'>
         <div className='best-pro slider-items-products container'>
           <div className='new_title'>
-            <h2>Trending</h2>
-            <h4>Current trend</h4>
+            <h2>New arrival</h2>
+            <h4>New products</h4>
           </div>
           <VerticalItemList
             reset={true}
-            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=8'}
+            topic='New arrival'
+            apiUrl={'/api/product-management?sort=up&pageIndex=1&pageSize=1000'}
           />
           <SeeMoreButton Url='/AllProduct/1/Grid' />
         </div>
@@ -118,12 +120,14 @@ function HomePage () {
           <div class='row'>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
-                <h2>Top view</h2>
+                <h2>Top luxury</h2>
               </div>
 
               <HorizontalItemList
-                topic='Best Seller'
-                apiUrl={'/api/recommend-management'}
+                topic='Top luxury'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+                }
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>
@@ -140,12 +144,14 @@ function HomePage () {
             </div>
             <div class='col-lg-4 col-md-4 col-sm-6'>
               <div className='new_title'>
-                <h2>Top wishlist</h2>
+                <h2>Top cheapest</h2>
               </div>
 
               <HorizontalItemList
-                topic='Feature'
-                apiUrl={'/api/recommend-management'}
+                topic='Top cheapest'
+                apiUrl={
+                  '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+                }
               />
               <SeeMoreButton Url='/AllProduct/1/Grid' />
             </div>

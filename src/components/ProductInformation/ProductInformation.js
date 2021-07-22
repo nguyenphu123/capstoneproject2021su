@@ -84,8 +84,6 @@ function ProductInformation () {
   const ComparatorSlice = useSelector(state => state.ComparatorSlice.comparator)
   const [comparators, setComparators] = useState([])
 
-  const classes = useStyles()
-
   useEffect(() => {
     if (comparators !== null) {
       if (comparators.length !== 0) {
@@ -110,17 +108,17 @@ function ProductInformation () {
     e.preventDefault()
     console.log(comparators)
     const item = {
-      ProductId: Id,
-      CurrentPrice: CurrentPrice,
-      img: ImageStorages[0].ImageUrl,
-      Name: Name,
-      Elements: Elements
+      ProductId: productId,
+      CurrentPrice: product.CurrentPrice,
+      img: product.ImageStorages[0].ImageUrl,
+      Name: product.Name,
+      Elements: product.Elements
     }
     if (ComparatorSlice !== null && ComparatorSlice.length !== 0) {
       console.log(ComparatorSlice)
 
       const check_index = ComparatorSlice.findIndex(
-        item => item.ProductId === Id
+        item => item.ProductId === productId
       )
       if (check_index !== -1) {
         console.log(ComparatorSlice)
@@ -157,8 +155,6 @@ function ProductInformation () {
       }
     })
   )
-
-  const classes = useStyles()
 
   useEffect(() => {
     axios({
@@ -502,9 +498,18 @@ function ProductInformation () {
                   <div class='product-img-box col-lg-5 col-sm-5 col-xs-12'>
                     <div class='new-label new-top-left'>Hot</div>
                     <div class='sale-label sale-top-left'>
-                      {product.CurrentPrice === product.Price ? null : (
+                      {product.CurrentPrice === product.Price ? (
+                        <span> 0% </span>
+                      ) : (
                         <>
-                          <span>-{-product.CurrentPrice + product.Price}%</span>
+                          <span>
+                            -
+                            {Math.round(
+                              ((product.Price - product.CurrentPrice) * 100) /
+                                product.Price
+                            )}
+                            %
+                          </span>
                         </>
                       )}
                     </div>

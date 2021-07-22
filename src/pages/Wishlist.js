@@ -17,8 +17,8 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 import { Form, Checkbox, Dropdown } from 'semantic-ui-react'
 
-function GetAllProduct () {
-  const { currentPage, categoryId, viewStyle, sort, sortOption } = useParams()
+function Wishlist () {
+  const { currentPage, userId, viewStyle, sort, sortOption } = useParams()
 
   const [currentURL, setCurrentURL] = useState(
     '/api/product-management?sort=up&pageIndex=1&pageSize=5000'
@@ -346,4 +346,4 @@ function GetAllProduct () {
   )
 }
 
-export default GetAllProduct
+export default Wishlist
