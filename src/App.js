@@ -28,7 +28,7 @@ import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
 import SearchResultPage from './pages/SearchResultPage'
 import Blog from './pages/Blog'
-
+import Wishlist from './pages/Wishlist'
 var randomstring = require('randomstring')
 const useStyles = makeStyles(theme => ({
   root: {
@@ -122,6 +122,12 @@ function App () {
 
               <Profile />
             </Route>
+            <Route path='/wishlist/:userId'>
+              <NavigationHeader />
+
+              <Wishlist />
+            </Route>
+
             <Route path='/OrderHistory'>
               <NavigationHeader />
 

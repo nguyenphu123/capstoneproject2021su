@@ -174,7 +174,7 @@ function RegistrationPage () {
       var test = reg.test(e.target.value)
       if (test) {
       } else {
-        toast.warn('phone number must contain number only')
+        toast.warn('email must include @mail.com')
       }
     }
   }

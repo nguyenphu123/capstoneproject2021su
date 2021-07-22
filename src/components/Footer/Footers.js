@@ -1,7 +1,5 @@
-
 import { Button } from 'semantic-ui-react'
 import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
-
 
 function Footers () {
   return (
@@ -10,45 +8,6 @@ function Footers () {
         {/* <!-- BEGIN INFORMATIVE FOOTER --> */}
         <div className='footer-inner'>
           <div className='newsletter-row'>
-            <div className='container'>
-              <div className='row'>
-                {/* <!-- Footer Newsletter --> */}
-                <div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 col1'>
-                  <div className='newsletter-wrap'>
-                    <h5>Newsletter</h5>
-                    <h4>Get discount 30% off</h4>
-                    <form
-                      action='#'
-                      method='post'
-                      id='newsletter-validate-detail1'
-                    >
-                      <div id='container_form_news'>
-                        <div id='container_form_news2'>
-                          <input
-                            type='text'
-                            name='email'
-                            id='newsletter1'
-                            title='Sign up for our newsletter'
-                            className='input-text required-entry validate-email'
-                            placeholder='Enter your email address'
-                          />
-                          <button
-                            type='submit'
-                            title='Subscribe'
-                            className='button subscribe'
-                          >
-                            <span>Subscribe</span>
-                          </button>
-                        </div>
-                        {/* <!--container_form_news2--> */}
-                      </div>
-                      {/* <!--container_form_news--> */}
-                    </form>
-                  </div>
-                  {/* <!--newsletter-wrap--> */}
-                </div>
-              </div>
-            </div>
             {/* <!--footer-column-last--> */}
           </div>
           <div className='footer-middle'>
@@ -63,7 +22,7 @@ function Footers () {
                           Blog
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href='faq.html' title='FAQs'>
                           FAQs
                         </a>
@@ -87,52 +46,16 @@ function Footers () {
                         <a href='#' title='Return policy'>
                           Return policy
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </div>
-                <div className='col-md-3 col-sm-6'>
-                  <div className='footer-column'>
-                    <h4>Style Advisor</h4>
-                    <ul className='links'>
-                      <li>
-                        <a href='login.html' title='Your Account'>
-                          Your Account
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#' title='Information'>
-                          Information
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#' title='Addresses'>
-                          Addresses
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#' title='Addresses'>
-                          Discount
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#' title='Orders History'>
-                          Orders History
-                        </a>
-                      </li>
-                      <li>
-                        <a href='#' title='Order Tracking'>
-                          Order Tracking
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+
                 <div className='col-md-3 col-sm-6'>
                   <div className='footer-column'>
                     <h4>Information</h4>
                     <ul className='links'>
-                      <li>
+                      {/* <li>
                         <a href='sitemap.html' title='Site Map'>
                           Site Map
                         </a>
@@ -146,13 +69,13 @@ function Footers () {
                         <a href='#' title='Advanced Search'>
                           Advanced Search
                         </a>
-                      </li>
+                      </li>*/}
                       <li>
                         <a href='about_us.html' title='About Us'>
                           About Us
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href='contact_us.html' title='Contact Us'>
                           Contact Us
                         </a>
@@ -161,10 +84,21 @@ function Footers () {
                         <a href='#' title='Suppliers'>
                           Suppliers
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </div>
+                <div className='col-md-3 col-sm-6'>
+                  <div className='footer-column'>
+                    <h4>Store Location</h4>
+                    <img
+                      style={{ width: '300px', height: '200px' }}
+                      src="https://www.google.com/maps/d/u/0/thumbnail?mid=1uMlvPKxmeqn_3aVhvrqbjbFfMjU&hl=en"
+                      alt=''
+                    />
+                  </div>
+                </div>
+
                 <div className='col-md-3 col-sm-6'>
                   <div className='footer-column'>
                     <h4>Contact Us</h4>
@@ -198,7 +132,7 @@ function Footers () {
         <div className='footer-top'>
           <div className='container'>
             <div className='row'>
-              <div className='col-xs-12 col-sm-4'>
+              {/* <div className='col-xs-12 col-sm-4'>
                 <div className='social'>
                   <ul>
                     <li className='fb'>
@@ -224,18 +158,20 @@ function Footers () {
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> */}
               <div className='col-sm-4 col-xs-12 coppyright'>
-                {' '}
-                © 2020 ThemesGround. All Rights Reserved.{' '}
+                © 2020 ThemesGround. All Rights Reserved.
               </div>
               <div className='col-xs-12 col-sm-4'>
                 <div className='payment-accept'>
-                  {' '}
-                  <img src='images/payment-1.png' alt='' />{' '}
-                  <img src='images/payment-2.png' alt='' />{' '}
-                  <img src='images/payment-3.png' alt='' />{' '}
-                  <img src='images/payment-4.png' alt='' />{' '}
+                  <img
+                    style={{ width: '70px', height: '50px' }}
+                    src='https://developers.momo.vn/images/favicon/ms-icon-310x310.png'
+                    alt=''
+                  />
+                  {/* <img src='images/payment-2.png' alt='' />
+                  <img src='images/payment-3.png' alt='' />
+                  <img src='images/payment-4.png' alt='' /> */}
                 </div>
               </div>
             </div>
