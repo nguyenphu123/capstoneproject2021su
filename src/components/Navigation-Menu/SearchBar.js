@@ -80,17 +80,16 @@ export default class SearchBar extends Component {
   setInvisible = (name, id) => {
     this.setState({
       value: name,
-      filterVisibility: 'hidden',
-      SearchId: name
+      filterVisibility: 'hidden'
 
       // SearchResult: result
     })
   }
   SearchResult = () => {
-    if (this.state.SearchId === '') {
+    if (this.state.value === '') {
     } else {
       this.setState({
-        SearchResult: this.state.SearchId
+        SearchResult: this.state.value
       })
     }
   }
@@ -99,7 +98,49 @@ export default class SearchBar extends Component {
 
     // const { isLoading, value, results } = this.state
     if (this.state.SearchResult !== '') {
-      return <Redirect to={'/Search/' + this.state.SearchResult + '/1'} />
+      return (
+        <>
+          <div>
+            <input
+              type='text'
+              className='form-control'
+              placeholder='Search'
+              value={value}
+              onChange={this.handleChange}
+            />
+            <span className='input-group-btn'>
+              <button
+                type='submit'
+                onClick={() => this.SearchResult()}
+                className='search-btn'
+              >
+                <span className='glyphicon glyphicon-search'>
+                  <span className='sr-only'>Search</span>
+                </span>
+              </button>
+              <div style={{ Position: 'Absolute', zIndex: '1000' }}>
+                <FilterResults
+                  value={value}
+                  data={data}
+                  renderResults={results => (
+                    <div style={{ display: this.state.filterVisibility }}>
+                      {results.map(el => (
+                        <div
+                          className='search-Item'
+                          onClick={() => this.setInvisible(el.Name, el.Id)}
+                        >
+                          <span>{el.Name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                />
+              </div>
+            </span>
+          </div>
+          <Redirect to={'/Search/' + this.state.SearchResult + '/1'} />
+        </>
+      )
     } else {
       return (
         <div>

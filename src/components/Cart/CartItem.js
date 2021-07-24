@@ -139,7 +139,7 @@ function CartItem ({
                 displayType={'text'}
                 thousandSeparator={true}
                 prefix={''}
-                renderText={(value, props) => <div {...props}>{value}</div>}
+                renderText={(value, props) => <div {...props}>{value}VND</div>}
               />
             </span>
           </span>
@@ -183,7 +183,7 @@ function CartItem ({
                 displayType={'text'}
                 thousandSeparator={true}
                 prefix={''}
-                renderText={(value, props) => <div {...props}>{value}</div>}
+                renderText={(value, props) => <div {...props}>{value}VND</div>}
               />
             </span>
           </span>

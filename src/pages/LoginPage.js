@@ -51,8 +51,7 @@ function LoginPage () {
 
     if (UserSliceError !== null) {
       toast.warn('Wrong username or password')
-    }else{
-
+    } else {
     }
   }, [UserSliceError])
 
@@ -84,7 +83,7 @@ function LoginPage () {
       <>
         <ToastContainer autoClose={5000} />
 
-        <Redirect to={'/LoginSuccess'} />
+        <Redirect to={'/'} />
       </>
     )
   } else {

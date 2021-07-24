@@ -45,8 +45,6 @@ function SearchResultPage () {
   ]
 
   useEffect(() => {
-    
-
     setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     setIsUpdate(false)
 
@@ -154,25 +152,7 @@ function SearchResultPage () {
               <div className='pro-coloumn'>
                 <article>
                   <div className='toolbar'>
-                    <div className='sorter'>
-                      <div className='view-mode'>
-                        <Link
-                          to={'/grid'}
-                          title='Grid'
-                          className='button button-grid'
-                        >
-                          &nbsp;
-                        </Link>
-                        &nbsp;
-                        <span
-                          title='List'
-                          className='button button-active button-list'
-                        >
-                          &nbsp;
-                        </span>
-                        &nbsp;
-                      </div>
-                    </div>
+                    <div className='sorter'></div>
                     <div className='sort-by'>
                       <label className='left'>Sort By: </label>
                       <Button

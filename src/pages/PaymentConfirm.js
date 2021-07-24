@@ -148,9 +148,7 @@ function PaymentConfirm () {
 
         dispatch(removeOrder())
 
-        setTimeout(function () {
-          setFinishBuy(true)
-        }, 5000)
+        setFinishBuy(true)
       })
     } else {
     }
@@ -158,15 +156,14 @@ function PaymentConfirm () {
 
   console.log(finishBuy)
   useEffect(() => {
+    setFinishBuy(false)
+
     if (finishBuy) {
       // document.getElementById('finishform').submit()
 
       dispatch(emptyCart())
     } else {
     }
-    setTimeout(function () {
-      setFinishBuy(false)
-    }, 5000)
   }, [finishBuy])
 
   if (finishBuy) {
@@ -354,6 +351,7 @@ function PaymentConfirm () {
               dispatch(createOrder(order))
 
               window.open(res.data, '_self')
+              setFinishBuy(true)
             })
             e.preventDefault()
 
@@ -769,9 +767,9 @@ function PaymentConfirm () {
           </>
         )
       }
-      return <Redirect to={'/'} />
+      return <Redirect to={'/1'} />
     } else {
-      return <Redirect to={'/'} />
+      return <Redirect to={'/2'} />
     }
   }
 }
