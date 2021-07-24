@@ -344,7 +344,7 @@ class VerticalItemList extends React.Component {
       })
 
     if (this.state.isLoading) {
-      return null
+      return <>Loading please wait a moment</>
     } else {
       return (
         <>

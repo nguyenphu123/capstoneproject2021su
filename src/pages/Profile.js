@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Tab } from 'semantic-ui-react'
+import { Tab, Header } from 'semantic-ui-react'
 
 import UserNewPassword from '../components/UserProfile/UserNewPassword'
 import UserInformation from '../components/UserProfile/UserInformation'
@@ -22,7 +22,11 @@ function Profile () {
   } else {
     const panes = [
       {
-        menuItem: 'Information',
+        menuItem: {
+          key: 'users',
+          icon: 'users',
+          content: <Header as='h3'>Information</Header>
+        },
         render: () => (
           <Tab.Pane>
             <UserInformation UserInformation={UserSlice} />
@@ -30,7 +34,11 @@ function Profile () {
         )
       },
       {
-        menuItem: 'Addresses',
+        menuItem: {
+          key: 'address',
+          icon: 'home',
+          content: <Header as='h3'>Address</Header>
+        },
         render: () => (
           <Tab.Pane>
             <UserAddress UserInformation={UserSlice} />
@@ -42,7 +50,11 @@ function Profile () {
       //   render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>
       // },
       {
-        menuItem: 'Change Password',
+        menuItem: {
+          key: 'pass',
+          icon: 'lock',
+          content: <Header as='h3'>Password</Header>
+        },
         render: () => (
           <Tab.Pane>
             <UserNewPassword UserInformation={UserSlice} />

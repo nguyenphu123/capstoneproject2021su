@@ -126,18 +126,17 @@ function UserNewPassword ({ UserInformation }) {
   } else {
     return (
       <>
-        <Title Name='Reset Password ?' />
-
         <Form size='large'>
           <Form.Input
             fluid
             icon='lock'
             iconPosition='left'
-            placeholder='New Password'
+            placeholder=' Password'
             type='password'
             value={newPassword}
             label='New Password'
             onChange={handleChangePassword}
+            size='huge'
           />
 
           <Form.Input
@@ -149,8 +148,9 @@ function UserNewPassword ({ UserInformation }) {
             value={matchNewPassword}
             label='Re enter new password'
             onChange={handleChangeMatchPassword}
+            size='huge'
           />
-          <Button onClick={onSubmitChange} color='green' size='large'>
+          <Button onClick={onSubmitChange} color='green' size='big'>
             Change
           </Button>
         </Form>

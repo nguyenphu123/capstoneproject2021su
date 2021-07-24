@@ -172,8 +172,26 @@ function ProductInformation () {
           colors.push(element.Color)
           sizes.push(element.Size)
         }
+        setElements(res.data.Elements)
+        console.log(sizes)
+        console.log(colors)
+
+        console.log(images)
+        setCurrentColor(colors[0].Id)
+        setCurrentSize(sizes[0].Id)
+        const check_index = res.data.Elements.findIndex(
+          item => item.Color === colors[0].Id && item.Size === sizes[0].Id
+        )
+        if (check_index !== -1) {
+          setMaxQuantity(res.data.Elements[check_index].Quantity)
+
+          // setCurrentColor(shopCart[check_index].Color)
+          // setCurrentSize(shopCart[check_index].Size)
+        } else {
+        }
+      } else {
+        setMaxQuantity(0)
       }
-      setElements(res.data.Elements)
 
       setGalleries(
         res.data.ImageStorages.map(({ ImageUrl }) => ({
@@ -181,23 +199,6 @@ function ProductInformation () {
           thumbnail: `${ImageUrl}`
         }))
       )
-
-      console.log(sizes)
-      console.log(colors)
-
-      console.log(images)
-      setCurrentColor(colors[0].Id)
-      setCurrentSize(sizes[0].Id)
-      const check_index = res.data.Elements.findIndex(
-        item => item.Color === colors[0].Id && item.Size === sizes[0].Id
-      )
-      if (check_index !== -1) {
-        setMaxQuantity(res.data.Elements[check_index].Quantity)
-
-        // setCurrentColor(shopCart[check_index].Color)
-        // setCurrentSize(shopCart[check_index].Size)
-      } else {
-      }
 
       setCurrentState(true)
     })
@@ -209,31 +210,32 @@ function ProductInformation () {
       headers: {}
     }).then(res => {
       console.log(res.data)
+      if (res.data.Elements.length > 0) {
+        setCurrentColor(res.data.Elements[0].Color.Id)
+        setCurrentSize(res.data.Elements[0].Size.Id)
+        setCurrentState(true)
+        if (CartSlice !== null) {
+          setShopCart(CartSlice)
+          console.log(CartSlice)
 
-      setCurrentColor(res.data.Elements[0].Color.Id)
-      setCurrentSize(res.data.Elements[0].Size.Id)
+          const check_index = shopCart.findIndex(
+            item =>
+              item.ProductId === productId &&
+              item.Color === res.data.Elements[0].Color.Id &&
+              item.Size === res.data.Elements[0].Size.Id
+          )
+          if (check_index !== -1) {
+            setQuantity(shopCart[check_index].Quantity)
+            setMaxQuantity(res.data.Elements[0].Quantity)
 
-      setCurrentState(true)
-      if (CartSlice !== null) {
-        setShopCart(CartSlice)
-        console.log(CartSlice)
-
-        const check_index = shopCart.findIndex(
-          item =>
-            item.ProductId === productId &&
-            item.Color === res.data.Elements[0].Color.Id &&
-            item.Size === res.data.Elements[0].Size.Id
-        )
-        if (check_index !== -1) {
-          setQuantity(shopCart[check_index].Quantity)
-          setMaxQuantity(res.data.Elements[0].Quantity)
-
-          // setCurrentColor(shopCart[check_index].Color)
-          // setCurrentSize(shopCart[check_index].Size)
+            // setCurrentColor(shopCart[check_index].Color)
+            // setCurrentSize(shopCart[check_index].Size)
+          } else {
+          }
         } else {
+          setShopCart([])
         }
       } else {
-        setShopCart([])
       }
     })
   }, [CartSlice, productId])

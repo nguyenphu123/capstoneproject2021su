@@ -147,7 +147,7 @@ function NavigationHeader () {
                               '/Category/6517bd6f-ffd4-4e1a-897a-cf82f5f52c03/1'
                             }
                           >
-                            Special Offers! - Get <span>10%</span> off on Shooes{' '}
+                            Special Offers! - Get <span>10%</span> off on Shooes
                           </Link>
                         </p>
                       </div>
@@ -249,8 +249,12 @@ function NavigationHeader () {
                         </li>
                         <li className='fl-custom-tabmenulink mega-menu'>
                           <Link to={'/'} className='level-top'>
-                            <span>Deals</span>
+                            <span></span>
                           </Link>
+                          <Link to={'/'} className='level-top'>
+                            <span></span>
+                          </Link>
+
                           <div className='level0-wrapper fl-custom-tabmenu'>
                             <div className='container'>
                               <div className='header-nav-dropdown-wrapper clearer'>
@@ -287,8 +291,17 @@ function NavigationHeader () {
                   <div className='fl-links'>
                     <div className='no-js welcome-user'>
                       <Header as='h4' textAlign='center'>
-                        welcome,
-                        {UserSlice !== null ? UserSlice.Name : <>customer</>}
+                        {UserSlice !== null ? (
+                          <>
+                            <Image
+                              circular
+                              src='https://react.semantic-ui.com/images/avatar/large/patrick.png'
+                            />
+                            {UserSlice.Name}
+                          </>
+                        ) : (
+                          <>customer</>
+                        )}
                       </Header>
 
                       <div className='fl-nav-links'>

@@ -127,14 +127,14 @@ function UserInformation ({ UserInformation }) {
           </Header>
           <div style={{ width: '300px' }}>
             <Segment style={{ border: '0px' }} clearing>
-              <Header as='h5' floated='left' color='black'>
+              <Header as='h4' floated='left' color='black'>
                 Name:
               </Header>
-              <Header as='h5' floated='right' color='grey'>
+              <Header as='h4' floated='right' color='grey'>
                 <Input
                   onChange={handleChangeName}
                   placeholder='Phone'
-                  disabled={edit}
+                  disabled={!edit}
                   value={name}
                 />
               </Header>
@@ -142,16 +142,16 @@ function UserInformation ({ UserInformation }) {
           </div>
           <div style={{ width: '300px' }}>
             <Segment style={{ border: '0px' }} clearing>
-              <Header as='h5' floated='left' color='black'>
+              <Header as='h4' floated='left' color='black'>
                 Gender:
               </Header>
-              <Header as='h5' floated='right' color='grey'>
+              <Header as='h4' floated='right' color='grey'>
                 <Dropdown
                   onChange={handleChangeGender}
                   options={genderOptions}
                   placeholder='Choose an option'
                   selection
-                  disabled={edit}
+                  disabled={!edit}
                   value={gender}
                 />
               </Header>
@@ -172,14 +172,14 @@ function UserInformation ({ UserInformation }) {
           </Header>
           <div style={{ width: '300px' }}>
             <Segment style={{ border: '0px' }} clearing>
-              <Header as='h5' floated='left' color='black'>
+              <Header as='h4' floated='left' color='black'>
                 Phone :
               </Header>
-              <Header as='h5' floated='right' color='grey'>
+              <Header as='h4' floated='right' color='grey'>
                 <Input
                   onChange={handleChangePhone}
                   placeholder='Phone'
-                  disabled={edit}
+                  disabled={!edit}
                   value={phone}
                 />
               </Header>
@@ -187,14 +187,14 @@ function UserInformation ({ UserInformation }) {
           </div>
           <div style={{ width: '300px' }}>
             <Segment style={{ border: '0px' }} clearing>
-              <Header as='h5' floated='left' color='black'>
+              <Header as='h4' floated='left' color='black'>
                 Email:
               </Header>
-              <Header as='h5' floated='right' color='grey'>
+              <Header as='h4' floated='right' color='grey'>
                 <Input
                   onChange={handleChangeEmail}
                   placeholder='Email'
-                  disabled={edit}
+                  disabled={!edit}
                   value={email}
                 />
               </Header>
@@ -202,16 +202,16 @@ function UserInformation ({ UserInformation }) {
           </div>
           <div style={{ width: '300px' }}>
             <Segment style={{ border: '0px' }} clearing>
-              <Header as='h5' floated='left' color='black'>
+              <Header as='h4' floated='left' color='black'>
                 Address:
               </Header>
-              <Header as='h5' floated='right' color='grey'>
+              <Header as='h4' floated='right' color='grey'>
                 {UserInformation.Address}
               </Header>
             </Segment>
           </div>
-          {!edit ? (
-            <Button onClick={onSubmitChange} primary>
+          {edit ? (
+            <Button size='big' onClick={onSubmitChange} primary>
               Save
             </Button>
           ) : null}
@@ -233,16 +233,16 @@ function UserInformation ({ UserInformation }) {
           </Grid.Column>
           <Grid.Column width={11}>
             <Header as='h1'>{name}</Header>
-            <Header as='h5'>
+            <Header as='h4'>
               <Segment style={{ border: '0px' }}>
                 <Grid columns={2}>
                   <Grid.Column>
                     <Icon name=' user outline' />
-                    {UserInformation.UserName}
+                    <Header as='h1'>{UserInformation.UserName}</Header>
                   </Grid.Column>
                   <Grid.Column>
                     <Icon name=' map marker alternate' />
-                    {UserInformation.Address}
+                    <Header as='h1'>{UserInformation.Address}</Header>
                   </Grid.Column>
                 </Grid>
 

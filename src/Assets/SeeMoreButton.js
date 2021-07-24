@@ -10,6 +10,7 @@ function SeeMoreButton ({ Url }) {
       inverted
       color='blue'
       fluid
+      size='big'
       style={{ marginTop: '10px' }}
     >
       See more...

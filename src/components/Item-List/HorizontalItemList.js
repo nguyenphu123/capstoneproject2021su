@@ -9,7 +9,8 @@ class HorizontalItemLList extends React.Component {
     super()
 
     this.state = {
-      products: []
+      products: [],
+      isLoading: true
     }
   }
   componentDidMount () {
@@ -26,7 +27,9 @@ class HorizontalItemLList extends React.Component {
         let afterSliceResult = result.slice(0, 3)
 
         this.setState({
-          products: afterSliceResult
+          products: afterSliceResult,
+          isLoading: false
+
         })
       } else {
         let result = res.data.sort((a, b) =>
@@ -37,45 +40,50 @@ class HorizontalItemLList extends React.Component {
         let afterSliceResult = result.slice(0, 3)
         console.log(afterSliceResult)
         this.setState({
-          products: afterSliceResult
+          products: afterSliceResult,
+          isLoading: false
         })
       }
     })
   }
   render () {
-    return (
-      <>
-        <Card.Group itemsPerRow={8}>
-          {this.state.products.map(
-            ({
-              Id,
-              Name,
-              Price,
-              Quantity,
-              Star,
-              Description,
-              Code,
-              CurrentPrice,
-              CategoryId,
-              Status,
-              ImageStorages
-            }) => (
-              <div style={{ float: 'left' }}>
-                <HorizontalItem
-                  Id={Id}
-                  Name={Name}
-                  Status={Status}
-                  Price={Price}
-                  CurrentPrice={CurrentPrice}
-                  ImageStorages={ImageStorages}
-                  Quantity={Quantity}
-                />
-              </div>
-            )
-          )}
-        </Card.Group>
-      </>
-    )
+    if (this.state.isLoading) {
+      return <>Loading please wait a moment</>
+    } else {
+      return (
+        <>
+          <Card.Group itemsPerRow={8}>
+            {this.state.products.map(
+              ({
+                Id,
+                Name,
+                Price,
+                Quantity,
+                Star,
+                Description,
+                Code,
+                CurrentPrice,
+                CategoryId,
+                Status,
+                ImageStorages
+              }) => (
+                <div style={{ float: 'left' }}>
+                  <HorizontalItem
+                    Id={Id}
+                    Name={Name}
+                    Status={Status}
+                    Price={Price}
+                    CurrentPrice={CurrentPrice}
+                    ImageStorages={ImageStorages}
+                    Quantity={Quantity}
+                  />
+                </div>
+              )
+            )}
+          </Card.Group>
+        </>
+      )
+    }
   }
 }
 export default HorizontalItemLList

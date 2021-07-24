@@ -66,8 +66,6 @@ function UserAddress ({ UserInformation }) {
 
   return (
     <>
-      <Title Name='Your address' />
-
       <Form size='large'>
         <Form.Input
           fluid
@@ -77,9 +75,10 @@ function UserAddress ({ UserInformation }) {
           value={address}
           label='Your address'
           onChange={handleChangeAddress}
+          size='huge'
         />
 
-        <Button onClick={onSubmitChange} color='green' size='large'>
+        <Button onClick={onSubmitChange} color='green' size='big'>
           Save
         </Button>
       </Form>

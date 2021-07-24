@@ -27,7 +27,7 @@ import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
 import SearchResultPage from './pages/SearchResultPage'
-import Blog from './pages/Blog'
+import ShopBlog from './pages/ShopBlog'
 import Wishlist from './pages/Wishlist'
 var randomstring = require('randomstring')
 const useStyles = makeStyles(theme => ({
@@ -141,11 +141,13 @@ function App () {
 
               <ShoppingCart />
             </Route>
-            <Route path='/Blog'>
-              <NavigationHeader />
-
-              <Blog />
-            </Route>
+            <Route
+              path='/Blog'
+              component={() => {
+                window.location = 'http://localhost:3001/'
+                return null
+              }}
+            />
 
             <Route path='/PaymentInfo/:IsPay?'>
               <PaymentConfirm />
