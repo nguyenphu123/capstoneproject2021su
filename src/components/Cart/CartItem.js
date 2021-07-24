@@ -47,7 +47,7 @@ function CartItem ({
     if (currentColor !== Color) {
       setCurrentColor(currentColor => currentColor)
       dispatch(updateItemColor(Id, currentColor))
-
+      console.log(currentColor)
       toast.success('Cart has been updated')
     }
   }, [currentColor])
@@ -103,10 +103,10 @@ function CartItem ({
         <td class='a-center hidden-table'>
           <div>
             <div>
-              {colors.map(({ Name, Id }) => (
+              {colors.map(({ Name, Id }, index) => (
                 <Radio
                   label={Name}
-                  name='radioGroupColor'
+                  name={'radioGroupColor' + index}
                   value={Id}
                   checked={currentColor === Id}
                   onChange={() => setCurrentColor(Id)}
@@ -114,10 +114,10 @@ function CartItem ({
               ))}
             </div>
             <div>
-              {sizes.map(({ Name, Id }) => (
+              {sizes.map(({ Name, Id }, index) => (
                 <Radio
                   label={Name}
-                  name='radioGroupSize'
+                  name={'radioGroupSize' + index}
                   value={Id}
                   checked={currentSize === Id}
                   onChange={() => setCurrentSize(Id)}

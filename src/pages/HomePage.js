@@ -16,10 +16,14 @@ import SaleOff from '../components/Sale-Off/SaleOff'
 import CategoryList from './CategoryList'
 import { ToastContainer, toast } from 'react-toastify'
 
+import VerticalItemListHome from '../components/Item-List/VerticalItemListHome'
+
 function HomePage () {
   const { Task } = useParams()
 
   const UserSlice = useSelector(state => state.UserSlice.user)
+  const [banners, setBanners] = useState([])
+
   const [categorylist, setCategorylist] = useState([])
   const [loadComplete, setLoadComplete] = useState(false)
   useEffect(() => {
@@ -43,13 +47,26 @@ function HomePage () {
       console.log(res)
       console.log(res.data)
       setCategorylist(res.data)
+      axios({
+        method: 'GET',
+        url: '/api/banner-management'
+      }).then(res => {
+        console.log(res)
+        console.log(res.data)
+        let result = res.data.slice(1, 3)
+        setBanners(result)
+        setLoadComplete(true)
+      })
     })
-
-    setLoadComplete(true)
   }, [!loadComplete])
 
   if (!loadComplete) {
-    return <>Loading please wait a moment</>
+    return (
+      <img
+        src={'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}
+        alt='promotion-banner1'
+      />
+    )
   } else {
     return (
       <>
@@ -64,28 +81,19 @@ function HomePage () {
           <div id='top' style={{ marginTop: '10px' }}>
             <div className='container'>
               <div className='row'>
-                <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                  <Link
-                    to={'/Category/12345678-1234-1243-1234-123856089012/1'}
-                    data-scroll-goto='1'
-                  >
-                    <img
-                      src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-                      alt='promotion-banner1'
-                    />
-                  </Link>
-                </div>
-                <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                  <Link
-                    to={'/Category/12345678-1234-1243-1234-123856089012/1'}
-                    data-scroll-goto='2'
-                  >
-                    <img
-                      src='https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-                      alt='promotion-banner2'
-                    />
-                  </Link>
-                </div>
+                {banners.map(({ Id, Name, ImageBannerStorages }) => (
+                  <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
+                    <Link
+                      to={'/Category/12345678-1234-1243-1234-123856089012/1'}
+                      data-scroll-goto='1'
+                    >
+                      <img
+                        src={ImageBannerStorages[0].ImageUrl}
+                        alt='promotion-banner1'
+                      />
+                    </Link>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -96,11 +104,11 @@ function HomePage () {
               <h2>Super deals</h2>
               <h4>Highest discount</h4>
             </div>
-            <VerticalItemList
+            <VerticalItemListHome
               reset={true}
               topic='Super deals'
               apiUrl={
-                '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+                '/api/product-management?sort=up&pageIndex=1&pageSize=500'
               }
             />
             <SeeMoreButton Url='/AllProduct/1/Grid' />
@@ -112,11 +120,11 @@ function HomePage () {
               <h2>New arrival</h2>
               <h4>New products</h4>
             </div>
-            <VerticalItemList
+            <VerticalItemListHome
               reset={true}
               topic='New arrival'
               apiUrl={
-                '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+                '/api/product-management?sort=up&pageIndex=1&pageSize=500'
               }
             />
             <SeeMoreButton Url='/AllProduct/1/Grid' />
@@ -133,7 +141,7 @@ function HomePage () {
                 <HorizontalItemList
                   topic='Top luxury'
                   apiUrl={
-                    '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+                    '/api/product-management?sort=up&pageIndex=1&pageSize=500'
                   }
                 />
                 <SeeMoreButton Url='/AllProduct/1/Grid' />
@@ -157,7 +165,7 @@ function HomePage () {
                 <HorizontalItemList
                   topic='Top cheapest'
                   apiUrl={
-                    '/api/product-management?sort=up&pageIndex=1&pageSize=1000'
+                    '/api/product-management?sort=up&pageIndex=1&pageSize=500'
                   }
                 />
                 <SeeMoreButton Url='/AllProduct/1/Grid' />

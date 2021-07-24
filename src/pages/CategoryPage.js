@@ -14,7 +14,7 @@ function CategoryPage () {
 
   //component dùng url động
   const [currentURL, setCurrentURL] = useState(
-    '/api/product-management/' + categoryId
+    '/api/product-management/' + categoryId + '/1'
   )
 
   const [category, setCategory] = useState({})
@@ -38,7 +38,7 @@ function CategoryPage () {
   const [subList, setSubList] = useState([])
   const [sub, setSub] = useState('')
   const [isUpdate, setIsUpdate] = useState(true)
-
+  const [reset, setReset] = useState(false)
   const options = [
     { key: 1, text: 'Price', value: 'price' },
     { key: 2, text: 'Name', value: 'name' }
@@ -65,8 +65,9 @@ function CategoryPage () {
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)
+      setReset(false)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/product-management/' + categoryId)
     } else {
       setColor('')
     }
@@ -74,26 +75,51 @@ function CategoryPage () {
   useEffect(() => {
     if (size !== '') {
       setSize(size => size)
+      setReset(false)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/product-management/' + categoryId)
     } else {
       setSize('')
     }
   }, [size])
   useEffect(() => {
     if (tag !== '') {
-      setColor(tag => tag)
+      setTag(tag => tag)
+      setReset(false)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/product-management/' + categoryId)
     } else {
       setSub('')
     }
   }, [tag])
+  useEffect(() => {
+    setReset(reset => reset)
+  }, [reset])
+  useEffect(() => {
+    if (sortBy !== '') {
+      setSortBy(sortBy => sortBy)
+
+      setCurrentURL('/api/product-management/' + categoryId)
+    } else {
+      setSortBy('')
+    }
+  }, [sortBy])
+  useEffect(() => {
+    if (currentSortOption !== '') {
+      setCurrentSortOption(currentSortOption => currentSortOption)
+
+      setCurrentURL('/api/product-management/' + categoryId)
+    } else {
+      setCurrentSortOption('')
+    }
+  }, [currentSortOption])
+
   function resetAll () {
     setColor('')
     setSize('')
     setTag('')
     setSub('')
+    setReset(true)
   }
 
   useEffect(() => {
@@ -180,9 +206,8 @@ function CategoryPage () {
                     </div>
                     <div className='pager'></div>
                   </div>
-
                   <VerticalItemList
-                    reset={false}
+                    reset={reset}
                     topic={category.Name}
                     apiUrl={currentURL}
                     colorId={color}
@@ -191,9 +216,8 @@ function CategoryPage () {
                     tagId={tag}
                     sortBy={sortBy}
                     sortOption={currentSortOption}
-                    currentLink={'/Category/' + categoryId + '/1'}
+                    currentLink={currentURL}
                   />
-
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
                       <div className='product-option-right'>
@@ -226,66 +250,6 @@ function CategoryPage () {
                 <div className='block-content'>
                   <p className='block-subtitle'>Shopping Options</p>
                   <dl id='narrow-by-list'>
-                    {/* <dt className='odd'>Price</dt>
-                    <dd className='odd'>
-                      <ol>
-                        <li>
-                          <Link to='#'>
-                            <span className='price'>$0.00</span> -
-                            <span className='price'>$99.99</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to='#'>
-                            <span className='price'>$100.00</span> and above
-                          </Link>
-                        </li>
-                      </ol>
-                    </dd> */}
-                    {/* <dt className='even'>Tag</dt>
-
-                    <dd className='even'>
-                      <ol>
-                        <Form>
-                          {taglist.map(({ Name, Id }) => (
-                            <li>
-                              <Form.Field>
-                                <Checkbox
-                                  radio
-                                  label={Name}
-                                  name='checkboxRadioGroup'
-                                  value={Id}
-                                  checked={tag === Id}
-                                  onChange={handleChangeTag}
-                                />
-                              </Form.Field>
-                            </li>
-                          ))}
-                        </Form>
-                      </ol>
-                    </dd> */}
-                    {/* <dt className='even'>Sub categories</dt>
-
-                    <dd className='even'>
-                      <ol>
-                        <Form>
-                          {subList.map(({ Name, Id }) => (
-                            <li>
-                              <Form.Field>
-                                <Checkbox
-                                  radio
-                                  label={Name}
-                                  name='checkboxRadioGroup'
-                                  value={Id}
-                                  checked={sub === Id}
-                                  onChange={handleChangeCategory}
-                                />
-                              </Form.Field>
-                            </li>
-                          ))}
-                        </Form>
-                      </ol>
-                    </dd> */}
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>
                       <ol>

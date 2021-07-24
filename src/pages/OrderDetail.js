@@ -16,7 +16,7 @@ function OrderDetail ({ Orderdetails }) {
   const elements = ['Id', 'Name', 'Color', 'Size', 'Price', 'Quantity']
 
   const renderBodyElements = (item, index) => (
-    <tr key={index}>
+    <tr key={index} className='order'>
       <td>
         <Link to={'/Product/' + item.ProductId}>{item.ProductId}</Link>
       </td>

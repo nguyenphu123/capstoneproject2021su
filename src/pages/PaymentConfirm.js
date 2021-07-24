@@ -52,7 +52,7 @@ function PaymentConfirm () {
   const [currentAddress, setCurrentAddress] = useState(UserSlice.Address)
   const [currentName, setCurrentName] = useState('')
   const [currentEmail, setCurrentEmail] = useState('')
-  const [currentCity, setCurrentCity] = useState('Hồ Chí Minh')
+
   const [currentPhone, setCurrentPhone] = useState(UserSlice.Phone)
 
   const [shipOption, setShipOption] = useState('')
@@ -67,7 +67,12 @@ function PaymentConfirm () {
   const OrderSlice = useSelector(state => state.OrderDataSlice.order)
   const [isLoading, setIsLoading] = useState(true)
 
-  console.log(isEdit)
+  const [cityAndProvinces, setCityAndProvinces] = useState([])
+  const [cityAndProvince, setCityAndProvince] = useState(null)
+  const [districts, setDistricts] = useState([])
+  const [district, setDistrict] = useState(null)
+  const [wards, setWards] = useState([])
+  const [ward, setWard] = useState(null)
 
   useEffect(() => {
     setIsLoading(false)
@@ -77,6 +82,16 @@ function PaymentConfirm () {
   const handleChangeMomo = () => {
     setPaywithMomo(!paywithMomo)
   }
+  useEffect(() => {
+    setDistricts(districts => districts)
+  }, [districts])
+
+  useEffect(() => {
+    setWards(wards => wards)
+  }, [wards])
+  useEffect(() => {
+    setCityAndProvince(cityAndProvince => cityAndProvince)
+  }, [cityAndProvince])
 
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
@@ -85,6 +100,31 @@ function PaymentConfirm () {
     // setCurrentCity('')
     setCurrentPhone(UserSlice.Phone)
     setIsEdit(false)
+    if (cityAndProvinces.length === 0) {
+      axios({
+        method: 'get',
+        url:
+          ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province',
+        headers: {
+          'content-type': 'application/json',
+          token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
+        }
+      }).then(res => {
+        console.log(res.data.data)
+        res.data.data.forEach(element => {
+          let city = {
+            key: element.ProvinceID,
+            text: element.ProvinceName,
+            value: element
+          }
+          cityAndProvinces.push(city)
+        })
+      })
+    } else {
+    }
+
+    console.log(cityAndProvinces)
+    setIsLoading(false)
   }, [UserSlice])
   useEffect(() => {
     console.log(OrderSlice)
@@ -117,18 +157,6 @@ function PaymentConfirm () {
   }, [OrderSlice])
 
   console.log(finishBuy)
-  useEffect(() => {
-    if (finishBuy) {
-      // document.getElementById('finishform').submit()
-
-      dispatch(emptyCart())
-    } else {
-    }
-    setTimeout(function () {
-      setFinishBuy(false)
-    }, 5000)
-  }, [finishBuy])
-
   useEffect(() => {
     if (finishBuy) {
       // document.getElementById('finishform').submit()
@@ -197,7 +225,7 @@ function PaymentConfirm () {
         </form>
         <ToastContainer autoClose={5000} />
 
-        <Redirect to={redirectPage} />
+        <Redirect to={'/FinishPayment'} />
       </>
     )
   }
@@ -210,14 +238,66 @@ function PaymentConfirm () {
   function handleChangeEmail (e) {
     setCurrentEmail(e.target.value)
   }
-  function handleChangeCity (e, { value }) {
-    setCurrentCity(value)
+  function handleChangeCity (e, { value, text, key }) {
+    setCityAndProvince(value)
+    console.log(value)
+    console.log(cityAndProvince)
+    setDistricts(districts => [])
+
+    axios({
+      method: 'get',
+      url:
+        ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=' +
+        value.ProvinceID,
+      headers: {
+        'content-type': 'application/json',
+        token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
+      }
+    }).then(res => {
+      console.log(res.data.data)
+      res.data.data.forEach(element => {
+        let district = {
+          key: element.Code,
+          text: element.DistrictName,
+          value: element
+        }
+        setDistricts(districts => [...districts, district])
+      })
+    })
+  }
+
+  function handleChangeDistrict (e, { value }) {
+    setDistrict(value)
+    setWards(wards => [])
+    axios({
+      method: 'get',
+      url:
+        ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' +
+        value.DistrictID,
+      headers: {
+        'content-type': 'application/json',
+        token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
+      }
+    }).then(res => {
+      console.log(res.data.data)
+      res.data.data.forEach(element => {
+        let ward = {
+          key: element.WardCode,
+          text: element.WardName,
+          value: element
+        }
+        setWards(wards => [...wards, ward])
+      })
+    })
+  }
+  function handleChangeWard (e, { value }) {
+    setWard(value)
   }
   function handleChangePhone (e) {
     setCurrentPhone(e.target.value)
   }
   if (isLoading) {
-    return <></>
+    return <>...loading please wait a moment</>
   } else {
     if (CartSlice !== null) {
       console.log(isEdit)
@@ -242,7 +322,13 @@ function PaymentConfirm () {
                   currentValue.CurrentPrice * currentValue.Quantity,
                 0
               ),
-              AddressShipping: currentAddress,
+              AddressShipping:
+                currentAddress +
+                ' ' +
+                cityAndProvince.ProvinceName +
+                ' ' +
+                district.DistrictName +
+                ward.WardName,
               Date: new Date()
                 .toISOString()
                 .slice(0, 19)
@@ -296,7 +382,13 @@ function PaymentConfirm () {
                   currentValue.CurrentPrice * currentValue.Quantity,
                 0
               ),
-              AddressShipping: currentAddress,
+              AddressShipping:
+                currentAddress +
+                ' ' +
+                cityAndProvince.ProvinceName +
+                ' ' +
+                district.DistrictName +
+                ward.WardName,
               Date: new Date()
                 .toISOString()
                 .slice(0, 19)
@@ -382,7 +474,6 @@ function PaymentConfirm () {
                     <ol class='one-page-checkout' id='checkoutSteps'>
                       <li id='opc-billing' class='section'>
                         <div class='step-title'>
-                          <span class='number'>1</span>
                           <h3 class='one_page_heading'>
                             Billing and Shipping Information
                           </h3>
@@ -479,17 +570,51 @@ function PaymentConfirm () {
                                       </div>
                                     </li>
                                     <li class='fields'>
-                                      <div class='input-box'>
-                                        <label for='billing:city'>
+                                      <div
+                                        class='dropdown-box'
+                                        style={{ zIndex: '10000' }}
+                                      >
+                                        <label for='city'>
                                           City<em class='required'>*</em>
                                         </label>
                                         <Dropdown
+                                          fluid
                                           onChange={handleChangeCity}
-                                          options={options}
-                                          placeholder='Choose an option'
+                                          options={cityAndProvinces}
+                                          placeholder='City and province'
+                                          search
                                           selection
-                                          value={currentCity}
-                                          disabled={isEdit ? false : true}
+                                          value={cityAndProvince}
+                                        />
+                                      </div>
+                                    </li>
+                                    <li class='fields'>
+                                      <div class='dropdown-box'>
+                                        <label for='billing:city'>
+                                          District<em class='required'>*</em>
+                                        </label>
+                                        <Dropdown
+                                          fluid
+                                          onChange={handleChangeDistrict}
+                                          options={districts}
+                                          placeholder='District'
+                                          selection
+                                          value={district}
+                                        />
+                                      </div>
+                                    </li>
+                                    <li class='fields'>
+                                      <div class='dropdown-box'>
+                                        <label for='billing:city'>
+                                          Ward<em class='required'>*</em>
+                                        </label>
+                                        <Dropdown
+                                          fluid
+                                          onChange={handleChangeWard}
+                                          options={wards}
+                                          placeholder='Ward'
+                                          selection
+                                          value={ward}
                                         />
                                       </div>
                                     </li>
@@ -498,7 +623,7 @@ function PaymentConfirm () {
                                 </fieldset>
                               </li>
 
-                              <li class=''>
+                              <li class='go-behind'>
                                 <Checkbox
                                   radio
                                   label='pay on delivery'
@@ -517,7 +642,7 @@ function PaymentConfirm () {
                                   onChange={() => setPaywithMomo(!paywithMomo)}
                                 />
                               </li>
-                              <li class=''>
+                              <li class='go-behind'>
                                 <Checkbox
                                   radio
                                   label='use current information for billing'
@@ -538,7 +663,7 @@ function PaymentConfirm () {
                               </li>
                             </ul>
                             <div
-                              class='buttons-set'
+                              class='buttons-set go-behind'
                               id='billing-buttons-container'
                             >
                               <p class='required'>* Required Fields</p>

@@ -253,6 +253,7 @@ function ProductInformation () {
       const check_index = product.Elements.findIndex(
         item => item.Color === currentColor && item.Size === currentSize
       )
+
       if (check_index !== -1) {
         setMaxQuantity(product.Elements[check_index].Quantity)
       } else {
@@ -268,6 +269,7 @@ function ProductInformation () {
         if (check_indexQuantity !== -1) {
           setQuantity(CartSlice[check_indexQuantity].Quantity)
         } else {
+          setQuantity(0)
         }
       } else {
       }
@@ -300,6 +302,7 @@ function ProductInformation () {
         if (check_indexQuantity !== -1) {
           setQuantity(CartSlice[check_indexQuantity].Quantity)
         } else {
+          setQuantity(0)
         }
       } else {
       }
@@ -317,6 +320,7 @@ function ProductInformation () {
           item.Color === currentColor &&
           item.Size === currentSize
       )
+      console.log(check_index)
       if (check_index !== -1) {
         dispatch(updateItemQuantity(productId, quantity))
 
@@ -330,35 +334,35 @@ function ProductInformation () {
 
         if (check_index !== -1) {
           setMaxQuantity(elements[check_index].Quantity)
+          const cartItem = {
+            ProductId: productId,
+            CurrentPrice: product.CurrentPrice,
+            Quantity: quantity,
+            TotalLine: product.CurrentPrice * quantity,
+            img: product.ImageStorages[0].ImageUrl,
+            Name: product.Name,
+            Color: currentColor,
+            Size: currentSize,
+            SizeList: sizes,
+            ColorList: colors,
+            Description: JSON.stringify({
+              Color: currentColor,
+              Size: currentSize,
+              img: product.ImageStorages[0].ImageUrl
+            }),
+            MaxQuantity: elements[check_index].Quantity,
+            Elements: elements
+          }
 
+          setShopCart(shopCart => [...shopCart, cartItem])
+          console.log(shopCart)
+
+          toast.success('Item has been added')
           // setCurrentColor(shopCart[check_index].Color)
           // setCurrentSize(shopCart[check_index].Size)
         } else {
+          toast.warn("Sorry we don't have this combo yet")
         }
-
-        const cartItem = {
-          ProductId: productId,
-          CurrentPrice: product.CurrentPrice,
-          Quantity: quantity,
-          TotalLine: product.CurrentPrice * quantity,
-          img: product.ImageStorages[0].ImageUrl,
-          Name: product.Name,
-          Color: currentColor,
-          Size: currentSize,
-          SizeList: sizes,
-          ColorList: colors,
-          Description: JSON.stringify({
-            Color: currentColor,
-            Size: currentSize,
-            img: product.ImageStorages[0].ImageUrl
-          }),
-          MaxQuantity: elements[check_index].Quantity
-        }
-
-        setShopCart(shopCart => [...shopCart, cartItem])
-        console.log(shopCart)
-
-        toast.success('Item has been added')
       }
     }
   }
@@ -378,16 +382,13 @@ function ProductInformation () {
   }, [elements])
 
   useEffect(() => {
-    if (maxQuantity !== 0) {
-      setMaxQuantity(maxQuantity => maxQuantity)
-    }
+    setMaxQuantity(maxQuantity => maxQuantity)
+
     console.log(maxQuantity)
   }, [maxQuantity])
 
   useEffect(() => {
-    if (quantity !== 0) {
-      setQuantity(quantity => quantity)
-    }
+    setQuantity(quantity => quantity)
   }, [quantity])
   useEffect(() => {
     if (shopCart !== null) {
@@ -396,57 +397,6 @@ function ProductInformation () {
       }
     }
   }, [shopCart])
-  function sendEmail () {
-    setVisibilityEmail(!visibilityEmail)
-  }
-  const handleColor = (event, newColor) => {
-    setCurrentColor(newColor)
-    const check_index = product.Elements.findIndex(
-      item => item.Color === currentColor && item.Size === currentSize
-    )
-    if (check_index !== -1) {
-      setMaxQuantity(product.Elements[check_index].Quantity)
-    } else {
-      setMaxQuantity(0)
-    }
-    if (CartSlice !== null) {
-      const check_indexQuantity = shopCart.findIndex(
-        item =>
-          item.ProductId === productId &&
-          item.Color === currentColor &&
-          item.Size === currentSize
-      )
-      if (check_indexQuantity !== -1) {
-        setQuantity(shopCart[check_index].Quantity)
-      } else {
-      }
-    } else {
-    }
-  }
-  const handleSize = (event, newSize) => {
-    setCurrentSize(newSize)
-    const check_index = product.Elements.findIndex(
-      item => item.Color === currentColor && item.Size === currentSize
-    )
-    if (check_index !== -1) {
-      setMaxQuantity(product.Elements[check_index].Quantity)
-    } else {
-      setMaxQuantity(0)
-    }
-    if (CartSlice !== null) {
-      const check_indexQuantity = shopCart.findIndex(
-        item =>
-          item.ProductId === productId &&
-          item.Size === currentSize &&
-          item.Color === currentColor
-      )
-      if (check_indexQuantity !== -1) {
-        setQuantity(shopCart[check_index].Quantity)
-      } else {
-      }
-    } else {
-    }
-  }
 
   function updateNumberPicker (e) {
     setQuantity(e.target.value + '')

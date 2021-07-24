@@ -42,6 +42,7 @@ function ShoppingCart () {
   }
 
   if (CartSlice !== null && CartSlice.length !== 0) {
+    console.log(CartSlice)
     function setEdit () {
       setIsEdit(!isEdit)
     }

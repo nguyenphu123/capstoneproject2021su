@@ -329,11 +329,11 @@ function NavigationHeader () {
                               </li>
                             </>
                           ) : null}
-                          <li>
+                          {/* <li>
                             <Link to={'/Blog'} title='Blog'>
                               <span>Blog</span>
                             </Link>
-                          </li>
+                          </li> */}
                           <li>
                             <Link onClick={comparator} title='Comparator'>
                               <span>Comparator</span>

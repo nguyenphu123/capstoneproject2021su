@@ -2,20 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-const items = [
-  {
-    img:
-      'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-  },
-  {
-    img:
-      'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-  },
-  {
-    img:
-      'https://shop.jaguars.com/content/ws/all/b1f77cc0-86b3-4663-957d-56fef63534ee__1600X615.jpg'
-  }
-]
 function AdsSlideShow () {
   const [banners, setBanners] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -54,7 +40,6 @@ function AdsSlideShow () {
                     data-masterspeed='1000'
                     data-thumb={ImageBannerStorages[0].ImageUrl}
                   >
-                   
                     <img
                       src={ImageBannerStorages[0].ImageUrl}
                       data-bgposition='left top'

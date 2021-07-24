@@ -74,7 +74,11 @@ function OrderHistory (props) {
           </div>
         </Modal>
 
-        <tr key={index} onClick={() => setVisibility(!visibility)}>
+        <tr
+          key={index}
+          className='order'
+          onClick={() => setVisibility(!visibility)}
+        >
           <td>{item.Date}</td>
           <td>{item.Orderdetails.length}</td>
           <td>{item.AddressShipping}</td>

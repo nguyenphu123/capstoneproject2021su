@@ -29,7 +29,6 @@ class HorizontalItemLList extends React.Component {
         this.setState({
           products: afterSliceResult,
           isLoading: false
-
         })
       } else {
         let result = res.data.sort((a, b) =>
@@ -48,7 +47,12 @@ class HorizontalItemLList extends React.Component {
   }
   render () {
     if (this.state.isLoading) {
-      return <>Loading please wait a moment</>
+      return (
+        <img
+          src={'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}
+          alt='promotion-banner1'
+        />
+      )
     } else {
       return (
         <>

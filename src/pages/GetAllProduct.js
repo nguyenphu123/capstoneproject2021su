@@ -44,6 +44,8 @@ function GetAllProduct () {
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
   const [sub, setSub] = useState('')
+  const [reset, setReset] = useState(false)
+
   const options = [
     { key: 1, text: 'Price', value: 'price' },
     { key: 2, text: 'Name', value: 'name' }
@@ -52,6 +54,7 @@ function GetAllProduct () {
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)
+      setReset(false)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     } else {
@@ -61,6 +64,7 @@ function GetAllProduct () {
   useEffect(() => {
     if (size !== '') {
       setSize(size => size)
+      setReset(false)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     } else {
@@ -70,6 +74,7 @@ function GetAllProduct () {
   useEffect(() => {
     if (tag !== '') {
       setSub(tag => tag)
+      setReset(false)
 
       setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     } else {
@@ -94,6 +99,9 @@ function GetAllProduct () {
       setCurrentSortOption('')
     }
   }, [currentSortOption])
+  useEffect(() => {
+    setReset(reset => reset)
+  }, [reset])
 
   useEffect(() => {
     // console.log(categoryId)
@@ -130,6 +138,7 @@ function GetAllProduct () {
     setSize('')
     setTag('')
     setSub('')
+    setReset(true)
   }
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
@@ -176,28 +185,12 @@ function GetAllProduct () {
                         content='Price'
                         onClick={handleChangeSortBy}
                       />
-
-                      {/* <Dropdown
-                        onChange={handleChangeSortBy}
-                        clearable
-                        options={options}
-                        selection
-                        value={sortBy}
-                      />
-
-                      <Link
-                        className='button-asc left'
-                        to={'/AllProduct/1/Grid/' + sortBy + '/asc'}
-                        title='Set Descending Direction'
-                      >
-                        <span className='top_arrow'></span>
-                      </Link> */}
                     </div>
                     <div className='pager'></div>
                   </div>
 
                   <VerticalItemList
-                    reset={false}
+                    reset={reset}
                     topic={category.Name}
                     apiUrl={currentURL}
                     colorId={color}
@@ -206,19 +199,11 @@ function GetAllProduct () {
                     tagId={tag}
                     sortBy={sortBy}
                     sortOption={currentSortOption}
-                    currentLink={'/AllProduct/1'}
+                    currentLink={currentURL}
                   />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      {/* <PagnationBar
-                        Name={'AllProduct'}
-                        apiUrl={currentURL}
-                        colorId={color}
-                        categoryId={sub}
-                        sizeId={size}
-                        tagId={tag}
-                      /> */}
                       <div className='product-option-right'>
                         <div className='pager'></div>
                       </div>
@@ -249,45 +234,6 @@ function GetAllProduct () {
                 <div className='block-content'>
                   <p className='block-subtitle'>Shopping Options</p>
                   <dl id='narrow-by-list'>
-                    {/* <dt className='odd'>Price</dt>
-                    <dd className='odd'>
-                      <ol>
-                        <li>
-                          <Link to='#'>
-                            <span className='price'>50,000VND</span> -
-                            <span className='price'>100,000VND</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to='#'>
-                            <span className='price'>100,000VND</span> and above
-                          </Link>
-                        </li>
-                      </ol>
-                    </dd> */}
-                    {/* <dt className='even'>Tag</dt>
-
-                    <dd className='even'>
-                      <ol>
-                        <Form>
-                          {taglist.map(({ Name, Id }) => (
-                            <li>
-                              <Form.Field>
-                                <Checkbox
-                                  radio
-                                  label={Name}
-                                  name='checkboxRadioGroup'
-                                  value={Id}
-                                  checked={tag === Id}
-                                  onChange={handleChangeTag}
-                                />
-                              </Form.Field>
-                            </li>
-                          ))}
-                        </Form>
-                      </ol>
-                    </dd> */}
-
                     <dt className='odd'>Color</dt>
                     <dd className='odd'>
                       <ol>

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import ImageUploading from 'react-images-uploading'
 
-
 function ImageUploadingPage () {
   const [images, setImages] = React.useState([])
   const maxNumber = 1
@@ -41,6 +40,7 @@ function ImageUploadingPage () {
                     <div className='image-item__btn-wrapper'>
                       <Button
                         inverted
+                        fluid
                         color='blue'
                         style={{ marginTop: '10px' }}
                         onClick={() => onImageUpdate(index)}
@@ -48,6 +48,7 @@ function ImageUploadingPage () {
                         Update
                       </Button>
                       <Button
+                        fluid
                         inverted
                         color='blue'
                         style={{ marginTop: '10px' }}
@@ -56,6 +57,7 @@ function ImageUploadingPage () {
                         Remove
                       </Button>
                       <Button
+                        fluid
                         as={Link}
                         to={'/Category/12345678-1234-1243-1234-123456789012/1'}
                         inverted

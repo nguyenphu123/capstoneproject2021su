@@ -32,112 +32,25 @@ class VerticalItemList extends React.Component {
   }
   componentDidMount () {
     console.log(this.props.apiUrl)
-
     axios({
       method: 'GET',
       url: this.props.apiUrl
     }).then(res => {
       console.log(res)
       console.log(res.data)
-
-      if (this.props.topic === 'Super deals') {
-        let result = res.data.sort((a, b) => (a.Price > b.Price ? 1 : -1))
-        this.setState({
-          products: result,
-          isLoading: false
-          // currentPage: this.props.match.params
-        })
-      } else if (this.props.topic === 'Super deals') {
-      } else {
-        let result = res.data
-        this.setState({
-          products: result,
-          isLoading: false
-          // currentPage: this.props.match.params
-        })
-      }
-    })
-  }
-  componentDidUpdate (prevProps) {
-    if (this.props.reset && this.state.isUpdated) {
       if (
         this.props.keyword === '' ||
         this.props.keyword === null ||
         this.props.keyword === undefined
       ) {
-        axios({
-          method: 'GET',
-          url: this.props.apiUrl
-        }).then(res => {
-          console.log(res)
-          console.log(res.data)
-          if (this.props.topic === 'Super deals') {
-            let result = res.data.sort((a, b) =>
-              Math.round(((a.Price - a.CurrentPrice) * 100) / a.Price) <
-              Math.round(((b.Price - b.CurrentPrice) * 100) / b.Price)
-                ? 1
-                : -1
-            )
-            let afterSliceResult = result.slice(0, 8)
-
-            this.setState({
-              products: afterSliceResult,
-              isLoading: false,
-              isUpdated: false
-
-              // currentPage: this.props.match.params
-            })
-          } else if (this.props.topic === 'New arrival') {
-            let result = res.data.sort(function compare (a, b) {
-              var dateA = new Date(a.DateTime)
-              var dateB = new Date(b.DateTime)
-              return dateA - dateB
-            })
-            let afterSliceResult = result.slice(0, 8)
-
-            this.setState({
-              products: afterSliceResult,
-              isLoading: false,
-              isUpdated: false
-
-              // currentPage: this.props.match.params
-            })
-          } else {
-            let result = res.data
-            let afterSliceResult = result.slice(0, 8)
-
-            this.setState({
-              products: afterSliceResult,
-              isLoading: false,
-              isUpdated: false
-
-              // currentPage: this.props.match.params
-            })
-          }
+        this.setState({
+          products: res.data,
+          isLoading: false,
+          isUpdated: false
         })
       } else {
-        axios({
-          method: 'GET',
-          url: this.props.apiUrl
-        }).then(res => {
-          console.log(res)
-          console.log(res.data)
-          let result = res.data.filter(x => x.Name.includes(this.props.keyword))
+        let result = res.data.filter(x => x.Name.includes(this.props.keyword))
 
-          this.setState({
-            products: result,
-            isLoading: false,
-            isUpdated: false
-
-            // currentPage: this.props.match.params
-          })
-        })
-      }
-    } else {
-      if (!equal(this.props.keyword, prevProps.keyword)) {
-        let result = this.state.products.filter(x =>
-          x.Name.includes(this.props.keyword)
-        )
         this.setState({
           products: result,
           isLoading: false,
@@ -146,6 +59,43 @@ class VerticalItemList extends React.Component {
           // currentPage: this.props.match.params
         })
       }
+    })
+  }
+  componentDidUpdate (prevProps) {
+    if (!equal(this.props.reset, prevProps.reset)) {
+      if (this.props.reset) {
+        axios({
+          method: 'GET',
+          url: this.props.apiUrl
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          if (
+            this.props.keyword === '' ||
+            this.props.keyword === null ||
+            this.props.keyword === undefined
+          ) {
+            this.setState({
+              products: res.data,
+              isLoading: false,
+              isUpdated: false
+            })
+          } else {
+            let result = res.data.filter(x =>
+              x.Name.includes(this.props.keyword)
+            )
+
+            this.setState({
+              products: result,
+              isLoading: false,
+              isUpdated: false
+
+              // currentPage: this.props.match.params
+            })
+          }
+        })
+      }
+    } else {
       if (!equal(this.props.sortOption, prevProps.sortOption)) {
         console.log(this.props.sortOption)
         if (this.props.sortOption !== '') {
@@ -177,18 +127,6 @@ class VerticalItemList extends React.Component {
           method: 'GET',
           url: this.props.apiUrl
         }).then(res => {
-          // if (
-          //   this.props.sortBy === 'price' &&
-          //   this.props.sortOption === 'asc'
-          // ) {
-
-          //   console.log(result)
-          //   this.setState({
-          //     products: result,
-          //     isLoading: false,
-          //     isUpdated: false
-          //   })
-          // } else {
           if (this.props.sortOption === 'asc') {
             let result = res.data.sort((a, b) => (a.Price > b.Price ? 1 : -1))
 
@@ -213,6 +151,7 @@ class VerticalItemList extends React.Component {
         if (!equal(this.props.colorId, prevProps.colorId)) {
           if (this.props.colorId !== '') {
             if (this.props.sizeId === '' && this.props.tagId === '') {
+              console.log(this.props.apiUrl)
               axios({
                 method: 'GET',
                 url: this.props.apiUrl
@@ -344,7 +283,12 @@ class VerticalItemList extends React.Component {
       })
 
     if (this.state.isLoading) {
-      return <>Loading please wait a moment</>
+      return (
+        <img
+          src={'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}
+          alt='promotion-banner1'
+        />
+      )
     } else {
       return (
         <>
