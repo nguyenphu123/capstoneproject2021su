@@ -83,7 +83,7 @@ function CartItem ({
   function removeOneFromCart () {
     setQuantity(quantity => quantity - 1)
   }
-
+  console.log(currentColor)
   if (isLoading) {
     return <></>
   } else {
@@ -103,26 +103,29 @@ function CartItem ({
         <td class='a-center hidden-table'>
           <div>
             <div>
-              {colors.map(({ Name, Id }, index) => (
-                <Radio
-                  label={Name}
-                  name={'radioGroupColor' + index}
-                  value={Id}
-                  checked={currentColor === Id}
-                  onChange={() => setCurrentColor(Id)}
-                />
-              ))}
+              <Header />
+
+              {colors.map(({ Name, Id }, index) =>
+                currentColor === Id ? (
+                  <Header as='h3' color={Name}>
+                    {Name}
+                  </Header>
+                ) : null
+              )}
             </div>
             <div>
-              {sizes.map(({ Name, Id }, index) => (
-                <Radio
-                  label={Name}
-                  name={'radioGroupSize' + index}
-                  value={Id}
-                  checked={currentSize === Id}
-                  onChange={() => setCurrentSize(Id)}
-                />
-              ))}
+              {sizes.map(
+                ({ Name, Id }, index) =>
+                  currentSize === Id ? <Header as='h3'>{Name}</Header> : null
+
+                // <Radio
+                //   label={Name}
+                //   name={'radioGroupSize' + index}
+                //   value={Id}
+                //   checked={currentSize === Id}
+                //   onChange={() => setCurrentSize(Id)}
+                // />
+              )}
             </div>
           </div>
         </td>

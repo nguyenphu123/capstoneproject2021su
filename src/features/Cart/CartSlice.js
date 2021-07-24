@@ -83,16 +83,6 @@ export const updateItemColor = (Id, Color) => async dispatch => {
       cart[check_index].Color = Color
       const Description = JSON.parse(cart[check_index].Description)
       Description.Color = Color
-      const Elements = cart[check_index].Elements
-      const check_element_index = Elements.findIndex(
-        item =>
-          item.Color.Id === Color && item.Size.Id === cart[check_index].Size
-      )
-      if (check_element_index !== -1) {
-        cart[check_index].MaxQuantity = Elements[check_element_index].Quantity
-      } else {
-        cart[check_index].MaxQuantity = 0
-      }
     } else {
     }
 
@@ -112,16 +102,6 @@ export const updateItemSize = (Id, Size) => async dispatch => {
       cart[check_index].Size = Size
       const Description = JSON.parse(cart[check_index].Description)
       Description.Size = Size
-      const Elements = cart[check_index].Elements
-      const check_element_index = Elements.findIndex(
-        item =>
-          item.Size.Id === Size && item.Color.Id === cart[check_index].Color
-      )
-      if (check_element_index !== -1) {
-        cart[check_index].MaxQuantity = Elements[check_element_index].Quantity
-      } else {
-        cart[check_index].MaxQuantity = 0
-      }
     } else {
     }
 

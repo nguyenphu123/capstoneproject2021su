@@ -36,6 +36,7 @@ function ShoppingCart () {
       setIsLogin(false)
     }
   }, [UserSlice])
+  useEffect(() => {}, [CartSlice])
 
   if (finishBuy) {
     return <Redirect to={redirectPage} />
