@@ -43,29 +43,29 @@ function CartItem ({
 
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    if (currentColor !== Color) {
-      setCurrentColor(currentColor => currentColor)
-      dispatch(updateItemColor(Id, currentColor))
-      console.log(currentColor)
-      toast.success('Cart has been updated')
-    }
-  }, [currentColor])
-  useEffect(() => {
-    if (currentSize !== Size) {
-      setCurrentSize(currentSize => currentSize)
-      dispatch(updateItemSize(Id, currentSize))
+  // useEffect(() => {
+  //   if (currentColor !== Color) {
+  //     setCurrentColor(currentColor => currentColor)
+  //     dispatch(updateItemColor(Id, currentColor))
+  //     console.log(currentColor)
+  //     toast.success('Cart has been updated')
+  //   }
+  // }, [currentColor])
+  // useEffect(() => {
+  //   if (currentSize !== Size) {
+  //     setCurrentSize(currentSize => currentSize)
+  //     dispatch(updateItemSize(Id, currentSize))
 
-      toast.success('Cart has been updated')
-    }
-  }, [currentSize])
+  //     toast.success('Cart has been updated')
+  //   }
+  // }, [currentSize])
   useEffect(() => {
     if (quantity !== Quantity) {
       setQuantity(quantity => quantity)
       if (quantity === 0) {
-        dispatch(deleteItem(Id))
+        dispatch(deleteItem(Id, Color, Size))
       } else {
-        dispatch(updateItemQuantity(Id, quantity))
+        dispatch(updateItemQuantity(Id, quantity, Color, Size))
       }
       console.log(isLoading)
       toast.success('Cart has been updated')
@@ -83,7 +83,7 @@ function CartItem ({
   function removeOneFromCart () {
     setQuantity(quantity => quantity - 1)
   }
-  console.log(currentColor)
+
   if (isLoading) {
     return <></>
   } else {
@@ -114,17 +114,8 @@ function CartItem ({
               )}
             </div>
             <div>
-              {sizes.map(
-                ({ Name, Id }, index) =>
-                  currentSize === Id ? <Header as='h3'>{Name}</Header> : null
-
-                // <Radio
-                //   label={Name}
-                //   name={'radioGroupSize' + index}
-                //   value={Id}
-                //   checked={currentSize === Id}
-                //   onChange={() => setCurrentSize(Id)}
-                // />
+              {sizes.map(({ Name, Id }, index) =>
+                currentSize === Id ? <Header as='h3'>{Name}</Header> : null
               )}
             </div>
           </div>

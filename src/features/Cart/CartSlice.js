@@ -38,11 +38,14 @@ export const emptyCart = () => async dispatch => {
     return console.error(e.message)
   }
 }
-export const deleteItem = Id => async dispatch => {
+export const deleteItem = (Id, Color, Size) => async dispatch => {
   try {
     const cart = JSON.parse(localStorage.getItem('cart'))
 
-    const check_index = cart.findIndex(item => item.ProductId === Id)
+    const check_index = cart.findIndex(
+      item =>
+        item.ProductId === Id && item.Color === Color && item.Size === Size
+    )
 
     if (check_index !== -1) {
       cart.splice(check_index, 1)
@@ -54,13 +57,21 @@ export const deleteItem = Id => async dispatch => {
     return console.error(e.message)
   }
 }
-export const updateItemQuantity = (Id, Quantity) => async dispatch => {
+export const updateItemQuantity = (
+  Id,
+  Quantity,
+  Color,
+  Size
+) => async dispatch => {
   try {
     console.log(Quantity)
 
     const cart = JSON.parse(localStorage.getItem('cart'))
 
-    const check_index = cart.findIndex(item => item.ProductId === Id)
+    const check_index = cart.findIndex(
+      item =>
+        item.ProductId === Id && item.Color === Color && item.Size === Size
+    )
 
     if (check_index !== -1) {
       cart[check_index].Quantity = Quantity

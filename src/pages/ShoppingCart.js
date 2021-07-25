@@ -71,8 +71,8 @@ function ShoppingCart () {
       e.preventDefault()
       dispatch(emptyCart())
     }
-    function removeFromCart (Id) {
-      dispatch(deleteItem(Id))
+    function removeFromCart (Id, Color, Size) {
+      dispatch(deleteItem(Id, Color, Size))
     }
 
     return (
@@ -204,7 +204,9 @@ function ShoppingCart () {
 
                               <td class='a-center last'>
                                 <Button
-                                  onClick={() => removeFromCart(ProductId)}
+                                  onClick={() =>
+                                    removeFromCart(ProductId, Color, Size)
+                                  }
                                   title='Remove item'
                                   class='button remove-item'
                                 >
