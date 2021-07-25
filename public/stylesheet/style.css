@@ -9546,6 +9546,16 @@ ul.shipping-pro li {
   border-radius: 999px;
   font-weight: 700;
 }
+.availability.out-stock span {
+  color: #c51634;
+  font-size: 13px;
+  line-height: 16px;
+  display: inline-block;
+  border: 2px #c51634 solid;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+}
 .product-view .product-shop .price-block {
   position: relative;
   margin-bottom: 10px;

@@ -81,10 +81,15 @@ function HorizontalItem ({
                     style={{ width: '200px', height: '200px' }}
                   />
 
-                  <div className='new-label new-top-left'>Hot</div>
-                  <div className='sale-label sale-top-left'>
-                    -{Math.round(((Price - CurrentPrice) * 100) / Price)}%
-                  </div>
+                  {/* <div className='new-label new-top-left'>Hot</div> */}
+                  {CurrentPrice === Price ? null : (
+                    <div class='sale-label sale-top-left'>
+                      <span>
+                        -{Math.round(((Price - CurrentPrice) * 100) / Price)}%
+                      </span>
+                    </div>
+                  )}
+
                   <div className='item-box-hover'>
                     <div className='box-inner'>
                       <div className='actions'>
@@ -118,11 +123,11 @@ function HorizontalItem ({
                         <div className='rating-box'>
                           <div className='rating'></div>
                         </div>
-                        <p className='rating-links'>
+                        {/* <p className='rating-links'>
                           <Link href='#'>1 Review(s)</Link>
                           <span className='separator'>|</span>
                           <Link href='#'>Add Review</Link>
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                     <div className='item-price'>

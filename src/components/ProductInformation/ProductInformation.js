@@ -448,23 +448,19 @@ function ProductInformation () {
                 <div class='row'>
                   {/* <form action='#' method='post' id='product_addtocart_form'> */}
                   <div class='product-img-box col-lg-5 col-sm-5 col-xs-12'>
-                    <div class='new-label new-top-left'>Hot</div>
-                    <div class='sale-label sale-top-left'>
-                      {product.CurrentPrice === product.Price ? (
-                        <span> 0% </span>
-                      ) : (
-                        <>
-                          <span>
-                            -
-                            {Math.round(
-                              ((product.Price - product.CurrentPrice) * 100) /
-                                product.Price
-                            )}
-                            %
-                          </span>
-                        </>
-                      )}
-                    </div>
+                    {product.CurrentPrice === product.Price ? null : (
+                      <div class='sale-label sale-top-left'>
+                        <span>
+                          -
+                          {Math.round(
+                            ((product.Price - product.CurrentPrice) * 100) /
+                              product.Price
+                          )}
+                          %
+                        </span>
+                      </div>
+                    )}
+
                     <MyImageGalery items={galleries} />
 
                     {/* <!-- end: more-images --> */}
@@ -479,16 +475,16 @@ function ProductInformation () {
                       <div class='rating-box'>
                         <div style={{ width: '60%' }} class='rating'></div>
                       </div>
-                      <p class='rating-links'>
+                      {/* <p class='rating-links'>
                         <Link to=''>1 Review</Link>
                         <span class='separator'>|</span>
                         <Link to=''>Add Your Review</Link>
-                      </p>
+                      </p> */}
                     </div>
                     <div class='price-block'>
                       <div class='price-box'>
                         {product.Elements.length === 0 ? (
-                          <p class='availability in-stock'>
+                          <p class='availability out-stock'>
                             <span>Not Available </span>
                           </p>
                         ) : (
