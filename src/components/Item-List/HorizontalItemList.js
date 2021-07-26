@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
-import { Button, Card, Header } from 'semantic-ui-react'
-import Title from '../../Assets/Title'
+import { Card } from 'semantic-ui-react'
+
 import HorizontalItem from './HorizontalItem'
 
 class HorizontalItemLList extends React.Component {
@@ -69,8 +69,7 @@ class HorizontalItemLList extends React.Component {
                 CurrentPrice,
                 CategoryId,
                 Status,
-                ImageStorages,
-                Star
+                ImageStorages
               }) => (
                 <div style={{ float: 'left' }}>
                   <HorizontalItem

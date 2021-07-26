@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from 'react'
 // import { useAlert } from 'react-alert'
-import 'react-notifications/lib/notifications.css'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+
 import { Link } from 'react-router-dom'
 import Modal from 'react-awesome-modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import {
-  Button,
-  Divider,
-  Form,
-  Grid,
-  Header,
-  Icon,
-  Image,
-  Message,
-  Segment
-} from 'semantic-ui-react'
+
 import RegistrationPage from './RegistrationPage'
 import { loginUser } from '../features/User/UserSlice'
 import { ToastContainer, toast } from 'react-toastify'

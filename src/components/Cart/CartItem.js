@@ -11,7 +11,7 @@ import {
   updateItemColor,
   updateItemSize
 } from '../../features/Cart/CartSlice'
-import { Form, Radio, Header } from 'semantic-ui-react'
+import { Header } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 
 const mapDispatch = {
@@ -43,22 +43,6 @@ function CartItem ({
 
   const [isLoading, setIsLoading] = useState(true)
 
-  // useEffect(() => {
-  //   if (currentColor !== Color) {
-  //     setCurrentColor(currentColor => currentColor)
-  //     dispatch(updateItemColor(Id, currentColor))
-  //     console.log(currentColor)
-  //     toast.success('Cart has been updated')
-  //   }
-  // }, [currentColor])
-  // useEffect(() => {
-  //   if (currentSize !== Size) {
-  //     setCurrentSize(currentSize => currentSize)
-  //     dispatch(updateItemSize(Id, currentSize))
-
-  //     toast.success('Cart has been updated')
-  //   }
-  // }, [currentSize])
   useEffect(() => {
     if (quantity !== Quantity) {
       setQuantity(quantity => quantity)
@@ -176,6 +160,7 @@ function CartItem ({
                 prefix={''}
                 renderText={(value, props) => <div {...props}>{value}VND</div>}
               />
+              <ToastContainer autoClose={5000} />
             </span>
           </span>
         </td>

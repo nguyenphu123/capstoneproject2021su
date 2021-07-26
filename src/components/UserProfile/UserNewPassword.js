@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Button, Form, Grid } from 'semantic-ui-react'
-import Title from '../../Assets/Title'
+import { Button, Form } from 'semantic-ui-react'
+
 import 'semantic-ui-css/semantic.min.css'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 import { logout } from '../../features/User/UserSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 var SHA256 = require('crypto-js/sha256')

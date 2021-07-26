@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import _ from 'lodash'
+
 import NumberFormat from 'react-number-format'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
 
 import SearchBar from './SearchBar'
 import { loginUser, logout } from '../../features/User/UserSlice'

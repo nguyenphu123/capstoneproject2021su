@@ -1,6 +1,3 @@
-import { Button } from 'semantic-ui-react'
-import { Visa, Mastercard, Paypal, AtmMomo, GrabPay } from 'react-pay-icons'
-
 function Footers () {
   return (
     <>
@@ -93,7 +90,7 @@ function Footers () {
                     <h4>Store Location</h4>
                     <img
                       style={{ width: '300px', height: '200px' }}
-                      src="https://www.google.com/maps/d/u/0/thumbnail?mid=1uMlvPKxmeqn_3aVhvrqbjbFfMjU&hl=en"
+                      src='https://www.google.com/maps/d/u/0/thumbnail?mid=1uMlvPKxmeqn_3aVhvrqbjbFfMjU&hl=en'
                       alt=''
                     />
                   </div>

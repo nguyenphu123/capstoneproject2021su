@@ -1,24 +1,20 @@
 import 'react-chat-widget/lib/styles.css'
 
-import Fab from '@material-ui/core/Fab'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import NavigationIcon from '@material-ui/icons/Navigation'
-import { Widget } from 'react-chat-widget'
+import { makeStyles } from '@material-ui/core/styles'
+
 import FadeIn from 'react-fade-in'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import AddIcon from '@material-ui/icons/Add'
+
+import React, { useEffect } from 'react'
 
 import Ads from './components/Ads/AdsSlideShow'
 import Footers from './components/Footer/Footers'
 import NavigationHeader from './components/Navigation-Menu/NavigationHeader'
-import CategoryList from './pages/CategoryList'
+
 import CategoryPage from './pages/CategoryPage'
 import HomePage from './pages/HomePage'
 import ImageUploadingPage from './pages/ImageUploadingPage'
-import LoginPage from './pages/LoginPage'
-import OrderDetail from './pages/OrderDetail'
+
 import OrderHistory from './pages/OrderHistory'
 import PaymentConfirm from './pages/PaymentConfirm'
 import ProductDetail from './pages/ProductDetail'
@@ -27,9 +23,9 @@ import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
 import SearchResultPage from './pages/SearchResultPage'
-import ShopBlog from './pages/ShopBlog'
+
 import Wishlist from './pages/Wishlist'
-var randomstring = require('randomstring')
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {

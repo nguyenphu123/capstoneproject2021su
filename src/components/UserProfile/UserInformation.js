@@ -17,13 +17,12 @@ import '../../App.css'
 
 // import { makeStyles } from '@material-ui/core/styles'
 // import Avatar from '@material-ui/core/Avatar'
-import AvatarImageCropper from 'react-avatar-image-cropper'
+
 import 'semantic-ui-css/semantic.min.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateUserInformation } from '../../features/User/UserSlice'
 import axios from 'axios'
 
-import Title from '../../Assets/Title'
 const mapDispatch = { updateUserInformation }
 
 function UserInformation ({ UserInformation }) {

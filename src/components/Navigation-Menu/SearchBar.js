@@ -1,9 +1,8 @@
-import _ from 'lodash'
 import FilterResults from 'react-filter-search'
 import axios from 'axios'
 import React, { Component } from 'react'
-import { Search, Grid, Header, Segment } from 'semantic-ui-react'
-import { Link, Redirect } from 'react-router-dom'
+
+import { Redirect } from 'react-router-dom'
 
 // const initialState = { isLoading: false, results: [], value: '' }
 // const getResults = () => _.times(5, () => ({}))

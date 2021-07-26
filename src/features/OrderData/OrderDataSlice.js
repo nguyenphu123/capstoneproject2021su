@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 // Slice
-import axios from 'axios'
 
 const initialOrder = localStorage.getItem('order')
   ? JSON.parse(localStorage.getItem('order'))

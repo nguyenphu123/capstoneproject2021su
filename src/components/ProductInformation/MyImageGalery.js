@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
-import MyReactImageMagnify from './MyReactImageMagnify'
-import ReactImageMagnify from 'react-image-magnify'
-import { SideBySideMagnifier } from 'react-image-magnifiers'
-import SideExampleControls from './SideExampleControls'
 
+import { SideBySideMagnifier } from 'react-image-magnifiers'
 
 class MyImageGalery extends Component {
   state = {
@@ -50,7 +47,7 @@ class MyImageGalery extends Component {
       <div className='flex'>
         <SideBySideMagnifier
           className='input-position'
-          style={{ order: switchSides ? '1' : '0', zIndex:'100000px' }}
+          style={{ order: switchSides ? '1' : '0', zIndex: '100000px' }}
           imageSrc={item.original}
           largeImageSrc={item.original}
           alwaysInPlace={alwaysInPlace}

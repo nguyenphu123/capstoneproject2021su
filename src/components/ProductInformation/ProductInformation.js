@@ -2,28 +2,20 @@ import 'react-image-gallery/styles/css/image-gallery.css'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 // import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
+
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShareIcon from '@material-ui/icons/Share'
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import 'react-notifications/lib/notifications.css'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
+
 import SeeMoreButton from '../../Assets/SeeMoreButton'
-import ToggleGroupColor from '../../Assets/ToggleGroupColor'
-import ToggleGroupSize from '../../Assets/ToggleGroupSize'
+
 import ProductQuestionAndAnswer from './ProductQuestionAndAnswer'
 import ProductDescription from './ProductDescription'
-import ProductReview from './ProductReview'
-import InputSpinner from 'react-bootstrap-input-spinner'
-import ImageGallery from 'react-image-gallery'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import Modal from 'react-awesome-modal'
+
 import { comparator } from '../../features/Comparator/ComparatorSlice'
 
 import MyImageGalery from './MyImageGalery'
@@ -38,18 +30,7 @@ import {
 
 import VerticalItemList from '../Item-List/VerticalItemList'
 import { ToastContainer, toast } from 'react-toastify'
-import {
-  Divider,
-  Grid,
-  Image,
-  Header,
-  Label,
-  Icon,
-  Segment,
-  Tab,
-  Button,
-  Rating
-} from 'semantic-ui-react'
+import { Tab, Button, Rating } from 'semantic-ui-react'
 
 const mapDispatch = {
   cart,

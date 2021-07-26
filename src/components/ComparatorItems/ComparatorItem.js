@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
-
-import { Form, Radio, Header } from 'semantic-ui-react'
-import { ToastContainer, toast } from 'react-toastify'
 
 function ComparatorItem ({ Id, Name, Price, ImageUrl, Elements }) {
   const [isLoading, setIsLoading] = useState(false)

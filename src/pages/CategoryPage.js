@@ -1,12 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, withRouter } from 'react-router-dom'
-import { Form, Checkbox, Button, Dropdown } from 'semantic-ui-react'
-
-import { Link } from 'react-router-dom'
+import { Form, Checkbox, Button } from 'semantic-ui-react'
 
 import VerticalItemList from '../components/Item-List/VerticalItemList'
-import PagnationBar from '../Assets/PagnationBar'
 
 function CategoryPage () {
   //id của category

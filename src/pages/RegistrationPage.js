@@ -1,10 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, Header, Image, Segment, Select } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+
 import { ToastContainer, toast } from 'react-toastify'
 import emailjs from 'emailjs-com'
-import { Form, Checkbox } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 var SHA256 = require('crypto-js/sha256')
 var otpGenerator = require('otp-generator')
 
@@ -392,8 +391,8 @@ function RegistrationPage () {
                 </div>
               </div>
             </form>
-            <div>
-              <form onSubmit={Regist}>
+            <form onSubmit={Regist}>
+              <div>
                 <label for='email'>
                   Otp <em class='required'>*</em>
                 </label>

@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button'
 import React, { useEffect, useState } from 'react'
-import { AtmMomo, GrabPay, Mastercard, Paypal, Visa } from 'react-pay-icons'
+import { AtmMomo } from 'react-pay-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Header } from 'semantic-ui-react'

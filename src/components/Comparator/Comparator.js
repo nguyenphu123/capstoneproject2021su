@@ -1,19 +1,15 @@
 import Button from '@material-ui/core/Button'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+
 import { Header } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import NumberFormat from 'react-number-format'
+
 import ComparatorItem from '../ComparatorItems/ComparatorItem'
 import {
   comparator,
   emptyComparator,
   deleteItemComparator
 } from '../../features/Comparator/ComparatorSlice'
-
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 const mapDispatch = { comparator, emptyComparator, deleteItemComparator }
 

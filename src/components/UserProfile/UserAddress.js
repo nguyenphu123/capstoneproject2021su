@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Form, Input, Select } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
-import Title from '../../Assets/Title'
+
 import 'semantic-ui-css/semantic.min.css'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateUserInformation } from '../../features/User/UserSlice'
 
 // const handleChangeDense = event => {

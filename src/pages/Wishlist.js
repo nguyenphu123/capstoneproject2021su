@@ -1,21 +1,14 @@
-import { Header, Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 // import { useAlert } from 'react-alert'
-import 'react-notifications/lib/notifications.css'
-import { NotificationContainer, NotificationManager } from 'react-notifications'
-import Title from '../Assets/Title'
-import Ads from '../components/Ads/AdsSlideShow'
-import { useParams, withRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import PagnationBar from '../Assets/PagnationBar'
-import { useDispatch, useSelector } from 'react-redux'
 
-import HorizontalItemList from '../components/Item-List/HorizontalItemList'
+import { useParams } from 'react-router-dom'
+
+import axios from 'axios'
+
 import VerticalItemList from '../components/Item-List/VerticalItemList'
-import SaleOff from '../components/Sale-Off/SaleOff'
-import CategoryList from './CategoryList'
-import { Form, Checkbox, Dropdown } from 'semantic-ui-react'
+
+import { Form, Checkbox } from 'semantic-ui-react'
 
 function Wishlist () {
   const { currentPage, userId, viewStyle, sort, sortOption } = useParams()

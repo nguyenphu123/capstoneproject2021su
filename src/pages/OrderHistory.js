@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types'
-import clsx from 'clsx'
-import { lighten, makeStyles } from '@material-ui/core/styles'
 // import Table from '@material-ui/core/Table'
 
 import Modal from 'react-awesome-modal'

@@ -1,14 +1,10 @@
 import axios from 'axios'
 import React from 'react'
-import { Button, Card, Header } from 'semantic-ui-react'
-import Title from '../../Assets/Title'
-import { withRouter } from 'react-router-dom'
-import ReactList from 'react-list'
-import LazyLoading from 'react-list-lazy-load'
+import { Card } from 'semantic-ui-react'
+
 import PagnationBar from '../../Assets/PagnationBar'
 import equal from 'fast-deep-equal'
 import VerticalItem from './VerticalItem'
-import { Link } from 'react-router-dom'
 
 function mergePage (items, newItems, offset) {
   const merged = items.slice()
@@ -306,8 +302,7 @@ class VerticalItemList extends React.Component {
                 CategoryId,
                 Status,
                 ImageStorages,
-                Elements,
-                Star
+                Elements
               }) => (
                 <div style={{ float: 'left' }}>
                   <VerticalItem

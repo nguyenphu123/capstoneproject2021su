@@ -1,17 +1,9 @@
 import Title from '../../Assets/Title'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import {
-  Comment,
-  Grid,
-  Header,
-  Rating,
-  Tab,
-  Table,
-  Form
-} from 'semantic-ui-react'
+import { useSelector } from 'react-redux'
+
+import { Comment, Grid, Rating, Tab, Form, Button } from 'semantic-ui-react'
 import Modal from 'react-awesome-modal'
 
 function ProductQuestionAndAnswer ({ product }) {
@@ -71,9 +63,9 @@ function ProductQuestionAndAnswer ({ product }) {
     }).then(res => {
       comments.push(myComment)
       if (productAvgStar === 'NaN') {
-        setProductAvgStar(rating)
+        setProductAvgStar(star)
       } else {
-        setProductAvgStar((productAvgStar + rating) / 2)
+        setProductAvgStar((productAvgStar + star) / 2)
       }
     })
   }
