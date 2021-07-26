@@ -306,7 +306,8 @@ class VerticalItemList extends React.Component {
                 CategoryId,
                 Status,
                 ImageStorages,
-                Elements
+                Elements,
+                Star
               }) => (
                 <div style={{ float: 'left' }}>
                   <VerticalItem
@@ -319,6 +320,7 @@ class VerticalItemList extends React.Component {
                     Quantity={Quantity}
                     Description={Description}
                     Elements={Elements}
+                    Star={Star}
                   />
                 </div>
               )

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import emailjs from 'emailjs-com'
 import { Form, Checkbox } from 'semantic-ui-react'
 var SHA256 = require('crypto-js/sha256')
+var otpGenerator = require('otp-generator')
 
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userActions } from '../actions/user.actions'
@@ -18,6 +19,10 @@ function RegistrationPage () {
   const [phone, setPhone] = useState(0)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [matchotp, setMatchOTP] = useState('')
+  const [otp, setOTP] = useState(
+    otpGenerator.generate(6, { upperCase: false, specialChars: false })
+  )
 
   const [address, setAddress] = useState('')
   const [agreement, setAgreement] = useState(false)
@@ -27,31 +32,51 @@ function RegistrationPage () {
   // const location = useLocation()
 
   // reset login status
-  useEffect(() => {
-    // dispatch(userActions.logout())
-  }, [])
+  useEffect(() => {}, [])
 
   function handleChange (e) {
     // const { name, value } = e.target
     // setInputs(inputs => ({ ...inputs, [name]: value }))
   }
+  function Regist (e) {
+    if (matchotp === '' || matchotp !== otp) {
+      toast.warn('Wrong OTP')
+    } else {
+      const authData = {
+        UserName: username,
+        PassWord: SHA256(password).toString(),
+        RankId: '12341234-1234-1234-1234-123412341234',
+        RoleId: 'd00d3c17-6180-4a32-884c-976cd044ce7b',
+        Name: name,
+        Phone: phone,
+        Address: address,
+        Gender: gender,
+        Point: 20,
+        Email: email
+      }
+      axios({
+        method: 'post',
+        url: '/api/user-management/users',
+        headers: {},
+        data: authData
+      })
+        .then(res => {
+          console.log(res)
+          console.log(res.data)
 
+          e.preventDefault()
+        })
+        .catch(function (error) {
+          console.log('Show error notification!')
+          return Promise.reject(error)
+        })
+    }
+  }
   function handleSubmit (e) {
     e.preventDefault()
     console.log(username)
     console.log(password)
-    const authData = {
-      UserName: username,
-      PassWord: SHA256(password).toString(),
-      RankId: '12341234-1234-1234-1234-123412341234',
-      RoleId: 'd00d3c17-6180-4a32-884c-976cd044ce7b',
-      Name: name,
-      Phone: phone,
-      Address: address,
-      Gender: gender,
-      Point: 20,
-      Email: email
-    }
+
     if (
       username &&
       password &&
@@ -62,40 +87,23 @@ function RegistrationPage () {
       matchPassword
     ) {
       if (agreement) {
-        axios({
-          method: 'post',
-          url: '/api/user-management/users',
-          headers: {},
-          data: authData
-        })
-          .then(res => {
-            console.log(res)
-            console.log(res.data)
-            toast.success(
-              'Thank you for your registration, you can close the registration form now'
-            )
-            e.preventDefault()
-
-            emailjs
-              .sendForm(
-                'service_nueuo8m',
-                'template_fihobul',
-                e.target,
-                'user_32k4I6JJIEyo5ehBoH1Ae'
+        emailjs
+          .sendForm(
+            'service_nueuo8m',
+            'template_fihobul',
+            e.target,
+            'user_32k4I6JJIEyo5ehBoH1Ae'
+          )
+          .then(
+            result => {
+              toast.success(
+                'Thank you for your registration, you will receive an email with OTP please input it to verify your account'
               )
-              .then(
-                result => {
-                  console.log(result.text)
-                },
-                error => {
-                  console.log(error.text)
-                }
-              )
-          })
-          .catch(function (error) {
-            console.log('Show error notification!')
-            return Promise.reject(error)
-          })
+            },
+            error => {
+              toast.warn('Email error')
+            }
+          )
       } else {
         toast.warn('Please accept our policies')
       }
@@ -194,6 +202,14 @@ function RegistrationPage () {
           <input name='form_key' type='hidden' value='EPYwQxF6xoWcjLUr' />
           <fieldset class='col2-set'>
             <form onSubmit={handleSubmit}>
+              <input
+                type='text'
+                name='otp'
+                value={otp}
+                id='otp'
+                style={{ display: 'hidden' }}
+              />
+
               <div class='col-1 registered-users'>
                 <strong>Registration Customers</strong>
                 <div class='content'>
@@ -372,6 +388,33 @@ function RegistrationPage () {
                     id='send2'
                   >
                     <span>Registration</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div>
+              <form onSubmit={Regist}>
+                <label for='email'>
+                  Otp <em class='required'>*</em>
+                </label>
+                <div class='input-box'>
+                  <input
+                    type='text'
+                    name='matchotp'
+                    value={matchotp}
+                    id='matchotp'
+                    class='input-text required-entry validate-email'
+                    title='matchotp'
+                    onChange={e => setMatchOTP(e.target.value)}
+                  />
+                  <button
+                    type='submit'
+                    class='button login'
+                    title='Login'
+                    name='send'
+                    id='send2'
+                  >
+                    <span>Confirm</span>
                   </button>
                 </div>
               </div>

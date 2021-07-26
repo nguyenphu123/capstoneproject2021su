@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-// import FilterResults from 'react-filter-search'
+
 import SearchBar from './SearchBar'
 import { loginUser, logout } from '../../features/User/UserSlice'
 import Modal from 'react-awesome-modal'

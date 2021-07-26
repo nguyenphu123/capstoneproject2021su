@@ -63,7 +63,8 @@ function HorizontalItem ({
   CurrentPrice,
   CategoryId,
   Status,
-  ImageStorages
+  ImageStorages,
+  Star
 }) {
   const classes = useStyles()
 
@@ -121,7 +122,23 @@ function HorizontalItem ({
                     <div className='rating'>
                       <div className='ratings'>
                         <div className='rating-box'>
-                          <div className='rating'></div>
+                          {Star === 'NaN' ? (
+                            <Rating
+                              maxRating={5}
+                              defaultRating={0}
+                              icon='star'
+                              size='mini'
+                            />
+                          ) : (
+                            <Rating
+                              maxRating={5}
+                              defaultRating={Star}
+                              icon='star'
+                              size='mini'
+                            />
+                          )}
+
+                          {/* <div className='rating'></div> */}
                         </div>
                         {/* <p className='rating-links'>
                           <Link href='#'>1 Review(s)</Link>

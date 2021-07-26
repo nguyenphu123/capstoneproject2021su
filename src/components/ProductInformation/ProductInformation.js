@@ -47,7 +47,8 @@ import {
   Icon,
   Segment,
   Tab,
-  Button
+  Button,
+  Rating
 } from 'semantic-ui-react'
 
 const mapDispatch = {
@@ -184,9 +185,6 @@ function ProductInformation () {
         )
         if (check_index !== -1) {
           setMaxQuantity(res.data.Elements[check_index].Quantity)
-
-          // setCurrentColor(shopCart[check_index].Color)
-          // setCurrentSize(shopCart[check_index].Size)
         } else {
         }
       } else {
@@ -199,53 +197,29 @@ function ProductInformation () {
           thumbnail: `${ImageUrl}`
         }))
       )
+      if (CartSlice !== null) {
+        setShopCart(CartSlice)
+        console.log(CartSlice)
+
+        const check_index = shopCart.findIndex(
+          item =>
+            item.ProductId === productId &&
+            item.Color === res.data.Elements[0].Color.Id &&
+            item.Size === res.data.Elements[0].Size.Id
+        )
+        if (check_index !== -1) {
+          setQuantity(shopCart[check_index].Quantity)
+          setMaxQuantity(res.data.Elements[0].Quantity)
+        } else {
+        }
+      } else {
+        setShopCart([])
+      }
 
       setCurrentState(true)
     })
   }, [productId])
-  useEffect(() => {
-    axios({
-      method: 'get',
-      url: '/api/product-management/productId?productId=' + productId,
-      headers: {}
-    }).then(res => {
-      console.log(res.data)
-      if (res.data.Elements.length > 0) {
-        setCurrentColor(res.data.Elements[0].Color.Id)
-        setCurrentSize(res.data.Elements[0].Size.Id)
-        setCurrentState(true)
-        if (CartSlice !== null) {
-          setShopCart(CartSlice)
-          console.log(CartSlice)
 
-          const check_index = shopCart.findIndex(
-            item =>
-              item.ProductId === productId &&
-              item.Color === res.data.Elements[0].Color.Id &&
-              item.Size === res.data.Elements[0].Size.Id
-          )
-          if (check_index !== -1) {
-            setQuantity(shopCart[check_index].Quantity)
-            setMaxQuantity(res.data.Elements[0].Quantity)
-
-            // setCurrentColor(shopCart[check_index].Color)
-            // setCurrentSize(shopCart[check_index].Size)
-          } else {
-          }
-        } else {
-          setShopCart([])
-        }
-      } else {
-      }
-    })
-  }, [CartSlice, productId])
-
-  // function filterByID (item) {
-  //   if (productId === item.Id) {
-  //     return true
-  //   }
-  //   return false
-  // }
   useEffect(() => {
     if (currentColor !== '') {
       console.log(currentColor)
@@ -410,14 +384,10 @@ function ProductInformation () {
       menuItem: 'Description',
       render: () => <ProductDescription Description={product.Description} />
     },
-    {
-      menuItem: 'Rating',
-      render: () => <ProductReview />
-    },
 
     {
-      menuItem: 'Comments and Reviews',
-      render: () => <ProductQuestionAndAnswer QuestionList={[]} />
+      menuItem: 'Rating and Reviews',
+      render: () => <ProductQuestionAndAnswer product={product} />
     }
   ]
 
@@ -475,11 +445,21 @@ function ProductInformation () {
                       <div class='rating-box'>
                         <div style={{ width: '60%' }} class='rating'></div>
                       </div>
-                      {/* <p class='rating-links'>
-                        <Link to=''>1 Review</Link>
-                        <span class='separator'>|</span>
-                        <Link to=''>Add Your Review</Link>
-                      </p> */}
+                      {product.Star === 'NaN' ? (
+                        <Rating
+                          maxRating={5}
+                          defaultRating={0}
+                          icon='star'
+                          size='mini'
+                        />
+                      ) : (
+                        <Rating
+                          maxRating={5}
+                          defaultRating={product.Star}
+                          icon='star'
+                          size='mini'
+                        />
+                      )}
                     </div>
                     <div class='price-block'>
                       <div class='price-box'>
@@ -610,51 +590,7 @@ function ProductInformation () {
                           </Link>
                         </li>
                       </ul>
-                      {/* <p class='email-friend'>
-                        <Link onClick={sendEmail} class=''>
-                          <span>Email to a Friend</span>
-                        </Link>
-                      </p> */}
-                      {/* <Modal
-                        visible={visibilityEmail}
-                        width='1000'
-                        height='500'
-                        effect='fadeInUp'
-                        onClickAway={sendEmail}
-                      >
-                        <div>
-                          <a href='javascript:void(0);' onClick={sendEmail}>
-                            Close
-                          </a>
-                          <SendEmail />
-                        </div>
-                      </Modal> */}
                     </div>
-                    {/* <div class='social'>
-                      <ul class='link'>
-                        <li class='fb'>
-                          <Link to=''></Link>
-                        </li>
-                        <li class='tw'>
-                          <Link to=''></Link>
-                        </li>
-                        <li class='googleplus'>
-                          <Link to=''></Link>
-                        </li>
-                        <li class='rss'>
-                          <Link to=''></Link>
-                        </li>
-                        <li class='pintrest'>
-                          <Link to=''></Link>
-                        </li>
-                        <li class='linkedin'>
-                          <Link to=''></Link>
-                        </li>
-                        <li class='youtube'>
-                          <Link to=''></Link>
-                        </li>
-                      </ul>
-                    </div> */}
 
                     <ul class='shipping-pro'>
                       <li>Free in city Shipping</li>

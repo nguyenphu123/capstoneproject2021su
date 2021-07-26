@@ -69,7 +69,8 @@ class HorizontalItemLList extends React.Component {
                 CurrentPrice,
                 CategoryId,
                 Status,
-                ImageStorages
+                ImageStorages,
+                Star
               }) => (
                 <div style={{ float: 'left' }}>
                   <HorizontalItem
@@ -80,6 +81,7 @@ class HorizontalItemLList extends React.Component {
                     CurrentPrice={CurrentPrice}
                     ImageStorages={ImageStorages}
                     Quantity={Quantity}
+                    Star={Star}
                   />
                 </div>
               )
