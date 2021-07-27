@@ -54,7 +54,7 @@ function ProductInformation () {
   const [currentSize, setCurrentSize] = useState('')
   const [maxQuantity, setMaxQuantity] = useState(0)
   const [visibilityEmail, setVisibilityEmail] = useState(false)
-
+  const [comments, setComments] = useState([])
   const [currentState, setCurrentState] = useState(false)
   const [quantity, setQuantity] = useState(0)
   const [images, setImages] = useState({})
@@ -85,6 +85,22 @@ function ProductInformation () {
       setComparators([])
     }
   }, [ComparatorSlice])
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: '/review-management',
+      headers: {}
+    }).then(res => {
+      console.log(res.data)
+      let result = res.data.filter(x => x.ProductId === productId)
+      console.log(result)
+      for (let index = 0; index < result.length; index++) {
+        const element = result[index]
+        comments.push(element)
+      }
+      console.log(comments)
+    })
+  }, [productId])
 
   function addToComparator (e) {
     e.preventDefault()
@@ -368,7 +384,9 @@ function ProductInformation () {
 
     {
       menuItem: 'Rating and Reviews',
-      render: () => <ProductQuestionAndAnswer product={product} />
+      render: () => (
+        <ProductQuestionAndAnswer product={product} comments={comments} />
+      )
     }
   ]
 

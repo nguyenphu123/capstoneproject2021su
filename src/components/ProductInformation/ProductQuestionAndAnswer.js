@@ -3,29 +3,26 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { Comment, Grid, Rating, Tab, Form, Button } from 'semantic-ui-react'
+import { Grid, Rating, Tab, Form, Button, Item } from 'semantic-ui-react'
 import Modal from 'react-awesome-modal'
 
-function ProductQuestionAndAnswer ({ product }) {
+function ProductQuestionAndAnswer ({ product, comments }) {
   const UserSlice = useSelector(state => state.UserSlice.user)
   const [visibility, setVisibility] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [loadComplete, setLoadComplete] = useState(false)
+
   const [productAvgStar, setProductAvgStar] = useState(product.Star)
   const [star, setStar] = useState(0)
-  const [comments, setComments] = useState([])
+  const [reviewcomments, setReviewComments] = useState(comments)
   const [comment, setComment] = useState('')
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: '/review-management',
-      headers: {}
-    }).then(res => {
-      console.log(res.data)
-      let result = res.data.filter(x => x.ProductId === product.Id)
-      setComments(result)
-      setIsLoading(false)
-    })
-  }, [product])
+    setLoadComplete(loadComplete => loadComplete)
+  }, [loadComplete])
+  useEffect(() => {
+    setReviewComments(reviewcomments => reviewcomments)
+    setLoadComplete(true)
+  }, [reviewcomments])
+
   const handleRate = (e, { rating, maxRating }) => {
     setStar(rating)
 
@@ -33,6 +30,7 @@ function ProductQuestionAndAnswer ({ product }) {
     e.preventDefault()
     setVisibility(!visibility)
   }
+
   useEffect(() => {
     setStar(star => star)
   }, [star])
@@ -72,9 +70,11 @@ function ProductQuestionAndAnswer ({ product }) {
   function commentChange (e, { name, value }) {
     setComment(value)
   }
-  if (setIsLoading) {
+  if (!loadComplete) {
     return <Tab.Pane>Loading please wait a moment</Tab.Pane>
   } else {
+    console.log(comments)
+
     if (UserSlice === null) {
       return (
         <Tab.Pane>
@@ -107,31 +107,37 @@ function ProductQuestionAndAnswer ({ product }) {
           </div>
 
           <Grid.Column>
-            <Comment.Group>
+            <Item.Group>
               <Title Name='Comment' />
+
               {comments.map(({ UserName, Comment, Star }) => (
-                <Comment>
-                  {/* <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' /> */}
-                  <Comment.Content>
-                    <Comment.Author as='a'>
-                      {UserName}
+                <Item>
+                  <Item.Image
+                    size='tiny'
+                    src='https://react.semantic-ui.com/images/wireframe/image.png'
+                  />
+
+                  <Item.Content>
+                    <Item.Header as='a'>{UserName}</Item.Header>
+                    <Item.Meta>
                       <Rating
                         maxRating={5}
                         defaultRating={Star}
                         icon='star'
                         size='mini'
                       />
-                    </Comment.Author>
-
-                    <Comment.Text>{Comment}</Comment.Text>
-                  </Comment.Content>
-                </Comment>
+                    </Item.Meta>
+                    <Item.Description>{Comment}</Item.Description>
+                  </Item.Content>
+                </Item>
               ))}
-            </Comment.Group>
+            </Item.Group>
           </Grid.Column>
         </Tab.Pane>
       )
     } else {
+      console.log(comments)
+
       return (
         <Tab.Pane>
           <div id='productTabContent' class='tab-content'>
@@ -191,33 +197,34 @@ function ProductQuestionAndAnswer ({ product }) {
                   Submit
                 </Button>
               </Form>
-              <Button variant='outlined' color='primary' size='medium'>
-                Rating only
-              </Button>
             </div>
           </Modal>
           <Grid.Column>
-            <Comment.Group>
+            <Item.Group>
               <Title Name='Comment' />
+
               {comments.map(({ UserName, Comment, Star }) => (
-                <Comment>
-                  {/* <Comment.Avatar src='https://react.semantic-ui.com/images/avatar/small/matt.jpg' /> */}
-                  <Comment.Content>
-                    <Comment.Author as='a'>
-                      {UserName}
+                <Item>
+                  <Item.Image
+                    size='tiny'
+                    src='https://react.semantic-ui.com/images/wireframe/image.png'
+                  />
+
+                  <Item.Content>
+                    <Item.Header as='a'>{UserName}</Item.Header>
+                    <Item.Meta>
                       <Rating
                         maxRating={5}
                         defaultRating={Star}
                         icon='star'
                         size='mini'
                       />
-                    </Comment.Author>
-
-                    <Comment.Text>{Comment}</Comment.Text>
-                  </Comment.Content>
-                </Comment>
+                    </Item.Meta>
+                    <Item.Description>{Comment}</Item.Description>
+                  </Item.Content>
+                </Item>
               ))}
-            </Comment.Group>
+            </Item.Group>
           </Grid.Column>
         </Tab.Pane>
       )

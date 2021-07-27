@@ -22,7 +22,7 @@ function RegistrationPage () {
   const [otp, setOTP] = useState(
     otpGenerator.generate(6, { upperCase: false, specialChars: false })
   )
-
+  const [openOtp, setOpenOtp] = useState('none')
   const [address, setAddress] = useState('')
   const [agreement, setAgreement] = useState(false)
 
@@ -38,6 +38,8 @@ function RegistrationPage () {
     // setInputs(inputs => ({ ...inputs, [name]: value }))
   }
   function Regist (e) {
+    e.preventDefault()
+
     if (matchotp === '' || matchotp !== otp) {
       toast.warn('Wrong OTP')
     } else {
@@ -62,8 +64,9 @@ function RegistrationPage () {
         .then(res => {
           console.log(res)
           console.log(res.data)
-
-          e.preventDefault()
+          toast.success(
+            'Your registration has completed, you can now login to shopping'
+          )
         })
         .catch(function (error) {
           console.log('Show error notification!')
@@ -98,6 +101,7 @@ function RegistrationPage () {
               toast.success(
                 'Thank you for your registration, you will receive an email with OTP please input it to verify your account'
               )
+              setOpenOtp('inline')
             },
             error => {
               toast.warn('Email error')
@@ -127,7 +131,8 @@ function RegistrationPage () {
       if (e.target.value.length < 8) {
         toast.warn('Sorry password cannot be under 8 character')
       } else {
-        var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+        var reg = /^(?=.*\d)(?=.*[a-zA-Z]).{8,32}$/
+
         var test = reg.test(e.target.value)
         if (test) {
         } else {
@@ -206,7 +211,7 @@ function RegistrationPage () {
                 name='otp'
                 value={otp}
                 id='otp'
-                style={{ display: 'hidden' }}
+                style={{ display: 'none' }}
               />
 
               <div class='col-1 registered-users'>
@@ -391,7 +396,7 @@ function RegistrationPage () {
                 </div>
               </div>
             </form>
-            <form onSubmit={Regist}>
+            <form style={{ display: openOtp }} onSubmit={Regist}>
               <div>
                 <label for='email'>
                   Otp <em class='required'>*</em>

@@ -170,34 +170,30 @@ function VerticalItem ({
                       {Name}
                     </div>
                     <div className='item-content'>
-                      <div className='rating'>
-                        <div className='ratings'>
-                          <div className='rating-box'>
-                            {Star === 'NaN' ? (
-                              <Rating
-                                maxRating={5}
-                                defaultRating={0}
-                                icon='star'
-                                size='mini'
-                              />
-                            ) : (
-                              <Rating
-                                maxRating={5}
-                                defaultRating={Star}
-                                icon='star'
-                                size='mini'
-                              />
-                            )}
+                      {Star === 'NaN' ? (
+                        <Rating
+                          maxRating={5}
+                          defaultRating={0}
+                          icon='star'
+                          size='mini'
+                        />
+                      ) : (
+                        <Rating
+                          maxRating={5}
+                          defaultRating={Star}
+                          icon='star'
+                          size='mini'
+                        />
+                      )}
 
-                            {/* <div className='rating'></div> */}
-                          </div>
-                          {/* <p className='rating-links'>
+                      {/* <div className='rating'></div> */}
+
+                      {/* <p className='rating-links'>
                             <Link href='#'>1 Review(s)</Link>
                             <span className='separator'>|</span>
                             <Link href='#'>Add Review</Link>
                           </p> */}
-                        </div>
-                      </div>
+
                       <div className='item-price'>
                         <div className='price-box'>
                           <span className='regular-price'>
