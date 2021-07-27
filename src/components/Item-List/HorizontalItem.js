@@ -3,7 +3,10 @@ import Card from '@material-ui/core/Card'
 
 import { makeStyles } from '@material-ui/core/styles'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { comparator } from '../../features/Comparator/ComparatorSlice'
+
 import { Link } from 'react-router-dom'
 import { Rating } from 'semantic-ui-react'
 
@@ -59,7 +62,73 @@ function HorizontalItem ({
   Status,
   ImageStorages
 }) {
+  const dispatch = useDispatch()
+  const UserSlice = useSelector(state => state.UserSlice.user)
+
+  const ComparatorSlice = useSelector(state => state.ComparatorSlice.comparator)
+  const [comparators, setComparators] = useState([])
+
   const classes = useStyles()
+  useEffect(() => {
+    if (comparators !== null) {
+      if (comparators.length !== 0) {
+        dispatch(comparator(comparators))
+      }
+    } else {
+      setComparators([])
+    }
+  }, [comparators])
+  useEffect(() => {
+    if (ComparatorSlice !== null) {
+      if (ComparatorSlice.length !== 0) {
+        console.log(ComparatorSlice)
+        setComparators(ComparatorSlice)
+      }
+    } else {
+      setComparators([])
+    }
+  }, [ComparatorSlice])
+
+  function addToComparator (e) {
+    e.preventDefault()
+    console.log(comparators)
+    const item = {
+      ProductId: Id,
+      CurrentPrice: CurrentPrice,
+      img: ImageStorages[0].ImageUrl,
+      Name: Name,
+      Elements: Elements
+    }
+    if (ComparatorSlice !== null && ComparatorSlice.length !== 0) {
+      console.log(ComparatorSlice)
+
+      const check_index = ComparatorSlice.findIndex(
+        item => item.ProductId === Id
+      )
+      if (check_index !== -1) {
+        console.log(ComparatorSlice)
+      } else {
+        setComparators(comparators => [...comparators, item])
+      }
+    } else {
+      setComparators(comparators => [...comparators, item])
+    }
+  }
+  function addtoWhisList (e) {
+    e.preventDefault()
+    if (UserSlice === null) {
+    } else {
+      const wish = {
+        ProductId: Id,
+        UserId: UserSlice.Id
+      }
+      axios({
+        method: 'POST',
+        url: '/api/whistlist-management',
+        data: wish
+      }).then(res => {})
+    }
+  }
 
   return (
     <Link to={'/Product/' + Id}>
@@ -89,14 +158,14 @@ function HorizontalItem ({
                       <div className='actions'>
                         <span className='add-to-links'>
                           <Link
-                            href='#'
+                            onClick={addtoWhisList}
                             className='link-wishlist'
                             title='Add to Wishlist'
                           >
                             <span>Add to Wishlist</span>
                           </Link>
                           <Link
-                            href='#'
+                            onClick={addToComparator}
                             className='link-compare add_to_compare'
                             title='Add to Compare'
                           >

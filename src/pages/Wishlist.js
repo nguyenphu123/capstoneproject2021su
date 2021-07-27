@@ -1,21 +1,21 @@
 import { Button } from 'semantic-ui-react'
 import React, { useEffect, useState } from 'react'
 // import { useAlert } from 'react-alert'
+import { useSelector } from 'react-redux'
 
 import { useParams } from 'react-router-dom'
 
 import axios from 'axios'
 
-import VerticalItemList from '../components/Item-List/VerticalItemList'
+import VerticalItemListWish from '../components/Item-List/VerticalItemListWish'
 
 import { Form, Checkbox } from 'semantic-ui-react'
 
 function Wishlist () {
   const { currentPage, userId, viewStyle, sort, sortOption } = useParams()
+  const UserSlice = useSelector(state => state.UserSlice.user)
 
-  const [currentURL, setCurrentURL] = useState(
-    '/api/product-management?sort=up&pageIndex=1&pageSize=5000'
-  )
+  const [currentURL, setCurrentURL] = useState('/api/whistlist-management')
 
   const [category, setCategory] = useState({})
   const [view, setView] = useState(viewStyle)
@@ -37,6 +37,8 @@ function Wishlist () {
   const [tag, setTag] = useState('')
   const [subList, setSubList] = useState([])
   const [sub, setSub] = useState('')
+  const [reset, setReset] = useState(false)
+
   const options = [
     { key: 1, text: 'Price', value: 'price' },
     { key: 2, text: 'Name', value: 'name' }
@@ -46,7 +48,7 @@ function Wishlist () {
     if (color !== '') {
       setColor(color => color)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/whistlist-management')
     } else {
       setColor('')
     }
@@ -55,7 +57,7 @@ function Wishlist () {
     if (size !== '') {
       setSize(size => size)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/whistlist-management')
     } else {
       setSize('')
     }
@@ -64,7 +66,7 @@ function Wishlist () {
     if (tag !== '') {
       setSub(tag => tag)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/whistlist-management')
     } else {
       setSub('')
     }
@@ -73,7 +75,7 @@ function Wishlist () {
     if (sortBy !== '') {
       setSortBy(sortBy => sortBy)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/whistlist-management')
     } else {
       setSortBy('')
     }
@@ -82,11 +84,14 @@ function Wishlist () {
     if (currentSortOption !== '') {
       setCurrentSortOption(currentSortOption => currentSortOption)
 
-      setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+      setCurrentURL('/api/whistlist-management')
     } else {
       setCurrentSortOption('')
     }
   }, [currentSortOption])
+  useEffect(() => {
+    setReset(reset => reset)
+  }, [reset])
 
   useEffect(() => {
     // console.log(categoryId)
@@ -123,6 +128,7 @@ function Wishlist () {
     setSize('')
     setTag('')
     setSub('')
+    setReset(true)
   }
   function handleChange (colorId, sizeId, tagId, categoryId) {
     setCurrentURL('/api/product-management/1/1/1/1?pageIndex=1&pageSize=1')
@@ -169,28 +175,12 @@ function Wishlist () {
                         content='Price'
                         onClick={handleChangeSortBy}
                       />
-
-                      {/* <Dropdown
-                        onChange={handleChangeSortBy}
-                        clearable
-                        options={options}
-                        selection
-                        value={sortBy}
-                      />
-
-                      <Link
-                        className='button-asc left'
-                        to={'/AllProduct/1/Grid/' + sortBy + '/asc'}
-                        title='Set Descending Direction'
-                      >
-                        <span className='top_arrow'></span>
-                      </Link> */}
                     </div>
                     <div className='pager'></div>
                   </div>
 
-                  <VerticalItemList
-                    reset={false}
+                  <VerticalItemListWish
+                    reset={reset}
                     topic={category.Name}
                     apiUrl={currentURL}
                     colorId={color}
@@ -199,19 +189,12 @@ function Wishlist () {
                     tagId={tag}
                     sortBy={sortBy}
                     sortOption={currentSortOption}
-                    currentLink={'/AllProduct/1'}
+                    currentLink={currentURL}
+                    UserId={UserSlice.Id}
                   />
 
                   <div className='toolbar bottom'>
                     <div className='display-product-option'>
-                      {/* <PagnationBar
-                        Name={'AllProduct'}
-                        apiUrl={currentURL}
-                        colorId={color}
-                        categoryId={sub}
-                        sizeId={size}
-                        tagId={tag}
-                      /> */}
                       <div className='product-option-right'>
                         <div className='pager'></div>
                       </div>
@@ -224,7 +207,7 @@ function Wishlist () {
             <aside className='col-left sidebar col-sm-3 col-xs-12 col-sm-pull-9 wow bounceInUp animated'>
               {/* <!-- BEGIN SIDE-NAV-CATEGORY --> */}
               <div className='side-nav-categories'>
-                <div className='block-title'> All Product </div>
+                <div className='block-title'> Whislist </div>
 
                 {/* <!--block-title--> */}
 

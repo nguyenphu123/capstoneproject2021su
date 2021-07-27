@@ -1,5 +1,6 @@
 import NumberFormat from 'react-number-format'
 import Card from '@material-ui/core/Card'
+import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -66,6 +67,7 @@ function VerticalItem ({
   Elements
 }) {
   const dispatch = useDispatch()
+  const UserSlice = useSelector(state => state.UserSlice.user)
 
   const ComparatorSlice = useSelector(state => state.ComparatorSlice.comparator)
   const [comparators, setComparators] = useState([])
@@ -117,7 +119,21 @@ function VerticalItem ({
       setComparators(comparators => [...comparators, item])
     }
   }
-
+  function addtoWhisList (e) {
+    e.preventDefault()
+    if (UserSlice === null) {
+    } else {
+      const wish = {
+        ProductId: Id,
+        UserId: UserSlice.Id
+      }
+      axios({
+        method: 'POST',
+        url: '/api/whistlist-management',
+        data: wish
+      }).then(res => {})
+    }
+  }
   return (
     <Link to={'/Product/' + Id}>
       <Tooltip title={<h5 style={{ color: 'white' }}>{Description}</h5>}>
@@ -148,6 +164,7 @@ function VerticalItem ({
                             <Link
                               className='link-wishlist'
                               title='Add to Wishlist'
+                              onClick={addtoWhisList}
                             >
                               <span>Add to Wishlist</span>
                             </Link>
@@ -185,14 +202,6 @@ function VerticalItem ({
                           size='mini'
                         />
                       )}
-
-                      {/* <div className='rating'></div> */}
-
-                      {/* <p className='rating-links'>
-                            <Link href='#'>1 Review(s)</Link>
-                            <span className='separator'>|</span>
-                            <Link href='#'>Add Review</Link>
-                          </p> */}
 
                       <div className='item-price'>
                         <div className='price-box'>

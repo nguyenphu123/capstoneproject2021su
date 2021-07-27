@@ -44,6 +44,8 @@ const mapDispatch = {
 
 function ProductInformation () {
   const { productId } = useParams()
+  const UserSlice = useSelector(state => state.UserSlice.user)
+
   //filter review
   const [reviewlist, setReviewlist] = useState([])
   const [review, setReview] = useState('')
@@ -65,6 +67,21 @@ function ProductInformation () {
   const [shopCart, setShopCart] = useState(CartSlice)
   const ComparatorSlice = useSelector(state => state.ComparatorSlice.comparator)
   const [comparators, setComparators] = useState([])
+  function addtoWhisList (e) {
+    e.preventDefault()
+    if (UserSlice === null) {
+    } else {
+      const wish = {
+        ProductId: Id,
+        UserId: UserSlice.Id
+      }
+      axios({
+        method: 'POST',
+        url: '/api/whistlist-management',
+        data: wish
+      }).then(res => {})
+    }
+  }
 
   useEffect(() => {
     if (comparators !== null) {
@@ -578,7 +595,7 @@ function ProductInformation () {
                     <div class='email-addto-box'>
                       <ul class='add-to-links'>
                         <li>
-                          <Link class='link-wishlist' to={'/'}>
+                          <Link class='link-wishlist' onClick={addtoWhisList}>
                             <span>Add to Wishlist</span>
                           </Link>
                         </li>

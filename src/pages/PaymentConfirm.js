@@ -5,6 +5,7 @@ import emailjs from 'emailjs-com'
 import { v4 as uuidv4 } from 'uuid'
 import { Checkbox, Dropdown } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
+import 'semantic-ui-css/semantic.min.css'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { useParams } from 'react-router-dom'
@@ -554,16 +555,18 @@ function PaymentConfirm () {
                                         />
                                       </div>
                                     </li>
-                                    <li class='fields'>
+                                    <li
+                                      class='fields'
+                                      style={{ zIndex: '10000' }}
+                                    >
                                       <div
                                         class='dropdown-box'
                                         style={{ zIndex: '10000' }}
                                       >
                                         <label for='city'>
-                                          City<em class='required'>*</em>
+                                          Region<em class='required'>*</em>
                                         </label>
                                         <Dropdown
-                                          fluid
                                           onChange={handleChangeCity}
                                           options={cityAndProvinces}
                                           placeholder='City and province'
@@ -571,32 +574,18 @@ function PaymentConfirm () {
                                           selection
                                           value={cityAndProvince}
                                         />
-                                      </div>
-                                    </li>
-                                    <li class='fields'>
-                                      <div class='dropdown-box'>
-                                        <label for='billing:city'>
-                                          District<em class='required'>*</em>
-                                        </label>
                                         <Dropdown
-                                          fluid
                                           onChange={handleChangeDistrict}
                                           options={districts}
+                                          search
                                           placeholder='District'
                                           selection
                                           value={district}
                                         />
-                                      </div>
-                                    </li>
-                                    <li class='fields'>
-                                      <div class='dropdown-box'>
-                                        <label for='billing:city'>
-                                          Ward<em class='required'>*</em>
-                                        </label>
                                         <Dropdown
-                                          fluid
                                           onChange={handleChangeWard}
                                           options={wards}
+                                          search
                                           placeholder='Ward'
                                           selection
                                           value={ward}

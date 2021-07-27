@@ -322,7 +322,10 @@ function NavigationHeader () {
                               </li>
 
                               <li>
-                                <Link to={'/wishlist'} title='Wishlist'>
+                                <Link
+                                  to={'/wishlist/' + UserSlice.Id}
+                                  title='Wishlist'
+                                >
                                   Wishlist
                                 </Link>
                               </li>
