@@ -2,7 +2,7 @@ import 'react-image-gallery/styles/css/image-gallery.css'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 // import Button from '@material-ui/core/Button'
-import VerticalItemListImageSearch from '../../components/Item-List/VerticalItemListImageSearch'
+// import VerticalItemListImageSearch from '../../components/Item-List/VerticalItemListImageSearch'
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -669,9 +669,9 @@ function ProductInformation () {
               </section>
               <section className=' wow bounceInUp animated'>
                 <div className='best-pro slider-items-products container'>
-                  <div className='new_title'>
+                  {/* <div className='new_title'>
                     <h2>Similar pproducts</h2>
-                  </div>
+                  </div> */}
                   {/* <VerticalItemListHome
                     topic='Super deals'
                     apiUrl={

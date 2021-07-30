@@ -2,6 +2,7 @@ import Title from '../../Assets/Title'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify'
 
 import { Grid, Rating, Tab, Form, Button, Item } from 'semantic-ui-react'
 import Modal from 'react-awesome-modal'
@@ -24,11 +25,18 @@ function ProductQuestionAndAnswer ({ product, comments }) {
   }, [reviewcomments])
 
   const handleRate = (e, { rating, maxRating }) => {
-    setStar(rating)
+    const check_index = comments.findIndex(
+      item => item.UserName === UserSlice.UserName
+    )
+    if (check_index !== -1) {
+      toast.warn('sorry you already commented')
+    } else {
+      setStar(rating)
 
-    e.stopPropagation()
-    e.preventDefault()
-    setVisibility(!visibility)
+      e.stopPropagation()
+      e.preventDefault()
+      setVisibility(!visibility)
+    }
   }
 
   useEffect(() => {
@@ -226,6 +234,7 @@ function ProductQuestionAndAnswer ({ product, comments }) {
               ))}
             </Item.Group>
           </Grid.Column>
+          <ToastContainer autoClose={5000} />
         </Tab.Pane>
       )
     }
