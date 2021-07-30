@@ -1699,6 +1699,71 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@rpldy/life-events@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/life-events/-/life-events-0.13.3.tgz#5cec2e5303aec29bbddb6addde435e347794da4f"
+  integrity sha512-Nxg7rFU0yRn7MxXcyhvXN2RPJ6kd/HxPowtSeU9Y8IZSi7KkKG+aLZ2jrR7nI+Beijm0EfOFo7TZJ/i5+ThNLg==
+  dependencies:
+    "@rpldy/shared" "^0.13.3"
+    is-promise "^4.0.0"
+
+"@rpldy/sender@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/sender/-/sender-0.13.3.tgz#a430f4d2f47485f4087eca6770d06f8c2ccecebb"
+  integrity sha512-4mfRyfEGiQq+/9oGVy2J7pZJMMiOS5exXtLx4uiarUjL6kP/6iLx2GjW7ZLVM+/133LUiz+bcBOQQnBC0gPS3g==
+  dependencies:
+    "@rpldy/shared" "^0.13.3"
+
+"@rpldy/shared-ui@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/shared-ui/-/shared-ui-0.13.3.tgz#e80a138fe844f0e1e1d6b05937e2237035e890e2"
+  integrity sha512-Okh1vsHN/5Zc+zKwt8iOPIKYPau+lPHtM3aE3QtBwPZEGZAra6DFPoDqlWSYe4f7FDukat7XMjIg3TSm4Gnapw==
+  dependencies:
+    "@rpldy/shared" "^0.13.3"
+    "@rpldy/uploader" "^0.13.3"
+
+"@rpldy/shared@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/shared/-/shared-0.13.3.tgz#c69bca0753930b6ab694476fc67df9c3891b0ec8"
+  integrity sha512-zf8URy4DjAV8STam8iUfONLf0Vsjq2g6+xZFb9qj7PfAsL5silYoZQTCERXAVdPaRhCsW5hCZei9ijudUkKXYA==
+  dependencies:
+    invariant "^2.2.4"
+    just-throttle "^1.1.0"
+
+"@rpldy/simple-state@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/simple-state/-/simple-state-0.13.3.tgz#c2fbaa66d396a5b7e8262e16750cef3434654466"
+  integrity sha512-uD1a1h1krpqiqibJkuiEzbE1BxzlgJAq+SNnL1Zb3Oh+L7hUa3B/l1BxUeQ1GUGsl+rVy1isagOcXfDRLcfWZA==
+  dependencies:
+    "@rpldy/shared" "^0.13.3"
+
+"@rpldy/upload-button@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/upload-button/-/upload-button-0.13.3.tgz#782430a6f23a6983a7d2e9944d58f5d11264ca09"
+  integrity sha512-3Wia3i+/7JougD7FaK9dyh+KXzrIQAo45HlQRuMSIm8XEvBZfyDzp+48tfa8TMvDlVyrgW63pvnb0SpMNKbm+g==
+  dependencies:
+    "@rpldy/shared-ui" "^0.13.3"
+
+"@rpldy/uploader@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/uploader/-/uploader-0.13.3.tgz#b0f6683b6b8ac367ccfec9f0fff25c2a3334a8b7"
+  integrity sha512-cXjgQ25zXL7D5S4RiYZkJMuobicOMSC7UWYQ7e56RIbpef9f/jw4wAWwr3s+xtdYm7BZz5pa0+jLxBynvUBWMA==
+  dependencies:
+    "@rpldy/life-events" "^0.13.3"
+    "@rpldy/sender" "^0.13.3"
+    "@rpldy/shared" "^0.13.3"
+    "@rpldy/simple-state" "^0.13.3"
+
+"@rpldy/uploady@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@rpldy/uploady/-/uploady-0.13.3.tgz#2a9bcf3dbbafd4b8dca10c65ac137998abadd84a"
+  integrity sha512-bhWzSXf1PaQE4r+VSyv0skfJZydihionxpX50xQV1ABx91bpnV2KxrBOqmGTeuv+vJ6LjfOLhJ4y/d7o+Fy0ew==
+  dependencies:
+    "@rpldy/life-events" "^0.13.3"
+    "@rpldy/shared" "^0.13.3"
+    "@rpldy/shared-ui" "^0.13.3"
+    "@rpldy/uploader" "^0.13.3"
+
 "@semantic-ui-react/event-stack@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@semantic-ui-react/event-stack/-/event-stack-3.1.2.tgz#14fac9796695aa3967962d94ea9733a85325f9c4"
@@ -7843,6 +7908,11 @@ is-primitive@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-primitive/-/is-primitive-2.0.0.tgz#207bab91638499c07b2adf240a41a87210034575"
   integrity sha1-IHurkWOEmcB7Kt8kCkGochADRXU=
 
+is-promise@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-4.0.0.tgz#42ff9f84206c1991d26debf520dd5c01042dd2f3"
+  integrity sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
+
 is-regex@^1.0.4, is-regex@^1.1.1:
   version "1.1.2"
   resolved "https://registry.npmjs.org/is-regex/-/is-regex-1.1.2.tgz"
@@ -8693,6 +8763,11 @@ jss@10.6.0, jss@^10.5.1:
   dependencies:
     array-includes "^3.1.2"
     object.assign "^4.1.2"
+
+just-throttle@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/just-throttle/-/just-throttle-1.1.0.tgz#178d305ece9876a8a0759abd8d403aafcc6e4849"
+  integrity sha512-iePC/13XYX1Tyn9C6jY+DG3UEejkDvrKsw5xxgGhtGUwYWmoJm4CoKexscBKELOu3FTyCDzjr21ZJ67AXnz+bg==
 
 keyboard-key@^1.1.0:
   version "1.1.0"

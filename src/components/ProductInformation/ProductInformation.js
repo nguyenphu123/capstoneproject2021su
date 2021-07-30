@@ -2,6 +2,7 @@ import 'react-image-gallery/styles/css/image-gallery.css'
 import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 // import Button from '@material-ui/core/Button'
+import VerticalItemListImageSearch from '../../components/Item-List/VerticalItemListImageSearch'
 
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -28,7 +29,7 @@ import {
   updateItemSize
 } from '../../features/Cart/CartSlice'
 
-import VerticalItemList from '../Item-List/VerticalItemList'
+import VerticalItemListHome from '../Item-List/VerticalItemListHome'
 import { ToastContainer, toast } from 'react-toastify'
 import { Tab, Button, Rating } from 'semantic-ui-react'
 
@@ -45,6 +46,7 @@ const mapDispatch = {
 function ProductInformation () {
   const { productId } = useParams()
   const UserSlice = useSelector(state => state.UserSlice.user)
+  const [results, setResults] = React.useState([])
 
   //filter review
   const [reviewlist, setReviewlist] = useState([])
@@ -82,6 +84,9 @@ function ProductInformation () {
       }).then(res => {})
     }
   }
+  useEffect(() => {
+    setResults(results => results)
+  }, [results])
 
   useEffect(() => {
     if (comparators !== null) {
@@ -211,6 +216,22 @@ function ProductInformation () {
           thumbnail: `${ImageUrl}`
         }))
       )
+      let fd = new FormData()
+      console.log(images)
+      fd.append('query_img', res.data.ImageStorages[0].ImageUrl)
+
+      axios({
+        method: 'POST',
+        url: 'http://18.142.44.6:5000/',
+        Header: {
+          'Content-Type': 'multipart/form-data'
+        },
+        data: fd
+      }).then(res => {
+        console.log(res.data)
+        setResults(res.data)
+      })
+
       if (CartSlice !== null) {
         setShopCart(CartSlice)
         console.log(CartSlice)
@@ -637,13 +658,13 @@ function ProductInformation () {
                   <div className='new_title'>
                     <h2>You may also like</h2>
                   </div>
-                  <VerticalItemList
-                    topic='New Product'
-                    apiUrl={
-                      '/api/product-management?sort=up&pageIndex=1&pageSize=8'
-                    }
+                  <VerticalItemListHome
+                    topic='Super deals'
+                    apiUrl={'/api/recommend-management/' + product.CategoryId}
                   />
-                  <SeeMoreButton Url='/' />
+                  <SeeMoreButton
+                    Url={'/Category/' + product.CategoryId + '/1'}
+                  />
                 </div>
               </section>
               <section className=' wow bounceInUp animated'>
@@ -651,13 +672,21 @@ function ProductInformation () {
                   <div className='new_title'>
                     <h2>Similar pproducts</h2>
                   </div>
-                  <VerticalItemList
-                    topic='New Product'
+                  {/* <VerticalItemListHome
+                    topic='Super deals'
                     apiUrl={
                       '/api/product-management?sort=up&pageIndex=1&pageSize=8'
                     }
+                  /> */}
+                  {/* <VerticalItemListImageSearch
+                    topic='Super deals'
+                    ImageList={results}
+                    apiUrl={
+                      '/api/product-management?sort=up&pageIndex=1&pageSize=500'
+                    }
                   />
-                  <SeeMoreButton Url='/' />
+
+                  <SeeMoreButton Url='/AllProduct/1/Grid' /> */}
                 </div>
               </section>
             </div>

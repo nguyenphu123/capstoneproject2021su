@@ -210,20 +210,7 @@ function HomePage () {
                           AIR JORDAN 1
                         </Link>
                       </div>
-                      <div className='item-content'>
-                        <div className='rating'>
-                          <div className='ratings'>
-                            <div className='rating-box'>
-                              <div className='rating'></div>
-                            </div>
-                            <p className='rating-links'>
-                              <Link to={'/'}>1 Review(s)</Link>
-                              <span className='separator'>|</span>
-                              <Link to={'/'}>Add Review</Link>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                      <div className='item-content'></div>
                     </div>
                   </div>
                 </div>

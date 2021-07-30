@@ -26,55 +26,43 @@ class VerticalItemListHome extends React.Component {
       isUpdated: true
     }
   }
-  componentDidMount () {
-    console.log(this.props.topic)
-    axios({
-      method: 'GET',
-      url: this.props.apiUrl
-    }).then(res => {
-      if (this.props.topic === 'Super deals') {
-        let result = res.data.sort((a, b) =>
-          Math.round(((a.Price - a.CurrentPrice) * 100) / a.Price) <
-          Math.round(((b.Price - b.CurrentPrice) * 100) / b.Price)
-            ? 1
-            : -1
-        )
-        let afterSliceResult = result.slice(0, 8)
-
-        this.setState({
-          products: afterSliceResult,
-          isLoading: false,
-          isUpdated: false
-        })
-      } else if (this.props.topic === 'New arrival') {
-        let result = res.data.sort(function compare (a, b) {
-          var dateA = new Date(a.DateTime)
-          var dateB = new Date(b.DateTime)
-          return dateA - dateB
-        })
-        let afterSliceResult = result.slice(0, 8)
-
-        this.setState({
-          products: afterSliceResult,
-          isLoading: false,
-          isUpdated: false
-
-          // currentPage: this.props.match.params
-        })
-      } else {
-        let result = res.data
-
-        let afterSliceResult = result.slice(0, 8)
-
-        this.setState({
-          products: afterSliceResult,
-          isLoading: false,
-          isUpdated: false
-        })
-      }
-    })
-  }
+  componentDidMount () {}
   componentDidUpdate (prevProps) {
+    console.log(this.props.ImageList)
+    if (prevProps.ImageList !== this.props.ImageList) {
+      axios({
+        method: 'GET',
+        url: this.props.apiUrl
+      }).then(res => {
+        let final = []
+        let result = res.data.forEach(element => {
+          this.props.ImageList.forEach(elementimg => {
+            if (
+              'http://18.142.44.6:5000/' + elementimg.path ===
+              element.ImageStorages[0].ImageUrl
+            ) {
+              console.log(
+                'http://18.142.44.6:5000/' + elementimg.path ===
+                  element.ImageStorages[0].ImageUrl
+              )
+              final.push(element)
+            } else {
+              console.log(
+                'http://18.142.44.6:5000/' + elementimg.path ===
+                  element.ImageStorages[0].ImageUrl
+              )
+            }
+          })
+        })
+
+        console.log(result)
+        this.setState({
+          products: final,
+          isLoading: false,
+          isUpdated: false
+        })
+      })
+    }
     if (this.props.reset && this.state.isUpdated) {
       if (this.props.topic === 'Super deals') {
         let result = this.state.products.sort((a, b) =>
@@ -143,7 +131,7 @@ class VerticalItemListHome extends React.Component {
       )
     } else {
       return (
-        <>
+        <div style={{marginTop:'30px'}}>
           <Card.Group itemsPerRow={8}>
             {currentPosts.map(
               ({
@@ -187,7 +175,7 @@ class VerticalItemListHome extends React.Component {
               <></>
             )}
           </Card.Group>
-        </>
+        </div>
       )
     }
   }

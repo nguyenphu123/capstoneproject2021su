@@ -295,106 +295,61 @@ function PaymentConfirm () {
           //loop through the array
 
           //Do the math!
+          if (
+            cityAndProvince.ProvinceName === null ||
+            district.DistrictName === null ||
+            ward.WardName === null
+          ) {
+            toast.warn('please choose your region')
 
-          if (paywithMomo) {
-            const order = {
-              UserId: UserSlice.Id,
-              Name: currentName,
-              OrderId: orderId,
-              TotalPrice: CartSlice.reduce(
-                (accumulator, currentValue) =>
-                  accumulator +
-                  currentValue.CurrentPrice * currentValue.Quantity,
-                0
-              ),
-              AddressShipping:
-                currentAddress +
-                ' ' +
-                cityAndProvince.ProvinceName +
-                ' ' +
-                district.DistrictName +
-                ward.WardName,
-              Date: new Date()
-                .toISOString()
-                .slice(0, 19)
-                .replace('T', ' '),
-              Status: true,
-              Phone: currentPhone,
-              Email: currentEmail,
-              OrderDetails: CartSlice
-            }
-
-            axios({
-              method: 'post',
-              url:
-                '/api/order-management/' +
-                order.TotalPrice * 10 +
-                '?currentOrderId=' +
-                orderId,
-              headers: { 'content-type': 'application/json' }
-              // data: JSON.stringify(order)
-            }).then(res => {
-              // dispatch(emptyCart())
-
-              dispatch(createOrder(order))
-
-              window.open(res.data, '_self')
-              setFinishBuy(true)
-            })
-            e.preventDefault()
-
-            emailjs
-              .sendForm(
-                'service_nueuo8m',
-                'template_omuck9t',
-                e.target,
-                'user_32k4I6JJIEyo5ehBoH1Ae'
-              )
-              .then(
-                result => {
-                  console.log(result.text)
-                },
-                error => {
-                  console.log(error.text)
-                }
-              )
           } else {
-            const order = {
-              UserId: UserSlice.Id,
-              OrderId: orderId,
-              TotalPrice: CartSlice.reduce(
-                (accumulator, currentValue) =>
-                  accumulator +
-                  currentValue.CurrentPrice * currentValue.Quantity,
-                0
-              ),
-              AddressShipping:
-                currentAddress +
-                ' ' +
-                cityAndProvince.ProvinceName +
-                ' ' +
-                district.DistrictName +
-                ward.WardName,
-              Date: new Date()
-                .toISOString()
-                .slice(0, 19)
-                .replace('T', ' '),
-              Status: false,
-              Phone: currentPhone,
+            if (paywithMomo) {
+              const order = {
+                UserId: UserSlice.Id,
+                Name: currentName,
+                OrderId: orderId,
+                TotalPrice: CartSlice.reduce(
+                  (accumulator, currentValue) =>
+                    accumulator +
+                    currentValue.CurrentPrice * currentValue.Quantity,
+                  0
+                ),
+                AddressShipping:
+                  currentAddress +
+                  ' ' +
+                  cityAndProvince.ProvinceName +
+                  ' ' +
+                  district.DistrictName +
+                  ' ' +
+                  ward.WardName,
+                Date: new Date()
+                  .toISOString()
+                  .slice(0, 19)
+                  .replace('T', ' '),
+                Status: true,
+                Phone: currentPhone,
+                Email: currentEmail,
+                OrderDetails: CartSlice
+              }
 
-              OrderDetails: CartSlice
-            }
+              axios({
+                method: 'post',
+                url:
+                  '/api/order-management/' +
+                  order.TotalPrice * 10 +
+                  '?currentOrderId=' +
+                  orderId,
+                headers: { 'content-type': 'application/json' }
+                // data: JSON.stringify(order)
+              }).then(res => {
+                // dispatch(emptyCart())
 
-            axios({
-              method: 'post',
-              url: '/api/order-management/users/orders',
-              headers: { 'content-type': 'application/json' },
-              data: JSON.stringify(order)
-            }).then(res => {
-              dispatch(emptyCart())
-              console.log(res)
+                dispatch(createOrder(order))
 
-              e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+                window.open(res.data, '_self')
+                setFinishBuy(true)
+              })
+              e.preventDefault()
 
               emailjs
                 .sendForm(
@@ -411,12 +366,66 @@ function PaymentConfirm () {
                     console.log(error.text)
                   }
                 )
-              toast.success('We have received your order')
+            } else {
+              const order = {
+                UserId: UserSlice.Id,
+                OrderId: orderId,
+                TotalPrice: CartSlice.reduce(
+                  (accumulator, currentValue) =>
+                    accumulator +
+                    currentValue.CurrentPrice * currentValue.Quantity,
+                  0
+                ),
+                AddressShipping:
+                  currentAddress +
+                  ' ' +
+                  cityAndProvince.ProvinceName +
+                  ' ' +
+                  district.DistrictName +
+                  ward.WardName,
+                Date: new Date()
+                  .toISOString()
+                  .slice(0, 19)
+                  .replace('T', ' '),
+                Status: false,
+                Phone: currentPhone,
 
-              setTimeout(function () {
-                setFinishBuy(true)
-              }, 5000)
-            })
+                OrderDetails: CartSlice
+              }
+
+              axios({
+                method: 'post',
+                url: '/api/order-management/users/orders',
+                headers: { 'content-type': 'application/json' },
+                data: JSON.stringify(order)
+              }).then(res => {
+                dispatch(emptyCart())
+                console.log(res)
+
+                e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+
+                emailjs
+                  .sendForm(
+                    'service_nueuo8m',
+                    'template_omuck9t',
+                    e.target,
+                    'user_32k4I6JJIEyo5ehBoH1Ae'
+                  )
+                  .then(
+                    result => {
+                      console.log(result.text)
+                    },
+                    error => {
+                      console.log(error.text)
+                    }
+                  )
+                toast.success('We have received your order')
+
+                setTimeout(function () {
+                  setFinishBuy(true)
+                }, 5000)
+              })
+            }
           }
         } else {
           setIsLogin(false)

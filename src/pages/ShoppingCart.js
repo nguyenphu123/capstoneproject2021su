@@ -358,14 +358,6 @@ function ShoppingCart () {
                             </button>
                           </li>
                           <br />
-                          <li>
-                            <Link
-                              to={'/multiple-addresses'}
-                              title='Checkout with Multiple Addresses'
-                            >
-                              Checkout with Multiple Addresses
-                            </Link>
-                          </li>
                           <br />
                         </ul>
                       </div>
