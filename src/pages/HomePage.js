@@ -5,7 +5,8 @@ import 'react-notifications/lib/notifications.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 
@@ -13,27 +14,27 @@ import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 import { ToastContainer, toast } from 'react-toastify'
 
 import VerticalItemListHome from '../components/Item-List/VerticalItemListHome'
+import { removeToast } from '../features/Toast/ToastSlice'
+const mapDispatch = { removeToast }
 
 function HomePage () {
   const { Task } = useParams()
+  const dispatch = useDispatch()
 
   const UserSlice = useSelector(state => state.UserSlice.user)
+  const ToastSlice = useSelector(state => state.ToastSlice.toast)
+
   const [banners, setBanners] = useState([])
 
   const [categorylist, setCategorylist] = useState([])
   const [loadComplete, setLoadComplete] = useState(false)
+  console.log(ToastSlice)
+  toast.success(ToastSlice)
+  dispatch(removeToast())
+
   useEffect(() => {
-    if (Task !== null || Task !== undefined || typeof Task !== undefined) {
-      if (Task === 'LoginSuccess') {
-        // toast.success('Welcome')
-      } else if (Task === 'ResetPassword') {
-        toast.success('Change password successful')
-      } else if (Task === 'FinishPayment') {
-        toast.success('Thank you for shopping at our website')
-      } else {
-      }
-    }
-  }, [Task])
+    console.log(ToastSlice)
+  }, [])
 
   useEffect(() => {
     axios({

@@ -95,7 +95,7 @@ function ProductQuestionAndAnswer ({ product, comments }) {
                     maxRating={5}
                     defaultRating={0}
                     icon='star'
-                    size='mini'
+                    size='massive'
                   />
                 ) : (
                   <Rating
@@ -157,7 +157,7 @@ function ProductQuestionAndAnswer ({ product, comments }) {
                     maxRating={5}
                     defaultRating={0}
                     icon='star'
-                    size='mini'
+                    size='massive'
                   />
                 ) : (
                   <Rating

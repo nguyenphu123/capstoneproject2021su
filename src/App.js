@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import FadeIn from 'react-fade-in'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import Ads from './components/Ads/AdsSlideShow'
 import Footers from './components/Footer/Footers'
@@ -40,18 +40,18 @@ const useStyles = makeStyles(theme => ({
 function App () {
   const classes = useStyles()
 
-  useEffect(() => {
-    window.sliderr()
-    window.commonjs()
+  // useEffect(() => {
+  //   // window.sliderr()
+  //   // window.commonjs()
 
-    // if (UserSlice !== null) {
-    //   NotificationManager.success(
-    //     'Success message',
-    //     'Wellcome ' + UserSlice.UserName
-    //   )
-    // }
-    // alert.success('Wellcome ' + UserSlice.UserName)
-  }, [])
+  //   // if (UserSlice !== null) {
+  //   //   NotificationManager.success(
+  //   //     'Success message',
+  //   //     'Wellcome ' + UserSlice.UserName
+  //   //   )
+  //   // }
+  //   // alert.success('Wellcome ' + UserSlice.UserName)
+  // }, [])
 
   return (
     <FadeIn>
@@ -137,15 +137,8 @@ function App () {
 
               <ShoppingCart />
             </Route>
-            <Route
-              path='/Blog'
-              component={() => {
-                window.location = 'http://localhost:3001/'
-                return null
-              }}
-            />
 
-            <Route path='/PaymentInfo/:IsPay?'>
+            <Route path='/PaymentInfo/:orderId/:IsPay?'>
               <PaymentConfirm />
             </Route>
 

@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 import emailjs from 'emailjs-com'
-import { v4 as uuidv4 } from 'uuid'
+
 import { Checkbox, Dropdown } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'semantic-ui-css/semantic.min.css'
@@ -15,23 +15,14 @@ import { Redirect } from 'react-router-dom'
 
 import { emptyCart } from '../features/Cart/CartSlice'
 import { createOrder, removeOrder } from '../features/OrderData/OrderDataSlice'
+import { toastCalling } from '../features/Toast/ToastSlice'
 
-const mapDispatch = { emptyCart, createOrder, removeOrder }
-// const client = new SMTPClient({
-//   user: 'phu nguyen',
-//   password: 'Mu125690',
-//   host: 'phunguyen12111998@gmail.com',
-//   ssl: true
-// })
-const options = [
-  { key: 1, text: 'Hà Nội', value: 'Hà Nội' },
-  { key: 2, text: 'Hồ Chí Minh', value: 'Hồ Chí Minh' }
-]
+const mapDispatch = { emptyCart, createOrder, removeOrder, toastCalling }
 
 function PaymentConfirm () {
   const [isEdit, setIsEdit] = useState(false)
 
-  const { IsPay } = useParams()
+  const { orderId } = useParams()
 
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
@@ -47,7 +38,7 @@ function PaymentConfirm () {
   const [paywithMomo, setPaywithMomo] = useState(false)
   const [redirectPage, setRedirectPage] = useState('/FinishPayment')
   const [finishBuy, setFinishBuy] = useState(false)
-  const orderId = uuidv4()
+
   const totalPrice = 0
   const Ispay = window.location.href.includes('true')
   const CartSlice = useSelector(state => state.CartSlice.cart)
@@ -147,6 +138,8 @@ function PaymentConfirm () {
     setFinishBuy(false)
 
     if (finishBuy) {
+      toast.success('We have received your order')
+
       // document.getElementById('finishform').submit()
 
       dispatch(emptyCart())
@@ -155,41 +148,6 @@ function PaymentConfirm () {
   }, [finishBuy])
 
   if (finishBuy) {
-    function onSubmit2 (e) {
-      e.preventDefault()
-
-      console.log(UserSlice)
-
-      if (UserSlice !== null) {
-        //reference the element in the "JSON" aka object literal we want
-
-        //loop through the array
-
-        //Do the math!
-
-        e.preventDefault()
-
-        emailjs
-          .sendForm(
-            'service_nueuo8m',
-            'template_omuck9t',
-            e.target,
-            'user_32k4I6JJIEyo5ehBoH1Ae'
-          )
-          .then(
-            result => {
-              console.log(result.text)
-            },
-            error => {
-              console.log(error.text)
-            }
-          )
-      } else {
-        setIsLogin(false)
-        console.log(isLogin)
-      }
-    }
-
     return (
       <>
         <form
@@ -210,7 +168,7 @@ function PaymentConfirm () {
         </form>
         <ToastContainer autoClose={5000} />
 
-        <Redirect to={'/FinishPayment'} />
+        <Redirect to={'/' + 'Finishpayment'} />
       </>
     )
   }
@@ -346,6 +304,10 @@ function PaymentConfirm () {
                 dispatch(createOrder(order))
 
                 window.open(res.data, '_self')
+                dispatch(toastCalling('We have received your order'))
+
+                toastCalling
+                toast.success('We have received your order')
               })
               setFinishBuy(true)
 
@@ -382,6 +344,7 @@ function PaymentConfirm () {
                   cityAndProvince.ProvinceName +
                   ' ' +
                   district.DistrictName +
+                  ' ' +
                   ward.WardName,
                 Date: new Date()
                   .toISOString()
@@ -419,7 +382,7 @@ function PaymentConfirm () {
                       console.log(error.text)
                     }
                   )
-                toast.success('We have received your order')
+                dispatch(toastCalling('We have received your order'))
 
                 setTimeout(function () {
                   setFinishBuy(true)
@@ -674,7 +637,6 @@ function PaymentConfirm () {
                                   type='text'
                                   name='OrderId'
                                   value={orderId}
-                                  maxlength='255'
                                   class='input-text required-entry'
                                   style={{ visibility: 'hidden' }}
                                 />
@@ -748,7 +710,64 @@ function PaymentConfirm () {
       }
       return <Redirect to={'/1'} />
     } else {
-      return <Redirect to={'/2'} />
+      function onSubmit2 (e) {
+        e.preventDefault()
+        toast.success('We have received your order')
+
+        console.log(UserSlice)
+
+        if (UserSlice !== null) {
+          //reference the element in the "JSON" aka object literal we want
+
+          //loop through the array
+
+          //Do the math!
+
+          e.preventDefault()
+
+          emailjs
+            .sendForm(
+              'service_nueuo8m',
+              'template_omuck9t',
+              e.target,
+              'user_32k4I6JJIEyo5ehBoH1Ae'
+            )
+            .then(
+              result => {
+                console.log(result.text)
+              },
+              error => {
+                console.log(error.text)
+              }
+            )
+        } else {
+          setIsLogin(false)
+          console.log(isLogin)
+        }
+      }
+
+      return (
+        <>
+          <Redirect to={'/' + 2} />
+          <form
+            style={{ visibility: 'hidden' }}
+            id='finishform'
+            onSubmit={onSubmit2}
+          >
+            <input
+              type='text'
+              name='Name'
+              value={currentName}
+              onChange={handleChangeName}
+              title='First Name'
+              maxlength='255'
+              class='input-text required-entry'
+              style={{ visibility: 'hidden' }}
+            />
+          </form>
+          <ToastContainer autoClose={5000} />
+        </>
+      )
     }
   }
 }

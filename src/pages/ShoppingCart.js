@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import NumberFormat from 'react-number-format'
 import CartItem from '../components/Cart/CartItem'
 import { cart, emptyCart, deleteItem } from '../features/Cart/CartSlice'
+import { v4 as uuidv4 } from 'uuid'
 
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -25,6 +26,8 @@ function ShoppingCart () {
   const [shopCart, setShopCart] = useState(CartSlice)
   const [colors, setColors] = useState([])
   const [sizes, setSizes] = useState([])
+  const orderId = uuidv4()
+  console.log(orderId)
 
   const [shipOption, setShipOption] = useState('')
   const [redirectPage, setRedirectPage] = useState('/Login')
@@ -61,7 +64,7 @@ function ShoppingCart () {
           )
         } else {
           setFinishBuy(true)
-          setRedirectPage('/PaymentInfo/')
+          setRedirectPage('/PaymentInfo/' + orderId)
         }
       } else {
         toast.warn('Please Login before checkout')

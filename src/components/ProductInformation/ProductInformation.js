@@ -479,9 +479,6 @@ function ProductInformation () {
                       <h1>{product.Name}</h1>
                     </div>
                     <div class='ratings'>
-                      <div class='rating-box'>
-                        <div style={{ width: '60%' }} class='rating'></div>
-                      </div>
                       {product.Star === 'NaN' ? (
                         <Rating
                           maxRating={5}

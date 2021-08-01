@@ -6,11 +6,13 @@ import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 import { logout } from '../../features/User/UserSlice'
 import { useDispatch } from 'react-redux'
+import { toastCalling } from '../../features/Toast/ToastSlice'
+
 import { Redirect } from 'react-router-dom'
 
 var SHA256 = require('crypto-js/sha256')
 
-const mapDispatch = { logout }
+const mapDispatch = { logout, toastCalling }
 
 function UserNewPassword ({ UserInformation }) {
   const dispatch = useDispatch()
@@ -101,6 +103,8 @@ function UserNewPassword ({ UserInformation }) {
             data: authData
           })
             .then(res => {
+              dispatch(toastCalling('Change password successful'))
+
               toast.success('Change password successful')
               setIsComplete(true)
               dispatch(logout())
