@@ -18,6 +18,7 @@ function SearchResultPage () {
   const [view, setView] = useState(viewStyle)
   const [sortBy, setSortBy] = useState(sort)
   const [currentSortOption, setCurrentSortOption] = useState(sortOption)
+  const [searchKeyword, setSearchKeyword] = useState(keyword)
 
   //filter màu
   const [colorlist, setColorlist] = useState([])
@@ -40,15 +41,28 @@ function SearchResultPage () {
     { key: 1, text: 'Price', value: 'price' },
     { key: 2, text: 'Name', value: 'name' }
   ]
-
   useEffect(() => {
+    console.log(keyword)
     setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
     setIsUpdate(false)
+    setSearchKeyword(keyword)
+    console.log(searchKeyword)
+  }, [keyword])
+  console.log(keyword)
+  useEffect(() => {
+    console.log(keyword)
+    setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    setIsUpdate(false)
+    setSearchKeyword(searchKeyword => searchKeyword)
+  }, [searchKeyword])
 
-    // window.location.reload()
+  useEffect(() => {
+    console.log(keyword)
+    setSearchKeyword(searchKeyword => searchKeyword)
 
-    // setSubList(category.SubCategories)
-  }, [keyword, currentPage, isUpdate])
+    setCurrentURL('/api/product-management?sort=up&pageIndex=1&pageSize=5000')
+    setIsUpdate(false)
+  }, [searchKeyword, currentPage, isUpdate])
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)

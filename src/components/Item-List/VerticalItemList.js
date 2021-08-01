@@ -45,6 +45,7 @@ class VerticalItemList extends React.Component {
           isUpdated: false
         })
       } else {
+        console.log(this.props.keyword)
         let result = res.data.filter(x => x.Name.includes(this.props.keyword))
 
         this.setState({
@@ -92,6 +93,39 @@ class VerticalItemList extends React.Component {
         })
       }
     } else {
+      if (!equal(this.props.keyword, prevProps.keyword)) {
+        axios({
+          method: 'GET',
+          url: this.props.apiUrl
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          if (
+            this.props.keyword === '' ||
+            this.props.keyword === null ||
+            this.props.keyword === undefined
+          ) {
+            this.setState({
+              products: res.data,
+              isLoading: false,
+              isUpdated: false
+            })
+          } else {
+            console.log(this.props.keyword)
+            let result = res.data.filter(x =>
+              x.Name.includes(this.props.keyword)
+            )
+
+            this.setState({
+              products: result,
+              isLoading: false,
+              isUpdated: false
+
+              // currentPage: this.props.match.params
+            })
+          }
+        })
+      }
       if (!equal(this.props.sortOption, prevProps.sortOption)) {
         console.log(this.props.sortOption)
         if (this.props.sortOption !== '') {

@@ -31,36 +31,20 @@ export default class SearchBar extends Component {
       this.setState({ data: res.data })
     })
   }
-  // state = initialState
-
-  // handleResultSelect = (e, { result }) => this.setState({ value: result.Name })
-
-  // handleSearchChange = (e, { value }) => {
-  //   this.setState({ isLoading: true, value })
-
-  //   setTimeout(() => {
-  //     if (this.state.value.length < 1) return this.setState(initialState)
-
-  //     const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-  //     const isMatch = result => re.test(result.Name)
-
-  //     const filteredResults = _.reduce(
-  //       this.props.categories,
-  //       (Id, data, memo, Name) => {
-  //         const results = _.filter(data.Nesults, isMatch)
-  //         if (results.length) memo[Name] = { Name, results } // eslint-disable-line no-param-reassign
-
-  //         return memo
-  //       },
-  //       {}
-  //     )
-
-  //     this.setState({
-  //       isLoading: false,
-  //       results: filteredResults
-  //     })
-  //   }, 300)
-  // }
+  componentDidUpdate (prevProps, prevState) {
+    if (prevState.SearchResult !== this.state.SearchResult) {
+      if (this.state.value === '') {
+        console.log(this.state.SearchResult)
+      } else {
+        this.setState({
+          SearchResult: this.state.SearchResult
+        })
+        console.log(this.state.SearchResult)
+      }
+    } else {
+      console.log(this.state.SearchResult)
+    }
+  }
   handleMouseEnter = () => {
     this.setState({ hover: true })
   }
@@ -85,11 +69,15 @@ export default class SearchBar extends Component {
     })
   }
   SearchResult = () => {
+    console.log(this.state.value)
     if (this.state.value === '') {
     } else {
+      console.log(this.state.value)
+
       this.setState({
         SearchResult: this.state.value
       })
+      console.log(this.state.SearchResult)
     }
   }
   render () {

@@ -5,6 +5,10 @@ import { Card } from 'semantic-ui-react'
 import PagnationBar from '../../Assets/PagnationBar'
 
 import VerticalItem from './VerticalItem'
+import { v4 as uuidv4 } from 'uuid'
+var faker = require('faker')
+
+var randomstring = require('randomstring')
 
 function mergePage (items, newItems, offset) {
   const merged = items.slice()
@@ -22,45 +26,217 @@ class VerticalItemListHome extends React.Component {
       products: [],
       currentPage: 1,
       pageSize: 12,
-      isLoading: true,
-      isUpdated: true
+      isLoading: false,
+      isUpdated: true,
+      Colors: [],
+      Sizes: [],
+      Elements: [],
+      ImageList: [],
+      Tags: [],
+      categories: []
     }
   }
-  componentDidMount () {}
+  componentDidMount () {
+    axios({
+      method: 'GET',
+      url: '/api/category-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+      for (let index = 0; index < res.data.length; index++) {
+        const element = {
+          key: res.data[index].Id,
+          text: res.data[index].Name,
+          value: res.data[index].Id
+        }
+        if (res.data[index].SubCategories.length !== 0) {
+          for (
+            let jindex = 0;
+            jindex < res.data[index].SubCategories.length;
+            jindex++
+          ) {
+            const element = {
+              key: res.data[index].SubCategories[jindex].Id,
+              text: res.data[index].SubCategories[jindex].Name,
+              value: res.data[index].SubCategories[jindex].Id
+            }
+
+            this.state.categories.push(element)
+
+            //   this.setState({
+            //     categories: this.state.categories.push(element)
+            //   })
+          }
+        }
+        this.state.categories.push(element)
+
+        //   this.setState({
+        //     categories: this.state.categories.push(element)
+        //   })
+      }
+    })
+
+    axios({
+      method: 'GET',
+      url: '/api/tag-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+      for (let index = 0; index < res.data.length; index++) {
+        const element = {
+          key: res.data[index].Id,
+          text: res.data[index].Name,
+          value: res.data[index].Id
+        }
+        this.state.Tags.push(element)
+
+        //   this.setState({
+        //     categories: this.state.categories.push(element)
+        //   })
+      }
+    })
+    axios({
+      method: 'GET',
+      url: '/api/color-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+      for (let index = 0; index < res.data.length; index++) {
+        const element = {
+          key: res.data[index].Id,
+          text: res.data[index].Name,
+          value: res.data[index].Id
+        }
+        this.state.Colors.push(element)
+
+        //   this.setState({
+        //     categories: this.state.categories.push(element)
+        //   })
+      }
+    })
+    axios({
+      method: 'GET',
+      url: '/api/size-management'
+    }).then(res => {
+      console.log(res)
+      console.log(res.data)
+      for (let index = 0; index < res.data.length; index++) {
+        const element = {
+          key: res.data[index].Id,
+          text: res.data[index].Name,
+          value: res.data[index].Id
+        }
+        this.state.Sizes.push(element)
+
+        //   this.setState({
+        //     categories: this.state.categories.push(element)
+        //   })
+      }
+    })
+  }
   componentDidUpdate (prevProps) {
     console.log(this.props.ImageList)
     if (prevProps.ImageList !== this.props.ImageList) {
+      this.setState({
+        isLoading: true
+      })
+
       axios({
         method: 'GET',
         url: this.props.apiUrl
       }).then(res => {
         let final = []
-        let result = res.data.forEach(element => {
+        let datas = res.data
+        let sendToDb = []
+        let result = datas.forEach(element => {
           this.props.ImageList.forEach(elementimg => {
             if (
-              'http://18.142.44.6:5000/' + elementimg.path ===
+              'http://54.179.30.182:5000/' + elementimg.path ===
               element.ImageStorages[0].ImageUrl
             ) {
-              console.log(
-                'http://18.142.44.6:5000/' + elementimg.path ===
-                  element.ImageStorages[0].ImageUrl
+              const check_index = final.findIndex(
+                item =>
+                  item.ImageStorages[0].ImageUrl ===
+                  'http://54.179.30.182:5000/' + elementimg.path
               )
-              final.push(element)
+              if (check_index !== -1) {
+              } else {
+                final.push(element)
+              }
             } else {
-              console.log(
-                'http://18.142.44.6:5000/' + elementimg.path ===
-                  element.ImageStorages[0].ImageUrl
+              const Id = uuidv4()
+              const data = {
+                Name: faker.commerce.productName(),
+                Price: 20000,
+                CurrentPrice: 10000,
+                Code: randomstring.generate(4),
+                CategoryId: this.state.categories[
+                  Math.floor(Math.random() * this.state.categories.length)
+                ].value,
+                Description: faker.commerce.productDescription(),
+                ImageStorages: [
+                  {
+                    ImageUrl: 'http://54.179.30.182:5000/' + elementimg.path,
+                    Alt: '404'
+                  }
+                ],
+                Tags: [
+                  {
+                    Id: this.state.Tags[
+                      Math.floor(Math.random() * this.state.Tags.length)
+                    ].value
+                  }
+                ],
+                Elements: [
+                  {
+                    ColorId: this.state.Colors[
+                      Math.floor(Math.random() * this.state.Colors.length)
+                    ].value,
+                    SizeId: this.state.Sizes[
+                      Math.floor(Math.random() * this.state.Sizes.length)
+                    ].value,
+                    Quantity: 100
+                  }
+                ],
+                Status: true,
+                Star: 5
+              }
+              datas.push(data)
+              const check_index = sendToDb.findIndex(
+                item =>
+                  item.ImageStorages[0].ImageUrl ===
+                  'http://54.179.30.182:5000/' + elementimg.path
               )
+              if (check_index !== -1) {
+              } else {
+                sendToDb.push(data)
+              }
             }
           })
         })
+        for (let index = 0; index < sendToDb.length; index++) {
+          const element = sendToDb[index]
 
-        console.log(result)
-        this.setState({
-          products: final,
-          isLoading: false,
-          isUpdated: false
-        })
+          axios({
+            method: 'post',
+            url: '/api/product-management',
+            headers: { 'content-type': 'application/json' },
+            data: JSON.stringify(element)
+          }).then(res => {
+            console.log(res)
+            element.Id = res.data
+            console.log(element)
+            final.push(element)
+          })
+        }
+
+        setTimeout(() => {
+          this.setState({
+            products: final,
+            isLoading: false,
+            isUpdated: false
+          })
+        }, 10000)
       })
     }
     if (this.props.reset && this.state.isUpdated) {
@@ -131,7 +307,7 @@ class VerticalItemListHome extends React.Component {
       )
     } else {
       return (
-        <div style={{marginTop:'30px'}}>
+        <div style={{ marginTop: '30px' }}>
           <Card.Group itemsPerRow={8}>
             {currentPosts.map(
               ({

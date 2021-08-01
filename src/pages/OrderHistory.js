@@ -5,7 +5,7 @@ import OrderDetail from './OrderDetail'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Dropdown, Tab, Header } from 'semantic-ui-react'
+import { Tab, Header } from 'semantic-ui-react'
 import Table from '../Assets/table/Table'
 import NumberFormat from 'react-number-format'
 
@@ -42,6 +42,7 @@ function OrderHistory (props) {
     console.log(historylist)
 
     const elements = [
+      'Id',
       'Date',
       'Number of products',
       'address',
@@ -76,6 +77,8 @@ function OrderHistory (props) {
           className='order'
           onClick={() => setVisibility(!visibility)}
         >
+          <td>{item.OrderId}</td>
+
           <td>{item.Date}</td>
           <td>{item.Orderdetails.length}</td>
           <td>{item.AddressShipping}</td>
@@ -86,9 +89,7 @@ function OrderHistory (props) {
               displayType={'text'}
               thousandSeparator={true}
               prefix={''}
-              renderText={(value, props) => (
-                <div {...props}>{value},000VND</div>
-              )}
+              renderText={(value, props) => <div {...props}>{value}VND</div>}
             />
           </td>
           <td>
@@ -116,16 +117,9 @@ function OrderHistory (props) {
 
     const panes = [
       {
-        menuItem: 'prepared',
+        menuItem: 'Prepared',
         render: () => (
           <Tab.Pane attached={false}>
-            <Dropdown
-              placeholder='Select period'
-              fluid
-              search
-              selection
-              options={Options}
-            />
             <div>
               <div className='row'>
                 <div className='col-12'>
@@ -149,17 +143,9 @@ function OrderHistory (props) {
         )
       },
       {
-        menuItem: 'on delivery',
+        menuItem: 'On delivery',
         render: () => (
           <Tab.Pane attached={false}>
-            <Dropdown
-              placeholder='Select period'
-              fluid
-              search
-              selection
-              options={Options}
-            />
-
             <div>
               <div className='row'>
                 <div className='col-12'>
@@ -183,16 +169,9 @@ function OrderHistory (props) {
         )
       },
       {
-        menuItem: 'finised',
+        menuItem: 'Finised',
         render: () => (
           <Tab.Pane attached={false}>
-            <Dropdown
-              placeholder='Period'
-              fluid
-              search
-              selection
-              options={Options}
-            />
             <div>
               <div className='row'>
                 <div className='col-12'>

@@ -58,10 +58,18 @@ function CategoryList () {
     {
       Id: '7288ae78-a5ce-42ac-940f-d84e538e3492',
       Url:
-        'https://salt.tikicdn.com/cache/w444/ts/product/e8/78/cb/d8ec029a8180e2207a198a15f929b988.jpg'
+        'https://storage.googleapis.com/cdn.nhanh.vn/store/21359/ps/20210322/sneaky_bl_4.jpg'
+    },
+    {
+      Id: '7288ae78-a5ce-42ac-940f-d84e538e3445',
+      Url:
+        'https://www.bfgcdn.com/1500_1500_90/204-3447-0211/sunday-afternoons-havana-hat-hat.jpg'
+    },
+    {
+      Id: '7288ae78-a5ce-42ac-940f-d84e538e3466',
+      Url:
+        'https://ae01.alicdn.com/kf/HTB1W9cbJXXXXXbzXVXXq6xXFXXXB/Hot-Fashion-New-Blank-Sweatshirts-Personalized-Print-Custom-Logo-Outwear-Coat-College-Baseball-Jacket-Coat-Unisex.jpg_Q90.jpg_.webp'
     }
-    // { Id: '', Url: '' },
-    // { Id: '', Url: '' },
     // { Id: '', Url: '' },
     // { Id: '', Url: '' }
   ]

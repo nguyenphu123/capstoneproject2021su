@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 
-import CategoryList from './CategoryList'
+// import CategoryList from './CategoryList'
 import { ToastContainer, toast } from 'react-toastify'
 
 import VerticalItemListHome from '../components/Item-List/VerticalItemListHome'
@@ -73,7 +73,7 @@ function HomePage () {
         <div className='content'>
           {/* <!--Category slider Start--> */}
           {/* <Ads /> */}
-          <CategoryList categorylist={categorylist} />
+          {/* <CategoryList categorylist={categorylist} /> */}
           <div id='top' style={{ marginTop: '10px' }}>
             <div className='container'>
               <div className='row'>

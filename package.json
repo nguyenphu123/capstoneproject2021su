@@ -20,6 +20,7 @@
     "emailjs-com": "^3.1.0",
     "eslint": "^7.31.0",
     "eslint-plugin-unused-imports": "^1.1.2",
+    "faker": "^5.5.3",
     "jquery": "^3.6.0",
     "otp-generator": "^2.0.1",
     "randomstring": "^1.2.1",

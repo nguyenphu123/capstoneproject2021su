@@ -239,40 +239,7 @@ function ShoppingCart () {
                     </div>
                   </div>
 
-                  <div class='col-sm-4'>
-                    <div class='discount'>
-                      <h3>Discount Codes</h3>
-                      <form id='discount-coupon-form' action='' method='post'>
-                        <label for='coupon_code'>
-                          Enter your coupon code if you have one.
-                        </label>
-                        <input
-                          type='hidden'
-                          name='remove'
-                          id='remove-coupone'
-                          value='0'
-                        />
-                        <input
-                          class='input-text fullwidth'
-                          type='text'
-                          id='coupon_code'
-                          name='coupon_code'
-                          value=''
-                        />
-                        <button
-                          type='button'
-                          title='Apply Coupon'
-                          class='button coupon '
-                          onClick='discountForm.submit(false)'
-                          value='Apply Coupon'
-                        >
-                          <span>Apply Coupon</span>
-                        </button>
-                      </form>
-                    </div>
-
-                    {/* <!--discount--> */}
-                  </div>
+                  <div class='col-sm-4'></div>
 
                   {/* <!--col-sm-4--> */}
 

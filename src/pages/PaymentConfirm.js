@@ -301,7 +301,6 @@ function PaymentConfirm () {
             ward.WardName === null
           ) {
             toast.warn('please choose your region')
-
           } else {
             if (paywithMomo) {
               const order = {
@@ -347,8 +346,9 @@ function PaymentConfirm () {
                 dispatch(createOrder(order))
 
                 window.open(res.data, '_self')
-                setFinishBuy(true)
               })
+              setFinishBuy(true)
+
               e.preventDefault()
 
               emailjs
@@ -602,14 +602,13 @@ function PaymentConfirm () {
                                       </div>
                                     </li>
                                   </ul>
-                                  <div class='remember-me-popup'></div>
                                 </fieldset>
                               </li>
 
                               <li class='go-behind'>
                                 <Checkbox
                                   radio
-                                  label='pay on delivery'
+                                  label='Pay on delivery'
                                   name='checkboxRadioGroup'
                                   value='this'
                                   checked={!paywithMomo}
@@ -618,7 +617,7 @@ function PaymentConfirm () {
 
                                 <Checkbox
                                   radio
-                                  label='Or pay with MOMO'
+                                  label='Pay with MOMO'
                                   name='checkboxRadioGroup'
                                   value='that'
                                   checked={paywithMomo}
@@ -628,7 +627,7 @@ function PaymentConfirm () {
                               <li class='go-behind'>
                                 <Checkbox
                                   radio
-                                  label='use current information for billing'
+                                  label='Use current information for billing'
                                   name='checkboxRadioGroup'
                                   value='this'
                                   checked={!isEdit}
@@ -637,7 +636,7 @@ function PaymentConfirm () {
 
                                 <Checkbox
                                   radio
-                                  label='use different information'
+                                  label='Use different information'
                                   name='checkboxRadioGroup'
                                   value='that'
                                   checked={isEdit}
@@ -658,7 +657,7 @@ function PaymentConfirm () {
 
                                   // onClick={onSubmit}
                                 >
-                                  <span>Finish</span>
+                                  <span>Checkout</span>
                                 </button>
                                 <input
                                   type='text'
@@ -670,21 +669,16 @@ function PaymentConfirm () {
                                   class='input-text required-entry'
                                   style={{ visibility: 'hidden' }}
                                 />
-                              </form>
 
-                              <span
-                                class='please-wait'
-                                id='billing-please-wait'
-                                style={{ display: 'none' }}
-                              >
-                                <img
-                                  src='images/opc-ajax-loader.gif'
-                                  alt='Loading next step...'
-                                  title='Loading next step...'
-                                  class='v-middle'
+                                <input
+                                  type='text'
+                                  name='OrderId'
+                                  value={orderId}
+                                  maxlength='255'
+                                  class='input-text required-entry'
+                                  style={{ visibility: 'hidden' }}
                                 />
-                                Loading next step...
-                              </span>
+                              </form>
                             </div>
                           </fieldset>
                         </div>

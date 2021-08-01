@@ -40,11 +40,6 @@ function GetAllProduct () {
   const [sub, setSub] = useState('')
   const [reset, setReset] = useState(false)
 
-  const options = [
-    { key: 1, text: 'Price', value: 'price' },
-    { key: 2, text: 'Name', value: 'name' }
-  ]
-
   useEffect(() => {
     if (color !== '') {
       setColor(color => color)
@@ -195,14 +190,6 @@ function GetAllProduct () {
                     sortOption={currentSortOption}
                     currentLink={currentURL}
                   />
-
-                  <div className='toolbar bottom'>
-                    <div className='display-product-option'>
-                      <div className='product-option-right'>
-                        <div className='pager'></div>
-                      </div>
-                    </div>
-                  </div>
                 </article>
               </div>
             </div>

@@ -14222,7 +14222,7 @@ button.btn-share,
 /*Image upload*/
 .image-item {
   display: flex;
-  margin: 10px 600px;
+  margin: 10px 300px;
   height: 400px;
   width: 400px;
 }

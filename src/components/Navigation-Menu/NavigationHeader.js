@@ -10,7 +10,7 @@ import { loginUser, logout } from '../../features/User/UserSlice'
 import Modal from 'react-awesome-modal'
 import LoginPage from '../../pages/LoginPage'
 import { emptyCart } from '../../features/Cart/CartSlice'
-import { Header, Image } from 'semantic-ui-react'
+import { Header } from 'semantic-ui-react'
 import Comparator from '../Comparator/Comparator'
 const mapDispatch = { logout, loginUser, emptyCart }
 
@@ -292,10 +292,10 @@ function NavigationHeader () {
                       <Header as='h4' textAlign='center'>
                         {UserSlice !== null ? (
                           <>
-                            <Image
+                            {/* <Image
                               circular
                               src='https://react.semantic-ui.com/images/avatar/large/patrick.png'
-                            />
+                            /> */}
                             {UserSlice.Name}
                           </>
                         ) : (
