@@ -101,9 +101,9 @@ function Footers () {
                     <h4>Contact Us</h4>
                     <div className='contacts-info'>
                       <address>
-                        <i className='add-icon'></i>ThemesGround, 789 Main rd,
+                        <i className='add-icon'></i>Thành Phố Thủ Đức,
                         <br />
-                        Anytown, CA 12345 USA <br />
+                        Khu công nghệ cao quận 9 <br />
                       </address>
                       <div className='phone-footer'>
                         <i className='phone-icon'></i>+ 888 456-7890
