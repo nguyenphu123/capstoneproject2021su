@@ -108,7 +108,7 @@ function LoginPage () {
                     <ul class='form-list'>
                       <li>
                         <label for='email'>
-                          Email Address<em class='required'>*</em>
+                          Username<em class='required'>*</em>
                         </label>
                         <div class='input-box'>
                           <input

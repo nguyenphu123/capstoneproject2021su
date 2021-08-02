@@ -71,7 +71,7 @@ function PaymentConfirm () {
   useEffect(() => {
     setCityAndProvince(cityAndProvince => cityAndProvince)
   }, [cityAndProvince])
-
+  console.log(UserSlice)
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
     setCurrentName(UserSlice.Name)
@@ -286,7 +286,13 @@ function PaymentConfirm () {
                 Status: true,
                 Phone: currentPhone,
                 Email: currentEmail,
-                OrderDetails: CartSlice
+                OrderDetails: CartSlice,
+                Ship: [
+                  {
+                    CompanyName: 'FPT',
+                    ShipStatus: 'Pending'
+                  }
+                ]
               }
 
               axios({
@@ -353,7 +359,13 @@ function PaymentConfirm () {
                 Status: false,
                 Phone: currentPhone,
 
-                OrderDetails: CartSlice
+                OrderDetails: CartSlice,
+                Ship: [
+                  {
+                    CompanyName: 'FPT',
+                    ShipStatus: 'Pending'
+                  }
+                ]
               }
 
               axios({

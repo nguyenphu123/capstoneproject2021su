@@ -75,7 +75,14 @@ function CartItem ({
       <>
         <td class='image hidden-table'>
           <Link to={'/Product/' + Id} title='' class='product-image'>
-            <img src={ImageUrl} width='75' alt='' />
+            {ImageUrl.includes('http') ? (
+              <img src={ImageUrl} width='75' alt='' />
+            ) : (
+              <img
+                src={'http://52.74.123.162:5000/' + ImageUrl}
+                alt='Fresh Organic Mustard Leaves '
+              />
+            )}
           </Link>
         </td>
         <td>

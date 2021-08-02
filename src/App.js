@@ -6,6 +6,7 @@ import FadeIn from 'react-fade-in'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import React from 'react'
+// import { ToastContainer, toast } from 'react-toastify'
 
 import Ads from './components/Ads/AdsSlideShow'
 import Footers from './components/Footer/Footers'
@@ -23,8 +24,11 @@ import RegistrationPage from './pages/RegistrationPage'
 import ShoppingCart from './pages/ShoppingCart'
 import GetAllProduct from './pages/GetAllProduct'
 import SearchResultPage from './pages/SearchResultPage'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Wishlist from './pages/Wishlist'
+import { removeToast } from './features/Toast/ToastSlice'
+const mapDispatch = { removeToast }
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,6 +43,11 @@ const useStyles = makeStyles(theme => ({
 
 function App () {
   const classes = useStyles()
+  const ToastSlice = useSelector(state => state.ToastSlice.toast)
+  const dispatch = useDispatch()
+
+  // toast.success(ToastSlice)
+  dispatch(removeToast())
 
   // useEffect(() => {
   //   // window.sliderr()
@@ -152,6 +161,8 @@ function App () {
 
           <Footers />
         </BrowserRouter>
+        {/* <ToastContainer autoClose={5000} /> */}
+
         {/* <Fab color='primary' aria-label='add'>
           <AddIcon />
         </Fab> */}

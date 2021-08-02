@@ -211,26 +211,33 @@ function ProductInformation () {
       }
 
       setGalleries(
-        res.data.ImageStorages.map(({ ImageUrl }) => ({
-          original: `${ImageUrl}`,
-          thumbnail: `${ImageUrl}`
-        }))
+        res.data.ImageStorages.map(({ ImageUrl }) =>
+          ImageUrl.includes('http')
+            ? {
+                original: `${ImageUrl}`,
+                thumbnail: `${ImageUrl}`
+              }
+            : {
+                original: `${'http://52.74.123.162:5000/' + ImageUrl}`,
+                thumbnail: `${'http://52.74.123.162:5000/' + ImageUrl}`
+              }
+        )
       )
-      let fd = new FormData()
-      console.log(images)
-      fd.append('query_img', res.data.ImageStorages[0].ImageUrl)
+      // let fd = new FormData()
+      // console.log(images)
+      // fd.append('query_img', res.data.ImageStorages[0].ImageUrl)
 
-      axios({
-        method: 'POST',
-        url: 'http://18.142.44.6:5000/',
-        Header: {
-          'Content-Type': 'multipart/form-data'
-        },
-        data: fd
-      }).then(res => {
-        console.log(res.data)
-        setResults(res.data)
-      })
+      // axios({
+      //   method: 'POST',
+      //   url: 'http://18.142.44.6:5000/',
+      //   Header: {
+      //     'Content-Type': 'multipart/form-data'
+      //   },
+      //   data: fd
+      // }).then(res => {
+      //   console.log(res.data)
+      //   setResults(res.data)
+      // })
 
       if (CartSlice !== null) {
         setShopCart(CartSlice)

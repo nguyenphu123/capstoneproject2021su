@@ -5,9 +5,10 @@ import OrderDetail from './OrderDetail'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Tab, Header } from 'semantic-ui-react'
+import { Header } from 'semantic-ui-react'
 import Table from '../Assets/table/Table'
 import NumberFormat from 'react-number-format'
+import OrderShipping from './OrderShipping'
 
 function OrderHistory (props) {
   const UserSlice = useSelector(state => state.UserSlice.user)
@@ -47,6 +48,7 @@ function OrderHistory (props) {
       'Number of products',
       'address',
       'Total',
+      'Shipping status',
       'Paid status'
     ]
 
@@ -77,7 +79,7 @@ function OrderHistory (props) {
           className='order'
           onClick={() => setVisibility(!visibility)}
         >
-          <td>{item.OrderId}</td>
+          <td>{item.Id}</td>
 
           <td>{item.Date}</td>
           <td>{item.Orderdetails.length}</td>
@@ -92,6 +94,10 @@ function OrderHistory (props) {
               renderText={(value, props) => <div {...props}>{value}VND</div>}
             />
           </td>
+          <td>
+            <OrderShipping props={item.Id} />
+          </td>
+
           <td>
             {item.Status ? (
               <Header as='h4' color='green'>
@@ -108,97 +114,27 @@ function OrderHistory (props) {
     )
     const renderHead = (item, index) => <th key={index}>{item}</th>
 
-    const Options = [
-      { key: '0', value: 'All', text: 'All orders' },
-      { key: '1', value: '5', text: '5 latest orders' },
-      { key: '2', value: '10', text: '10 latest orders' },
-      { key: '3', value: '30', text: '30 latest orders' }
-    ]
-
-    const panes = [
-      {
-        menuItem: 'Prepared',
-        render: () => (
-          <Tab.Pane attached={false}>
-            <div>
-              <div className='row'>
-                <div className='col-12'>
-                  <div className='card'>
-                    <div className='card__body'>
-                      <Table
-                        limit='1000'
-                        headData={elements}
-                        renderHead={(item, index) => renderHead(item, index)}
-                        bodyData={historylist}
-                        renderBody={(item, index) =>
-                          renderBodyElements(item, index)
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Tab.Pane>
-        )
-      },
-      {
-        menuItem: 'On delivery',
-        render: () => (
-          <Tab.Pane attached={false}>
-            <div>
-              <div className='row'>
-                <div className='col-12'>
-                  <div className='card'>
-                    <div className='card__body'>
-                      <Table
-                        limit='1000'
-                        headData={elements}
-                        renderHead={(item, index) => renderHead(item, index)}
-                        bodyData={historylist}
-                        renderBody={(item, index) =>
-                          renderBodyElements(item, index)
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Tab.Pane>
-        )
-      },
-      {
-        menuItem: 'Finised',
-        render: () => (
-          <Tab.Pane attached={false}>
-            <div>
-              <div className='row'>
-                <div className='col-12'>
-                  <div className='card'>
-                    <div className='card__body'>
-                      <Table
-                        limit='1000'
-                        headData={elements}
-                        renderHead={(item, index) => renderHead(item, index)}
-                        bodyData={historylist}
-                        renderBody={(item, index) =>
-                          renderBodyElements(item, index)
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Tab.Pane>
-        )
-      }
-    ]
-
     return (
       <div className='table-history'>
-        <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+        <div>
+          <div className='row'>
+            <div className='col-12'>
+              <div className='card'>
+                <div className='card__body'>
+                  <Table
+                    limit='1000'
+                    headData={elements}
+                    renderHead={(item, index) => renderHead(item, index)}
+                    bodyData={historylist}
+                    renderBody={(item, index) =>
+                      renderBodyElements(item, index)
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

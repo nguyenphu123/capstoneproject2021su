@@ -171,7 +171,7 @@ function HomePage () {
           </div>
         </section>
         <div className='mid-section'>
-          <div className='container'>
+          {/* <div className='container'>
             <div className='row'>
               <h3></h3>
               <h2>Special Product</h2>
@@ -233,7 +233,7 @@ function HomePage () {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <ToastContainer autoClose={5000} />
         </div>
       </>

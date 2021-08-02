@@ -29,7 +29,7 @@ function ImageUploadingPage () {
 
     axios({
       method: 'POST',
-      url: 'http://54.179.30.182:5000/',
+      url: 'http://52.74.123.162:5000/',
       Header: {
         'Content-Type': 'multipart/form-data'
       },
@@ -45,7 +45,7 @@ function ImageUploadingPage () {
 
   return (
     <>
-      <div >
+      <div>
         <>
           <section className='main-container col2-left-layout bounceInUp animated'>
             <div className='container'>
@@ -94,7 +94,7 @@ function ImageUploadingPage () {
                                 </Button>
                                 <Button
                                   fluid
-                                  onClick={onSearchImage(image.file)}
+                                  onClick={() => onSearchImage(image.file)}
                                   // as={Link}
                                   // to={'/Category/12345678-1234-1243-1234-123456789012/1'}
                                   inverted

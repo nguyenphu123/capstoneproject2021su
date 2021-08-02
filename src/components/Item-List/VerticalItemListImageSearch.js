@@ -5,7 +5,7 @@ import { Card } from 'semantic-ui-react'
 import PagnationBar from '../../Assets/PagnationBar'
 
 import VerticalItem from './VerticalItem'
-import { v4 as uuidv4 } from 'uuid'
+
 var faker = require('faker')
 
 var randomstring = require('randomstring')
@@ -148,68 +148,120 @@ class VerticalItemListHome extends React.Component {
         let final = []
         let datas = res.data
         let sendToDb = []
+        console.log(datas)
+
+        if (datas.length === 0) {
+          console.log(this.props.ImageList)
+
+          this.props.ImageList.forEach(elementimg => {
+            const data = {
+              Name: faker.commerce.productName(),
+              Price: 20000,
+              CurrentPrice: 10000,
+              Code: randomstring.generate(4),
+              CategoryId: this.state.categories[
+                Math.floor(Math.random() * this.state.categories.length)
+              ].value,
+              Description: faker.commerce.productDescription(),
+              ImageStorages: [
+                {
+                  ImageUrl: elementimg.path,
+                  Alt: '404'
+                }
+              ],
+              Tags: [
+                {
+                  Id: this.state.Tags[
+                    Math.floor(Math.random() * this.state.Tags.length)
+                  ].value
+                }
+              ],
+              Elements: [
+                {
+                  ColorId: this.state.Colors[
+                    Math.floor(Math.random() * this.state.Colors.length)
+                  ].value,
+                  SizeId: this.state.Sizes[
+                    Math.floor(Math.random() * this.state.Sizes.length)
+                  ].value,
+                  Quantity: 100
+                }
+              ],
+              Status: true,
+              Star: 5
+            }
+            datas.push(data)
+            const check_index = sendToDb.findIndex(
+              item => item.ImageStorages[0].ImageUrl === elementimg.path
+            )
+            if (check_index !== -1) {
+            } else {
+              sendToDb.push(data)
+              console.log(this.props.ImageList)
+            }
+          })
+        }
+
         let result = datas.forEach(element => {
           this.props.ImageList.forEach(elementimg => {
-            if (
-              'http://54.179.30.182:5000/' + elementimg.path ===
-              element.ImageStorages[0].ImageUrl
-            ) {
+            if (elementimg.path === element.ImageStorages[0].ImageUrl) {
               const check_index = final.findIndex(
-                item =>
-                  item.ImageStorages[0].ImageUrl ===
-                  'http://54.179.30.182:5000/' + elementimg.path
+                item => item.ImageStorages[0].ImageUrl === elementimg.path
               )
               if (check_index !== -1) {
               } else {
                 final.push(element)
               }
             } else {
-              const Id = uuidv4()
-              const data = {
-                Name: faker.commerce.productName(),
-                Price: 20000,
-                CurrentPrice: 10000,
-                Code: randomstring.generate(4),
-                CategoryId: this.state.categories[
-                  Math.floor(Math.random() * this.state.categories.length)
-                ].value,
-                Description: faker.commerce.productDescription(),
-                ImageStorages: [
-                  {
-                    ImageUrl: 'http://54.179.30.182:5000/' + elementimg.path,
-                    Alt: '404'
-                  }
-                ],
-                Tags: [
-                  {
-                    Id: this.state.Tags[
-                      Math.floor(Math.random() * this.state.Tags.length)
-                    ].value
-                  }
-                ],
-                Elements: [
-                  {
-                    ColorId: this.state.Colors[
-                      Math.floor(Math.random() * this.state.Colors.length)
-                    ].value,
-                    SizeId: this.state.Sizes[
-                      Math.floor(Math.random() * this.state.Sizes.length)
-                    ].value,
-                    Quantity: 100
-                  }
-                ],
-                Status: true,
-                Star: 5
-              }
-              datas.push(data)
-              const check_index = sendToDb.findIndex(
-                item =>
-                  item.ImageStorages[0].ImageUrl ===
-                  'http://54.179.30.182:5000/' + elementimg.path
+              const check_index = datas.findIndex(
+                item => item.ImageStorages[0].ImageUrl === elementimg.path
               )
               if (check_index !== -1) {
               } else {
-                sendToDb.push(data)
+                const data = {
+                  Name: faker.commerce.productName(),
+                  Price: 20000,
+                  CurrentPrice: 10000,
+                  Code: randomstring.generate(4),
+                  CategoryId: this.state.categories[
+                    Math.floor(Math.random() * this.state.categories.length)
+                  ].value,
+                  Description: faker.commerce.productDescription(),
+                  ImageStorages: [
+                    {
+                      ImageUrl: elementimg.path,
+                      Alt: '404'
+                    }
+                  ],
+                  Tags: [
+                    {
+                      Id: this.state.Tags[
+                        Math.floor(Math.random() * this.state.Tags.length)
+                      ].value
+                    }
+                  ],
+                  Elements: [
+                    {
+                      ColorId: this.state.Colors[
+                        Math.floor(Math.random() * this.state.Colors.length)
+                      ].value,
+                      SizeId: this.state.Sizes[
+                        Math.floor(Math.random() * this.state.Sizes.length)
+                      ].value,
+                      Quantity: 100
+                    }
+                  ],
+                  Status: true,
+                  Star: 5
+                }
+                datas.push(data)
+                const check_index = sendToDb.findIndex(
+                  item => item.ImageStorages[0].ImageUrl === elementimg.path
+                )
+                if (check_index !== -1) {
+                } else {
+                  sendToDb.push(data)
+                }
               }
             }
           })
@@ -226,7 +278,15 @@ class VerticalItemListHome extends React.Component {
             console.log(res)
             element.Id = res.data
             console.log(element)
-            final.push(element)
+            const check_index = final.findIndex(
+              item =>
+                item.ImageStorages[0].ImageUrl ===
+                element.ImageStorages[0].ImageUrl
+            )
+            if (check_index !== -1) {
+            } else {
+              final.push(element)
+            }
           })
         }
 

@@ -437,10 +437,19 @@ function NavigationHeader () {
                                         title='timi &amp; leslie Sophia Diaper Bag, Lemon Yellow/Shadow White'
                                         to='#l'
                                       >
-                                        <img
-                                          alt='timi &amp; leslie Sophia Diaper Bag, Lemon Yellow/Shadow White'
-                                          src={img}
-                                        />
+                                        {img.includes('http') ? (
+                                          <img
+                                            src={img}
+                                            alt='Fresh Organic Mustard Leaves '
+                                          />
+                                        ) : (
+                                          <img
+                                            src={
+                                              'http://52.74.123.162:5000/' + img
+                                            }
+                                            alt='Fresh Organic Mustard Leaves '
+                                          />
+                                        )}
                                       </Link>
                                       <div className='product-details'>
                                         <span className='price'>
