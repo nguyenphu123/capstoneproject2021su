@@ -12,7 +12,7 @@ import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 
 // import CategoryList from './CategoryList'
 import { ToastContainer, toast } from 'react-toastify'
-
+import VerticalItemListSlide from '../components/Item-List/VerticalItemListSlide'
 import VerticalItemListHome from '../components/Item-List/VerticalItemListHome'
 import { removeToast } from '../features/Toast/ToastSlice'
 const mapDispatch = { removeToast }
@@ -39,21 +39,13 @@ function HomePage () {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: '/api/category-management'
+      url: '/api/banner-management'
     }).then(res => {
       console.log(res)
       console.log(res.data)
-      setCategorylist(res.data)
-      axios({
-        method: 'GET',
-        url: '/api/banner-management'
-      }).then(res => {
-        console.log(res)
-        console.log(res.data)
-        let result = res.data.slice(1, 3)
-        setBanners(result)
-        setLoadComplete(true)
-      })
+      let result = res.data.slice(1, 3)
+      setBanners(result)
+      setLoadComplete(true)
     })
   }, [!loadComplete])
 
@@ -95,6 +87,23 @@ function HomePage () {
             </div>
           </div>
         </div>
+        <section className=' wow bounceInUp animated'>
+          <div className='best-pro slider-items-products container'>
+            <div className='new_title'>
+              <h2>Popular products</h2>
+              <h4>Catch the current trend</h4>
+            </div>
+            <VerticalItemListSlide
+              reset={true}
+              topic='Super deals'
+              apiUrl={
+                '/api/product-management?sort=up&pageIndex=1&pageSize=500'
+              }
+            />
+            <SeeMoreButton Url='/AllProduct/1/Grid' />
+          </div>
+        </section>
+
         <section className=' wow bounceInUp animated'>
           <div className='best-pro slider-items-products container'>
             <div className='new_title'>
@@ -234,6 +243,51 @@ function HomePage () {
               </div>
             </div>
           </div> */}
+          <div class='container'>
+            <div class='row our-features-box'>
+              <ul>
+                <li>
+                  <div class='feature-box'>
+                    <div class='icon-truck'></div>
+                    <div class='content'>FREE SHIPPING on order over 10,000,000VND</div>
+                  </div>
+                </li>
+                <li>
+                  <div class='feature-box'>
+                    <div class='icon-support'></div>
+                    <div class='content'>
+                      Have a question?
+                      <br />
+                      +84 906950002
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class='feature-box'>
+                    <div class='icon-money'></div>
+                    <div class='content'>100% Money Back Guarantee</div>
+                  </div>
+                </li>
+                <li>
+                  <div class='feature-box'>
+                    <div class='icon-return'></div>
+                    <div class='content'>30 days return Service</div>
+                  </div>
+                </li>
+                <li class='last'>
+                  <div class='feature-box'>
+                    <a href='#'>
+                      <i class='fa fa-apple'></i> download
+                    </a>
+                    <a href='#'>
+                      <i class='fa fa-android'></i> download
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <ToastContainer autoClose={5000} />
         </div>
       </>

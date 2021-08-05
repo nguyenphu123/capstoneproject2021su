@@ -1,5 +1,6 @@
 import NumberFormat from 'react-number-format'
 import Card from '@material-ui/core/Card'
+import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -9,7 +10,9 @@ import { comparator } from '../../features/Comparator/ComparatorSlice'
 
 import { Link } from 'react-router-dom'
 import { Rating } from 'semantic-ui-react'
+import Tooltip from '@material-ui/core/Tooltip'
 
+const mapDispatch = { comparator }
 const useStyles = makeStyles({
   card: {
     width: 270,
@@ -49,7 +52,7 @@ const useStyles = makeStyles({
   }
 })
 
-function HorizontalItem ({
+function VerticalItemSlide ({
   Id,
   Name,
   Price,
@@ -60,7 +63,8 @@ function HorizontalItem ({
   CurrentPrice,
   CategoryId,
   Status,
-  ImageStorages
+  ImageStorages,
+  Elements
 }) {
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
@@ -69,6 +73,7 @@ function HorizontalItem ({
   const [comparators, setComparators] = useState([])
 
   const classes = useStyles()
+
   useEffect(() => {
     if (comparators !== null) {
       if (comparators.length !== 0) {
@@ -129,10 +134,9 @@ function HorizontalItem ({
       }).then(res => {})
     }
   }
-
   return (
     <Link to={'/Product/' + Id}>
-      <Card className={classes.card}>
+      <Tooltip title={<h5 style={{ color: 'white' }}>{Description}</h5>}>
         <div class='slider-items slider-width-col4 products-grid'>
           <div className='item'>
             <div className='item-inner'>
@@ -154,7 +158,6 @@ function HorizontalItem ({
                     />
                   )}
 
-                  {/* <div className='new-label new-top-left'>Hot</div> */}
                   {CurrentPrice === Price ? null : (
                     <div class='sale-label sale-top-left'>
                       <span>
@@ -168,9 +171,9 @@ function HorizontalItem ({
                       <div className='actions'>
                         <span className='add-to-links'>
                           <Link
-                            onClick={addtoWhisList}
                             className='link-wishlist'
                             title='Add to Wishlist'
+                            onClick={addtoWhisList}
                           >
                             <span>Add to Wishlist</span>
                           </Link>
@@ -189,7 +192,9 @@ function HorizontalItem ({
               </div>
               <div className='item-info'>
                 <div className='info-inner'>
-                  <div className='item-title'>{Name}</div>
+                  <div className='item-title' style={{ fontSize: '14.3px' }}>
+                    {Name}
+                  </div>
                   <div className='item-content'>
                     {Star === 'NaN' ? (
                       <Rating
@@ -206,8 +211,6 @@ function HorizontalItem ({
                         size='mini'
                       />
                     )}
-
-                    {/* <div className='rating'></div> */}
 
                     <div className='item-price'>
                       <div className='price-box'>
@@ -233,9 +236,9 @@ function HorizontalItem ({
             </div>
           </div>
         </div>
-      </Card>
+      </Tooltip>
     </Link>
   )
 }
 
-export default HorizontalItem
+export default VerticalItemSlide

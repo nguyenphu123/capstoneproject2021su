@@ -6,10 +6,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Header } from 'semantic-ui-react'
-import Table from '../Assets/table/Table'
+import { Button } from 'semantic-ui-react'
 import NumberFormat from 'react-number-format'
-import OrderShipping from './OrderShipping'
+// import OrderShipping from './OrderShipping'
+import Table from 'antd/lib/table'
+import 'antd/lib/table/style/css'
+// import { Input } from 'antd'
 
+// const Search = Input.Search
 function OrderHistory (props) {
   const UserSlice = useSelector(state => state.UserSlice.user)
 
@@ -21,7 +25,7 @@ function OrderHistory (props) {
   // const [orderBy, setOrderBy] = useState('Date')
   const [selected, setSelected] = useState([])
   // const [page, setPage] = useState(0)
-
+  const [item, setItem] = useState({})
   // const [rowsPerPage, setRowsPerPage] = useState(5)
   // const getHistories = async () => {}
 
@@ -37,103 +41,108 @@ function OrderHistory (props) {
       setIsLoading(false)
     })
   }, [isLoading])
+  const onView = item => {
+    setVisibility(!visibility)
+    setItem(item)
+  }
   if (isLoading) {
     return <></>
   } else {
-    console.log(historylist)
+    const tableColumns = [
+      {
+        title: 'Id',
+        dataIndex: 'Id',
+        key: 'Id'
+      },
+      {
+        title: 'Date',
+        dataIndex: 'Date',
+        key: 'Date'
+      },
+      {
+        title: 'Total',
+        render: (text, record) => (
+          <NumberFormat
+            value={record.TotalPrice}
+            className='foo'
+            displayType={'text'}
+            thousandSeparator={true}
+            prefix={''}
+            renderText={(value, props) => <div {...props}>{value}VND</div>}
+          />
+        ),
 
-    const elements = [
-      'Id',
-      'Date',
-      'Number of products',
-      'address',
-      'Total',
-      'Shipping status',
-      'Paid status'
+        key: 'Total',
+        defaultSortOrder: 'descend',
+        sorter: (a, b) => a.Total - b.Total
+      },
+      {
+        title: 'Number of products',
+        render: (text, record) => <h4>{record.Orderdetails.length}</h4>,
+        key: 'Number of products'
+      },
+      {
+        title: 'address',
+        dataIndex: 'AddressShipping',
+        key: 'address'
+      },
+      {
+        title: 'Paid status',
+        render: (text, record) =>
+          record.Status ? (
+            <Header as='h4' color='green'>
+              Paid
+            </Header>
+          ) : (
+            <Header as='h4' color='red'>
+              Not paid
+            </Header>
+          ),
+
+        key: 'Paid status'
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+          <Button type='primary' onClick={() => onView(record)}>
+            View details
+          </Button>
+        )
+      }
     ]
 
-    const renderBodyElements = (item, index) => (
-      <>
+    // const handleSearch = searchText => {
+    //   const filteredEvents = historylist.filter(({ AddressShipping }) => {
+    //     AddressShipping = AddressShipping.toLowerCase()
+    //     return AddressShipping.includes(searchText.toLowerCase())
+    //   })
+
+    //   this.setState({
+    //     Orders: filteredEvents
+    //   })
+    // }
+
+    return (
+      <div className='table-history'>
         <Modal
           visible={visibility}
-          width='1400'
-          height='800'
+          width='1600'
+          height='500'
           effect='fadeInUp'
-          onClickAway={() => setVisibility(!visibility)}
+          onClickAway={onView}
         >
           <div>
-            <a
-              href='javascript:void(0);'
-              onClick={() => setVisibility(!visibility)}
-            >
+            <a href='javascript:void(0);' onClick={onView}>
               Close
             </a>
 
-            <h1>Order Detail</h1>
             <OrderDetail Orderdetails={item.Orderdetails} />
           </div>
         </Modal>
 
-        <tr
-          key={index}
-          className='order'
-          onClick={() => setVisibility(!visibility)}
-        >
-          <td>{item.Id}</td>
-
-          <td>{item.Date}</td>
-          <td>{item.Orderdetails.length}</td>
-          <td>{item.AddressShipping}</td>
-          <td>
-            <NumberFormat
-              value={item.TotalPrice}
-              className='foo'
-              displayType={'text'}
-              thousandSeparator={true}
-              prefix={''}
-              renderText={(value, props) => <div {...props}>{value}VND</div>}
-            />
-          </td>
-          <td>
-            <OrderShipping props={item.Id} />
-          </td>
-
-          <td>
-            {item.Status ? (
-              <Header as='h4' color='green'>
-                Paid
-              </Header>
-            ) : (
-              <Header as='h4' color='red'>
-                Not paid
-              </Header>
-            )}
-          </td>
-        </tr>
-      </>
-    )
-    const renderHead = (item, index) => <th key={index}>{item}</th>
-
-    return (
-      <div className='table-history'>
         <div>
-          <div className='row'>
-            <div className='col-12'>
-              <div className='card'>
-                <div className='card__body'>
-                  <Table
-                    limit='1000'
-                    headData={elements}
-                    renderHead={(item, index) => renderHead(item, index)}
-                    bodyData={historylist}
-                    renderBody={(item, index) =>
-                      renderBodyElements(item, index)
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <Table dataSource={historylist} columns={tableColumns} />
         </div>
       </div>
     )

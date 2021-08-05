@@ -106,12 +106,12 @@ function Footers () {
                         Khu công nghệ cao quận 9 <br />
                       </address>
                       <div className='phone-footer'>
-                        <i className='phone-icon'></i>+ 888 456-7890
+                        <i className='phone-icon'></i>+ 0906950002
                       </div>
                       <div className='email-footer'>
                         <i className='email-icon'></i>
                         <a href='mailto:abc@example.com'>
-                          Qualis@themesground.com
+                          phunnse@fpt.edu.vn
                         </a>
                       </div>
                     </div>

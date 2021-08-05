@@ -3,7 +3,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import {
   Divider,
   Grid,
-  Image,
   Header,
   Label,
   Icon,
@@ -227,9 +226,7 @@ function UserInformation ({ UserInformation }) {
     <>
       <div style={{ marginLeft: '10px', marginTop: '10px' }}>
         <Grid>
-          <Grid.Column width={3}>
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
-          </Grid.Column>
+          <Grid.Column width={3}></Grid.Column>
           <Grid.Column width={11}>
             <Header as='h1'>{name}</Header>
             <Header as='h4'>

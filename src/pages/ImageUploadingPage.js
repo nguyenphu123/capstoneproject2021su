@@ -29,7 +29,7 @@ function ImageUploadingPage () {
 
     axios({
       method: 'POST',
-      url: 'http://52.74.123.162:5000/',
+      url: 'http://13.213.30.175:5000/',
       Header: {
         'Content-Type': 'multipart/form-data'
       },
@@ -119,39 +119,6 @@ function ImageUploadingPage () {
                   )}
                 </ImageUploading>
 
-                {/* <input type='file' onChange={onChange} /> */}
-                {/* {images ? (
-                  <div>
-                    <h2>File Details:</h2>
-                    <img src={images.data_url} alt='' />
-
-                    <p>File Name: {images.name}</p>
-
-                    <p>File Type: {images.type}</p>
-
-                    <p>
-                      Last Modified:
-                      {images.lastModifiedDate.toDateString()}
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <br />
-                    <h4>Choose before Pressing the Upload button</h4>
-                  </div>
-                )} */}
-
-                {/* <Button
-                  fluid
-                  onClick={onSearchImage}
-                  // as={Link}
-                  // to={'/Category/12345678-1234-1243-1234-123456789012/1'}
-                  inverted
-                  color='blue'
-                  style={{ marginTop: '10px' }}
-                >
-                  Search
-                </Button> */}
                 <div className='col-main col-sm-9 col-sm-push-3 product-list'>
                   <div className='pro-coloumn'>
                     <article>

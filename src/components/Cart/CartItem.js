@@ -79,8 +79,8 @@ function CartItem ({
               <img src={ImageUrl} width='75' alt='' />
             ) : (
               <img
-                src={'http://52.74.123.162:5000/' + ImageUrl}
-                alt='Fresh Organic Mustard Leaves '
+                src={'http://13.213.30.175:5000/' + ImageUrl}
+                alt='404 '
               />
             )}
           </Link>

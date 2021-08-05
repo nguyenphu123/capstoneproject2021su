@@ -1,9 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import 'antd/dist/antd.css'
 
 import emailjs from 'emailjs-com'
+import { Cascader } from 'antd'
 
-import { Checkbox, Dropdown } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'semantic-ui-css/semantic.min.css'
 
@@ -68,9 +70,7 @@ function PaymentConfirm () {
   useEffect(() => {
     setWards(wards => wards)
   }, [wards])
-  useEffect(() => {
-    setCityAndProvince(cityAndProvince => cityAndProvince)
-  }, [cityAndProvince])
+
   console.log(UserSlice)
   useEffect(() => {
     setCurrentAddress(UserSlice.Address)
@@ -93,7 +93,7 @@ function PaymentConfirm () {
         res.data.data.forEach(element => {
           let city = {
             key: element.ProvinceID,
-            text: element.ProvinceName,
+            label: element.ProvinceName,
             value: element
           }
           cityAndProvinces.push(city)
@@ -181,60 +181,79 @@ function PaymentConfirm () {
   function handleChangeEmail (e) {
     setCurrentEmail(e.target.value)
   }
-  function handleChangeCity (e, { value, text, key }) {
-    setCityAndProvince(value)
-    console.log(value)
+  function handleChangeCity (e, value) {
+    if (value === null || value === undefined) {
+    } else {
+      setCityAndProvince(value[0].label)
+      console.log(value[0].label)
+      console.log(cityAndProvince)
+      setDistricts(districts => [])
+
+      axios({
+        method: 'get',
+        url:
+          ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=' +
+          value[0].value.ProvinceID,
+        headers: {
+          'content-type': 'application/json',
+          token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
+        }
+      }).then(res => {
+        console.log(res.data.data)
+        res.data.data.forEach(element => {
+          let district = {
+            key: element.Code,
+            label: element.DistrictName,
+            value: element
+          }
+          setDistricts(districts => [...districts, district])
+        })
+      })
+    }
+  }
+  useEffect(() => {
+    setCityAndProvince(cityAndProvince => cityAndProvince)
     console.log(cityAndProvince)
-    setDistricts(districts => [])
+  }, [cityAndProvince])
+  useEffect(() => {
+    setWard(ward => ward)
+  }, [ward])
+  useEffect(() => {
+    setDistrict(district => district)
+  }, [district])
 
-    axios({
-      method: 'get',
-      url:
-        ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=' +
-        value.ProvinceID,
-      headers: {
-        'content-type': 'application/json',
-        token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
-      }
-    }).then(res => {
-      console.log(res.data.data)
-      res.data.data.forEach(element => {
-        let district = {
-          key: element.Code,
-          text: element.DistrictName,
-          value: element
+  function handleChangeDistrict (e, value) {
+    if (value === null || value === undefined) {
+    } else {
+      setDistrict(value[0].label)
+      setWards(wards => [])
+      axios({
+        method: 'get',
+        url:
+          ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' +
+          value[0].value.DistrictID,
+        headers: {
+          'content-type': 'application/json',
+          token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
         }
-        setDistricts(districts => [...districts, district])
+      }).then(res => {
+        console.log(res.data.data)
+        res.data.data.forEach(element => {
+          let ward = {
+            key: element.WardCode,
+            label: element.WardName,
+            value: element
+          }
+          setWards(wards => [...wards, ward])
+        })
       })
-    })
+    }
   }
-
-  function handleChangeDistrict (e, { value }) {
-    setDistrict(value)
-    setWards(wards => [])
-    axios({
-      method: 'get',
-      url:
-        ' https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=' +
-        value.DistrictID,
-      headers: {
-        'content-type': 'application/json',
-        token: '9e21b8e5-ec50-11eb-9388-d6e0030cbbb7'
-      }
-    }).then(res => {
-      console.log(res.data.data)
-      res.data.data.forEach(element => {
-        let ward = {
-          key: element.WardCode,
-          text: element.WardName,
-          value: element
-        }
-        setWards(wards => [...wards, ward])
-      })
-    })
-  }
-  function handleChangeWard (e, { value }) {
-    setWard(value)
+  function handleChangeWard (e, value) {
+    if (value === null || value === undefined) {
+    } else {
+      setWard(value[0].label)
+    }
   }
   function handleChangePhone (e) {
     setCurrentPhone(e.target.value)
@@ -253,11 +272,7 @@ function PaymentConfirm () {
           //loop through the array
 
           //Do the math!
-          if (
-            cityAndProvince.ProvinceName === null ||
-            district.DistrictName === null ||
-            ward.WardName === null
-          ) {
+          if (cityAndProvince === null || district === null || ward === null) {
             toast.warn('please choose your region')
           } else {
             if (paywithMomo) {
@@ -274,11 +289,11 @@ function PaymentConfirm () {
                 AddressShipping:
                   currentAddress +
                   ' ' +
-                  cityAndProvince.ProvinceName +
+                  cityAndProvince +
                   ' ' +
-                  district.DistrictName +
+                  district +
                   ' ' +
-                  ward.WardName,
+                  ward,
                 Date: new Date()
                   .toISOString()
                   .slice(0, 19)
@@ -347,11 +362,11 @@ function PaymentConfirm () {
                 AddressShipping:
                   currentAddress +
                   ' ' +
-                  cityAndProvince.ProvinceName +
+                  cityAndProvince +
                   ' ' +
-                  district.DistrictName +
+                  district +
                   ' ' +
-                  ward.WardName,
+                  ward,
                 Date: new Date()
                   .toISOString()
                   .slice(0, 19)
@@ -550,29 +565,22 @@ function PaymentConfirm () {
                                         <label for='city'>
                                           Region<em class='required'>*</em>
                                         </label>
-                                        <Dropdown
-                                          onChange={handleChangeCity}
+                                        <Cascader
                                           options={cityAndProvinces}
-                                          placeholder='City and province'
-                                          search
-                                          selection
-                                          value={cityAndProvince}
+                                          onChange={handleChangeCity}
+                                          placeholder='Please select'
                                         />
-                                        <Dropdown
-                                          onChange={handleChangeDistrict}
+
+                                        <Cascader
                                           options={districts}
-                                          search
-                                          placeholder='District'
-                                          selection
-                                          value={district}
+                                          onChange={handleChangeDistrict}
+                                          placeholder='Please select'
                                         />
-                                        <Dropdown
-                                          onChange={handleChangeWard}
+
+                                        <Cascader
                                           options={wards}
-                                          search
-                                          placeholder='Ward'
-                                          selection
-                                          value={ward}
+                                          onChange={handleChangeWard}
+                                          placeholder='Please select'
                                         />
                                       </div>
                                     </li>
@@ -671,49 +679,52 @@ function PaymentConfirm () {
               {/* <!--main-container-inner-->  */}
             </div>
             {/* <!--main-container col2-left-layout--> */}
-
-            <div class='container'>
-              <div class='row our-features-box'>
-                <ul>
-                  <li>
-                    <div class='feature-box'>
-                      <div class='icon-truck'></div>
-                      <div class='content'>FREE SHIPPING on order over $99</div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class='feature-box'>
-                      <div class='icon-support'></div>
-                      <div class='content'>
-                        Have a question?
-                        <br />
-                        +1 800 789 0000
+            <div className='mid-section'>
+              <div class='container'>
+                <div class='row our-features-box'>
+                  <ul>
+                    <li>
+                      <div class='feature-box'>
+                        <div class='icon-truck'></div>
+                        <div class='content'>
+                          FREE SHIPPING on order over $99
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class='feature-box'>
-                      <div class='icon-money'></div>
-                      <div class='content'>100% Money Back Guarantee</div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class='feature-box'>
-                      <div class='icon-return'></div>
-                      <div class='content'>30 days return Service</div>
-                    </div>
-                  </li>
-                  <li class='last'>
-                    <div class='feature-box'>
-                      <a href='#'>
-                        <i class='fa fa-apple'></i> download
-                      </a>
-                      <a href='#'>
-                        <i class='fa fa-android'></i> download
-                      </a>
-                    </div>
-                  </li>
-                </ul>
+                    </li>
+                    <li>
+                      <div class='feature-box'>
+                        <div class='icon-support'></div>
+                        <div class='content'>
+                          Have a question?
+                          <br />
+                          +1 800 789 0000
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class='feature-box'>
+                        <div class='icon-money'></div>
+                        <div class='content'>100% Money Back Guarantee</div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class='feature-box'>
+                        <div class='icon-return'></div>
+                        <div class='content'>30 days return Service</div>
+                      </div>
+                    </li>
+                    <li class='last'>
+                      <div class='feature-box'>
+                        <a href='#'>
+                          <i class='fa fa-apple'></i> download
+                        </a>
+                        <a href='#'>
+                          <i class='fa fa-android'></i> download
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <ToastContainer autoClose={5000} />

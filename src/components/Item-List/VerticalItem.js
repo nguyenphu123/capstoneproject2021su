@@ -146,16 +146,16 @@ function VerticalItem ({
                     {ImageStorages[0].ImageUrl.includes('http') ? (
                       <img
                         src={ImageStorages[0].ImageUrl}
-                        alt='Fresh Organic Mustard Leaves '
+                        alt='404'
                         style={{ width: '200px', height: '200px' }}
                       />
                     ) : (
                       <img
                         src={
-                          'http://52.74.123.162:5000/' +
+                          'http://13.213.30.175:5000/' +
                           ImageStorages[0].ImageUrl
                         }
-                        alt='Fresh Organic Mustard Leaves '
+                        alt='404 '
                         style={{ width: '200px', height: '200px' }}
                       />
                     )}

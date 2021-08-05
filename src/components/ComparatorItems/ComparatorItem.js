@@ -13,7 +13,14 @@ function ComparatorItem ({ Id, Name, Price, ImageUrl, Elements }) {
       <>
         <td class='image hidden-table'>
           <Link to={'/Product/' + Id} title='' class='product-image'>
-            <img src={ImageUrl} width='75' alt='' />
+            {ImageUrl.includes('http') ? (
+              <img src={ImageUrl} width='75' alt='' />
+            ) : (
+              <img
+                src={'http://13.213.30.175:5000/' + ImageUrl}
+                alt='404 '
+              />
+            )}
           </Link>
         </td>
         <td>
