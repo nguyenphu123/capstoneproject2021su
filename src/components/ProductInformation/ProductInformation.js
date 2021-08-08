@@ -189,8 +189,20 @@ function ProductInformation () {
       if (res.data.Elements.length > 0) {
         for (let index = 0; index < res.data.Elements.length; index++) {
           const element = res.data.Elements[index]
-          colors.push(element.Color)
-          sizes.push(element.Size)
+          const check_index_color = colors.findIndex(
+            item => item.Id === element.Color.Id
+          )
+          if (check_index_color !== -1) {
+          } else {
+            colors.push(element.Color)
+          }
+          const check_index_size = sizes.findIndex(
+            item => item.Id === element.Size.Id
+          )
+          if (check_index_size !== -1) {
+          } else {
+            sizes.push(element.Size)
+          }
         }
         setElements(res.data.Elements)
         console.log(sizes)

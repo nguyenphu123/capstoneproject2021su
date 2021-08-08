@@ -57,14 +57,13 @@ function OrderHistory (props) {
   const onCancel = item => {
     setIsLoading(true)
 
-    const check_index = shippingOrders.findIndex(item => item.OrderId === Id)
     if (
-      shippingOrders[check_index].ShipStatus === 'Completed' ||
-      shippingOrders[check_index].ShipStatus === 'Cancel'
+      item.Ship[0].ShipStatus === 'Completed' ||
+      item.Ship[0].ShipStatus === 'Cancel'
     ) {
     } else {
       const ship = {
-        Id: shippingOrders[check_index].Id,
+        Id: item.Ship[0].Id,
         OrderId: item.Id,
         CompanyName: 'FPT',
         ShipStatus: 'Cancel'
