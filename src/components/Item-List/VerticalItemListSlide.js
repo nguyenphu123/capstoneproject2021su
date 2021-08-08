@@ -63,7 +63,7 @@ class VerticalItemListSlide extends React.Component {
             ? 1
             : -1
         )
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result.slice(0, 5)
 
         this.setState({
           products: afterSliceResult,
@@ -88,7 +88,7 @@ class VerticalItemListSlide extends React.Component {
       } else {
         let result = res.data
 
-        let afterSliceResult = result.slice(0, 4)
+        let afterSliceResult = result.slice(0, 5)
 
         this.setState({
           products: afterSliceResult,

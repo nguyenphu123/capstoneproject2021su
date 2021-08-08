@@ -39,7 +39,9 @@ class VerticalItemListHome extends React.Component {
             ? 1
             : -1
         )
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result
+          .slice(0, 8)
+          .filter(item => item.Status === true)
 
         this.setState({
           products: afterSliceResult,
@@ -52,7 +54,9 @@ class VerticalItemListHome extends React.Component {
           var dateB = new Date(b.DateTime)
           return dateA - dateB
         })
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result
+          .slice(0, 8)
+          .filter(item => item.Status === true)
 
         this.setState({
           products: afterSliceResult,
@@ -64,7 +68,9 @@ class VerticalItemListHome extends React.Component {
       } else {
         let result = res.data
 
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result
+          .slice(0, 8)
+          .filter(item => item.Status === true)
 
         this.setState({
           products: afterSliceResult,
@@ -83,7 +89,9 @@ class VerticalItemListHome extends React.Component {
             ? 1
             : -1
         )
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result
+          .slice(0, 8)
+          .filter(item => item.Status === true)
 
         this.setState({
           products: afterSliceResult,
@@ -106,7 +114,7 @@ class VerticalItemListHome extends React.Component {
           // currentPage: this.props.match.params
         })
       } else {
-        let result = this.state.products
+        let result = this.state.products.filter(item => item.Status === true)
 
         let afterSliceResult = result.slice(0, 8)
 

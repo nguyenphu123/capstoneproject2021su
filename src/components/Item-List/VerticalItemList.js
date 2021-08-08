@@ -106,15 +106,15 @@ class VerticalItemList extends React.Component {
             this.props.keyword === undefined
           ) {
             this.setState({
-              products: res.data,
+              products: res.data.filter(item => item.Status === true),
               isLoading: false,
               isUpdated: false
             })
           } else {
             console.log(this.props.keyword)
-            let result = res.data.filter(x =>
-              x.Name.includes(this.props.keyword)
-            )
+            let result = res.data
+              .filter(x => x.Name.includes(this.props.keyword))
+              .filter(item => item.Status === true)
 
             this.setState({
               products: result,
@@ -130,9 +130,9 @@ class VerticalItemList extends React.Component {
         console.log(this.props.sortOption)
         if (this.props.sortOption !== '') {
           if (this.props.sortOption === 'asc') {
-            let result = this.state.products.sort((a, b) =>
-              a.Price > b.Price ? 1 : -1
-            )
+            let result = this.state.products
+              .sort((a, b) => (a.Price > b.Price ? 1 : -1))
+              .filter(item => item.Status === true)
 
             this.setState({
               products: result,
@@ -140,9 +140,9 @@ class VerticalItemList extends React.Component {
               isUpdated: false
             })
           } else {
-            let result = this.state.products.sort((a, b) =>
-              a.Price < b.Price ? 1 : -1
-            )
+            let result = this.state.products
+              .sort((a, b) => (a.Price < b.Price ? 1 : -1))
+              .filter(item => item.Status === true)
 
             this.setState({
               products: result,
@@ -158,7 +158,9 @@ class VerticalItemList extends React.Component {
           url: this.props.apiUrl
         }).then(res => {
           if (this.props.sortOption === 'asc') {
-            let result = res.data.sort((a, b) => (a.Price > b.Price ? 1 : -1))
+            let result = res.data
+              .sort((a, b) => (a.Price > b.Price ? 1 : -1))
+              .filter(item => item.Status === true)
 
             this.setState({
               products: result,
@@ -166,7 +168,9 @@ class VerticalItemList extends React.Component {
               isUpdated: false
             })
           } else {
-            let result = res.data.sort((a, b) => (a.Price < b.Price ? 1 : -1))
+            let result = res.data
+              .sort((a, b) => (a.Price < b.Price ? 1 : -1))
+              .filter(item => item.Status === true)
 
             this.setState({
               products: result,
@@ -186,7 +190,9 @@ class VerticalItemList extends React.Component {
                 method: 'GET',
                 url: this.props.apiUrl
               }).then(res => {
-                const result = res.data.filter(x => x.Elements.length !== 0)
+                const result = res.data
+                  .filter(x => x.Elements.length !== 0)
+                  .filter(item => item.Status === true)
                 const colorResult = result.filter(
                   x =>
                     x.Elements.findIndex(
@@ -201,9 +207,9 @@ class VerticalItemList extends React.Component {
                 }
               })
             } else {
-              const result = this.state.products.filter(
-                x => x.Elements.length !== 0
-              )
+              const result = this.state.products
+                .filter(x => x.Elements.length !== 0)
+                .filter(item => item.Status === true)
               const colorResult = result.filter(
                 x =>
                   x.Elements.findIndex(
@@ -226,7 +232,9 @@ class VerticalItemList extends React.Component {
                 method: 'GET',
                 url: this.props.apiUrl
               }).then(res => {
-                const result = res.data.filter(x => x.Elements.length !== 0)
+                const result = res.data
+                  .filter(x => x.Elements.length !== 0)
+                  .filter(item => item.Status === true)
                 const sizeResult = result.filter(
                   x =>
                     x.Elements.findIndex(
@@ -240,9 +248,9 @@ class VerticalItemList extends React.Component {
                 }
               })
             } else {
-              const result = this.state.products.filter(
-                x => x.Elements.length !== 0
-              )
+              const result = this.state.products
+                .filter(x => x.Elements.length !== 0)
+                .filter(item => item.Status === true)
               const sizeResult = result.filter(
                 x =>
                   x.Elements.findIndex(
@@ -264,12 +272,14 @@ class VerticalItemList extends React.Component {
                 method: 'GET',
                 url: this.props.apiUrl
               }).then(res => {
-                const result = res.data.filter(
-                  x =>
-                    x.Tags.findIndex(
-                      item => item.Tag.Id === this.props.tagId
-                    ) !== -1
-                )
+                const result = res.data
+                  .filter(
+                    x =>
+                      x.Tags.findIndex(
+                        item => item.Tag.Id === this.props.tagId
+                      ) !== -1
+                  )
+                  .filter(item => item.Status === true)
 
                 if (this.state.products.length !== []) {
                   this.setState({
@@ -278,12 +288,14 @@ class VerticalItemList extends React.Component {
                 }
               })
             } else {
-              const result = this.state.products.filter(x =>
-                x.Tags.length === 0
-                  ? null
-                  : x.Tags.findIndex(item => item.Id === this.props.tagId) !==
-                    -1
-              )
+              const result = this.state.products
+                .filter(x =>
+                  x.Tags.length === 0
+                    ? null
+                    : x.Tags.findIndex(item => item.Id === this.props.tagId) !==
+                      -1
+                )
+                .filter(item => item.Status === true)
               console.log(result)
               if (this.state.products.length !== []) {
                 this.setState({

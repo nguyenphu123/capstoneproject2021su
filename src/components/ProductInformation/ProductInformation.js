@@ -223,21 +223,6 @@ function ProductInformation () {
               }
         )
       )
-      // let fd = new FormData()
-      // console.log(images)
-      // fd.append('query_img', res.data.ImageStorages[0].ImageUrl)
-
-      // axios({
-      //   method: 'POST',
-      //   url: 'http://18.142.44.6:5000/',
-      //   Header: {
-      //     'Content-Type': 'multipart/form-data'
-      //   },
-      //   data: fd
-      // }).then(res => {
-      //   console.log(res.data)
-      //   setResults(res.data)
-      // })
 
       if (CartSlice !== null) {
         setShopCart(CartSlice)
@@ -327,7 +312,7 @@ function ProductInformation () {
   }, [currentSize])
 
   function addToCart () {
-    if (product.Elements.length === 0) {
+    if (product.Elements.length === 0 || product.Status === false) {
       toast.error('Sorry product not availble for buying')
     } else {
       const check_index = shopCart.findIndex(
@@ -504,7 +489,8 @@ function ProductInformation () {
                     </div>
                     <div class='price-block'>
                       <div class='price-box'>
-                        {product.Elements.length === 0 ? (
+                        {product.Elements.length === 0 ||
+                        product.Status === false ? (
                           <p class='availability out-stock'>
                             <span>Not Available </span>
                           </p>

@@ -8,6 +8,7 @@ import { Cascader } from 'antd'
 import { Checkbox } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'semantic-ui-css/semantic.min.css'
+import { notification } from 'antd'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { useParams } from 'react-router-dom'
@@ -139,6 +140,11 @@ function PaymentConfirm () {
 
     if (finishBuy) {
       toast.success('We have received your order')
+      notification['success']({
+        message: 'order',
+        description: 'We have received your order.',
+        duration: 10
+      })
 
       // document.getElementById('finishform').submit()
 
@@ -183,6 +189,7 @@ function PaymentConfirm () {
   }
   function handleChangeCity (e, value) {
     if (value === null || value === undefined) {
+      setCityAndProvince('')
     } else {
       setCityAndProvince(value[0].label)
       console.log(value[0].label)
@@ -224,6 +231,7 @@ function PaymentConfirm () {
 
   function handleChangeDistrict (e, value) {
     if (value === null || value === undefined) {
+      setDistrict('')
     } else {
       setDistrict(value[0].label)
       setWards(wards => [])
@@ -251,6 +259,7 @@ function PaymentConfirm () {
   }
   function handleChangeWard (e, value) {
     if (value === null || value === undefined) {
+      setWard('')
     } else {
       setWard(value[0].label)
     }
@@ -410,6 +419,11 @@ function PaymentConfirm () {
                     }
                   )
                 dispatch(toastCalling('We have received your order'))
+                notification['success']({
+                  message: 'order',
+                  description: 'We have received your order.',
+                  duration: 10
+                })
 
                 setTimeout(function () {
                   setFinishBuy(true)

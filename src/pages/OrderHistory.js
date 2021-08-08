@@ -20,6 +20,7 @@ function OrderHistory (props) {
   const [historylist, setHistorylist] = useState([])
   const [visibility, setVisibility] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [shippingOrders, setShippingOrders] = useState([])
 
   // const [order, setOrder] = useState('asc')
   // const [orderBy, setOrderBy] = useState('Date')
@@ -38,15 +39,78 @@ function OrderHistory (props) {
       console.log(res.data)
       setHistorylist(res.data)
       console.log(historylist)
-      setIsLoading(false)
+      axios({
+        method: 'GET',
+        url: '/api/ship-management'
+      }).then(res => {
+        console.log(res)
+        console.log(res.data)
+        setShippingOrders(res.data)
+        setIsLoading(false)
+      })
     })
   }, [isLoading])
   const onView = item => {
     setVisibility(!visibility)
     setItem(item)
   }
+  const onCancel = item => {
+    setIsLoading(true)
+
+    const check_index = shippingOrders.findIndex(item => item.OrderId === Id)
+    if (
+      shippingOrders[check_index].ShipStatus === 'Completed' ||
+      shippingOrders[check_index].ShipStatus === 'Cancel'
+    ) {
+    } else {
+      const ship = {
+        Id: shippingOrders[check_index].Id,
+        OrderId: item.Id,
+        CompanyName: 'FPT',
+        ShipStatus: 'Cancel'
+      }
+      axios({
+        method: 'put',
+        url: '/api/ship-management',
+        data: ship
+      }).then(res => {
+        console.log(res)
+        axios({
+          method: 'GET',
+          url: '/api/order-management/users/' + UserSlice.Id + '/orders'
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          setHistorylist(res.data)
+          console.log(historylist)
+          axios({
+            method: 'GET',
+            url: '/api/ship-management'
+          }).then(res => {
+            console.log(res)
+            console.log(res.data)
+            setShippingOrders(res.data)
+            setIsLoading(false)
+          })
+        })
+      })
+    }
+  }
+  const returnShipId = Id => {
+    const check_index = shippingOrders.findIndex(item => item.OrderId === Id)
+    if (check_index !== -1) {
+      console.log(shippingOrders[check_index])
+      return <>{shippingOrders[check_index].ShipStatus}</>
+    }
+  }
+
   if (isLoading) {
-    return <></>
+    return (
+      <img
+        src={'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'}
+        alt='promotion-banner1'
+      />
+    )
   } else {
     const tableColumns = [
       {
@@ -102,11 +166,25 @@ function OrderHistory (props) {
         key: 'Paid status'
       },
       {
-        title: 'Action',
+        title: 'Ship Status',
         key: 'action',
+        render: (text, record) => returnShipId(record.Id)
+      },
+      {
+        title: 'View details',
+        key: 'Viewdetails',
         render: (text, record) => (
           <Button type='primary' onClick={() => onView(record)}>
             View details
+          </Button>
+        )
+      },
+      {
+        title: 'Cancel',
+        key: 'cancel',
+        render: (text, record) => (
+          <Button type='primary' onClick={() => onCancel(record)}>
+            Cancel order
           </Button>
         )
       }
