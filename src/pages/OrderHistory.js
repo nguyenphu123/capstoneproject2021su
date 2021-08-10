@@ -219,6 +219,30 @@ function OrderHistory (props) {
         </Modal>
 
         <div>
+          <section className=' wow bounceInUp animated'>
+            <div className='best-pro slider-items-products container'>
+              <div className='new_title'>
+                <h2> your orders</h2>
+                <h4>
+                  Total:
+                  <NumberFormat
+                    value={historylist.reduce(
+                      (a, v) => (a = a + v.TotalPrice),
+                      0
+                    )}
+                    className='foo'
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    prefix={''}
+                    renderText={(value, props) => (
+                      <div {...props}>{value}VND</div>
+                    )}
+                  />
+                </h4>
+              </div>
+            </div>
+          </section>
+
           <Table dataSource={historylist} columns={tableColumns} />
         </div>
       </div>

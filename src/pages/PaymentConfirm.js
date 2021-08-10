@@ -20,6 +20,7 @@ import { emptyCart } from '../features/Cart/CartSlice'
 import { createOrder, removeOrder } from '../features/OrderData/OrderDataSlice'
 import { toastCalling } from '../features/Toast/ToastSlice'
 
+
 const mapDispatch = { emptyCart, createOrder, removeOrder, toastCalling }
 
 function PaymentConfirm () {
@@ -665,6 +666,13 @@ function PaymentConfirm () {
                                   maxlength='255'
                                   class='input-text required-entry'
                                   style={{ visibility: 'hidden' }}
+                                />
+                                <input
+                                  type='text'
+                                  name='email'
+                                  value={email}
+                                  id='email'
+                                  style={{ display: 'none' }}
                                 />
 
                                 <input

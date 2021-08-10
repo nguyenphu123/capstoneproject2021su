@@ -79,7 +79,7 @@ function CartItem ({
               <img src={ImageUrl} width='75' alt='' />
             ) : (
               <img
-                src={'http://13.213.30.175:5000/' + ImageUrl}
+                src={'http://18.136.201.97:5000/' + ImageUrl}
                 alt='404 '
               />
             )}

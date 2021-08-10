@@ -230,8 +230,8 @@ function ProductInformation () {
                 thumbnail: `${ImageUrl}`
               }
             : {
-                original: `${'http://13.213.30.175:5000/' + ImageUrl}`,
-                thumbnail: `${'http://13.213.30.175:5000/' + ImageUrl}`
+                original: `${'http://18.136.201.97:5000/' + ImageUrl}`,
+                thumbnail: `${'http://18.136.201.97:5000/' + ImageUrl}`
               }
         )
       )

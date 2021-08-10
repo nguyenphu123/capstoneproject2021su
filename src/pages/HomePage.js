@@ -11,7 +11,7 @@ import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
 
 // import CategoryList from './CategoryList'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import VerticalItemListSlide from '../components/Item-List/VerticalItemListSlide'
 import VerticalItemListHome from '../components/Item-List/VerticalItemListHome'
 import { removeToast } from '../features/Toast/ToastSlice'
@@ -29,7 +29,7 @@ function HomePage () {
   const [categorylist, setCategorylist] = useState([])
   const [loadComplete, setLoadComplete] = useState(false)
   console.log(ToastSlice)
-  toast.success(ToastSlice)
+  // toast.success(ToastSlice)
   dispatch(removeToast())
 
   useEffect(() => {

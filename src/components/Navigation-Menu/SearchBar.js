@@ -75,7 +75,8 @@ export default class SearchBar extends Component {
       console.log(this.state.value)
 
       this.setState({
-        SearchResult: this.state.value
+        SearchResult: this.state.value,
+        filterVisibility: 'none'
       })
       console.log(this.state.SearchResult)
     }
@@ -92,7 +93,7 @@ export default class SearchBar extends Component {
               type='text'
               className='form-control'
               placeholder='Search'
-              value={value}
+              value={this.state.SearchResult}
               onChange={this.handleChange}
             />
             <span className='input-group-btn'>

@@ -15,7 +15,7 @@ function RegistrationPage () {
   const [password, setPassword] = useState('')
   const [matchPassword, setMatchPassword] = useState('')
   const [gender, setGender] = useState(true)
-  const [phone, setPhone] = useState(0)
+  const [phone, setPhone] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [matchotp, setMatchOTP] = useState('')
@@ -211,6 +211,13 @@ function RegistrationPage () {
                 name='otp'
                 value={otp}
                 id='otp'
+                style={{ display: 'none' }}
+              />
+              <input
+                type='text'
+                name='email'
+                value={email}
+                id='email'
                 style={{ display: 'none' }}
               />
 
