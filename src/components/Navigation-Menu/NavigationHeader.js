@@ -39,7 +39,7 @@ function NavigationHeader () {
       // const size = 2
       // const items = res.data.slice(0, size)
 
-      setCategorylist(res.data)
+      setCategorylist(res.data.filter(item => item.Status === true))
       setSearchList(res.data)
       for (let index = 0; index < res.data.length; index++) {
         const element = res.data[index].SubCategories

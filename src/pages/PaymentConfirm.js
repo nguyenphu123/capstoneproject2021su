@@ -20,7 +20,6 @@ import { emptyCart } from '../features/Cart/CartSlice'
 import { createOrder, removeOrder } from '../features/OrderData/OrderDataSlice'
 import { toastCalling } from '../features/Toast/ToastSlice'
 
-
 const mapDispatch = { emptyCart, createOrder, removeOrder, toastCalling }
 
 function PaymentConfirm () {
@@ -337,7 +336,6 @@ function PaymentConfirm () {
                 window.open(res.data, '_self')
                 dispatch(toastCalling('We have received your order'))
 
-                toastCalling
                 toast.success('We have received your order')
               })
               setFinishBuy(true)
