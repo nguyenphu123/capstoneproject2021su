@@ -93,7 +93,7 @@ export default class SearchBar extends Component {
               type='text'
               className='form-control'
               placeholder='Search'
-              value={this.state.SearchResult}
+              value={this.state.value}
               onChange={this.handleChange}
             />
             <span className='input-group-btn'>

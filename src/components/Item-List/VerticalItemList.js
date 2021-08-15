@@ -46,7 +46,11 @@ class VerticalItemList extends React.Component {
         })
       } else {
         console.log(this.props.keyword)
-        let result = res.data.filter(x => x.Name.includes(this.props.keyword))
+        let result = res.data
+          .filter(x =>
+            x.Name.toLowerCase().includes(this.props.keyword.toLowerCase())
+          )
+          .filter(item => item.Status === true)
 
         this.setState({
           products: result,
@@ -78,9 +82,11 @@ class VerticalItemList extends React.Component {
               isUpdated: false
             })
           } else {
-            let result = res.data.filter(x =>
-              x.Name.includes(this.props.keyword)
-            )
+            let result = res.data
+              .filter(x =>
+                x.Name.toLowerCase().includes(this.props.keyword.toLowerCase())
+              )
+              .filter(item => item.Status === true)
 
             this.setState({
               products: result,
@@ -94,6 +100,7 @@ class VerticalItemList extends React.Component {
       }
     } else {
       if (!equal(this.props.keyword, prevProps.keyword)) {
+        console.log(this.props.keyword)
         axios({
           method: 'GET',
           url: this.props.apiUrl
@@ -113,9 +120,11 @@ class VerticalItemList extends React.Component {
           } else {
             console.log(this.props.keyword)
             let result = res.data
-              .filter(x => x.Name.includes(this.props.keyword))
+              .filter(x =>
+                x.Name.toLowerCase().includes(this.props.keyword.toLowerCase())
+              )
               .filter(item => item.Status === true)
-
+            console.log(result)
             this.setState({
               products: result,
               isLoading: false,
