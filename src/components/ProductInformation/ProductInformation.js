@@ -327,54 +327,59 @@ function ProductInformation () {
     if (product.Elements.length === 0 || product.Status === false) {
       toast.error('Sorry product not availble for buying')
     } else {
-      const check_index = shopCart.findIndex(
-        item =>
-          item.ProductId === productId &&
-          item.Color === currentColor &&
-          item.Size === currentSize
-      )
-      console.log(check_index)
-      if (check_index !== -1) {
-        dispatch(updateItemQuantity(productId, quantity))
-
-        toast.success('Cart has been updated')
+      if (quantity === 0) {
+        toast.error('please input quantity')
       } else {
-        const check_index = elements.findIndex(
-          item => item.Color.Id === currentColor && item.Size.Id === currentSize
+        const check_index = shopCart.findIndex(
+          item =>
+            item.ProductId === productId &&
+            item.Color === currentColor &&
+            item.Size === currentSize
         )
-        console.log(elements[check_index])
-        console.log(elements)
-
+        console.log(check_index)
         if (check_index !== -1) {
-          setMaxQuantity(elements[check_index].Quantity)
-          const cartItem = {
-            ProductId: productId,
-            CurrentPrice: product.CurrentPrice,
-            Quantity: quantity,
-            TotalLine: product.CurrentPrice * quantity,
-            img: product.ImageStorages[0].ImageUrl,
-            Name: product.Name,
-            Color: currentColor,
-            Size: currentSize,
-            SizeList: sizes,
-            ColorList: colors,
-            Description: JSON.stringify({
+          dispatch(updateItemQuantity(productId, quantity))
+
+          toast.success('Cart has been updated')
+        } else {
+          const check_index = elements.findIndex(
+            item =>
+              item.Color.Id === currentColor && item.Size.Id === currentSize
+          )
+          console.log(elements[check_index])
+          console.log(elements)
+
+          if (check_index !== -1) {
+            setMaxQuantity(elements[check_index].Quantity)
+            const cartItem = {
+              ProductId: productId,
+              CurrentPrice: product.CurrentPrice,
+              Quantity: quantity,
+              TotalLine: product.CurrentPrice * quantity,
+              img: product.ImageStorages[0].ImageUrl,
+              Name: product.Name,
               Color: currentColor,
               Size: currentSize,
-              img: product.ImageStorages[0].ImageUrl
-            }),
-            MaxQuantity: elements[check_index].Quantity,
-            Elements: elements
+              SizeList: sizes,
+              ColorList: colors,
+              Description: JSON.stringify({
+                Color: currentColor,
+                Size: currentSize,
+                img: product.ImageStorages[0].ImageUrl
+              }),
+              MaxQuantity: elements[check_index].Quantity,
+              Elements: elements
+            }
+
+            setShopCart(shopCart => [...shopCart, cartItem])
+            console.log(shopCart)
+
+            toast.success('Item has been added')
+            // setCurrentColor(shopCart[check_index].Color)
+            // setCurrentSize(shopCart[check_index].Size)
+          } else {
+            toast.warn("Sorry we don't have this combo yet")
           }
-
-          setShopCart(shopCart => [...shopCart, cartItem])
-          console.log(shopCart)
-
-          toast.success('Item has been added')
-          // setCurrentColor(shopCart[check_index].Color)
-          // setCurrentSize(shopCart[check_index].Size)
-        } else {
-          toast.warn("Sorry we don't have this combo yet")
         }
       }
     }

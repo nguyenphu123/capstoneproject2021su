@@ -668,7 +668,7 @@ function PaymentConfirm () {
                                 <input
                                   type='text'
                                   name='email'
-                                  value={email}
+                                  value={currentEmail}
                                   id='email'
                                   style={{ display: 'none' }}
                                 />

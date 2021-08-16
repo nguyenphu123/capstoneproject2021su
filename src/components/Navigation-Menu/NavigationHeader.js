@@ -95,6 +95,7 @@ function NavigationHeader () {
       }
     }
   }
+
   if (!loadComplete) {
     return <>...Loading pleas wait</>
   } else {
@@ -246,7 +247,6 @@ function NavigationHeader () {
                             </div>
                           </div>
                         </li>
-                       
                       </ul>
                     </div>
                   </nav>

@@ -118,7 +118,7 @@ function UserInformation ({ UserInformation }) {
       render: () => (
         <Tab.Pane attached={false}>
           <Header floated='right' as='h6' icon>
-            <Icon name='settings' onClick={() => setEdit(!edit)} />
+            <Icon name='edit' onClick={() => setEdit(!edit)} />
           </Header>
           <Header as='h4' color='grey'>
             Basic Information
@@ -215,11 +215,11 @@ function UserInformation ({ UserInformation }) {
           ) : null}
         </Tab.Pane>
       )
-    },
-    {
-      menuItem: { key: 'timeline', icon: 'eye', content: 'Timeline' },
-      render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane>
     }
+    // {
+    //   menuItem: { key: 'timeline', icon: 'eye', content: 'Timeline' },
+    //   render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane>
+    // }
   ]
 
   return (
