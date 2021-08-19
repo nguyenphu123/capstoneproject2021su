@@ -63,7 +63,7 @@ export const loginUser = authData => async dispatch => {
       .then(res => {
         console.log(res)
 
-        if (res.data === null) {
+        if (res.data === null || res.data.Point === 0) {
           dispatch(loginFailed())
         } else {
           dispatch(loginSuccess(res.data))

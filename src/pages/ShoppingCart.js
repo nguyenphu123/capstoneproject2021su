@@ -28,6 +28,7 @@ function ShoppingCart () {
   const [sizes, setSizes] = useState([])
   const orderId = uuidv4()
   console.log(orderId)
+  const [loading, setLoading] = useState(false)
 
   const [shipOption, setShipOption] = useState('')
   const [redirectPage, setRedirectPage] = useState('/Login')
@@ -39,7 +40,9 @@ function ShoppingCart () {
       setIsLogin(false)
     }
   }, [UserSlice])
-  useEffect(() => {}, [CartSlice])
+  useEffect(() => {
+    setLoading(false)
+  }, [CartSlice])
 
   if (finishBuy) {
     return <Redirect to={redirectPage} />
@@ -60,9 +63,21 @@ function ShoppingCart () {
         )
         if (check_index !== -1) {
           toast.warn(
-            "we don't haave enough " + CartSlice[check_index].Name + ' to sell'
+            "we don't have enough " + CartSlice[check_index].Name + ' to sell'
           )
         } else {
+          let total = CartSlice.reduce(
+            (accumulator, currentValue) =>
+              accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+            0
+          )
+
+          if (1000 > total || total > 50000000) {
+            toast.warn(
+              'Please note that your total exceed the 50 million limit so you can only choose pay on delivery'
+            )
+          } else {
+          }
           setFinishBuy(true)
           setRedirectPage('/PaymentInfo/' + orderId)
         }
@@ -75,7 +90,9 @@ function ShoppingCart () {
       dispatch(emptyCart())
     }
     function removeFromCart (Id, Color, Size) {
+      // setLoading(true)
       dispatch(deleteItem(Id, Color, Size))
+      // setLoading(false)
     }
 
     return (
@@ -98,63 +115,62 @@ function ShoppingCart () {
           <div class='main'>
             <div class='cart wow bounceInUp animated'>
               <div class='table-responsive shopping-cart-tbl  container'>
-                <form action='' method='post'>
-                  <input
-                    name='form_key'
-                    type='hidden'
-                    value='EPYwQxF6xoWcjLUr'
-                  />
-                  <fieldset>
-                    <table
-                      id='shopping-cart-table'
-                      class='data-table cart-table table-striped'
-                    >
-                      <colgroup>
-                        <col width='1' />
-                        <col />
-                        <col width='1' />
-                        <col width='1' />
-                        <col width='1' />
-                        <col width='1' />
-                        <col width='1' />
-                      </colgroup>
-                      <thead>
-                        <tr class='first last'>
-                          <th rowspan='1'>&nbsp;</th>
-                          <th rowspan='1'>
-                            <span class='nobr'>Product Name</span>
-                          </th>
-                          <th rowspan='1'></th>
-                          <th class='a-center' colspan='1'>
-                            <span class='nobr'>Unit Price</span>
-                          </th>
-                          <th rowspan='1' class='a-center'>
-                            Qty
-                          </th>
-                          <th class='a-center' colspan='1'>
-                            Subtotal
-                          </th>
-                          <th rowspan='1' class='a-center'>
-                            &nbsp;
-                          </th>
-                        </tr>
-                      </thead>
-                      <tfoot>
-                        <tr class='first last'>
-                          <td colspan='50' class='a-right last'>
-                            <button
-                              type='button'
-                              title='Continue Shopping'
-                              class='button btn-continue'
-                              onClick=''
-                            >
-                              <span>
+                {!loading ? (
+                  <form action='' method='post'>
+                    <input
+                      name='form_key'
+                      type='hidden'
+                      value='EPYwQxF6xoWcjLUr'
+                    />
+                    <fieldset>
+                      <table
+                        id='shopping-cart-table'
+                        class='data-table cart-table table-striped'
+                      >
+                        <colgroup>
+                          <col width='1' />
+                          <col />
+                          <col width='1' />
+                          <col width='1' />
+                          <col width='1' />
+                          <col width='1' />
+                          <col width='1' />
+                        </colgroup>
+                        <thead>
+                          <tr class='first last'>
+                            <th rowspan='1'>&nbsp;</th>
+                            <th rowspan='1'>
+                              <span class='nobr'>Product Name</span>
+                            </th>
+                            <th rowspan='1'></th>
+                            <th class='a-center' colspan='1'>
+                              <span class='nobr'>Unit Price</span>
+                            </th>
+                            <th rowspan='1' class='a-center'>
+                              Qty
+                            </th>
+                          
+                            <th rowspan='1' class='a-center'>
+                              &nbsp;
+                            </th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr class='first last'>
+                            <td colspan='50' class='a-right last'>
+                              <button
+                                type='button'
+                                title='Continue Shopping'
+                                class='button btn-continue'
+                                onClick=''
+                              >
                                 <span>
-                                  <Link to='/'>Continue Shopping</Link>
+                                  <span>
+                                    <Link to='/'>Continue Shopping</Link>
+                                  </span>
                                 </span>
-                              </span>
-                            </button>
-                            {/* <button
+                              </button>
+                              {/* <button
                               type='submit'
                               name='update_cart_action'
                               value='update_qty'
@@ -165,66 +181,69 @@ function ShoppingCart () {
                                 <span>Update Cart</span>
                               </span>
                             </button> */}
-                            <button
-                              name='update_cart_action'
-                              title='Clear Cart'
-                              class='button btn-empty'
-                              onClick={removeAll}
-                            >
-                              <span>
-                                <span>Clear Cart</span>
-                              </span>
-                            </button>
-                          </td>
-                        </tr>
-                      </tfoot>
-                      <tbody>
-                        {CartSlice.map(
-                          ({
-                            ProductId,
-                            Name,
-                            Quantity,
-                            CurrentPrice,
-                            img,
-                            Color,
-                            Size,
-                            MaxQuantity,
-                            ColorList,
-                            SizeList
-                          }) => (
-                            <tr class='first last odd'>
-                              <CartItem
-                                Id={ProductId}
-                                Name={Name}
-                                Quantity={Quantity}
-                                Price={CurrentPrice * Quantity}
-                                ImageUrl={img}
-                                Color={Color}
-                                Size={Size}
-                                colors={ColorList}
-                                sizes={SizeList}
-                              />
+                              <button
+                                name='update_cart_action'
+                                title='Clear Cart'
+                                class='button btn-empty'
+                                onClick={removeAll}
+                              >
+                                <span>
+                                  <span>Clear Cart</span>
+                                </span>
+                              </button>
+                            </td>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          {CartSlice.map(
+                            ({
+                              ProductId,
+                              Name,
+                              Quantity,
+                              CurrentPrice,
+                              img,
+                              Color,
+                              Size,
+                              MaxQuantity,
+                              ColorList,
+                              SizeList
+                            }) => (
+                              <tr class='first last odd'>
+                                <CartItem
+                                  Id={ProductId}
+                                  Name={Name}
+                                  Quantity={Quantity}
+                                  Price={CurrentPrice * Quantity}
+                                  ImageUrl={img}
+                                  Color={Color}
+                                  Size={Size}
+                                  colors={ColorList}
+                                  sizes={SizeList}
+                                />
 
-                              <td class='a-center last'>
-                                <Button
-                                  onClick={() =>
-                                    removeFromCart(ProductId, Color, Size)
-                                  }
-                                  title='Remove item'
-                                  class='button remove-item'
-                                >
-                                  <span>
-                                    <span>Remove item</span>
-                                  </span>
-                                </Button>
-                              </td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                  </fieldset>
-                </form>
+                                <td class='a-center last'>
+                                  <Button
+                                    onClick={() =>
+                                      removeFromCart(ProductId, Color, Size)
+                                    }
+                                    title='Remove item'
+                                    class='button remove-item'
+                                  >
+                                    <span>
+                                      <span>Remove item</span>
+                                    </span>
+                                  </Button>
+                                </td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </table>
+                    </fieldset>
+                  </form>
+                ) : (
+                  <></>
+                )}
               </div>
 
               {/* <!-- BEGIN CART COLLATERALS --> */}
@@ -269,9 +288,7 @@ function ShoppingCart () {
                                     <NumberFormat
                                       value={CartSlice.reduce(
                                         (accumulator, currentValue) =>
-                                          accumulator +
-                                          currentValue.CurrentPrice *
-                                            currentValue.Quantity,
+                                          accumulator + currentValue.TotalLine,
                                         0
                                       )}
                                       className='foo'
@@ -297,9 +314,8 @@ function ShoppingCart () {
                                   <NumberFormat
                                     value={CartSlice.reduce(
                                       (accumulator, currentValue) =>
-                                        accumulator +
-                                        currentValue.CurrentPrice *
-                                          currentValue.Quantity,
+                                        accumulator + currentValue.TotalLine,
+
                                       0
                                     )}
                                     className='foo'

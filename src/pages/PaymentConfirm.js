@@ -136,8 +136,6 @@ function PaymentConfirm () {
 
   console.log(finishBuy)
   useEffect(() => {
-    setFinishBuy(false)
-
     if (finishBuy) {
       toast.success('We have received your order')
       notification['success']({
@@ -149,6 +147,7 @@ function PaymentConfirm () {
       // document.getElementById('finishform').submit()
 
       dispatch(emptyCart())
+      setFinishBuy(false)
     } else {
     }
   }, [finishBuy])
@@ -156,24 +155,6 @@ function PaymentConfirm () {
   if (finishBuy) {
     return (
       <>
-        <form
-          style={{ visibility: 'hidden' }}
-          id='finishform'
-          onSubmit={onSubmit2}
-        >
-          <input
-            type='text'
-            name='Name'
-            value={currentName}
-            onChange={handleChangeName}
-            title='First Name'
-            maxlength='255'
-            class='input-text required-entry'
-            style={{ visibility: 'hidden' }}
-          />
-        </form>
-        <ToastContainer autoClose={5000} />
-
         <Redirect to={'/' + 'Finishpayment'} />
       </>
     )
@@ -246,14 +227,17 @@ function PaymentConfirm () {
         }
       }).then(res => {
         console.log(res.data.data)
-        res.data.data.forEach(element => {
-          let ward = {
-            key: element.WardCode,
-            label: element.WardName,
-            value: element
-          }
-          setWards(wards => [...wards, ward])
-        })
+        if (res.data.data !== null) {
+          res.data.data.forEach(element => {
+            let ward = {
+              key: element.WardCode,
+              label: element.WardName,
+              value: element
+            }
+            setWards(wards => [...wards, ward])
+          })
+        } else {
+        }
       })
     }
   }
@@ -281,9 +265,16 @@ function PaymentConfirm () {
           //loop through the array
 
           //Do the math!
-          if (cityAndProvince === null || district === null || ward === null) {
+          if (cityAndProvince === null || district === null) {
             toast.warn('please choose your region')
           } else {
+            let myward = ''
+
+            if (ward === null) {
+            } else {
+              myward = ward
+            }
+
             if (paywithMomo) {
               const order = {
                 UserId: UserSlice.Id,
@@ -302,7 +293,7 @@ function PaymentConfirm () {
                   ' ' +
                   district +
                   ' ' +
-                  ward,
+                  myward,
                 Date: new Date()
                   .toISOString()
                   .slice(0, 19)
@@ -319,45 +310,63 @@ function PaymentConfirm () {
                 ]
               }
 
-              axios({
-                method: 'post',
-                url:
-                  '/api/order-management/' +
-                  order.TotalPrice * 10 +
-                  '?currentOrderId=' +
-                  orderId,
-                headers: { 'content-type': 'application/json' }
-                // data: JSON.stringify(order)
-              }).then(res => {
-                // dispatch(emptyCart())
-
-                dispatch(createOrder(order))
-
-                window.open(res.data, '_self')
-                dispatch(toastCalling('We have received your order'))
-
-                toast.success('We have received your order')
-              })
-              setFinishBuy(true)
-
-              e.preventDefault()
-
-              emailjs
-                .sendForm(
-                  'service_nueuo8m',
-                  'template_omuck9t',
-                  e.target,
-                  'user_32k4I6JJIEyo5ehBoH1Ae'
+              if (1000 > order.TotalPrice || order.TotalPrice > 50000000) {
+                toast.warn(
+                  'Please note that your total exceed the 50 million limit so you can only choose pay on delivery'
                 )
-                .then(
-                  result => {
-                    console.log(result.text)
-                  },
-                  error => {
-                    console.log(error.text)
-                  }
-                )
+              } else {
+                axios({
+                  method: 'post',
+                  url:
+                    '/api/order-management/' +
+                    order.TotalPrice +
+                    '?currentOrderId=' +
+                    orderId,
+                  headers: { 'content-type': 'application/json' }
+                  // data: JSON.stringify(order)
+                }).then(res => {
+                  // dispatch(emptyCart())
+
+                  dispatch(createOrder(order))
+                  notification['success']({
+                    message: 'order',
+                    description: 'We have received your order.',
+                    duration: 10
+                  })
+
+                  window.open(res.data, '_self')
+                  dispatch(toastCalling('We have received your order'))
+
+                  toast.success('We have received your order')
+                })
+                setFinishBuy(true)
+
+                e.preventDefault()
+
+                emailjs
+                  .sendForm(
+                    'service_nueuo8m',
+                    'template_omuck9t',
+                    e.target,
+                    'user_32k4I6JJIEyo5ehBoH1Ae'
+                  )
+                  .then(
+                    result => {
+                      console.log(result.text)
+                    },
+                    error => {
+                      console.log(error.text)
+                    }
+                  )
+              }
             } else {
+              let myward = ''
+
+              if (ward === null) {
+              } else {
+                myward = ward
+              }
+
               const order = {
                 UserId: UserSlice.Id,
                 OrderId: orderId,
@@ -374,7 +383,7 @@ function PaymentConfirm () {
                   ' ' +
                   district +
                   ' ' +
-                  ward,
+                  myward,
                 Date: new Date()
                   .toISOString()
                   .slice(0, 19)
@@ -417,7 +426,7 @@ function PaymentConfirm () {
                       console.log(error.text)
                     }
                   )
-                dispatch(toastCalling('We have received your order'))
+
                 notification['success']({
                   message: 'order',
                   description: 'We have received your order.',

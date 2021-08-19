@@ -21,9 +21,9 @@ class HorizontalItemLList extends React.Component {
       console.log(res)
       console.log(res.data)
       if (this.props.topic === 'Top luxury') {
-        let result = res.data.sort((a, b) =>
-          a.CurrentPrice < b.CurrentPrice ? 1 : -1
-        )
+        let result = res.data
+          .sort((a, b) => (a.CurrentPrice < b.CurrentPrice ? 1 : -1))
+          .filter(item => item.Status === true)
         let afterSliceResult = result.slice(0, 3)
 
         this.setState({
@@ -31,9 +31,9 @@ class HorizontalItemLList extends React.Component {
           isLoading: false
         })
       } else {
-        let result = res.data.sort((a, b) =>
-          a.CurrentPrice < b.CurrentPrice ? -1 : 1
-        )
+        let result = res.data
+          .sort((a, b) => (a.CurrentPrice < b.CurrentPrice ? -1 : 1))
+          .filter(item => item.Status === true)
         console.log(result)
 
         let afterSliceResult = result.slice(0, 3)

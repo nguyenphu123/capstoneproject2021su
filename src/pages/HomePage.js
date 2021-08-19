@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import SeeMoreButton from '../Assets/SeeMoreButton'
 import HorizontalItemList from '../components/Item-List/HorizontalItemList'
+import { notification } from 'antd'
 
 // import CategoryList from './CategoryList'
 import { ToastContainer } from 'react-toastify'
@@ -30,11 +31,24 @@ function HomePage () {
   const [loadComplete, setLoadComplete] = useState(false)
   console.log(ToastSlice)
   // toast.success(ToastSlice)
-  dispatch(removeToast())
 
   useEffect(() => {
-    console.log(ToastSlice)
-  }, [])
+    dispatch(removeToast())
+    localStorage.removeItem('toast')
+
+    if (ToastSlice === 'We have received your order') {
+      dispatch(removeToast())
+
+      notification['success']({
+        message: 'order',
+        description: 'We have received your order.',
+        duration: 10
+      })
+      dispatch(removeToast())
+      dispatch(removeToast())
+    }
+    dispatch(removeToast())
+  }, [ToastSlice])
 
   useEffect(() => {
     axios({
@@ -249,7 +263,9 @@ function HomePage () {
                 <li>
                   <div class='feature-box'>
                     <div class='icon-truck'></div>
-                    <div class='content'>FREE SHIPPING on order over 10,000,000VND</div>
+                    <div class='content'>
+                      FREE SHIPPING on order over 10,000,000VND
+                    </div>
                   </div>
                 </li>
                 <li>

@@ -12,6 +12,7 @@ import NumberFormat from 'react-number-format'
 import Table from 'antd/lib/table'
 import 'antd/lib/table/style/css'
 // import { Input } from 'antd'
+import Moment from 'moment'
 
 // const Search = Input.Search
 function OrderHistory (props) {
@@ -29,6 +30,7 @@ function OrderHistory (props) {
   const [item, setItem] = useState({})
   // const [rowsPerPage, setRowsPerPage] = useState(5)
   // const getHistories = async () => {}
+  Moment.locale('en')
 
   useEffect(() => {
     axios({
@@ -119,8 +121,25 @@ function OrderHistory (props) {
       },
       {
         title: 'Date',
-        dataIndex: 'Date',
-        key: 'Date'
+        key: 'Date',
+        defaultSortOrder: 'descend',
+        sorter: (a, b) =>
+          new Date(
+            Moment(a.Date)
+              .format('DD/MM/YYYY')
+              .split('/')
+              .reverse()
+          ) -
+          new Date(
+            Moment(b.Date)
+              .format('DD/MM/YYYY')
+              .split('/')
+              .reverse()
+          ),
+
+        render: (text, record) => (
+          <>{Moment(record.Date).format('DD MM YYYY hhhh')}</>
+        )
       },
       {
         title: 'Total',

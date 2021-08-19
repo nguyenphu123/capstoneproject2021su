@@ -78,10 +78,7 @@ function CartItem ({
             {ImageUrl.includes('http') ? (
               <img src={ImageUrl} width='75' alt='' />
             ) : (
-              <img
-                src={'http://18.136.201.97:5000/' + ImageUrl}
-                alt='404 '
-              />
+              <img src={'http://13.229.97.240:5000/' + ImageUrl} alt='404 ' />
             )}
           </Link>
         </td>
@@ -159,14 +156,6 @@ function CartItem ({
         <td class='a-right movewishlist'>
           <span class='cart-price'>
             <span class='price'>
-              <NumberFormat
-                value={Price * Quantity}
-                className='foo'
-                displayType={'text'}
-                thousandSeparator={true}
-                prefix={''}
-                renderText={(value, props) => <div {...props}>{value}VND</div>}
-              />
               <ToastContainer autoClose={5000} />
             </span>
           </span>
