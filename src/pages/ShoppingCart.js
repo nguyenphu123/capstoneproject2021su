@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button'
 import React, { useEffect, useState } from 'react'
 import { AtmMomo } from 'react-pay-icons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,6 +31,7 @@ function ShoppingCart () {
 
   const [shipOption, setShipOption] = useState('')
   const [redirectPage, setRedirectPage] = useState('/Login')
+  const [currentCart, setCurrentCart] = useState([])
 
   useEffect(() => {
     if (UserSlice !== null) {
@@ -41,15 +41,27 @@ function ShoppingCart () {
     }
   }, [UserSlice])
   useEffect(() => {
-    setLoading(false)
+    setLoading(true)
+
+    if (CartSlice !== null && CartSlice.length !== 0) {
+      setCurrentCart(CartSlice)
+    } else {
+    }
+    // setLoading(false)
   }, [CartSlice])
+  useEffect(() => {
+    setCurrentCart(currentCart => currentCart)
+    setLoading(false)
+  }, [currentCart])
+  useEffect(() => {
+    setLoading(loading => loading)
+  }, [loading])
 
   if (finishBuy) {
     return <Redirect to={redirectPage} />
   }
 
-  if (CartSlice !== null && CartSlice.length !== 0) {
-    console.log(CartSlice)
+  if (currentCart !== null || currentCart.length !== 0 || currentCart !== []) {
     function setEdit () {
       setIsEdit(!isEdit)
     }
@@ -90,9 +102,24 @@ function ShoppingCart () {
       dispatch(emptyCart())
     }
     function removeFromCart (Id, Color, Size) {
-      // setLoading(true)
-      dispatch(deleteItem(Id, Color, Size))
-      // setLoading(false)
+      console.log(Id)
+      console.log(Color)
+      console.log(Size)
+
+      const check_index = CartSlice.findIndex(
+        item =>
+          item.ProductId === Id && item.Color === Color && item.Size === Size
+      )
+
+      if (check_index !== -1) {
+        console.log(check_index)
+
+        // let newcart = CartSlice.splice(check_index, 1)
+        // setCurrentCart(JSON.parse(localStorage.getItem('cart')))
+        // currentCart.splice(check_index, 1)
+        // dispatch(deleteItem(check_index))
+      } else {
+      }
     }
 
     return (
@@ -149,7 +176,7 @@ function ShoppingCart () {
                             <th rowspan='1' class='a-center'>
                               Qty
                             </th>
-                          
+
                             <th rowspan='1' class='a-center'>
                               &nbsp;
                             </th>
@@ -195,20 +222,20 @@ function ShoppingCart () {
                           </tr>
                         </tfoot>
                         <tbody>
-                          {CartSlice.map(
-                            ({
-                              ProductId,
-                              Name,
-                              Quantity,
-                              CurrentPrice,
-                              img,
-                              Color,
-                              Size,
-                              MaxQuantity,
-                              ColorList,
-                              SizeList
-                            }) => (
-                              <tr class='first last odd'>
+                          {!loading ? (
+                            currentCart.map(
+                              ({
+                                ProductId,
+                                Name,
+                                Quantity,
+                                CurrentPrice,
+                                img,
+                                Color,
+                                Size,
+                                MaxQuantity,
+                                ColorList,
+                                SizeList
+                              }) => (
                                 <CartItem
                                   Id={ProductId}
                                   Name={Name}
@@ -220,22 +247,10 @@ function ShoppingCart () {
                                   colors={ColorList}
                                   sizes={SizeList}
                                 />
-
-                                <td class='a-center last'>
-                                  <Button
-                                    onClick={() =>
-                                      removeFromCart(ProductId, Color, Size)
-                                    }
-                                    title='Remove item'
-                                    class='button remove-item'
-                                  >
-                                    <span>
-                                      <span>Remove item</span>
-                                    </span>
-                                  </Button>
-                                </td>
-                              </tr>
+                              )
                             )
+                          ) : (
+                            <></>
                           )}
                         </tbody>
                       </table>

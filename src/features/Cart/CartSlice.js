@@ -38,21 +38,22 @@ export const emptyCart = () => async dispatch => {
     return console.error(e.message)
   }
 }
-export const deleteItem = (Id, Color, Size) => async dispatch => {
+export const deleteItem = (Id, Color, Size) => dispatch => {
   try {
     const cart = JSON.parse(localStorage.getItem('cart'))
+    console.log(Id, Color, Size)
 
-    const check_index = cart.findIndex(
+    const check_index = cart.filter(
       item =>
-        item.ProductId === Id && item.Color === Color && item.Size === Size
+        item.ProductId !== Id || item.Color !== Color || item.Size !== Size
     )
+    console.log(check_index)
+    // if (check_index !== -1) {
+    //   cart.splice(check_index, 1)
+    // } else {
+    // }
 
-    if (check_index !== -1) {
-      cart.splice(check_index, 1)
-    } else {
-    }
-
-    return dispatch(updateCart(cart))
+    return dispatch(updateCart(check_index))
   } catch (e) {
     return console.error(e.message)
   }

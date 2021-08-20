@@ -13,6 +13,7 @@ import {
 } from '../../features/Cart/CartSlice'
 import { Header } from 'semantic-ui-react'
 import { ToastContainer, toast } from 'react-toastify'
+import Button from '@material-ui/core/Button'
 
 const mapDispatch = {
   cart,
@@ -67,12 +68,20 @@ function CartItem ({
   function removeOneFromCart () {
     setQuantity(quantity => quantity - 1)
   }
+  function removeFromCart () {
+    // setLoading(true)
+
+    // let newcart = CartSlice.splice(check_index, 1)
+    // setCurrentCart(newcart)
+    // currentCart.splice(check_index, 1)
+    dispatch(deleteItem(Id, Color, Size))
+  }
 
   if (isLoading) {
     return <></>
   } else {
     return (
-      <>
+      <tr key={Id + Color + Size} class='first last odd'>
         <td class='image hidden-table'>
           <Link to={'/Product/' + Id} title='' class='product-image'>
             {ImageUrl.includes('http') ? (
@@ -156,11 +165,23 @@ function CartItem ({
         <td class='a-right movewishlist'>
           <span class='cart-price'>
             <span class='price'>
+              <td class='a-center last'>
+                <Button
+                  onClick={removeFromCart}
+                  title='Remove item'
+                  class='button remove-item'
+                >
+                  <span>
+                    <span>Remove item</span>
+                  </span>
+                </Button>
+              </td>
+
               <ToastContainer autoClose={5000} />
             </span>
           </span>
         </td>
-      </>
+      </tr>
     )
   }
 }
