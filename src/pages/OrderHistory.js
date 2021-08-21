@@ -13,6 +13,8 @@ import Table from 'antd/lib/table'
 import 'antd/lib/table/style/css'
 // import { Input } from 'antd'
 import Moment from 'moment'
+import { DatePicker } from 'antd'
+const dateFormat = 'DD/MM/YYYY'
 
 // const Search = Input.Search
 function OrderHistory (props) {
@@ -58,7 +60,6 @@ function OrderHistory (props) {
   }
   const onCancel = item => {
     setIsLoading(true)
-
     if (
       item.Ship[0].ShipStatus === 'Completed' ||
       item.Ship[0].ShipStatus === 'Cancel'
@@ -97,10 +98,66 @@ function OrderHistory (props) {
       })
     }
   }
+  const handleDatePickerChange = (date, dateString, id) => {
+    console.log(dateString)
+
+    if (dateString === '') {
+      setIsLoading(true)
+
+      axios({
+        method: 'GET',
+        url: '/api/order-management/users/' + UserSlice.Id + '/orders'
+      }).then(res => {
+        console.log(res)
+        console.log(res.data)
+        setHistorylist(res.data)
+        console.log(historylist)
+        axios({
+          method: 'GET',
+          url: '/api/ship-management'
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          setShippingOrders(res.data)
+          setIsLoading(false)
+        })
+      })
+    } else {
+      setIsLoading(true)
+      axios({
+        method: 'GET',
+        url: '/api/order-management/users/' + UserSlice.Id + '/orders'
+      }).then(res => {
+        console.log(res)
+        console.log(res.data)
+        setHistorylist(res.data)
+        let sorting = res.data.filter(
+          item => Moment(item.Date).format('DD/MM/YYYY') === dateString
+        )
+
+        setHistorylist(sorting)
+
+        axios({
+          method: 'GET',
+          url: '/api/ship-management'
+        }).then(res => {
+          console.log(res)
+          console.log(res.data)
+          setShippingOrders(res.data)
+          setIsLoading(false)
+        })
+      })
+
+      setIsLoading(false)
+    }
+  }
+  useEffect(() => {
+    setHistorylist(historylist => historylist)
+  }, [historylist])
+
   const returnShipId = Id => {
     const check_index = shippingOrders.findIndex(item => item.OrderId === Id)
     if (check_index !== -1) {
-      console.log(shippingOrders[check_index])
       return <>{shippingOrders[check_index].ShipStatus}</>
     }
   }
@@ -239,12 +296,11 @@ function OrderHistory (props) {
               <div className='new_title'>
                 <h2> your orders</h2>
                 <h4>
-                  Total:
+                  Total Paid:
                   <NumberFormat
-                    value={historylist.reduce(
-                      (a, v) => (a = a + v.TotalPrice),
-                      0
-                    )}
+                    value={historylist
+                      .filter(item => item.Ship[0].ShipStatus === 'Completed')
+                      .reduce((a, v) => (a = a + v.TotalPrice), 0)}
                     className='foo'
                     displayType={'text'}
                     thousandSeparator={true}
@@ -255,6 +311,13 @@ function OrderHistory (props) {
                   />
                 </h4>
               </div>
+              <DatePicker
+                onChange={(date, dateString) =>
+                  handleDatePickerChange(date, dateString, 1)
+                }
+                format={dateFormat}
+              />
+
               <Table dataSource={historylist} columns={tableColumns} />
             </div>
           </section>

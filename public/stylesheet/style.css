@@ -45,7 +45,18 @@
 
 19. Data Table
 
-/* */
+/*some definition
+1.# for Id
+2. . for class
+3. none for element
+4. The @media rule is used in media queries to apply different styles for different media types/devices
+5. The @keyframes rule specifies the animation code
+6. @-webkit-keyframes block contains rule sets called keyframes. A keyframe defines the style that will be applied for that moment within the animation.;
+7. @-moz-keyframes; for firefox
+8. @-o-keyframes; for opera
+9 em is Relative Length Relative to the font-size of the element (2em means 2 times the size of the current font)
+10. vh	Relative to 1% of the height of the viewport
+*/
 
 /*----------- 1. Body --------------*/
 
@@ -1367,7 +1378,6 @@ ul.level1 {
   top: 75px !important;
 }
 
-
 #nav li.drop-menu ul {
   position: absolute;
   top: 75px;
@@ -1467,8 +1477,6 @@ ul.level1 {
   width: 100%;
 }
 /* End Nav */
-
-
 
 /* Promotion banners */
 #top {
@@ -10102,12 +10110,11 @@ address {
   color: #fff;
   text-align: center;
   padding: 0;
-  
 }
-.social ul li a{
+.social ul li a {
   pointer-events: none;
 }
-.social ul li a:hover{
+.social ul li a:hover {
   pointer-events: none;
 }
 .social .fb a:hover {
@@ -12000,4 +12007,3 @@ button.btn-share,
   height: 400px;
   overflow: auto;
 }
-
