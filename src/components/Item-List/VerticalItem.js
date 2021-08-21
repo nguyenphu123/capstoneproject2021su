@@ -152,7 +152,7 @@ function VerticalItem ({
                     ) : (
                       <img
                         src={
-                          'http://13.229.97.240:5000/' +
+                          'http://52.221.232.115:5000/' +
                           ImageStorages[0].ImageUrl
                         }
                         alt='404 '

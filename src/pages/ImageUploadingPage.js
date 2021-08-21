@@ -29,7 +29,7 @@ function ImageUploadingPage () {
 
     axios({
       method: 'POST',
-      url: 'http://13.229.97.240:5000/',
+      url: 'http://52.221.232.115:5000/',
       Header: {
         'Content-Type': 'multipart/form-data'
       },
