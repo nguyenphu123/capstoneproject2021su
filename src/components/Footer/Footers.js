@@ -4,9 +4,7 @@ function Footers () {
       <footer>
         {/* <!-- BEGIN INFORMATIVE FOOTER --> */}
         <div className='footer-inner'>
-          <div className='newsletter-row'>
-            {/* <!--footer-column-last--> */}
-          </div>
+         
           <div className='footer-middle'>
             <div className='container'>
               <div className='row'>
@@ -129,7 +127,7 @@ function Footers () {
         <div className='footer-top'>
           <div className='container'>
             <div className='row'>
-              {/* <div className='col-xs-12 col-sm-4'>
+              <div className='col-xs-12 col-sm-4'>
                 <div className='social'>
                   <ul>
                     <li className='fb'>
@@ -155,7 +153,7 @@ function Footers () {
                     </li>
                   </ul>
                 </div>
-              </div> */}
+              </div>
               <div className='col-sm-4 col-xs-12 coppyright'>
                 © 2020 ThemesGround. All Rights Reserved.
               </div>

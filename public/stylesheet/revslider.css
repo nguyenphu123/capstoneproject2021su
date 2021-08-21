@@ -1,13 +1,6 @@
 /*-----------------------------------------------------------------------------
 
--	Revolution Slider 4.1 Captions -
-
-Theme Name: Qualis
-Author:  ThemesGround
-Description:  Qualis HTML Template
-License: GNU General Public License v2 or later
-Tags: two-columns, left-sidebar, fixed-layout, responsive-layout, custom-background, custom-colors, custom-header, custom-menu
-Text Domain:  Qualis
+css for banner
 
 -----------------------------------------------------------------------------*/
 
@@ -42,7 +35,7 @@ Text Domain:  Qualis
 
 .forcefullwidth_wrapper_tp_banner,
 .fullwidthbanner-container {
-  height: 550px !important;
+  height: 550px !important;/*banner width*/
 }
 
 #thmg-slider-slideshow .RHS-banner {
@@ -66,6 +59,8 @@ Text Domain:  Qualis
   border-width: 0px;
   border: none;
   visibility: visible !important;
+  background-size: cover;
+  height : 200px
 }
 .rev_slider .no-slides-text {
   font-weight: bold;

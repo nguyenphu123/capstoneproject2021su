@@ -60,67 +60,70 @@ function ShoppingCart () {
   if (finishBuy) {
     return <Redirect to={redirectPage} />
   }
-
-  if (currentCart !== null || currentCart.length !== 0 || currentCart !== []) {
-    function setEdit () {
-      setIsEdit(!isEdit)
-    }
-    function handleChange (e, { value }) {
-      setShipOption(value)
-    }
-    function checkOut () {
-      if (isLogin) {
-        const check_index = CartSlice.findIndex(
-          item => item.MaxQuantity < item.Quantity
+  function setEdit () {
+    setIsEdit(!isEdit)
+  }
+  function handleChange (e, { value }) {
+    setShipOption(value)
+  }
+  function checkOut () {
+    if (isLogin) {
+      const check_index = currentCart.findIndex(
+        item => item.MaxQuantity < item.Quantity
+      )
+      if (check_index !== -1) {
+        toast.warn(
+          "we don't have enough " + currentCart[check_index].Name + ' to sell'
         )
-        if (check_index !== -1) {
+      } else {
+        let total = currentCart.reduce(
+          (accumulator, currentValue) =>
+            accumulator + currentValue.CurrentPrice * currentValue.Quantity,
+          0
+        )
+
+        if (1000 > total || total > 50000000) {
           toast.warn(
-            "we don't have enough " + CartSlice[check_index].Name + ' to sell'
+            'Please note that your total exceed the 50 million limit so you can only choose pay on delivery'
           )
         } else {
-          let total = CartSlice.reduce(
-            (accumulator, currentValue) =>
-              accumulator + currentValue.CurrentPrice * currentValue.Quantity,
-            0
-          )
-
-          if (1000 > total || total > 50000000) {
-            toast.warn(
-              'Please note that your total exceed the 50 million limit so you can only choose pay on delivery'
-            )
-          } else {
-          }
-          setFinishBuy(true)
-          setRedirectPage('/PaymentInfo/' + orderId)
         }
-      } else {
-        toast.warn('Please Login before checkout')
+        setFinishBuy(true)
+        setRedirectPage('/PaymentInfo/' + orderId)
       }
+    } else {
+      toast.warn('Please Login before checkout')
     }
-    function removeAll (e) {
-      e.preventDefault()
-      dispatch(emptyCart())
+  }
+  function removeAll (e) {
+    e.preventDefault()
+    dispatch(emptyCart())
+    setCurrentCart([])
+  }
+  function removeFromCart (Id, Color, Size) {
+    console.log(Id)
+    console.log(Color)
+    console.log(Size)
+
+    const check_index = currentCart.findIndex(
+      item =>
+        item.ProductId === Id && item.Color === Color && item.Size === Size
+    )
+
+    if (check_index !== -1) {
+      console.log(check_index)
+
+      // let newcart = CartSlice.splice(check_index, 1)
+      // setCurrentCart(JSON.parse(localStorage.getItem('cart')))
+      // currentCart.splice(check_index, 1)
+      // dispatch(deleteItem(check_index))
+    } else {
     }
-    function removeFromCart (Id, Color, Size) {
-      console.log(Id)
-      console.log(Color)
-      console.log(Size)
+  }
+  console.log(currentCart)
 
-      const check_index = CartSlice.findIndex(
-        item =>
-          item.ProductId === Id && item.Color === Color && item.Size === Size
-      )
-
-      if (check_index !== -1) {
-        console.log(check_index)
-
-        // let newcart = CartSlice.splice(check_index, 1)
-        // setCurrentCart(JSON.parse(localStorage.getItem('cart')))
-        // currentCart.splice(check_index, 1)
-        // dispatch(deleteItem(check_index))
-      } else {
-      }
-    }
+  if (currentCart !== null || currentCart.length !== 0 || currentCart !== []) {
+    console.log(currentCart)
 
     return (
       <>
@@ -150,110 +153,106 @@ function ShoppingCart () {
                       value='EPYwQxF6xoWcjLUr'
                     />
                     <fieldset>
-                      <table
-                        id='shopping-cart-table'
-                        class='data-table cart-table table-striped'
-                      >
-                        <colgroup>
-                          <col width='1' />
-                          <col />
-                          <col width='1' />
-                          <col width='1' />
-                          <col width='1' />
-                          <col width='1' />
-                          <col width='1' />
-                        </colgroup>
-                        <thead>
-                          <tr class='first last'>
-                            <th rowspan='1'>&nbsp;</th>
-                            <th rowspan='1'>
-                              <span class='nobr'>Product Name</span>
-                            </th>
-                            <th rowspan='1'></th>
-                            <th class='a-center' colspan='1'>
-                              <span class='nobr'>Unit Price</span>
-                            </th>
-                            <th rowspan='1' class='a-center'>
-                              Qty
-                            </th>
+                      {currentCart.length === 0 ? (
+                        <div className='new_title'>
+                          <h2>No item</h2>
+                        </div>
+                      ) : (
+                        <table
+                          id='shopping-cart-table'
+                          class='data-table cart-table table-striped'
+                        >
+                          <colgroup>
+                            <col width='1' />
+                            <col />
+                            <col width='1' />
+                            <col width='1' />
+                            <col width='1' />
+                            <col width='1' />
+                            <col width='1' />
+                          </colgroup>
+                          <thead>
+                            <tr class='first last'>
+                              <th rowspan='1'>&nbsp;</th>
+                              <th rowspan='1'>
+                                <span class='nobr'>Product Name</span>
+                              </th>
+                              <th rowspan='1'></th>
+                              <th class='a-center' colspan='1'>
+                                <span class='nobr'>Unit Price</span>
+                              </th>
+                              <th rowspan='1' class='a-center'>
+                                Qty
+                              </th>
 
-                            <th rowspan='1' class='a-center'>
-                              &nbsp;
-                            </th>
-                          </tr>
-                        </thead>
-                        <tfoot>
-                          <tr class='first last'>
-                            <td colspan='50' class='a-right last'>
-                              <button
-                                type='button'
-                                title='Continue Shopping'
-                                class='button btn-continue'
-                                onClick=''
-                              >
-                                <span>
+                              <th rowspan='1' class='a-center'>
+                                &nbsp;
+                              </th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                            <tr class='first last'>
+                              <td colspan='50' class='a-right last'>
+                                <button
+                                  type='button'
+                                  title='Continue Shopping'
+                                  class='button btn-continue'
+                                  onClick=''
+                                >
                                   <span>
-                                    <Link to='/'>Continue Shopping</Link>
+                                    <span>
+                                      <Link to='/'>Continue Shopping</Link>
+                                    </span>
                                   </span>
-                                </span>
-                              </button>
-                              {/* <button
-                              type='submit'
-                              name='update_cart_action'
-                              value='update_qty'
-                              title='Update Cart'
-                              class='button btn-update'
-                            >
-                              <span>
-                                <span>Update Cart</span>
-                              </span>
-                            </button> */}
-                              <button
-                                name='update_cart_action'
-                                title='Clear Cart'
-                                class='button btn-empty'
-                                onClick={removeAll}
-                              >
-                                <span>
-                                  <span>Clear Cart</span>
-                                </span>
-                              </button>
-                            </td>
-                          </tr>
-                        </tfoot>
-                        <tbody>
-                          {!loading ? (
-                            currentCart.map(
-                              ({
-                                ProductId,
-                                Name,
-                                Quantity,
-                                CurrentPrice,
-                                img,
-                                Color,
-                                Size,
-                                MaxQuantity,
-                                ColorList,
-                                SizeList
-                              }) => (
-                                <CartItem
-                                  Id={ProductId}
-                                  Name={Name}
-                                  Quantity={Quantity}
-                                  Price={CurrentPrice * Quantity}
-                                  ImageUrl={img}
-                                  Color={Color}
-                                  Size={Size}
-                                  colors={ColorList}
-                                  sizes={SizeList}
-                                />
+                                </button>
+
+                                <button
+                                  name='update_cart_action'
+                                  title='Clear Cart'
+                                  class='button btn-empty'
+                                  onClick={removeAll}
+                                >
+                                  <span>
+                                    <span>Clear Cart</span>
+                                  </span>
+                                </button>
+                              </td>
+                            </tr>
+                          </tfoot>
+                          <tbody>
+                            {!loading ? (
+                              currentCart.map(
+                                ({
+                                  ProductId,
+                                  Name,
+                                  Quantity,
+                                  CurrentPrice,
+                                  img,
+                                  Color,
+                                  Size,
+                                  MaxQuantity,
+                                  ColorList,
+                                  SizeList
+                                }) => (
+                                  <CartItem
+                                    Id={ProductId}
+                                    Name={Name}
+                                    Quantity={Quantity}
+                                    Price={CurrentPrice * Quantity}
+                                    ImageUrl={img}
+                                    Color={Color}
+                                    Size={Size}
+                                    colors={ColorList}
+                                    sizes={SizeList}
+                                  />
+                                )
                               )
-                            )
-                          ) : (
-                            <></>
-                          )}
-                        </tbody>
-                      </table>
+                            ) : (
+                              <></>
+                            )}
+                          </tbody>
+                        </table>
+                      )}
                     </fieldset>
                   </form>
                 ) : (
@@ -301,7 +300,7 @@ function ShoppingCart () {
                                 <strong>
                                   <span class='price'>
                                     <NumberFormat
-                                      value={CartSlice.reduce(
+                                      value={currentCart.reduce(
                                         (accumulator, currentValue) =>
                                           accumulator + currentValue.TotalLine,
                                         0
@@ -327,7 +326,7 @@ function ShoppingCart () {
                               <td class='a-right'>
                                 <span class='price'>
                                   <NumberFormat
-                                    value={CartSlice.reduce(
+                                    value={currentCart.reduce(
                                       (accumulator, currentValue) =>
                                         accumulator + currentValue.TotalLine,
 

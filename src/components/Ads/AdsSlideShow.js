@@ -46,7 +46,7 @@ function AdsSlideShow () {
                       data-bgfit='cover'
                       data-bgrepeat='no-repeat'
                       alt='slider-image1'
-                      style={{ heigth: '200px' }}
+                      // style={{ heigth: '200px' }}
                     />
                     <div class='info'>
                       <div

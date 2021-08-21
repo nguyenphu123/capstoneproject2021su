@@ -63,7 +63,11 @@ export const loginUser = authData => async dispatch => {
       .then(res => {
         console.log(res)
 
-        if (res.data === null || res.data.Point === 0) {
+        if (
+          res.data === null ||
+          res.data.Point === 0 ||
+          res.data.RoleId !== 'd00d3c17-6180-4a32-884c-976cd044ce7b'
+        ) {
           dispatch(loginFailed())
         } else {
           dispatch(loginSuccess(res.data))

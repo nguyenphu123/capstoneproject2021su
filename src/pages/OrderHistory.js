@@ -138,7 +138,7 @@ function OrderHistory (props) {
           ),
 
         render: (text, record) => (
-          <>{Moment(record.Date).format('DD MM YYYY hhhh')}</>
+          <>{Moment(record.Date).format('DD/MM/YYYY')}</>
         )
       },
       {
@@ -158,11 +158,7 @@ function OrderHistory (props) {
         defaultSortOrder: 'descend',
         sorter: (a, b) => a.Total - b.Total
       },
-      {
-        title: 'Number of products',
-        render: (text, record) => <h4>{record.Orderdetails.length}</h4>,
-        key: 'Number of products'
-      },
+
       {
         title: 'address',
         dataIndex: 'AddressShipping',
@@ -228,7 +224,7 @@ function OrderHistory (props) {
           effect='fadeInUp'
           onClickAway={onView}
         >
-          <div>
+          <div className='Modal'>
             <a href='javascript:void(0);' onClick={onView}>
               Close
             </a>
@@ -259,10 +255,9 @@ function OrderHistory (props) {
                   />
                 </h4>
               </div>
+              <Table dataSource={historylist} columns={tableColumns} />
             </div>
           </section>
-
-          <Table dataSource={historylist} columns={tableColumns} />
         </div>
       </div>
     )

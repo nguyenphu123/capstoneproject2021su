@@ -431,7 +431,7 @@ function NavigationHeader () {
                                           />
                                         </span>
                                         <p className='product-name'>
-                                          <Link to={'/product-details'}>
+                                          <Link to={'/Product/' + ProductId}>
                                             {Name}
                                           </Link>
                                         </p>

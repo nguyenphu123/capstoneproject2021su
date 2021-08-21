@@ -63,12 +63,12 @@
   
   <script>
 
-    var sliderr = function () {
+    var sliderr = function () {//Start of slide javascript for slide banner
       jQuery(document).ready(function () {
-        jQuery('#thm-rev-slider').show().revolution({
+        jQuery('#thm-rev-slider').show().revolution({/*get div id from AdsSlideShow, slider using jquery slider revolution*/
           dottedOverlay: 'none',
-          delay: 5000,
-          startwidth: 0,
+          delay: 5000,//delay time for auto slide
+          startwidth: 0,//
           startheight: 650,
 
           hideThumbs: 100,
@@ -86,21 +86,21 @@
           swipe_velocity: 0.7,
           swipe_min_touches: 1,
           swipe_max_touches: 1,
-          drag_block_vertical: false,
+          drag_block_vertical: false,//prevent on mouse hold and drag
 
-          spinner: 'spinner0',
-          keyboardNavigation: 'off',
+          spinner: 'spinner0',/* PRELOADER OPTION "0" */
+          keyboardNavigation: 'off',//turn off keyboard to navigate slide
 
-          navigationHAlign: 'center',
-          navigationVAlign: 'bottom',
+          navigationHAlign: 'center',//horizontal
+          navigationVAlign: 'bottom',///vertical
           navigationHOffset: 0,
           navigationVOffset: 20,
-
+          //previous arrow
           soloArrowLeftHalign: 'left',
           soloArrowLeftValign: 'center',
           soloArrowLeftHOffset: 20,
           soloArrowLeftVOffset: 0,
-
+          //next arrow
           soloArrowRightHalign: 'right',
           soloArrowRightValign: 'center',
           soloArrowRightHOffset: 20,
@@ -110,18 +110,19 @@
           fullWidth: 'on',
           fullScreen: 'on',
 
-          stopLoop: 'off',
-          stopAfterLoops: -1,
-          stopAtSlide: -1,
+          stopLoop: 'off',//avoid auto loop stop
+          stopAfterLoops: -1,//avoid stop after 1 loopp
+          stopAtSlide: -1,//avoid stop slide
 
-          shuffle: 'off',
-
-          autoHeight: 'on',
-          forceFullWidth: 'off',
-          fullScreenAlignForce: 'off',
+          shuffle: 'off',//avoid random change after loop
+          
+          autoHeight: 'on',//auto height base on inner element, height will be auto resize base on image and banner inside
+          forceFullWidth: 'off',//avoid fullwidth for mobile version
+          fullScreenAlignForce: 'off',//avoid fullscreen 
           minFullScreenHeight: 0,
+          //for Mobile responsive
           hideNavDelayOnMobile: 1500,
-
+          //show thumb and bullet instead of arrow
           hideThumbsOnMobile: 'off',
           hideBulletsOnMobile: 'off',
           hideArrowsOnMobile: 'off',
@@ -131,22 +132,22 @@
           hideCaptionAtLimit: 0,
           hideAllCaptionAtLilmit: 0,
           startWithSlide: 0,
-          fullScreenOffsetContainer: ''
+          fullScreenOffsetContainer: ''//Useful for Full Screen sliders that should make room for the page’s header or footer doesn't need to because not full screen
         });
       });
     }
 
     sliderr();
-document.addEventListener('mouseup', sliderr, {passive: false, capture: false});
+
   </script>
-  <script>
+  <!-- <script>
     function HideMe() {
       jQuery('.popup1').hide();
       jQuery('#fade').hide();
     }
-  </script>
+  </script> -->
   <!-- Hot Deals Timer 1-->
-  <script>
+  <!-- <script>
     var dthen1 = new Date("12/25/17 11:59:00 PM");
     start = "08/04/15 03:02:11 AM";
     start_date = Date.parse(start);
@@ -159,11 +160,11 @@ document.addEventListener('mouseup', sliderr, {passive: false, capture: false});
 
     var iid1 = "countbox_1";
     CountBack_slider(gsecs1, "countbox_1", 1);
-  </script>
+  </script> -->
   <script>
-  document.addEventListener("DOMContentLoaded", function (event) {
-     scrollRevelation('.card');
-  });
+  // document.addEventListener("DOMContentLoaded", function (event) {//catch on scroll action 
+  //    scrollRevelation('.card');
+  // });
 </script>
   <!-- <div id="preloader"></div> -->
   <noscript>You need to enable JavaScript to run this app.</noscript>
