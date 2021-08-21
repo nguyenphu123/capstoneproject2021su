@@ -40,7 +40,9 @@ class VerticalItemList extends React.Component {
         this.props.keyword === undefined
       ) {
         this.setState({
-          products: res.data,
+          products: res.data.filter(
+            item => item.Status === true && item.ImageStorages !== []
+          ),
           isLoading: false,
           isUpdated: false
         })
@@ -77,7 +79,9 @@ class VerticalItemList extends React.Component {
             this.props.keyword === undefined
           ) {
             this.setState({
-              products: res.data,
+              products: res.data.filter(
+                item => item.Status === true && item.ImageStorages !== []
+              ),
               isLoading: false,
               isUpdated: false
             })
@@ -86,7 +90,7 @@ class VerticalItemList extends React.Component {
               .filter(x =>
                 x.Name.toLowerCase().includes(this.props.keyword.toLowerCase())
               )
-              .filter(item => item.Status === true)
+              .filter(item => item.Status === true && item.ImageStorages !== [])
 
             this.setState({
               products: result,
@@ -113,7 +117,9 @@ class VerticalItemList extends React.Component {
             this.props.keyword === undefined
           ) {
             this.setState({
-              products: res.data.filter(item => item.Status === true),
+              products: res.data.filter(
+                item => item.Status === true && item.ImageStorages !== []
+              ),
               isLoading: false,
               isUpdated: false
             })
@@ -123,7 +129,7 @@ class VerticalItemList extends React.Component {
               .filter(x =>
                 x.Name.toLowerCase().includes(this.props.keyword.toLowerCase())
               )
-              .filter(item => item.Status === true)
+              .filter(item => item.Status === true && item.ImageStorages !== [])
             console.log(result)
             this.setState({
               products: result,
@@ -141,7 +147,7 @@ class VerticalItemList extends React.Component {
           if (this.props.sortOption === 'asc') {
             let result = this.state.products
               .sort((a, b) => (a.Price > b.Price ? 1 : -1))
-              .filter(item => item.Status === true)
+              .filter(item => item.Status === true && item.ImageStorages !== [])
 
             this.setState({
               products: result,
@@ -151,7 +157,7 @@ class VerticalItemList extends React.Component {
           } else {
             let result = this.state.products
               .sort((a, b) => (a.Price < b.Price ? 1 : -1))
-              .filter(item => item.Status === true)
+              .filter(item => item.Status === true && item.ImageStorages !== [])
 
             this.setState({
               products: result,
@@ -169,7 +175,7 @@ class VerticalItemList extends React.Component {
           if (this.props.sortOption === 'asc') {
             let result = res.data
               .sort((a, b) => (a.Price > b.Price ? 1 : -1))
-              .filter(item => item.Status === true)
+              .filter(item => item.Status === true && item.ImageStorages !== [])
 
             this.setState({
               products: result,
@@ -179,7 +185,7 @@ class VerticalItemList extends React.Component {
           } else {
             let result = res.data
               .sort((a, b) => (a.Price < b.Price ? 1 : -1))
-              .filter(item => item.Status === true)
+              .filter(item => item.Status === true && item.ImageStorages !== [])
 
             this.setState({
               products: result,
@@ -201,7 +207,9 @@ class VerticalItemList extends React.Component {
               }).then(res => {
                 const result = res.data
                   .filter(x => x.Elements.length !== 0)
-                  .filter(item => item.Status === true)
+                  .filter(
+                    item => item.Status === true && item.ImageStorages !== []
+                  )
                 const colorResult = result.filter(
                   x =>
                     x.Elements.findIndex(
@@ -218,7 +226,9 @@ class VerticalItemList extends React.Component {
             } else {
               const result = this.state.products
                 .filter(x => x.Elements.length !== 0)
-                .filter(item => item.Status === true)
+                .filter(
+                  item => item.Status === true && item.ImageStorages !== []
+                )
               const colorResult = result.filter(
                 x =>
                   x.Elements.findIndex(
@@ -243,7 +253,9 @@ class VerticalItemList extends React.Component {
               }).then(res => {
                 const result = res.data
                   .filter(x => x.Elements.length !== 0)
-                  .filter(item => item.Status === true)
+                  .filter(
+                    item => item.Status === true && item.ImageStorages !== []
+                  )
                 const sizeResult = result.filter(
                   x =>
                     x.Elements.findIndex(
@@ -259,7 +271,9 @@ class VerticalItemList extends React.Component {
             } else {
               const result = this.state.products
                 .filter(x => x.Elements.length !== 0)
-                .filter(item => item.Status === true)
+                .filter(
+                  item => item.Status === true && item.ImageStorages !== []
+                )
               const sizeResult = result.filter(
                 x =>
                   x.Elements.findIndex(
@@ -288,7 +302,9 @@ class VerticalItemList extends React.Component {
                         item => item.Tag.Id === this.props.tagId
                       ) !== -1
                   )
-                  .filter(item => item.Status === true)
+                  .filter(
+                    item => item.Status === true && item.ImageStorages !== []
+                  )
 
                 if (this.state.products.length !== []) {
                   this.setState({
@@ -304,7 +320,9 @@ class VerticalItemList extends React.Component {
                     : x.Tags.findIndex(item => item.Id === this.props.tagId) !==
                       -1
                 )
-                .filter(item => item.Status === true)
+                .filter(
+                  item => item.Status === true && item.ImageStorages !== []
+                )
               console.log(result)
               if (this.state.products.length !== []) {
                 this.setState({
@@ -344,37 +362,41 @@ class VerticalItemList extends React.Component {
       return (
         <>
           <Card.Group itemsPerRow={8}>
-            {currentPosts.map(
-              ({
-                Id,
-                Name,
-                Price,
-                Quantity,
-                Star,
-                Description,
-                Code,
-                CurrentPrice,
-                CategoryId,
-                Status,
-                ImageStorages,
-                Elements
-              }) => (
-                <div style={{ float: 'left' }}>
-                  <VerticalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                    Description={Description}
-                    Elements={Elements}
-                    Star={Star}
-                  />
-                </div>
+            {currentPosts
+              .filter(
+                item => item.Status === true && item.ImageStorages.length !== 0
               )
-            )}
+              .map(
+                ({
+                  Id,
+                  Name,
+                  Price,
+                  Quantity,
+                  Star,
+                  Description,
+                  Code,
+                  CurrentPrice,
+                  CategoryId,
+                  Status,
+                  ImageStorages,
+                  Elements
+                }) => (
+                  <div style={{ float: 'left' }}>
+                    <VerticalItem
+                      Id={Id}
+                      Name={Name}
+                      Status={Status}
+                      Price={Price}
+                      CurrentPrice={CurrentPrice}
+                      ImageStorages={ImageStorages}
+                      Quantity={Quantity}
+                      Description={Description}
+                      Elements={Elements}
+                      Star={Star}
+                    />
+                  </div>
+                )
+              )}
             {this.state.products.length > 12 ? (
               <PagnationBar
                 postsPerPage={12}

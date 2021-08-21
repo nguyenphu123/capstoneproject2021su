@@ -41,7 +41,7 @@ class VerticalItemListHome extends React.Component {
         )
         let afterSliceResult = result
           .slice(0, 8)
-          .filter(item => item.Status === true)
+          .filter(item => item.Status === true && item.ImageStorages !== [])
 
         this.setState({
           products: afterSliceResult,
@@ -56,7 +56,7 @@ class VerticalItemListHome extends React.Component {
         })
         let afterSliceResult = result
           .slice(0, 8)
-          .filter(item => item.Status === true)
+          .filter(item => item.Status === true && item.ImageStorages !== [])
 
         this.setState({
           products: afterSliceResult,
@@ -70,7 +70,7 @@ class VerticalItemListHome extends React.Component {
 
         let afterSliceResult = result
           .slice(0, 8)
-          .filter(item => item.Status === true)
+          .filter(item => item.Status === true && item.ImageStorages !== [])
 
         this.setState({
           products: afterSliceResult,
@@ -91,7 +91,7 @@ class VerticalItemListHome extends React.Component {
         )
         let afterSliceResult = result
           .slice(0, 8)
-          .filter(item => item.Status === true)
+          .filter(item => item.Status === true && item.ImageStorages !== [])
 
         this.setState({
           products: afterSliceResult,
@@ -104,7 +104,9 @@ class VerticalItemListHome extends React.Component {
           var dateB = new Date(b.DateTime)
           return dateA - dateB
         })
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result
+          .slice(0, 8)
+          .filter(item => item.Status === true && item.ImageStorages !== [])
 
         this.setState({
           products: afterSliceResult,
@@ -116,7 +118,9 @@ class VerticalItemListHome extends React.Component {
       } else {
         let result = this.state.products.filter(item => item.Status === true)
 
-        let afterSliceResult = result.slice(0, 8)
+        let afterSliceResult = result
+          .slice(0, 8)
+          .filter(item => item.Status === true && item.ImageStorages !== [])
 
         this.setState({
           products: afterSliceResult,
@@ -153,37 +157,41 @@ class VerticalItemListHome extends React.Component {
       return (
         <>
           <Card.Group itemsPerRow={8}>
-            {currentPosts.map(
-              ({
-                Id,
-                Name,
-                Price,
-                Quantity,
-                Star,
-                Description,
-                Code,
-                CurrentPrice,
-                CategoryId,
-                Status,
-                ImageStorages,
-                Elements
-              }) => (
-                <div style={{ float: 'left' }}>
-                  <VerticalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                    Description={Description}
-                    Elements={Elements}
-                    Star={Star}
-                  />
-                </div>
+            {currentPosts
+              .filter(
+                item => item.Status === true && item.ImageStorages.length !== 0
               )
-            )}
+              .map(
+                ({
+                  Id,
+                  Name,
+                  Price,
+                  Quantity,
+                  Star,
+                  Description,
+                  Code,
+                  CurrentPrice,
+                  CategoryId,
+                  Status,
+                  ImageStorages,
+                  Elements
+                }) => (
+                  <div style={{ float: 'left' }}>
+                    <VerticalItem
+                      Id={Id}
+                      Name={Name}
+                      Status={Status}
+                      Price={Price}
+                      CurrentPrice={CurrentPrice}
+                      ImageStorages={ImageStorages}
+                      Quantity={Quantity}
+                      Description={Description}
+                      Elements={Elements}
+                      Star={Star}
+                    />
+                  </div>
+                )
+              )}
             {this.state.products.length > 12 ? (
               <PagnationBar
                 postsPerPage={12}

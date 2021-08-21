@@ -169,37 +169,41 @@ class VerticalItemListSlide extends React.Component {
       return (
         <>
           <Carousel responsive={responsive}>
-            {currentPosts.map(
-              ({
-                Id,
-                Name,
-                Price,
-                Quantity,
-                Star,
-                Description,
-                Code,
-                CurrentPrice,
-                CategoryId,
-                Status,
-                ImageStorages,
-                Elements
-              }) => (
-                <div style={{ float: 'left', marginLeft: '50px' }}>
-                  <VerticalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                    Description={Description}
-                    Elements={Elements}
-                    Star={Star}
-                  />
-                </div>
+            {currentPosts
+              .filter(
+                item => item.Status === true && item.ImageStorages.length !== 0
               )
-            )}
+              .map(
+                ({
+                  Id,
+                  Name,
+                  Price,
+                  Quantity,
+                  Star,
+                  Description,
+                  Code,
+                  CurrentPrice,
+                  CategoryId,
+                  Status,
+                  ImageStorages,
+                  Elements
+                }) => (
+                  <div style={{ float: 'left', marginLeft: '50px' }}>
+                    <VerticalItem
+                      Id={Id}
+                      Name={Name}
+                      Status={Status}
+                      Price={Price}
+                      CurrentPrice={CurrentPrice}
+                      ImageStorages={ImageStorages}
+                      Quantity={Quantity}
+                      Description={Description}
+                      Elements={Elements}
+                      Star={Star}
+                    />
+                  </div>
+                )
+              )}
           </Carousel>
         </>
       )

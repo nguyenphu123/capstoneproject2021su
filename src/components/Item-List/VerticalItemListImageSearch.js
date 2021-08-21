@@ -369,37 +369,41 @@ class VerticalItemListHome extends React.Component {
       return (
         <div style={{ marginTop: '30px' }}>
           <Card.Group itemsPerRow={8}>
-            {currentPosts.map(
-              ({
-                Id,
-                Name,
-                Price,
-                Quantity,
-                Star,
-                Description,
-                Code,
-                CurrentPrice,
-                CategoryId,
-                Status,
-                ImageStorages,
-                Elements
-              }) => (
-                <div style={{ float: 'left' }}>
-                  <VerticalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                    Description={Description}
-                    Elements={Elements}
-                    Star={Star}
-                  />
-                </div>
+            {currentPosts
+              .filter(
+                item => item.Status === true && item.ImageStorages.length !== 0
               )
-            )}
+              .map(
+                ({
+                  Id,
+                  Name,
+                  Price,
+                  Quantity,
+                  Star,
+                  Description,
+                  Code,
+                  CurrentPrice,
+                  CategoryId,
+                  Status,
+                  ImageStorages,
+                  Elements
+                }) => (
+                  <div style={{ float: 'left' }}>
+                    <VerticalItem
+                      Id={Id}
+                      Name={Name}
+                      Status={Status}
+                      Price={Price}
+                      CurrentPrice={CurrentPrice}
+                      ImageStorages={ImageStorages}
+                      Quantity={Quantity}
+                      Description={Description}
+                      Elements={Elements}
+                      Star={Star}
+                    />
+                  </div>
+                )
+              )}
             {this.state.products.length > 12 ? (
               <PagnationBar
                 postsPerPage={12}

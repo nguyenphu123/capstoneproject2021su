@@ -105,25 +105,29 @@ class VerticalItemListWish extends React.Component {
       return (
         <>
           <Card.Group itemsPerRow={8}>
-            {currentPosts.map(({ Id, ProductId }) => (
-              <div>
-                <div style={{ float: 'left' }}>
-                  <WhisListItem Id={ProductId} />
+            {currentPosts
+              .filter(
+                item => item.Status === true && item.ImageStorages.length !== 0
+              )
+              .map(({ Id, ProductId }) => (
+                <div>
+                  <div style={{ float: 'left' }}>
+                    <WhisListItem Id={ProductId} />
+                  </div>
+                  <br />
+                  <div style={{ float: 'left', marginLeft: '80px' }}>
+                    <Button
+                      onClick={() => removeFromWhisList(Id)}
+                      title='Remove item'
+                      class='button remove-item'
+                    >
+                      <span>
+                        <span>Remove item</span>
+                      </span>
+                    </Button>
+                  </div>
                 </div>
-                <br />
-                <div style={{ float: 'left' , marginLeft:'80px'}}>
-                  <Button
-                    onClick={() => removeFromWhisList(Id)}
-                    title='Remove item'
-                    class='button remove-item'
-                  >
-                    <span>
-                      <span>Remove item</span>
-                    </span>
-                  </Button>
-                </div>
-              </div>
-            ))}
+              ))}
             {this.state.products.length > 12 ? (
               <PagnationBar
                 postsPerPage={12}

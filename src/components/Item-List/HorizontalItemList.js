@@ -57,34 +57,38 @@ class HorizontalItemLList extends React.Component {
       return (
         <>
           <Card.Group itemsPerRow={8}>
-            {this.state.products.map(
-              ({
-                Id,
-                Name,
-                Price,
-                Quantity,
-                Star,
-                Description,
-                Code,
-                CurrentPrice,
-                CategoryId,
-                Status,
-                ImageStorages
-              }) => (
-                <div style={{ float: 'left' }}>
-                  <HorizontalItem
-                    Id={Id}
-                    Name={Name}
-                    Status={Status}
-                    Price={Price}
-                    CurrentPrice={CurrentPrice}
-                    ImageStorages={ImageStorages}
-                    Quantity={Quantity}
-                    Star={Star}
-                  />
-                </div>
+            {this.state.products
+              .filter(
+                item => item.Status === true && item.ImageStorages.length !== 0
               )
-            )}
+              .map(
+                ({
+                  Id,
+                  Name,
+                  Price,
+                  Quantity,
+                  Star,
+                  Description,
+                  Code,
+                  CurrentPrice,
+                  CategoryId,
+                  Status,
+                  ImageStorages
+                }) => (
+                  <div style={{ float: 'left' }}>
+                    <HorizontalItem
+                      Id={Id}
+                      Name={Name}
+                      Status={Status}
+                      Price={Price}
+                      CurrentPrice={CurrentPrice}
+                      ImageStorages={ImageStorages}
+                      Quantity={Quantity}
+                      Star={Star}
+                    />
+                  </div>
+                )
+              )}
           </Card.Group>
         </>
       )
