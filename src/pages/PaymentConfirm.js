@@ -21,12 +21,14 @@ import { createOrder, removeOrder } from '../features/OrderData/OrderDataSlice'
 import { toastCalling } from '../features/Toast/ToastSlice'
 
 const mapDispatch = { emptyCart, createOrder, removeOrder, toastCalling }
+const API_KEY =
+  '03d22ab188621af12c5c8dd271d888f082ee83bc6c6e9e05a80dc9d930ab8b7c'
 
 function PaymentConfirm () {
   const [isEdit, setIsEdit] = useState(false)
 
   const { orderId } = useParams()
-
+  const [currentOrderId, setCurrentOrderId] = useState()
   const dispatch = useDispatch()
   const UserSlice = useSelector(state => state.UserSlice.user)
 
@@ -43,11 +45,12 @@ function PaymentConfirm () {
   const [finishBuy, setFinishBuy] = useState(false)
 
   const totalPrice = 0
-  const Ispay = window.location.href.includes('true')
+
   const CartSlice = useSelector(state => state.CartSlice.cart)
 
   const OrderSlice = useSelector(state => state.OrderDataSlice.order)
   const [isLoading, setIsLoading] = useState(true)
+  const [isChecking, setIsChecking] = useState(false)
 
   const [cityAndProvinces, setCityAndProvinces] = useState([])
   const [cityAndProvince, setCityAndProvince] = useState(null)
@@ -67,6 +70,13 @@ function PaymentConfirm () {
   useEffect(() => {
     setDistricts(districts => districts)
   }, [districts])
+  useEffect(() => {
+    setIsChecking(isChecking => isChecking)
+  }, [isChecking => districts])
+
+  useEffect(() => {
+    setCurrentOrderId(currentOrderId => currentOrderId)
+  }, [currentOrderId])
 
   useEffect(() => {
     setWards(wards => wards)
@@ -106,47 +116,76 @@ function PaymentConfirm () {
     console.log(cityAndProvinces)
     setIsLoading(false)
   }, [UserSlice])
+
   useEffect(() => {
     console.log(OrderSlice)
     if (OrderSlice !== null) {
-      setCurrentAddress(OrderSlice.AddressShipping)
-      setCurrentName(OrderSlice.Name)
-      setCurrentEmail(OrderSlice.Email)
-      // setCurrentCity('')
-      setCurrentPhone(OrderSlice.Phone)
+      setIsChecking(true)
+      // setCurrentAddress(OrderSlice.AddressShipping)
+      // setCurrentName(OrderSlice.Name)
+      // setCurrentEmail(OrderSlice.Email)
+      // // setCurrentCity('')
+      // setCurrentPhone(OrderSlice.Phone)
 
       axios({
-        method: 'post',
-        url: '/api/order-management/users/orders',
-        headers: { 'content-type': 'application/json' },
-        data: JSON.stringify(OrderSlice)
+        method: 'POST',
+        url:
+          '/api/order-management/UpdateStatusServer?total=' +
+          OrderSlice.TotalPrice +
+          '&currentOrderId=' +
+          OrderSlice.Id,
+        headers: { 'content-type': 'application/json' }
+        // data: JSON.stringify(order)
       }).then(res => {
-        dispatch(emptyCart())
-        console.log(res)
+        let templateParams = {
+          currentName: OrderSlice.Name,
+          currentEmail: OrderSlice.Email,
+          OrderId: OrderSlice.Id
+        }
 
-        toast.success('We have received your order')
+        emailjs
+          .send(
+            'service_nueuo8m',
+            'template_omuck9t',
+            templateParams,
+            'user_32k4I6JJIEyo5ehBoH1Ae'
+          )
+          .then(
+            result => {
+              console.log(result.text)
+              notification['success']({
+                message: 'order',
+                description: 'We have received your order.',
+                duration: 10
+              })
 
-        dispatch(removeOrder())
+              dispatch(emptyCart())
+              dispatch(removeOrder())
+              setIsChecking(false)
 
-        setFinishBuy(true)
+              setFinishBuy(true)
+            },
+            error => {
+              dispatch(removeOrder())
+              setIsChecking(false)
+
+              setFinishBuy(true)
+            }
+          )
       })
     } else {
+      // notification['error']({
+      //   message: 'order',
+      //   description: 'We have failed to received your order.',
+      //   duration: 10
+      // })
+      // setFinishBuy(true)
     }
-  }, [OrderSlice])
-
-  console.log(finishBuy)
+  }, [])
   useEffect(() => {
     if (finishBuy) {
-      toast.success('We have received your order')
-      notification['success']({
-        message: 'order',
-        description: 'We have received your order.',
-        duration: 10
-      })
-
       // document.getElementById('finishform').submit()
 
-      dispatch(emptyCart())
       setFinishBuy(false)
     } else {
     }
@@ -251,8 +290,16 @@ function PaymentConfirm () {
   function handleChangePhone (e) {
     setCurrentPhone(e.target.value)
   }
-  if (isLoading) {
-    return <>...loading please wait a moment</>
+  if (isLoading || isChecking) {
+    return (
+      <section className=' wow bounceInUp animated'>
+        <div className='best-pro slider-items-products container'>
+          <div className='new_title'>
+            <h2>... Loading please wait a moment</h2>
+          </div>
+        </div>
+      </section>
+    )
   } else {
     if (CartSlice !== null) {
       console.log(isEdit)
@@ -279,7 +326,7 @@ function PaymentConfirm () {
               const order = {
                 UserId: UserSlice.Id,
                 Name: currentName,
-                OrderId: orderId,
+
                 TotalPrice: CartSlice.reduce(
                   (accumulator, currentValue) =>
                     accumulator +
@@ -298,7 +345,7 @@ function PaymentConfirm () {
                   .toISOString()
                   .slice(0, 19)
                   .replace('T', ' '),
-                Status: true,
+                Status: 'Completed',
                 Phone: currentPhone,
                 Email: currentEmail,
                 OrderDetails: CartSlice,
@@ -317,47 +364,31 @@ function PaymentConfirm () {
               } else {
                 axios({
                   method: 'post',
-                  url:
-                    '/api/order-management/' +
-                    order.TotalPrice +
-                    '?currentOrderId=' +
-                    orderId,
-                  headers: { 'content-type': 'application/json' }
-                  // data: JSON.stringify(order)
+                  url: '/api/order-management/users/orders',
+                  headers: { 'content-type': 'application/json' },
+                  data: JSON.stringify(order)
                 }).then(res => {
-                  // dispatch(emptyCart())
+                  console.log(res.data)
+                  order.Id = res.data
 
-                  dispatch(createOrder(order))
-                  notification['success']({
-                    message: 'order',
-                    description: 'We have received your order.',
-                    duration: 10
+                  axios({
+                    method: 'post',
+                    url:
+                      '/api/order-management/' +
+                      order.TotalPrice +
+                      '?currentOrderId=' +
+                      res.data,
+                    headers: { 'content-type': 'application/json' }
+                    // data: JSON.stringify(order)
+                  }).then(res => {
+                    // dispatch(emptyCart())
+                    order.MoMoURL = res.data
+
+                    dispatch(createOrder(order))
+
+                    window.open(res.data, '_self')
                   })
-
-                  window.open(res.data, '_self')
-                  dispatch(toastCalling('We have received your order'))
-
-                  toast.success('We have received your order')
                 })
-                setFinishBuy(true)
-
-                e.preventDefault()
-
-                emailjs
-                  .sendForm(
-                    'service_nueuo8m',
-                    'template_omuck9t',
-                    e.target,
-                    'user_32k4I6JJIEyo5ehBoH1Ae'
-                  )
-                  .then(
-                    result => {
-                      console.log(result.text)
-                    },
-                    error => {
-                      console.log(error.text)
-                    }
-                  )
               }
             } else {
               let myward = ''
@@ -388,7 +419,7 @@ function PaymentConfirm () {
                   .toISOString()
                   .slice(0, 19)
                   .replace('T', ' '),
-                Status: false,
+                Status: 'Failed',
                 Phone: currentPhone,
 
                 OrderDetails: CartSlice,
@@ -406,36 +437,40 @@ function PaymentConfirm () {
                 headers: { 'content-type': 'application/json' },
                 data: JSON.stringify(order)
               }).then(res => {
-                dispatch(emptyCart())
                 console.log(res)
 
-                e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+                // e.preventDefault() //This is important, i'm not sure why, but the email won't send without it
+                let templateParams = {
+                  currentName: currentName,
+                  currentEmail: currentEmail,
+                  OrderId: res.data
+                }
 
                 emailjs
-                  .sendForm(
+                  .send(
                     'service_nueuo8m',
                     'template_omuck9t',
-                    e.target,
+                    templateParams,
                     'user_32k4I6JJIEyo5ehBoH1Ae'
                   )
                   .then(
                     result => {
                       console.log(result.text)
+                      notification['success']({
+                        message: 'order',
+                        description: 'We have received your order.',
+                        duration: 10
+                      })
+
+                      setTimeout(function () {
+                        setFinishBuy(true)
+                        dispatch(emptyCart())
+                      }, 5000)
                     },
                     error => {
                       console.log(error.text)
                     }
                   )
-
-                notification['success']({
-                  message: 'order',
-                  description: 'We have received your order.',
-                  duration: 10
-                })
-
-                setTimeout(function () {
-                  setFinishBuy(true)
-                }, 5000)
               })
             }
           }

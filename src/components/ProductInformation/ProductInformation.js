@@ -338,7 +338,9 @@ function ProductInformation () {
         )
         console.log(check_index)
         if (check_index !== -1) {
-          dispatch(updateItemQuantity(productId, quantity))
+          dispatch(
+            updateItemQuantity(productId, quantity, currentColor, currentSize)
+          )
 
           toast.success('Cart has been updated')
         } else {

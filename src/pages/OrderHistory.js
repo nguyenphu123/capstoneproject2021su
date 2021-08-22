@@ -224,7 +224,9 @@ function OrderHistory (props) {
       {
         title: 'Paid status',
         render: (text, record) =>
-          record.Status ? (
+          record.Status === 'True' ||
+          record.Status === true ||
+          record.Status === 'Completed' ? (
             <Header as='h4' color='green'>
               Paid
             </Header>
