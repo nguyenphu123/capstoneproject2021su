@@ -17,7 +17,7 @@ function ComparatorItem ({ Id, Name, Price, ImageUrl, Elements }) {
               <img src={ImageUrl} width='75' alt='' />
             ) : (
               <img
-                src={'http://52.221.232.115:5000/' + ImageUrl}
+                src={'http://54.151.255.155:5000/' + ImageUrl}
                 alt='404 '
               />
             )}

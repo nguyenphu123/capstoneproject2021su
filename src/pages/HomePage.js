@@ -86,10 +86,7 @@ function HomePage () {
               <div className='row'>
                 {banners.map(({ Id, Name, ImageBannerStorages }) => (
                   <div className='col-lg-6 col-md-6 col-sm-6 col-xs-12'>
-                    <Link
-                      to={'/Category/12345678-1234-1243-1234-123856089012/1'}
-                      data-scroll-goto='1'
-                    >
+                    <Link to={'/AllProduct/1/Grid'} data-scroll-goto='1'>
                       <img
                         src={ImageBannerStorages[0].ImageUrl}
                         alt='promotion-banner1'
